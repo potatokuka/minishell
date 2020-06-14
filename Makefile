@@ -16,7 +16,7 @@ SRCS			=	main.c
 
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -DNOLIST
 INCLUDES		=	-I include
 					# -I lib/libft\
 					-I lib/liblist
