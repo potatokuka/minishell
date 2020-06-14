@@ -16,7 +16,7 @@
 
 int	main(void)
 {
-  init_env();
+  printf("Compiles\n");
 
   return (0);
 }
