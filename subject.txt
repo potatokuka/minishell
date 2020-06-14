@@ -99,4 +99,10 @@ ________________________________________________________________________________
   RETURN VALUE: A successful call to execve does not have a return value because the new process image
     overlays the calling process image. However, a -1 is returned if the call to execve is unsuccessful.
 ----------------------------------------------------------------------------------------------------------
+*	*	*	*
+SHIT WE NEED TO DO
 
+ECHO :
+  Write ARG to STD OUT
+  WITH NO FLAG: Display the ARGs on the STD OUT followed by a NewLine
+  '-n' Do not append a newline
