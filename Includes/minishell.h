@@ -12,7 +12,7 @@
 # define CTRL_C 12
 # define ESC 27
 # define CTRL 49
-# define PROMPT ">>:\t"
+# define PROMPT ">>: "
 
 
 /*
