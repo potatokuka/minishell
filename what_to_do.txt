@@ -1,0 +1,21 @@
+So I'm not sure where to start because it seems like a fucking shit load of
+work.
+
+this is just random thoughts as it stands now:
+
+1: take input from CMD line, store and print it(for debugging)
+2: construct a jump table with the list of NEEDED base functions
+3: slowly implement the flag functions, from easiest to harder
+  eg: "echo" seems quite simple(without flags) take input from cmd line and
+    print back out
+4: I dont even know
+5: HOW THE FUCK DO WE MAKE A SHELL ENVIORMENT?! Like is it a program, that just
+  takes you to an enviorment that allows you to input commands? Or a full set of
+  an enviorment, idk need you help on this one
+6: is it a program that ok, you launch it, and then it prints out for example ->
+________________________________________________________________________________
+"./dick"
+>> "input commands here"
+????????
+________________________________________________________________________________
+do you know?
