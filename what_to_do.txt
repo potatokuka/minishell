@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    what_to_do.txt                                     :+:    :+:             #
+#                                                      +:+                     #
+#    By: greed <greed@student.codam.nl>               +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/06/14 15:36:58 by greed         #+#    #+#                  #
+#    Updated: 2020/06/14 15:36:59 by greed         ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 So I'm not sure where to start because it seems like a fucking shit load of
 work.
 

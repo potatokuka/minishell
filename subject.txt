@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    subject.txt                                        :+:    :+:             #
+#                                                      +:+                     #
+#    By: greed <greed@student.codam.nl>               +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/06/14 15:36:54 by greed         #+#    #+#                  #
+#    Updated: 2020/06/14 15:36:55 by greed         ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 EXTERNAL FUNCTIONS: malloc, free, write, open, read, close, fork, wait,
 		    waitpid, wait3, wait4, signal, kill, exit, getcwd,
 		    chdir, stat, lstat, fstat, execve, dup, dup2, pipe,
