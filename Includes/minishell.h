@@ -25,7 +25,7 @@
 # define ESC 27
 # define CTRL 49
 # define PROMPT ">>: "
-
+# define P_PMPT "\n>>: "
 
 /*
 ** SYSTEM LIBS
