@@ -36,4 +36,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+/*
+** FUNCTION PROTOTYPES
+*/
+
+void	start_exit(int i);
+
 #endif

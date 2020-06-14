@@ -12,7 +12,8 @@
 
 NAME			=	minishell
 
-SRCS			=	main.c
+SRCS			=	main.c\
+				start_exit.c
 
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)

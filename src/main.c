@@ -16,7 +16,9 @@
 
 int	main(void)
 {
-  printf("Compiles\n");
-
+  printf("%s", PROMPT);
+  int i = 0;
+  start_exit(i);
+ 
   return (0);
 }
