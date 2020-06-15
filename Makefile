@@ -13,7 +13,9 @@
 NAME			=	minishell
 
 SRCS			=	main.c\
-					start_exit.c
+				start_exit.c\
+				simple_out.c\
+				get_cmd.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST

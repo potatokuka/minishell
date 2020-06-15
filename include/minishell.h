@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 14:08:03 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/15 18:36:43 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,24 @@
 # define ESC 27
 # define PROMPT ">>: "
 # define P_PMPT "\n>>: "
+# define KILL "exit"
+
+/*
+** STRUCTS
+*/
+
+typedef struct		s_shell
+{
+  int	init;
+}			t_shell;
 
 /*
 ** FUNCTION PROTOTYPES
 */
 
 void	start_exit(int i);
+void	print_prompt();
+void	start_shell(t_shell *shell, char *cmd);
+char	*get_cmd(t_shell *shell);
 
 #endif

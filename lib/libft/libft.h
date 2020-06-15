@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/29 14:34:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/05/28 09:04:25 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/15 18:27:33 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,4 +200,10 @@ void				ft_print_pointer(t_conv *conv, va_list a_list, int *lv);
 unsigned long		ft_ptr_size(unsigned long ptr);
 void				ft_conv_ptr(t_conv *conv, unsigned long ptr);
 void				ft_ptr_res_fd(unsigned long ptr, int *lv);
+
+/*
+** Cub3d Libs
+*/
+
+void				put_error(char *error);
 #endif

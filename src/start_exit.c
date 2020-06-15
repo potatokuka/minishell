@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+void	take_input(char *input)
+{
+	if (ft_strcmp(input, KILL) == 0)
+		exit (0);
+}
+
+void	start_shell(t_shell *shell, char *cmd)
+{
+  if (shell->init == 0)
+    ft_printf("testing cmd %s\n", cmd);
+}
 void	start_exit(int i)
 {
   char data[128];

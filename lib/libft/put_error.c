@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   put_error.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 15:58:02 by greed         ########   odam.nl         */
+/*   Created: 2020/05/18 14:45:06 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/15 18:21:37 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-/* first step, print out PROMPT and allow for exit */
-
-int	main(void)
+void	put_error(char *error)
 {
-  t_shell shell;
-  char	*cmd;
-  int i;
-
-  ft_bzero(&shell, sizeof(shell));
-  i = 1;
-  while (i ==1)
-  {
-    print_prompt();
-    cmd = get_cmd(&shell);
-    start_shell(&shell, cmd);
-  }
-  return (0);
+	ft_putstr_fd("Error: ", 1);
+	ft_putstr_fd(error, 1);
+	ft_putstr_fd("\n", 1);
+	exit(1);
 }

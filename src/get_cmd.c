@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   get_cmd.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 15:58:02 by greed         ########   odam.nl         */
+/*   Created: 2020/06/15 18:10:22 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/15 18:10:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* first step, print out PROMPT and allow for exit */
-
-int	main(void)
+char	*get_cmd(t_shell *shell)
 {
-  t_shell shell;
-  char	*cmd;
-  int i;
-
-  ft_bzero(&shell, sizeof(shell));
-  i = 1;
-  while (i ==1)
-  {
-    print_prompt();
-    cmd = get_cmd(&shell);
-    start_shell(&shell, cmd);
-  }
-  return (0);
+  char	*res;
+  
+  res = NULL;
+  if (shell->init == 0)
+    if (get_next_line(STDIN, &res) < 0)
+      put_error("Error on CMD input");
+  return (res);
 }
