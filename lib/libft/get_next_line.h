@@ -1,52 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 14:08:03 by greed         ########   odam.nl         */
+/*   Created: 2019/11/26 11:35:30 by greed         #+#    #+#                 */
+/*   Updated: 2019/12/01 14:43:38 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-/*
-** SYSTEM LIBS
-*/
-
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # include <unistd.h>
-# include <termios.h>
-# include <stdio.h>
 # include <stdlib.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	32
+# endif
 
-/*
-**	Libft PrintF and Get Next Line Updated Lib List
-*/
-
-# include <libft.h>
-# include <liblist.h>
-
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-/*
-** KEY CODES
-*/
-
-# define CTRL_D 4
-# define CTRL_C 12
-# define ESC 27
-# define PROMPT ">>: "
-# define P_PMPT "\n>>: "
-
-/*
-** FUNCTION PROTOTYPES
-*/
-
-void	start_exit(int i);
-
+int		ft_strchr(char *s, int c);
+char	*ft_strdup(char *s1);
+size_t	ft_strlen(char *s);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+int		get_next_line(int fd, char **line);
+int		pull_line(char **get, char **line, int c);
 #endif

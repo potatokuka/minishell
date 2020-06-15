@@ -6,25 +6,26 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/06/14 15:36:40 by greed         ########   odam.nl          #
+#    Updated: 2020/06/15 14:07:32 by greed         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	minishell
 
 SRCS			=	main.c\
-				start_exit.c
-
+					start_exit.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
-CFLAGS			=	-Wall -Wextra -Werror
-INCLUDES		=	-I include
-					# -I lib/liblist
-# LIBS			=	-L lib/libft -lft\
+CFLAGS			=	-Wall -Wextra -Werror -DNOLIST
+INCLUDES		=	-I include\
+					-I lib/libft\
+					-I lib/liblist
+LIBS			=	-L lib/libft -lft\
 					-L lib/liblist -llist
+
 # LIB LOCATIONS
-# LIBFT_LOC		=	lib/libft
-# LIBLIST_LOC		=	lib/liblist
+LIBFT_LOC		=	lib/libft
+LIBLIST_LOC		=	lib/liblist
 # COLORS
 WHITE   = \x1b[37;01m
 CYAN    = \x1b[36;01m
@@ -37,28 +38,27 @@ BLACK   = \x1b[30;01m
 RESET   = \x1b[0m
 all: $(NAME)
 $(NAME): $(OFILES)
-	# @echo "$(WHITE)/-----		Compiling libft		-----\\ $(RESET)"
-	# make bonus -C $(LIBFT_LOC)
-	# @echo "$(WHITE)/-----		Compiling liblist	-----\\ $(RESET)"
-	# make -C $(LIBLIST_LOC)
-	@echo "$(WHITE)/-----		Compiling minishell	-----\\ $(RESET)"
-	# $(CC) $(LIBS) -o $(NAME) $(OFILES)
-	$(CC) -o $(NAME) $(OFILES)
+	@echo "$(WHITE)/-----		Compiling libft		-----\\ $(RESET)"
+	make bonus -C $(LIBFT_LOC)
+	@echo "$(WHITE)/-----		Compiling liblist	-----\\ $(RESET)"
+	make -C $(LIBLIST_LOC)
+	@echo "$(WHITE)/-----	Compiling minishell		-----\\ $(RESET)"
+	$(CC) $(LIBS) -o $(NAME) $(OFILES)
 %.o: %.c
 	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 clean:
-	# @echo "$(WHITE)/-----		Cleaning libft		-----\\ $(RESET)"
-	# make clean -C $(LIBFT_LOC)
-	# @echo "$(WHITE)/-----		Cleaning liblist	-----\\ $(RESET)"
-	# make clean -C $(LIBLIST_LOC)
-	@echo "$(WHITE)/-----		Cleaning minishell		-----\\ $(RESET)"
+	@echo "$(WHITE)/-----		Cleaning libft		-----\\ $(RESET)"
+	make clean -C $(LIBFT_LOC)
+	@echo "$(WHITE)/-----		Cleaning liblist	-----\\ $(RESET)"
+	make clean -C $(LIBLIST_LOC)
+	@echo "$(WHITE)/-----	Cleaning minishell		-----\\ $(RESET)"
 	rm -f $(OFILES)
 fclean: clean
-	# @echo "$(WHITE)/-----		Fcleaning libft		-----\\ $(RESET)"
-	# make fclean -C $(LIBFT_LOC)
-	# @echo "$(WHITE)/-----		Fcleaning liblist	-----\\ $(RESET)"
-	# make fclean -C $(LIBLIST_LOC)
-	@echo "$(WHITE)/-----		Fcleaning minishell	-----\\ $(RESET)"
+	@echo "$(WHITE)/-----		Fcleaning libft		-----\\ $(RESET)"
+	make fclean -C $(LIBFT_LOC)
+	@echo "$(WHITE)/-----		Fcleaning liblist	-----\\ $(RESET)"
+	make fclean -C $(LIBLIST_LOC)
+	@echo "$(WHITE)/-----	Fcleaning minishell		-----\\ $(RESET)"
 	rm -f $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
