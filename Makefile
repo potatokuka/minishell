@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/06/15 14:07:32 by greed         ########   odam.nl          #
+#    Updated: 2020/06/15 14:17:00 by greed         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,18 +39,18 @@ RESET   = \x1b[0m
 all: $(NAME)
 $(NAME): $(OFILES)
 	@echo "$(WHITE)/-----		Compiling libft		-----\\ $(RESET)"
-	make bonus -C $(LIBFT_LOC)
+	@make bonus -C $(LIBFT_LOC)
 	@echo "$(WHITE)/-----		Compiling liblist	-----\\ $(RESET)"
-	make -C $(LIBLIST_LOC)
+	@make -C $(LIBLIST_LOC)
 	@echo "$(WHITE)/-----	Compiling minishell		-----\\ $(RESET)"
 	$(CC) $(LIBS) -o $(NAME) $(OFILES)
 %.o: %.c
-	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 clean:
 	@echo "$(WHITE)/-----		Cleaning libft		-----\\ $(RESET)"
-	make clean -C $(LIBFT_LOC)
+	@make clean -C $(LIBFT_LOC)
 	@echo "$(WHITE)/-----		Cleaning liblist	-----\\ $(RESET)"
-	make clean -C $(LIBLIST_LOC)
+	@make clean -C $(LIBLIST_LOC)
 	@echo "$(WHITE)/-----	Cleaning minishell		-----\\ $(RESET)"
 	rm -f $(OFILES)
 fclean: clean
