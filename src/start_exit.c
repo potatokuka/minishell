@@ -13,7 +13,6 @@ void	save_data(t_shell *shell, char *input)
   in_len = 0;
   len = ft_strlen(input);
   /* skip over CMD */
-  perror("got here");
   while (input[start] != ' ')
     start++;
       while (input[start] == ' ')
@@ -27,7 +26,6 @@ void	save_data(t_shell *shell, char *input)
     start++;
   }
   shell->data[i] = '\0';
-  printf("Test Data = %s\n", shell->data);
   return ;
 }
 
@@ -39,7 +37,6 @@ void	save_cmd(t_shell *shell, char *input, int in_len)
   /* res = NULL; */
   i = 0;
   len = 0;
-  /* perror("here"); */
   while (input[len] != ' ')
     len++;
   if (in_len == len)
@@ -47,11 +44,9 @@ void	save_cmd(t_shell *shell, char *input, int in_len)
   shell->cmd = (char *)malloc(sizeof(char) * len);
   while (i < len)
   {
-    perror("inside");
     shell->cmd[i] = input[i];
     i++;
   }
-  perror("this one");
   shell->cmd[i] = '\0';
   return ;
 }
@@ -70,7 +65,8 @@ void		start_shell(t_shell *shell, char *sent)
   save_cmd(shell, input, len);
   if (shell->vars != 1) 
     save_data(shell, input);
-  printf("cmd = %s\n", shell->cmd);
+  printf("cmd = %s data = %s\n", shell->cmd, shell->data);
+  free (input);
   /* free (input); */
   if (dont_ret == 1)
    return ;
