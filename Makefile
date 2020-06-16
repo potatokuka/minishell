@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/06/15 14:17:00 by greed         ########   odam.nl          #
+#    Updated: 2020/06/16 11:36:00 by greed         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME			=	minishell
 SRCS			=	main.c\
 				start_exit.c\
 				simple_out.c\
-				get_cmd.c
+				get_cmd.c\
+				ft_echo.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST

@@ -26,7 +26,8 @@ int	main(void)
   {
     print_prompt();
     cmd = get_cmd(&shell);
-    start_shell(&shell, cmd);
+    if (cmd)
+      start_shell(&shell, cmd);
   }
   return (0);
 }
