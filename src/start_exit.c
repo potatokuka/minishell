@@ -66,23 +66,11 @@ void		start_shell(t_shell *shell, char *sent)
   if (shell->vars != 1) 
     save_data(shell, input);
   printf("cmd = %s data = %s\n", shell->cmd, shell->data);
+  cmd_dispatch(shell);
   free (input);
   /* free (input); */
-  if (dont_ret == 1)
-   return ;
+  /* if (dont_ret == 1) */
+   /* return ; */
   /* shell->data = save_data(input); */
   /* printf("Test CMD %s | Test DATA %s\n", shell->cmd, shell->data); */
-}
-
-void		start_exit(int i)
-{
-  char data[128];
-  if (i == 0)
-  {
-    read(0, data, 128);
-    printf("%s\n", data);
-    printf("%s\n", PROMPT);
-    i++;
-  }
-return ;
 }

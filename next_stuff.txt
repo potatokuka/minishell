@@ -1,3 +1,8 @@
+BASH PARSES OUT QUOTES ALWAYS
+PARSE OUT QUOTES ALWAYS NOW
+ALSO NEED TO KILL LEADING SPACES
+ONLY -->ONE SPACE<-- between echos
+
 When reading line, save first command, as well as anything directly
   after ';' and '|' -> prob done later
 Res is what is sent in command line;

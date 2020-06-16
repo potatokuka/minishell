@@ -14,32 +14,44 @@
 
 /* print string after echo[DATA], but trim out quotes, if no quotes just print */
 
-static void	print_echo(char *data, int len)
+void	print_echo(char *temp)
 {
-  char	*trim;
-  int	i;
-
-  i = 0;
-  trim = NULL;
-  perror("here");
-  printf("%s\n", data);
-  while (len)
-  {
-    if (data[i] != '"')
-      trim[i] = data[i];
-    len--;
-  }
-  ft_printf("\n%s\n%s", trim, PROMPT);
+  ft_printf("%s\n", temp);
+  return ;
 }
 
-void		ft_echo(t_shell *shell, char *data)
+void	ft_echo(t_shell *shell)
 {
-  int	len;
+ /* set a tmp *char to hold shell->data realloc for the printable str */ 
+  char	*temp;
+  int	print_len;
+  int	start;
+  int	end;
+  int	i;
   
-  if (shell->init == 0)
-    len = ft_strlen(data);
-  if (data[0] == '"' && data[len] == '"')
-    print_echo(data, len);
-
+  start = 0;
+  end = ft_strlen(shell->data);
+  temp = NULL;
+  i = 0;
+  print_len = 0;
+  printf("INSIDE OF THIS%s\n", shell->data);
+  perror("here");
+  while (shell->data[start] != 34)
+    start++;
+  perror("maybe");
+  while (shell->data[end] != 34)
+    end--;
+  /* print_len = (end -  start) + 1; */
+  perror("there");
+  while (start < end)
+  {
+    perror("this");
+    temp[i] = shell->data[start];
+    i++;
+    start++;
+  }
+  temp[i] = '\0';
+  ft_printf("\n%s", temp);
+  /* print_echo(temp); */
   return ;
 }

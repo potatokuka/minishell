@@ -64,6 +64,8 @@ void	start_exit(int i);
 void	print_prompt();
 void	start_shell(t_shell *shell, char *cmd);
 char	*get_cmd(t_shell *shell);
-void	ft_echo(t_shell *shell, char *data);
+void	ft_echo(t_shell *shell);
+void	ft_exit(t_shell *shell);
+void	cmd_dispatch(t_shell *shell);
 
 #endif

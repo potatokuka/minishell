@@ -24,7 +24,7 @@ int	main(void)
   i = 1;
   while (i ==1)
   {
-    print_prompt();
+    print_prompt(shell);
     cmd = get_cmd(&shell);
     if (cmd)
       start_shell(&shell, cmd);

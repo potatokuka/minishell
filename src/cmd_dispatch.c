@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   simple_out.c                                       :+:    :+:            */
+/*   cmd_dispatch.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/15 14:22:33 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 14:45:36 by greed         ########   odam.nl         */
+/*   Created: 2020/06/16 22:10:53 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/16 22:10:54 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
-void	print_prompt(t_shell *shell)
+void	cmd_dispatch(t_shell *shell)
 {
-  (void)shell;
-  ft_printf("\e[1;34m%s\e[0m", PROMPT);
+  if (ft_strcmp(shell->cmd, "exit") == 0)
+    ft_exit(shell);
+  else if (ft_strcmp(shell->cmd, "echo") == 0)
+    ft_echo(shell);
+  return ;
 }
