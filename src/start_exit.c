@@ -27,11 +27,11 @@ void	save_data(t_shell *shell, char *input)
     start++;
   }
   shell->data[i] = '\0';
-  /* printf("Test Data = %s\n", shell->data); */
+  printf("Test Data = %s\n", shell->data);
   return ;
 }
 
-void	save_cmd(t_shell *shell, char *input)
+void	save_cmd(t_shell *shell, char *input, int in_len)
 {
   /* need to len res, input until ' ', and malloc for that */
   int	i;
@@ -42,8 +42,8 @@ void	save_cmd(t_shell *shell, char *input)
   /* perror("here"); */
   while (input[len] != ' ')
     len++;
-  /* if (in_len == len) */
-  /*   shell->vars = 1; */
+  if (in_len == len)
+    shell->vars = 1;
   shell->cmd = (char *)malloc(sizeof(char) * len);
   while (i < len)
   {
@@ -67,9 +67,9 @@ void		start_shell(t_shell *shell, char *sent)
   input = (char *)malloc(sizeof(char) * len);
   
   input = sent;
-  save_cmd(shell, input);
-  /* if (shell->vars != 1) */ 
-    /* save_data(shell, input); */
+  save_cmd(shell, input, len);
+  if (shell->vars != 1) 
+    save_data(shell, input);
   printf("cmd = %s\n", shell->cmd);
   /* free (input); */
   if (dont_ret == 1)
