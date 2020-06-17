@@ -32,6 +32,7 @@
 /*
 ** Saves from start of string to the first occurence of a non alpha 
 ** Null terminating the string
+** Prepares trimmed for use in ARG
 */
 
 char	*parse_cmd(t_input *inp, char *trimmed)
