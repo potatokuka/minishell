@@ -18,6 +18,42 @@
 /* EVERY ' ' EXCEPT the FIRST one AFTER the last CHAR */
 
 /* is ALPHA returns 1 when reading an ALPHA */
+void	terminate_str(char *str, int len)
+{
+  str[len] = '\0';
+  return ;
+}
+
+void	parse_cmd(t_input *inp, char *trimmed)
+{
+  int	i;
+
+  i = 0;
+  while (*trimmed)
+  {
+    if (ft_isalpha(trimmed[i]) == 1)
+      i++;
+    else
+      break ;
+  }
+  printf("i = %d trimmed test = %s\n", i, trimmed);
+  inp->cmd = (char *)malloc(sizeof(char) * i + 1);
+  i = 0;
+  while (*trimmed)
+  {
+    if (ft_isalpha(trimmed[i] == 1))
+    {
+      inp->cmd[i] = trimmed[i];
+      i++;
+    }
+    else
+      break ;
+  }
+  inp->cmd[i + 1] = '\0';
+  printf("i = %d Trimmed cmd = %s\n", i, inp->cmd);
+  return ;
+}
+
 char	*del_leading_space(char *res)
 {
   while (*res)
@@ -31,14 +67,14 @@ char	*del_leading_space(char *res)
   return (res);
 }
 
-void	parse_cmd(t_input *inp, char *res)
+void	parse_input(t_input *inp, char *res)
 {
   char	*trimmed;
   int	i;
 
-  (void)inp;
   i = 0;
   trimmed = del_leading_space(res);
+  parse_cmd(inp, trimmed);
   printf("Trimmed = %s\n", trimmed);
 }
 
@@ -49,5 +85,5 @@ void	parse_init(t_input *inp)
   (void)inp;
   if (get_next_line(STDIN, &res) < 0)
     put_error("Invalid input read");
-  parse_cmd(inp, res);
+  parse_input(inp, res);
 }
