@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   utilities.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 15:58:02 by greed         ########   odam.nl         */
+/*   Created: 2020/06/17 11:04:08 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/17 11:04:09 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* first step, print out PROMPT and allow for exit */
+/*
+** Take input string and remove all occurences of del, re alloc string
+*/
 
-int	main(void)
+void	string_trim(t_shell *shell, char *input, char del)
 {
-  t_shell shell;
-  char	*cmd;
-  int i;
+  (void)shell;
+  (void)input;
+  (void)del;
+  /* char	*new; */
+  /* int	trim_len; */
+  /* int	og_len; */
 
-  ft_bzero(&shell, sizeof(shell));
-  i = 1;
-  while (i ==1)
-  {
-    print_prompt(shell);
-    cmd = get_cmd(&shell);
-    if (cmd)
-      start_shell(&shell, cmd);
-    i+=1;
-  }
-  return (0);
+  /* og_len = ft_strlen(input); */
+  /* trim_len = 0; */
 }

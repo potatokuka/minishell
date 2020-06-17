@@ -19,13 +19,17 @@
 
 void	parse_input(t_shell *shell, char *input)
 {
-  char	*clean;
-  char	*temp;
-  int	len;
-  int	i;
+  (void)shell;
+  (void)input;
+  return ;
+  /* char	*clean; */
 
-  i = 0;
-  len = ft_strlen(input);
-  clean = malloc(sizeof(char) * len);
+  /* char	*temp; */
+  /* int	len; */
+  /* int	i; */
+
+  /* i = 0; */
+  /* len = ft_strlen(input); */
+  /* clean = malloc(sizeof(char) * len); */
 
 }
