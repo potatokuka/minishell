@@ -19,4 +19,18 @@ feel free to tell me what to do in here
 
 -+-+-+-+-+-
 GET input from GNL
+malloc *input
+TRIM all leading spaces to first char
+>>> ^^^ move pointer to first ALPHA char
+use if_alpha on INPUT to find first alpha
+save first word until space or end of string
+
+---*---*---*----
+take rest of INPUT
+RULES:
+alpha count always
+space directly after alpha COUNT
+inside of quations always save, first occurance last end
+'\' in quotes save, '\\' save 1
+have to have an EVEN number of backslash
 

@@ -27,7 +27,7 @@ CFILES		=	$(SRCS:%=%.c)
 OFILES		=	$(CFILES:.c=.o)
 BFILES		=	$(B_SRCS:%=%.c)
 BOFILES		=	$(BFILES:.c=.o)
-FLAGS		=	-Wall -Werror -Wextra -g
+FLAGS		=	-Wall -Werror -Wextra
 
 # COLORS
 PINK	= \x1b[35;01m
