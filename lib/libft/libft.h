@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/29 14:34:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/15 18:27:33 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/17 20:30:02 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char				*ft_strdup_lib(const char *s1);
 char				*ft_substr_lib(char const *s, unsigned int start,							size_t len);
 char				*ft_strjoin_lib(char const *s1, char const *s2);
 int					ft_strcmp(char *s1, char *s2);
+char				*ft_strldup(const char *src, size_t n);
 
 # ifndef NOLIST
 typedef struct		s_list

@@ -27,30 +27,20 @@ void	terminate_str(char *str, int len)
 void	parse_cmd(t_input *inp, char *trimmed)
 {
   int	i;
+  int	test_len;
 
+  test_len = 0;
   i = 0;
-  while (*trimmed)
-  {
-    if (ft_isalpha(trimmed[i]) == 1)
-      i++;
-    else
-      break ;
-  }
-  printf("i = %d trimmed test = %s\n", i, trimmed);
-  inp->cmd = (char *)malloc(sizeof(char) * i + 1);
-  i = 0;
-  while (*trimmed)
-  {
-    if (ft_isalpha(trimmed[i] == 1))
-    {
-      inp->cmd[i] = trimmed[i];
-      i++;
-    }
-    else
-      break ;
-  }
+  (void)inp;
+  while (ft_isalpha(trimmed[i]))
+    i++;
+  inp->cmd = ft_strldup(trimmed, i);
   inp->cmd[i + 1] = '\0';
-  printf("i = %d Trimmed cmd = %s\n", i, inp->cmd);
+  test_len = ft_strlen(inp->cmd);
+  /* inp->cmd[i + 1] = '\0'; */
+  printf("i = %d trimmed test = %s\n", i, trimmed);
+  printf("saved cmd test = %s len = %d\n", inp->cmd, test_len);
+  /* printf("i = %d Trimmed cmd = %s\n", i, inp->cmd); */
   return ;
 }
 
