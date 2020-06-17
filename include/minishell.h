@@ -48,24 +48,19 @@
 ** STRUCTS
 */
 
-typedef struct		s_shell
+typedef struct		s_input
 {
   char	*cmd;
-  char	*data;
-  int	init;
-  int	vars;
-}			t_shell;
+  char	**argv;
+  int	argc;
+}			t_input;
 
 /*
 ** FUNCTION PROTOTYPES
 */
 
-void	start_exit(int i);
 void	print_prompt();
-void	start_shell(t_shell *shell, char *cmd);
-char	*get_cmd(t_shell *shell);
-void	ft_echo(t_shell *shell);
-void	ft_exit(t_shell *shell);
-void	cmd_dispatch(t_shell *shell);
+char	*get_cmd(t_input *inp);
+void	parse_init(t_input *inp);
 
 #endif

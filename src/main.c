@@ -16,19 +16,15 @@
 
 int	main(void)
 {
-  t_shell shell;
-  char	*cmd;
+  t_input inp;
   int i;
 
-  ft_bzero(&shell, sizeof(shell));
+  ft_bzero(&inp, sizeof(inp));
   i = 1;
   while (i ==1)
   {
-    print_prompt(shell);
-    cmd = get_cmd(&shell);
-    if (cmd)
-      start_shell(&shell, cmd);
-    i+=1;
+    print_prompt(&inp);
+    parse_init(&inp);
   }
   return (0);
 }

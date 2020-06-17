@@ -17,19 +17,37 @@
 /* after this is saved, the DATA input NEEDS to be trim */
 /* EVERY ' ' EXCEPT the FIRST one AFTER the last CHAR */
 
-void	parse_input(t_shell *shell, char *input)
+/* is ALPHA returns 1 when reading an ALPHA */
+char	*del_leading_space(char *res)
 {
-  (void)shell;
-  (void)input;
-  return ;
-  /* char	*clean; */
+  while (*res)
+  {
+    if (ft_isalpha(*res) != 1)
+      res++;
+    else
+      break ;
+  }
+  printf("RES = %s\n", res);
+  return (res);
+}
 
-  /* char	*temp; */
-  /* int	len; */
-  /* int	i; */
+void	parse_cmd(t_input *inp, char *res)
+{
+  char	*trimmed;
+  int	i;
 
-  /* i = 0; */
-  /* len = ft_strlen(input); */
-  /* clean = malloc(sizeof(char) * len); */
+  (void)inp;
+  i = 0;
+  trimmed = del_leading_space(res);
+  printf("Trimmed = %s\n", trimmed);
+}
 
+void	parse_init(t_input *inp)
+{
+  char	*res;
+  
+  (void)inp;
+  if (get_next_line(STDIN, &res) < 0)
+    put_error("Invalid input read");
+  parse_cmd(inp, res);
 }

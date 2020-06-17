@@ -1,21 +1,5 @@
-BASH PARSES OUT QUOTES ALWAYS
-PARSE OUT QUOTES ALWAYS NOW
-ALSO NEED TO KILL LEADING SPACES
-ONLY -->ONE SPACE<-- between echos
-
-
----BUILD TODAY---
-* function that kills all certain CHAR 'c' from string
-
-When reading line, save first command, as well as anything directly
-  after ';' and '|' -> prob done later
-Res is what is sent in command line;
-Now take the INPUT[RES] and construct a DISPATCHER:
-DISPATCHER--
-first to do, 16/06 ->
-echo --> check the first 5 char and for closed "STR"
-exit --> get this working so we don't go nuts
-feel free to tell me what to do in here
+TODAY:
+Save Command
 
 -+-+-+-+-+-
 GET input from GNL
