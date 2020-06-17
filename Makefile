@@ -14,7 +14,8 @@ NAME			=	minishell
 
 SRCS			=	main.c\
 				parse_init.c\
-				print_prompt.c
+				print_prompt.c\
+				print_vars.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST

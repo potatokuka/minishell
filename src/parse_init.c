@@ -18,31 +18,43 @@
 /* EVERY ' ' EXCEPT the FIRST one AFTER the last CHAR */
 
 /* is ALPHA returns 1 when reading an ALPHA */
-void	terminate_str(char *str, int len)
-{
-  str[len] = '\0';
-  return ;
-}
 
-void	parse_cmd(t_input *inp, char *trimmed)
+/* void	parse_args(t_input *inp, char *trimmed) */
+/* { */
+/*   char	*cmd_trim */
+/*   int	i; */
+/*   int	cmd_len; */
+
+/*   cmd_len = ft_strlen(inp->cmd); */
+
+/* } */
+
+/*
+** Saves from start of string to the first occurence of a non alpha 
+** Null terminating the string
+*/
+
+char	*parse_cmd(t_input *inp, char *trimmed)
 {
   int	i;
-  int	test_len;
 
-  test_len = 0;
   i = 0;
-  (void)inp;
   while (ft_isalpha(trimmed[i]))
     i++;
   inp->cmd = ft_strldup(trimmed, i);
-  inp->cmd[i + 1] = '\0';
-  test_len = ft_strlen(inp->cmd);
-  /* inp->cmd[i + 1] = '\0'; */
-  printf("i = %d trimmed test = %s\n", i, trimmed);
-  printf("saved cmd test = %s len = %d\n", inp->cmd, test_len);
-  /* printf("i = %d Trimmed cmd = %s\n", i, inp->cmd); */
-  return ;
+  if (!inp->cmd)
+    put_error("Invalid Command Given");
+  while (i > 0)
+  {
+    trimmed++;
+    i--;
+  }
+  return (trimmed);
 }
+
+/*
+** Takes RES and returns a pointer to the next occurence of an alpha
+*/
 
 char	*del_leading_space(char *res)
 {
@@ -53,7 +65,6 @@ char	*del_leading_space(char *res)
     else
       break ;
   }
-  printf("RES = %s\n", res);
   return (res);
 }
 
@@ -64,7 +75,10 @@ void	parse_input(t_input *inp, char *res)
 
   i = 0;
   trimmed = del_leading_space(res);
-  parse_cmd(inp, trimmed);
+  trimmed = parse_cmd(inp, trimmed);
+  if (trimmed) 
+    parse_args(inp, trimmed);
+  print_vars(inp);
   printf("Trimmed = %s\n", trimmed);
 }
 

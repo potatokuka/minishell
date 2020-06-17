@@ -62,5 +62,6 @@ typedef struct		s_input
 void	print_prompt();
 char	*get_cmd(t_input *inp);
 void	parse_init(t_input *inp);
+void	print_vars(t_input *inp);
 
 #endif
