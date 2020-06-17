@@ -19,15 +19,28 @@
 
 /* is ALPHA returns 1 when reading an ALPHA */
 
-/* void	parse_args(t_input *inp, char *trimmed) */
-/* { */
-/*   char	*cmd_trim */
-/*   int	i; */
-/*   int	cmd_len; */
+char	*del_leading_space(char *res)
+{
+  while (*res)
+  {
+    if (ft_isalpha(*res) != 1)
+      res++;
+    else
+      break ;
+  }
+  return (res);
+}
 
-/*   cmd_len = ft_strlen(inp->cmd); */
+/* save until non alpha into args[i] */
+/* IF read a Quote or Dquote send to save with quotes */
+/* del_leading_space after each arg is saved */
 
-/* } */
+void	parse_args(t_input *inp, char *trimmed)
+{
+  (void)inp;
+  trimmed = del_leading_space(trimmed);
+  printf("trimmed inside args=_%s\n", trimmed);
+}
 
 /*
 ** Saves from start of string to the first occurence of a non alpha 
@@ -57,17 +70,6 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 ** Takes RES and returns a pointer to the next occurence of an alpha
 */
 
-char	*del_leading_space(char *res)
-{
-  while (*res)
-  {
-    if (ft_isalpha(*res) != 1)
-      res++;
-    else
-      break ;
-  }
-  return (res);
-}
 
 void	parse_input(t_input *inp, char *res)
 {
