@@ -79,10 +79,8 @@ void	parse_args(t_input *inp, char *trimmed)
   printf("trimmed after del_%s\n", trimmed);
   perror("after arg trim");
   /* the segfault is in this loop */
-  while (trimmed[i] != ' ' || trimmed[i] != '\0')
+  while (trimmed[i] != ' ' && trimmed[i] != '\0')
   {
-    perror("inside loop");
-    printf("trim char =_%c i = %d\n", trimmed[i], i);
     if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
       ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
     else
@@ -90,6 +88,7 @@ void	parse_args(t_input *inp, char *trimmed)
   }
   perror("out of first loop");
   inp->argv[inp->argc] = ft_strldup(trimmed, i);
+  perror("the line above is the issue");
   printf("Parse Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
   inp->argc++;
   if (trimmed[i +1])
