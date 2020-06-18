@@ -32,7 +32,8 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-
+# define D_QOTE 34
+# define S_QOTE 39
 /*
 ** KEY CODES
 */

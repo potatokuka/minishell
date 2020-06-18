@@ -31,14 +31,42 @@ char	*del_leading_space(char *res)
   return (res);
 }
 
+char	*del_lead_arg(char *res)
+{
+  while (*res)
+  {
+    if (*res == ' ')
+      res++;
+    else
+      break ;
+  }
+  return (res);
+}
+
+void	ft_save_quote(t_input *inp, char *trimmed, int i)
+{
+
+}
+
 /* save until non alpha into args[i] */
 /* IF read a Quote or Dquote send to save with quotes */
 /* del_leading_space after each arg is saved */
+/* maybe can do this recursively */
+/* save everything from SP to SP, SP is 32 in ascii dec */
 
 void	parse_args(t_input *inp, char *trimmed)
 {
-  (void)inp;
-  trimmed = del_leading_space(trimmed);
+  int	i;
+  int	argc;
+
+  i = 0;
+  trimmed = del_lead_arg(trimmed);
+  while (trimmed[i])
+  {
+    if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+      ft_save_quote(inp, trimmed, i);
+    else if ()
+  }
   printf("trimmed inside args=_%s\n", trimmed);
 }
 
