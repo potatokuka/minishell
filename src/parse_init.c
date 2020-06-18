@@ -72,7 +72,9 @@ void	parse_args(t_input *inp, char *trimmed)
   int	i;
 
   i = 0;
+  perror("start of parse_args");
   trimmed = del_lead_arg(trimmed);
+  perror("after arg trim");
   while (trimmed[i] != SPACE)
   {
     if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
@@ -80,6 +82,7 @@ void	parse_args(t_input *inp, char *trimmed)
     else
       i++;
   }
+  perror("out of first loop");
   inp->argv[inp->argc] = ft_strldup(trimmed, i);
   printf("Parse Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
   inp->argc++;
