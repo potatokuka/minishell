@@ -73,10 +73,13 @@ void	parse_args(t_input *inp, char *trimmed)
 
   i = 0;
   perror("start of parse_args");
+  printf("trimmed before del_%s\n", trimmed);
   trimmed = del_lead_arg(trimmed);
+  /* this works \/\/\/\/ */ 
+  printf("trimmed after del_%s\n", trimmed);
   perror("after arg trim");
   /* the segfault is in this loop */
-  while (trimmed[i] != SPACE || trimmed[i])
+  while (trimmed[i] != SPACE || trimmed[i] != '\0')
   {
     if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
       ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
