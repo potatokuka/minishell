@@ -82,7 +82,7 @@ void	parse_args(t_input *inp, char *trimmed)
   while (trimmed[i] != ' ' || trimmed[i] != '\0')
   {
     perror("inside loop");
-    printf("i = %d\n", i);
+    printf("trim char =_%c i = %d\n", trimmed[i], i);
     if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
       ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
     else
