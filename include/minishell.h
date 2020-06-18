@@ -34,6 +34,7 @@
 # define STDERR 2
 # define D_QOTE 34
 # define S_QOTE 39
+# define SPACE 32
 /*
 ** KEY CODES
 */

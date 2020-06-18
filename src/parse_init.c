@@ -43,10 +43,23 @@ char	*del_lead_arg(char *res)
   return (res);
 }
 
-void	ft_save_quote(t_input *inp, char *trimmed, int i)
-{
+/* check starting pos, see what the char is there Quote or Dquote */
+/* save from +1 of start until next occurence of Quote */
 
+void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
+{
+  int	i;
+
+  i = 0;
+  trimmed += 1;
+  while (trimmed[start] != quote && trimmed[start])
+    i++;
+  inp->argv[inp->argc] = ft_strldup(trimmed, i);
+  printf("Quote Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
+  inp->argc += 1;
+  return ;
 }
+  
 
 /* save until non alpha into args[i] */
 /* IF read a Quote or Dquote send to save with quotes */
@@ -57,15 +70,27 @@ void	ft_save_quote(t_input *inp, char *trimmed, int i)
 void	parse_args(t_input *inp, char *trimmed)
 {
   int	i;
-  int	argc;
 
   i = 0;
   trimmed = del_lead_arg(trimmed);
-  while (trimmed[i])
+  while (trimmed[i] != SPACE)
   {
     if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-      ft_save_quote(inp, trimmed, i);
-    else if ()
+      ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
+    else
+      i++;
+  }
+  inp->argv[inp->argc] = ft_strldup(trimmed, i);
+  printf("Parse Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
+  inp->argc++;
+  if (trimmed[i +1])
+  {
+    while (i > 0)
+    {
+      trimmed++;
+      i--;
+    }
+    return (parse_args(inp, trimmed));
   }
   printf("trimmed inside args=_%s\n", trimmed);
 }
