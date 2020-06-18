@@ -79,8 +79,10 @@ void	parse_args(t_input *inp, char *trimmed)
   printf("trimmed after del_%s\n", trimmed);
   perror("after arg trim");
   /* the segfault is in this loop */
-  while (trimmed[i] != SPACE || trimmed[i] != '\0')
+  while (trimmed[i] != ' ' || trimmed[i] != '\0')
   {
+    perror("inside loop");
+    printf("i = %d\n", i);
     if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
       ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
     else
