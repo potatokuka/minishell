@@ -79,8 +79,12 @@ void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 
 	i = 0;
 	trimmed += 1;
-	while (trimmed[start] != quote && trimmed[start])
+	while (trimmed[start] != quote)
+	{
 		i++;
+		perror("here");
+		start++;
+	}
 	str = ft_strldup(trimmed, i);
 	if (*str)
 	{
@@ -90,11 +94,7 @@ void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 		print_list(inp->arg_lst);
 	}
 	if (trimmed[i + 1])
-	{
-		trimmed = trimmed + i;
-		parse_args(inp, trimmed, run_time);
-		return ;
-	}
+		trimmed = trimmed + (i + 1);
 	return ;
 }
 
