@@ -109,8 +109,6 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
   	trimmed = del_lead_arg(trimmed);
   	/* this works \/\/\/\/ */ 
   	printf("trimmed after del_%s\n", trimmed);
-  	perror("after arg trim");
-  	/* the segfault is in this loop */
   	while (trimmed[i] != ' ' && trimmed[i] != '\0')
   	{
     	if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
@@ -118,19 +116,16 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
     	else
       	i++;
   	}
-	perror("out of first loop");
 	str = ft_strldup(trimmed, i);
+	printf("This is %d str_%s\n", run_time, str);
 	if (*str)
 	{
 		printf("RT= %d str test = %s\n", run_time, str);
 		lst_new_back(&inp->arg_lst, str);
+		print_vars(inp);
 		free (str);
 	}
 	run_time++;
-  	/* inp->argv[inp->argc] = ft_strldup(trimmed, i); */
-	perror("the line above is the issue");
-	/* printf("Parse Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc); */
-	/* inp->argc++; */
 	if (trimmed[i +1])
 	{
 		while (i > 0)
@@ -175,9 +170,7 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 void	parse_input(t_input *inp, char *res)
 {
   char	*trimmed;
-  int	i;
 
-  i = 0;
   trimmed = del_leading_space(res);
   trimmed = parse_cmd(inp, trimmed);
   if (trimmed) 
