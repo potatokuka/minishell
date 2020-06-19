@@ -5,7 +5,7 @@ void	print_args(t_input *inp)
 	int	y;
 
 	y = 0;
-	printf("--------\nPRINTING ARGS\n");
+	printf("--------\nPRINTING ARGS\nARGC = %d\n", inp->argc);
 	while (y < inp->argc)
 	{
 		printf("%s\n", inp->argv[y]);

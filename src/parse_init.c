@@ -54,6 +54,7 @@ void	split_arg_lst(t_input *inp)
 
 	ft_bzero(xy, 8);
 	size_len[0] = lst_size(inp->arg_lst);
+	printf("\nLST SIZE = %d\n", size_len[0]);
 	inp->argc = size_len[0];
 	tmp = (char **)malloc(sizeof(char *) * size_len[0]);
 	lst = inp->arg_lst;
@@ -179,6 +180,7 @@ void	parse_input(t_input *inp, char *res)
   trimmed = parse_cmd(inp, trimmed);
   if (trimmed) 
     parse_args(inp, trimmed, 0);
+  		split_arg_lst(inp);
   print_vars(inp);
   printf("Trimmed = %s\n", trimmed);
 }
