@@ -17,11 +17,9 @@
 int	main(void)
 {
 	t_input inp;
-	int i;
 
 	ft_bzero(&inp, sizeof(inp));
-	i = 1;
-	while (i ==1)
+	while (1)
 	{
 		print_prompt(&inp);
 		parse_init(&inp);

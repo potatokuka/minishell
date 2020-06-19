@@ -74,15 +74,21 @@ void	split_arg_lst(t_input *inp)
 
 void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 {
+	char	*str;
 	int	i;
 
 	i = 0;
 	trimmed += 1;
 	while (trimmed[start] != quote && trimmed[start])
 		i++;
-	inp->argv[inp->argc] = ft_strldup(trimmed, i);
-	printf("Quote Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
-	inp->argc += 1;
+	str = ft_strldup(trimmed, i);
+	if (*str)
+	{
+		printf("trimmed arg		_%s\n", str);
+		lst_new_back(&inp->arg_lst, str);
+		printf("just added to back of list:%p\n", inp->arg_lst);
+		print_list(inp->arg_lst);
+	}
 	return ;
 }
 
@@ -180,5 +186,5 @@ void	parse_init(t_input *inp)
 	if (get_next_line(STDIN, &res) < 0)
 		put_error("Invalid input read");
 	parse_input(inp, res);
-	exit(0);
+	/* exit(0); */
 }
