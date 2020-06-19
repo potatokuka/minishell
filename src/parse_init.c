@@ -43,8 +43,34 @@ char	*del_lead_arg(char *res)
   return (res);
 }
 
+/* split arg_lst into argc argv for easier access */
+void	split_arg_lst(t_input *inp)
+{
+	char	**tmp;
+	char	*str;
+	t_list	*lst;
+	int		size_len[2];
+	int		xy[2];
+
+	ft_bzero(xy, 8);
+	size_len[0] = lst_size(inp->arg_lst);
+	inp->argc = size_len[0];
+	tmp = (char **)malloc(sizeof(char *) * size_len[0]);
+	lst = inp->arg_lst;
+	while (xy[1] < size_len[0])
+	{
+		xy[0] = 0;
+		str = lst->content;
+		size_len[1] = ft_strlen_lib(str);
+		tmp[xy[1]] = ft_strdup_lib(str);
+		lst = lst->next;
+		xy[1]++;
+	}
+	inp->argv = tmp;
+}
+
 /* check starting pos, see what the char is there Quote or Dquote */
-/* save from +1 of start until next occurence of Quote */
+/* save from +1 of start until next occurence of Quote */ 
 
 void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 {
