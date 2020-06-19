@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 14:22:14 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/19 14:24:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,21 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	char	*str;
 	int		i;
 
-		i = 0;
+	i = 0;
 	if (!trimmed)
 		return ;
-		perror("start of parse_args");
-		printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
-		trimmed = del_lead_arg(trimmed);
-		/* this works \/\/\/\/ */
-		printf("trimmed after del_%s\n", trimmed);
-		while (trimmed[i] != ' ' && trimmed[i] != '\0')
-		{
-			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-				ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
-			else
-				i++;
-		}
+	perror("start of parse_args");
+	printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
+	trimmed = del_lead_arg(trimmed);
+	/* this works \/\/\/\/ */
+	printf("trimmed after del_%s\n", trimmed);
+	while (trimmed[i] != ' ' && trimmed[i] != '\0')
+	{
+		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+			ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
+		else
+			i++;
+	}
 	str = ft_strldup(trimmed, i);
 	printf("This is %d str_%s\n", run_time, str);
 	if (*str)
@@ -175,7 +175,7 @@ void	parse_input(t_input *inp, char *res)
 	trimmed = parse_cmd(inp, trimmed);
 	if (trimmed)
 		parse_args(inp, trimmed, 0);
-		split_arg_lst(inp);
+	split_arg_lst(inp);
 	print_vars(inp);
 	printf("Trimmed = %s\n", trimmed);
 }
