@@ -18,7 +18,8 @@ SRCS			=	foreach\
 					new_front\
 					remove\
 					reverse\
-					size
+					size\
+					fremachines
 
 
 CFILES			=	$(SRCS:%=lst_%.c)

@@ -14,7 +14,6 @@
 # define LIBLIST_H
 #include <stddef.h>
 
-
 typedef struct s_list	t_list;
 
 struct					s_list
@@ -31,5 +30,9 @@ void	lst_remove(t_list *node, void (*free_func)(void *));
 void	lst_reverse(t_list **node);
 size_t	lst_size(t_list *node);
 void	lst_foreach(t_list *node, void (*func)(void *));
+void	fre_array(char **array);
+void	fremashin(char **words, int j);
+void	free_list(t_list *list, void (*func)(void *));
+void	free_this(char **array);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 14:53:58 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/19 18:05:28 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	print_prompt();
 char	*get_cmd(t_input *inp);
 void	parse_init(t_input *inp);
 void	print_vars(t_input *inp);
-
 void	print_list(t_list *list);
+void	reset_input(t_input *input);
+void	cmd_dispatch(t_input *inp);
 #endif
