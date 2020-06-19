@@ -84,7 +84,7 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 		perror("here");
 		start++;
 	}
-	str = ft_strldup(trimmed, i + 1);
+	str = ft_strldup(trimmed, i);
 	if (*str)
 	{
 		printf("trimmed arg		_%s\n", str);
@@ -92,8 +92,7 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 		printf("just added to back of list:%p\n", inp->arg_lst);
 		print_list(inp->arg_lst);
 	}
-	if (trimmed[i + 1])
-		trimmed = trimmed + (i + 1);
+	trimmed = trimmed + (i + 1);
 	return (trimmed);
 }
 
@@ -122,7 +121,7 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	while (trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-			trimmed = ft_save_quote(inp, (trimmed + 1), (i + 1), trimmed[i]);
+			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
 		else
 			i++;
 	}
