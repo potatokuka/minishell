@@ -136,7 +136,7 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 		}
 		return (parse_args(inp, trimmed, run_time));
 	}
-	printf("trimmed inside args=_%s\n", trimmed);
+	/* printf("trimmed inside args=_%s\n", trimmed); */
 }
 
 /*
