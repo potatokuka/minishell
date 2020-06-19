@@ -102,6 +102,8 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	int		i;
 
   	i = 0;
+	if (!trimmed)
+		return ;
   	perror("start of parse_args");
   	printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
   	trimmed = del_lead_arg(trimmed);
