@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+void	print_list(t_list *list)
+{
+	while (list)
+	{
+		printf("lst:%p|%s\n", list->content, (char*)list->content);
+		list = list->next;
+	}
+}
+
 void	print_args(t_input *inp)
 {
 	int	y;

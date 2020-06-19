@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 14:24:44 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/19 15:18:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,24 @@ void	split_arg_lst(t_input *inp)
 	char	**tmp;
 	char	*str;
 	t_list	*lst;
-	int		size_len[2];
-	int		xy[2];
+	int		size_len;
+	int		x;
 
-	ft_bzero(xy, 8);
-	size_len[0] = lst_size(inp->arg_lst);
-	printf("\nLST SIZE = %d\n", size_len[0]);
-	inp->argc = size_len[0];
-	tmp = (char **)malloc(sizeof(char *) * size_len[0]);
+	x = 0;
+	size_len = lst_size(inp->arg_lst);
+	printf("\nLST SIZE = %d\n", size_len);
+	inp->argc = size_len;
+	tmp = (char **)malloc(sizeof(char *) * size_len);
 	lst = inp->arg_lst;
-	while (xy[1] < size_len[0])
+	while (x < size_len)
 	{
-		xy[0] = 0;
 		str = lst->content;
-		size_len[1] = ft_strlen_lib(str);
-		tmp[xy[1]] = ft_strdup_lib(str);
+		tmp[x] = ft_strdup_lib(str);
 		lst = lst->next;
-		xy[1]++;
+		x++;
 	}
 	inp->argv = tmp;
+	print_vars(inp);
 }
 
 /* check starting pos, see what the char is there Quote or Dquote */
@@ -105,10 +104,10 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	if (!trimmed)
 		return ;
 	perror("start of parse_args");
-	printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
+	printf("depth:%d\ntrimmed before del	_%s\n", run_time, trimmed);
 	trimmed = del_lead_arg(trimmed);
 	/* this works \/\/\/\/ */
-	printf("trimmed after del_%s\n", trimmed);
+	printf("trimmed after del	_%s\n", trimmed);
 	while (trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
@@ -117,26 +116,21 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 			i++;
 	}
 	str = ft_strldup(trimmed, i);
-	printf("This is %d str_%s\n", run_time, str);
 	if (*str)
 	{
-		printf("RT= %d str test = %s\n", run_time, str);
+		printf("trimmed arg		_%s\n", str);
 		lst_new_back(&inp->arg_lst, str);
-		print_vars(inp);
-		free (str);
+		printf("just added to back of list:%p\n", inp->arg_lst);
+		print_list(inp->arg_lst);
+		/*free(str);*/
 	}
 	run_time++;
-	if (trimmed[i +1])
+	if (trimmed[i + 1])
 	{
-		while (i > 0)
-		{
-			trimmed++;
-			i--;
-			/*printf("trimmed trimming = %s\n", trimmed);*/
-		}
-		return (parse_args(inp, trimmed, run_time));
+		trimmed = trimmed + i;
+		parse_args(inp, trimmed, run_time);
+		return ;
 	}
-	/* printf("trimmed inside args=_%s\n", trimmed); */
 }
 
 /*
@@ -155,11 +149,7 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 	inp->cmd = ft_strldup(trimmed, i);
 	if (!inp->cmd)
 		put_error("Invalid Command Given");
-	while (i > 0)
-	{
-		trimmed++;
-		i--;
-	}
+	trimmed = trimmed + i;
 	return (trimmed);
 }
 
@@ -175,6 +165,8 @@ void	parse_input(t_input *inp, char *res)
 	trimmed = parse_cmd(inp, trimmed);
 	if (trimmed)
 		parse_args(inp, trimmed, 0);
+	printf("about to go into split arg:%p\n", inp->arg_lst);
+	print_list(inp->arg_lst);
 	split_arg_lst(inp);
 	print_vars(inp);
 	printf("Trimmed = %s\n", trimmed);
@@ -188,4 +180,5 @@ void	parse_init(t_input *inp)
 	if (get_next_line(STDIN, &res) < 0)
 		put_error("Invalid input read");
 	parse_input(inp, res);
+	exit(0);
 }
