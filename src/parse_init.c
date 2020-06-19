@@ -89,6 +89,12 @@ void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 		printf("just added to back of list:%p\n", inp->arg_lst);
 		print_list(inp->arg_lst);
 	}
+	if (trimmed[i + 1])
+	{
+		trimmed = trimmed + i;
+		parse_args(inp, trimmed, run_time);
+		return ;
+	}
 	return ;
 }
 
