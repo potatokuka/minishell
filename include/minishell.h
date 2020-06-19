@@ -55,6 +55,7 @@ typedef struct		s_input
   char	*cmd;
   char	**argv;
   int	argc;
+  t_list	*arg_lst;
 }			t_input;
 
 /*

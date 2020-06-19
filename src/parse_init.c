@@ -59,48 +59,60 @@ void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
   inp->argc += 1;
   return ;
 }
-  
 
 /* save until non alpha into args[i] */
 /* IF read a Quote or Dquote send to save with quotes */
 /* del_leading_space after each arg is saved */
 /* maybe can do this recursively */
 /* save everything from SP to SP, SP is 32 in ascii dec */
+		/* ------------------------- */
+/* EASIER WAY, save each arg into linked list, split into array */
+/* after it's fully finished */
 
-void	parse_args(t_input *inp, char *trimmed)
+void	parse_args(t_input *inp, char *trimmed, int run_time)
 {
-  int	i;
+	char	*str;	
+	int		i;
 
-  i = 0;
-  perror("start of parse_args");
-  printf("trimmed before del_%s\n", trimmed);
-  trimmed = del_lead_arg(trimmed);
-  /* this works \/\/\/\/ */ 
-  printf("trimmed after del_%s\n", trimmed);
-  perror("after arg trim");
-  /* the segfault is in this loop */
-  while (trimmed[i] != ' ' && trimmed[i] != '\0')
-  {
-    if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-      ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
-    else
-      i++;
-  }
-  perror("out of first loop");
-  inp->argv[inp->argc] = ft_strldup(trimmed, i);
-  perror("the line above is the issue");
-  printf("Parse Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
-  inp->argc++;
-  if (trimmed[i +1])
-  {
-    while (i > 0)
-    {
-      trimmed++;
-      i--;
-    }
-    return (parse_args(inp, trimmed));
-  }
-  printf("trimmed inside args=_%s\n", trimmed);
+  	i = 0;
+  	perror("start of parse_args");
+  	printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
+  	trimmed = del_lead_arg(trimmed);
+  	/* this works \/\/\/\/ */ 
+  	printf("trimmed after del_%s\n", trimmed);
+  	perror("after arg trim");
+  	/* the segfault is in this loop */
+  	while (trimmed[i] != ' ' && trimmed[i] != '\0')
+  	{
+    	if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+      	ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
+    	else
+      	i++;
+  	}
+	perror("out of first loop");
+	str = ft_strldup(trimmed, i);
+	if (*str)
+	{
+		printf("RT= %d str test = %s\n", run_time, str);
+		lst_new_back(&inp->arg_lst, str);
+		free (str);
+	}
+	run_time++;
+  	/* inp->argv[inp->argc] = ft_strldup(trimmed, i); */
+	perror("the line above is the issue");
+	/* printf("Parse Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc); */
+	/* inp->argc++; */
+	if (trimmed[i +1])
+	{
+		while (i > 0)
+		{
+			trimmed++;
+			i--;
+			printf("trimmed trimming = %s\n", trimmed);
+		}
+		return (parse_args(inp, trimmed, run_time));
+	}
+	printf("trimmed inside args=_%s\n", trimmed);
 }
 
 /*
@@ -131,7 +143,6 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 ** Takes RES and returns a pointer to the next occurence of an alpha
 */
 
-
 void	parse_input(t_input *inp, char *res)
 {
   char	*trimmed;
@@ -141,7 +152,7 @@ void	parse_input(t_input *inp, char *res)
   trimmed = del_leading_space(res);
   trimmed = parse_cmd(inp, trimmed);
   if (trimmed) 
-    parse_args(inp, trimmed);
+    parse_args(inp, trimmed, 0);
   print_vars(inp);
   printf("Trimmed = %s\n", trimmed);
 }
