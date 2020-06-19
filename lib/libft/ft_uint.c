@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 12:14:25 by greed         #+#    #+#                 */
-/*   Updated: 2019/12/07 13:08:25 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/19 13:58:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,6 @@ unsigned int	ft_uint_size(unsigned int num)
 
 void			ft_conv_uint(t_conv *conv, unsigned int num)
 {
-	if (num < 0)
-	{
-		conv->hassign = 1;
-		conv->sign = '-';
-	}
 	conv->numlen = ft_uint_size(num);
 	if (conv->precision != -2)
 		conv->padzero = 0;
@@ -87,10 +82,7 @@ void			ft_u_intres_c_fd(unsigned int num, int *lv)
 	}
 	while (power)
 	{
-		if (num < 0)
-			ft_putchar_c_fd(('0' - num / power), 1, lv);
-		if (!(num < 0))
-			ft_putchar_c_fd(('0' + num / power), 1, lv);
+		ft_putchar_c_fd(('0' + num / power), 1, lv);
 		num %= power;
 		power /= 10;
 	}
