@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse_input.c                                      :+:    :+:            */
+/*   parse_init.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/16 22:10:43 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:20:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,26 @@
 
 char	*del_leading_space(char *res)
 {
-  while (*res)
-  {
-    if (ft_isalpha(*res) != 1)
-      res++;
-    else
-      break ;
-  }
-  return (res);
+	while (*res)
+	{
+		if (ft_isalpha(*res) != 1)
+			res++;
+		else
+			break ;
+	}
+	return (res);
 }
 
 char	*del_lead_arg(char *res)
 {
-  while (*res)
-  {
-    if (*res == ' ')
-      res++;
-    else
-      break ;
-  }
-  return (res);
+	while (*res)
+	{
+		if (*res == ' ')
+			res++;
+		else
+			break ;
+	}
+	return (res);
 }
 
 /* split arg_lst into argc argv for easier access */
@@ -71,20 +71,20 @@ void	split_arg_lst(t_input *inp)
 }
 
 /* check starting pos, see what the char is there Quote or Dquote */
-/* save from +1 of start until next occurence of Quote */ 
+/* save from +1 of start until next occurence of Quote */
 
 void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 {
-  int	i;
+	int	i;
 
-  i = 0;
-  trimmed += 1;
-  while (trimmed[start] != quote && trimmed[start])
-    i++;
-  inp->argv[inp->argc] = ft_strldup(trimmed, i);
-  printf("Quote Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
-  inp->argc += 1;
-  return ;
+	i = 0;
+	trimmed += 1;
+	while (trimmed[start] != quote && trimmed[start])
+		i++;
+	inp->argv[inp->argc] = ft_strldup(trimmed, i);
+	printf("Quote Arg save = %s argc %d\n", inp->argv[inp->argc], inp->argc);
+	inp->argc += 1;
+	return ;
 }
 
 /* save until non alpha into args[i] */
@@ -98,24 +98,24 @@ void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 
 void	parse_args(t_input *inp, char *trimmed, int run_time)
 {
-	char	*str;	
+	char	*str;
 	int		i;
 
-  	i = 0;
+		i = 0;
 	if (!trimmed)
 		return ;
-  	perror("start of parse_args");
-  	printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
-  	trimmed = del_lead_arg(trimmed);
-  	/* this works \/\/\/\/ */ 
-  	printf("trimmed after del_%s\n", trimmed);
-  	while (trimmed[i] != ' ' && trimmed[i] != '\0')
-  	{
-    	if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-      	ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
-    	else
-      	i++;
-  	}
+		perror("start of parse_args");
+		printf("RT = %d trimmed before del_%s\n", run_time, trimmed);
+		trimmed = del_lead_arg(trimmed);
+		/* this works \/\/\/\/ */
+		printf("trimmed after del_%s\n", trimmed);
+		while (trimmed[i] != ' ' && trimmed[i] != '\0')
+		{
+			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+				ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
+			else
+				i++;
+		}
 	str = ft_strldup(trimmed, i);
 	printf("This is %d str_%s\n", run_time, str);
 	if (*str)
@@ -132,7 +132,7 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 		{
 			trimmed++;
 			i--;
-			printf("trimmed trimming = %s\n", trimmed);
+			/*printf("trimmed trimming = %s\n", trimmed);*/
 		}
 		return (parse_args(inp, trimmed, run_time));
 	}
@@ -147,20 +147,20 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 
 char	*parse_cmd(t_input *inp, char *trimmed)
 {
-  int	i;
+	int	i;
 
-  i = 0;
-  while (ft_isalpha(trimmed[i]))
-    i++;
-  inp->cmd = ft_strldup(trimmed, i);
-  if (!inp->cmd)
-    put_error("Invalid Command Given");
-  while (i > 0)
-  {
-    trimmed++;
-    i--;
-  }
-  return (trimmed);
+	i = 0;
+	while (ft_isalpha(trimmed[i]))
+		i++;
+	inp->cmd = ft_strldup(trimmed, i);
+	if (!inp->cmd)
+		put_error("Invalid Command Given");
+	while (i > 0)
+	{
+		trimmed++;
+		i--;
+	}
+	return (trimmed);
 }
 
 /*
@@ -169,23 +169,23 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 
 void	parse_input(t_input *inp, char *res)
 {
-  char	*trimmed;
+	char	*trimmed;
 
-  trimmed = del_leading_space(res);
-  trimmed = parse_cmd(inp, trimmed);
-  if (trimmed) 
-    parse_args(inp, trimmed, 0);
-  		split_arg_lst(inp);
-  print_vars(inp);
-  printf("Trimmed = %s\n", trimmed);
+	trimmed = del_leading_space(res);
+	trimmed = parse_cmd(inp, trimmed);
+	if (trimmed)
+		parse_args(inp, trimmed, 0);
+			split_arg_lst(inp);
+	print_vars(inp);
+	printf("Trimmed = %s\n", trimmed);
 }
 
 void	parse_init(t_input *inp)
 {
-  char	*res;
-  
-  (void)inp;
-  if (get_next_line(STDIN, &res) < 0)
-    put_error("Invalid input read");
-  parse_input(inp, res);
+	char	*res;
+
+	(void)inp;
+	if (get_next_line(STDIN, &res) < 0)
+		put_error("Invalid input read");
+	parse_input(inp, res);
 }

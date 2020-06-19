@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/16 11:35:52 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/19 14:20:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@
 
 typedef struct		s_input
 {
-  char	*cmd;
-  char	**argv;
-  int	argc;
-  t_list	*arg_lst;
+	char	*cmd;
+	char	**argv;
+	int	argc;
+	t_list	*arg_lst;
 }			t_input;
 
 /*
