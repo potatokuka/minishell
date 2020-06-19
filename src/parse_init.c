@@ -72,20 +72,19 @@ void	split_arg_lst(t_input *inp)
 /* check starting pos, see what the char is there Quote or Dquote */
 /* save from +1 of start until next occurence of Quote */
 
-void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
+char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 {
 	char	*str;
 	int	i;
 
 	i = 0;
-	trimmed += 1;
-	while (trimmed[start] != quote)
+	while (trimmed[start] != quote && trimmed[start])
 	{
 		i++;
 		perror("here");
 		start++;
 	}
-	str = ft_strldup(trimmed, i);
+	str = ft_strldup(trimmed, i + 1);
 	if (*str)
 	{
 		printf("trimmed arg		_%s\n", str);
@@ -95,7 +94,7 @@ void	ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 	}
 	if (trimmed[i + 1])
 		trimmed = trimmed + (i + 1);
-	return ;
+	return (trimmed);
 }
 
 /* save until non alpha into args[i] */
@@ -123,7 +122,7 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	while (trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-			ft_save_quote(inp, trimmed, (i + 1), trimmed[i]);
+			trimmed = ft_save_quote(inp, (trimmed + 1), (i + 1), trimmed[i]);
 		else
 			i++;
 	}
