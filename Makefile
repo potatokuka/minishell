@@ -45,7 +45,7 @@ $(NAME): $(OFILES)
 	@echo "$(WHITE)/-----		Compiling liblist	-----\\ $(RESET)"
 	@make -C $(LIBLIST_LOC)
 	@echo "$(WHITE)/-----	Compiling minishell		-----\\ $(RESET)"
-	$(CC) $(LIBS) -o $(NAME) $(OFILES)
+	$(CC) -o $(NAME) $(OFILES) $(LIBS)
 %.o: %.c
 	@gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 clean:
