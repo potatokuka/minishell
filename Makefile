@@ -17,7 +17,9 @@ SRCS			=	main.c\
 				print_prompt.c\
 				print_vars.c\
 				utilities.c\
-				cmd_dispatch.c
+				cmd_dispatch.c\
+				ft_exit.c\
+				ft_echo.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST

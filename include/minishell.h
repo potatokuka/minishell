@@ -69,4 +69,6 @@ void	print_vars(t_input *inp);
 void	print_list(t_list *list);
 void	reset_input(t_input *input);
 void	cmd_dispatch(t_input *inp);
+void	ft_exit(t_input *inp);
+void	ft_echo(t_input *inp);
 #endif

@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_dispatch.c                                     :+:    :+:            */
+/*   ft_echo.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 18:05:41 by greed         ########   odam.nl         */
+/*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/20 10:17:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_dispatch(t_input *inp)
+/*
+** while argc is > 1 print ' ' when argc == 1 print '\n'
+** start printing from lowest argc to highest to get correct order
+** make a counter i starting at 0
+*/ 
+
+void	ft_echo(t_input *inp)
 {
-	if (ft_strncmp(inp->cmd, "exit", 4) == 0)
-		ft_exit(inp);
-	else if (ft_strncmp(inp->cmd, "echo", 4) == 0)
-		ft_echo(inp);
-	/* else if (ft_strncmp(inp->cmd, "env", 3) == 0) */
-	/* 	ft_env(inp); */
-	/* else if (ft_strncmp(inp->cmd, "pwd", 3) == 0) */
-	/* 	ft_pwd(inp); */
-	else
-		return ;
+	int	i;
+
+	i = 0;
+	printf("ECHO -------------\n");
+	while (inp->argc > 0)
+	{
+		printf("%s", inp->argv[i]);
+		if (inp->argc > 1)
+		{
+			printf(" ");
+			i += 1;
+			inp->argc -= 1;
+		}
+		else
+		{
+			printf("\n");
+			return ;	
+		}
+	}
+	return ;
 }
