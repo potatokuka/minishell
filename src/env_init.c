@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+void			print_environ(char **environ)
+{
+	int		height;
+	int		i;
+
+	height = 0;
+	i = 0;
+	while (environ[height])
+		height++;
+	while (i < height)
+	{
+		printf("ENV_TEST_%s\n", environ[i]);
+		i++;	
+	}
+}
+
 static char		*var_name(char **str)
 {
 	char	*new;
@@ -73,6 +89,7 @@ int				env_init(t_input *inp)
 	int			i;
 
 	i = env_head_init(inp, environ);
+	print_environ(environ);
 	if (i != 1)
 		return (i);
 	i = 1;
