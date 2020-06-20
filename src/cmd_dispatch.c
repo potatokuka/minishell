@@ -20,8 +20,8 @@ void	cmd_dispatch(t_input *inp)
 		ft_echo(inp);
 	/* else if (ft_strncmp(inp->cmd, "env", 3) == 0) */
 	/* 	ft_env(inp); */
-	/* else if (ft_strncmp(inp->cmd, "pwd", 3) == 0) */
-	/* 	ft_pwd(inp); */
+	else if (ft_strncmp(inp->cmd, "pwd", 3) == 0)
+		ft_pwd(inp);
 	else
 		return ;
 }

@@ -21,6 +21,7 @@
 # include <termios.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <errno.h>
 
 /*
 **	Libft PrintF and Get Next Line Updated Lib List
@@ -54,7 +55,8 @@ typedef struct		s_input
 {
 	char	*cmd;
 	char	**argv;
-	int	argc;
+	int		argc;
+	int		echo_flag;
 	t_list	*arg_lst;
 }			t_input;
 
@@ -71,4 +73,5 @@ void	reset_input(t_input *input);
 void	cmd_dispatch(t_input *inp);
 void	ft_exit(t_input *inp);
 void	ft_echo(t_input *inp);
+void	ft_pwd(t_input *inp);
 #endif

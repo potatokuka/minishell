@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/20 10:17:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/20 10:43:59 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** while argc is > 1 print ' ' when argc == 1 print '\n'
 ** start printing from lowest argc to highest to get correct order
 ** make a counter i starting at 0
-*/ 
+*/
 
 void	ft_echo(t_input *inp)
 {
@@ -36,7 +36,7 @@ void	ft_echo(t_input *inp)
 		else
 		{
 			printf("\n");
-			return ;	
+			return ;
 		}
 	}
 	return ;
