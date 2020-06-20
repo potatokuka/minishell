@@ -6,27 +6,15 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 17:41:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/20 18:03:35 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/20 20:57:47 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			print_environ(char **environ)
-{
-	int		height;
-	int		i;
-
-	height = 0;
-	i = 0;
-	while (environ[height])
-		height++;
-	while (i < height)
-	{
-		printf("ENV_TEST_%s\n", environ[i]);
-		i++;	
-	}
-}
+/*
+** stores the NAME of each ENV to be able to search through
+*/
 
 static char		*var_name(char **str)
 {
@@ -70,10 +58,13 @@ static t_var	*var_init(char *str)
 	return (new);
 }
 
+/*
+** sets the had of the env, stores for later and sets to -1 to make
+** sure you only run this portion 1 time
+*/
 static int		env_head_init(t_input *inp, char **environ)
 {
 	inp->env = NULL;
-	printf("check environ %s\n", environ[0]);
 	if (!environ || !environ[0])
 		return (1);
 	inp->env = var_init(environ[0]);
@@ -82,6 +73,10 @@ static int		env_head_init(t_input *inp, char **environ)
 	return (-1);
 }
 
+/*
+** stores a shit load of values(VAL) for each ENV in seperate structs
+*/ 
+
 int				env_init(t_input *inp)
 {
 	extern char **environ;
@@ -89,15 +84,12 @@ int				env_init(t_input *inp)
 	int			i;
 
 	i = env_head_init(inp, environ);
-	print_environ(environ);
-	printf("ENV INIT i TEST = %d\n", i);
 	if (i != -1)
 		return (i);
 	i = 1;
 	env = inp->env;
 	while (environ[i])
 	{
-		perror("inside");
 		env->next = var_init(environ[i]);
 		if (!env->next)
 			return (clear_env(inp->env, &free));

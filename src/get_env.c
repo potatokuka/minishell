@@ -20,7 +20,6 @@ char	*get_env_val(const char *name, t_var *env, size_t len)
 	printf("get env check =_%s\n", env->name);
 	while (env)
 	{
-		perror("here");
 		printf("get env check =_%s\n", env->name);
 		if (ft_strncmp(env->name, name, len) == 0)
 		{

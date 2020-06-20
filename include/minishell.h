@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/20 18:08:04 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/20 20:55:38 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-# define D_QOTE 34
-# define S_QOTE 39
-# define SPACE 32
+# define PROMPT ">>: "
+# define P_PMPT "\n>>: "
+
 /*
 ** KEY CODES
 */
@@ -44,9 +44,9 @@
 # define CTRL_D 4
 # define CTRL_C 12
 # define ESC 27
-# define PROMPT ">>: "
-# define P_PMPT "\n>>: "
-# define KILL "exit"
+# define D_QOTE 34
+# define S_QOTE 39
+# define SPACE 32
 
 /*
 ** STRUCTS
@@ -77,12 +77,20 @@ typedef struct		s_input
 */
 
 void	print_prompt();
-char	*get_cmd(t_input *inp);
-void	parse_init(t_input *inp);
-void	print_vars(t_input *inp);
-void	print_list(t_list *list);
 void	reset_input(t_input *input);
 void	cmd_dispatch(t_input *inp);
+
+/*
+** PARSING
+*/
+
+char	*get_cmd(t_input *inp);
+void	parse_init(t_input *inp);
+
+/*
+** BUILT-INS
+*/
+
 void	ft_exit(t_input *inp);
 void	ft_echo(t_input *inp);
 void	ft_pwd(t_input *inp);
@@ -96,4 +104,13 @@ void	error_builtin(t_input *inp);
 int		env_init(t_input *inp);
 char	*get_env_val(const char *name, t_var *env, size_t len);
 int		clear_env(t_var *env, void(*del)(void *));
+
+/*
+** DEBUGGING
+*/
+
+void	print_vars(t_input *inp);
+void	print_list(t_list *list);
+void			print_environ(char **environ);
+
 #endif

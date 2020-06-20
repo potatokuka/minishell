@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+void			print_environ(char **environ)
+{
+	int		height;
+	int		i;
+
+	height = 0;
+	i = 0;
+	while (environ[height])
+		height++;
+	while (i < height)
+	{
+		printf("ENV_TEST_%s\n", environ[i]);
+		i++;	
+	}
+}
+
 void	print_list(t_list *list)
 {
 	while (list)
