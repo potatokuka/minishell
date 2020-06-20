@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_dispatch.c                                     :+:    :+:            */
+/*   clear_env.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 18:05:41 by greed         ########   odam.nl         */
+/*   Created: 2020/06/20 17:41:46 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/20 17:41:47 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_dispatch(t_input *inp)
+int		clear_env(t_var *env, void(*del)(void *))
 {
-	if (ft_strncmp(inp->cmd, "exit", 4) == 0)
-		ft_exit(inp);
-	else if (ft_strncmp(inp->cmd, "echo", 4) == 0)
-		ft_echo(inp);
-	/* else if (ft_strncmp(inp->cmd, "env", 3) == 0) */
-	/* 	ft_env(inp); */
-	else if (ft_strncmp(inp->cmd, "pwd", 3) == 0)
-		ft_pwd(inp);
-	else if (ft_strncmp(inp->cmd, "cd", 2) == 0)
-		ft_cd(inp);
-	else
-		return ;
+	t_var	*delete;
+	
+	while (env)
+	{
+		delete = env;
+		env = env->next;
+		del(delete->name);
+		del(delete->val);
+	}
+	return (0);
 }

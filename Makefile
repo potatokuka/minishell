@@ -20,7 +20,11 @@ SRCS			=	main.c\
 				cmd_dispatch.c\
 				ft_exit.c\
 				ft_echo.c\
-				ft_pwd.c
+				ft_pwd.c\
+				ft_cd.c\
+				clear_env.c\
+				env_init.c\
+				get_env.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST

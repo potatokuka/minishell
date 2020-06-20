@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/29 14:34:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/17 20:30:02 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/20 18:00:22 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <string.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	32
 #endif
@@ -108,12 +109,15 @@ typedef struct		s_conv
 	char			hassign;
 	char			neg;
 	int				count;
+	int				fd;
 	unsigned int	u_numlen;
 }					t_conv;
 typedef void	(*t_cfunc)(t_conv *, va_list, int *);
 typedef void	(*t_lfunc)(t_conv *, va_list, int *);
 
 int					ft_printf(const char *input, ...);
+void				ft_converter_link(t_conv *conv, va_list a_list, int *lv);
+int					ft_printf_fd(int fd, const char *input, ...);
 void				ft_putnbr_count_fd(int n, int fd, t_conv *conv, int *lv);
 int					ft_nbr_size(int num);
 void				ft_flag_check(const char **input, t_conv *conv);

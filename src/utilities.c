@@ -18,3 +18,28 @@ void	reset_input(t_input *inp)
 		fre_array(inp->argv);
 	return ;
 }
+
+void	error_builtin(t_input *inp)
+{
+	int	i;
+
+	i = 0;
+	ft_printf_fd(2, "%s", inp->argv[i]);
+	ft_printf_fd(2, "%s: ", strerror(errno));
+	i += 1;
+	while (inp->argc > 1)
+	{
+		if (inp->argc > 1)
+		{
+			printf(" ");
+			i += 1;
+			inp->argc -= 1;
+		}
+		else
+		{
+			printf("\n");
+			return ;
+		}
+	}
+	printf("\n");
+}

@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_pwd.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: greed <greed@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
+/*   Updated: 2020/06/20 12:41:24 by greed         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 ** Set a storage amount for initial path size, if the path is too large
 ** Set a larger path size
-*/ 
+*/
+
 void	ft_pwd(t_input *inp)
 {
 	char	*res;

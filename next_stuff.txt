@@ -1,19 +1,19 @@
 SANDER:
-pwd
+ finished ---> pwd
 
 
 GRIFFIN:
-exit
-echo
+ finished ---> exit
+ finished ---> echo (need to do -n)
 
 
 
 ORDER
 1st
 ENV
-EXIT
+ finished ---> EXIT
 ECHO
-PWD
+ finished ---> PWD
 
 LATER
 EXPORT
