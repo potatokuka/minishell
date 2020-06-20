@@ -90,13 +90,14 @@ int				env_init(t_input *inp)
 
 	i = env_head_init(inp, environ);
 	print_environ(environ);
-	if (i != 1)
+	printf("ENV INIT i TEST = %d\n", i);
+	if (i != -1)
 		return (i);
 	i = 1;
 	env = inp->env;
 	while (environ[i])
 	{
-		printf("ENV %d = %s\n", i, environ[i]);
+		perror("inside");
 		env->next = var_init(environ[i]);
 		if (!env->next)
 			return (clear_env(inp->env, &free));
