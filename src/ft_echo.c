@@ -13,6 +13,19 @@
 #include "minishell.h"
 
 /*
+** take Argv input the name is the next point on the string until it's ended
+** then send this to get_env_val
+*/
+
+char	*print_env(t_input *inp)
+{
+	char	*name;
+	
+	i = 1;
+
+}
+
+/*
 ** while argc is > 1 print ' ' when argc == 1 print '\n'
 ** start printing from lowest argc to highest to get correct order
 ** make a counter i starting at 0
