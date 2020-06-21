@@ -17,12 +17,24 @@
 ** then send this to get_env_val
 */
 
-char	*print_env(t_input *inp)
+char	*print_env(t_input *inp, char *str)
 {
 	char	*name;
-	
-	i = 1;
+	char	*to_print;
+	int		len;
 
+	/* this should move the pointer off of the '$' */
+	str += 1;
+	name = ft_strdup(str);
+	len = ft_strlen(name);
+	to_print = get_env_val(name, inp->env, len);
+	if (!to_print)
+	{
+		ft_printf_fd(2, "echo: %s not set\n", name);
+		return (NULL);
+	}
+	else
+		return (to_print);
 }
 
 /*
@@ -39,8 +51,10 @@ void	ft_echo(t_input *inp)
 	printf("ECHO -------------\n");
 	while (inp->argc > 0)
 	{
-		printf("%s", inp->argv[i]);
-		if (inp->argc > 1)
+		printf("%s\n", inp->argv[i]);
+		if (inp->argv[i][0] == '$')
+			inp->argv[i] = print_env(inp, inp->argv[i]);
+		else if (inp->argc > 1)
 		{
 			printf(" ");
 			i += 1;
@@ -48,6 +62,7 @@ void	ft_echo(t_input *inp)
 		}
 		else
 		{
+			perror("inside");
 			printf("\n");
 			return ;
 		}
