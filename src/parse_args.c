@@ -59,6 +59,11 @@ void	split_arg_lst(t_input *inp)
 }
 
 /*
+** When triggered by a '$', save through to the next '$' || '\0' || ' '
+** IF the characters inside != UPPER CASE APHLA dont save shit inside
+*/
+
+/*
 ** check starting pos, see what the char is there Quote or Dquote
 ** save from +1 of start until next occurence of Quote
 */
