@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/06/16 11:36:00 by greed         ########   odam.nl          #
+#    Updated: 2020/06/21 11:07:50 by greed         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,11 @@ SRCS			=	main.c\
 				ft_echo.c\
 				ft_pwd.c\
 				ft_cd.c\
-				clear_env.c\
+				env_clear.c\
 				env_init.c\
-				get_env.c
+				env_get.c\
+				parse_args.c\
+				parse_cmd.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST
