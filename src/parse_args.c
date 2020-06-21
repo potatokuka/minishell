@@ -58,10 +58,45 @@ void	split_arg_lst(t_input *inp)
 	inp->argv = tmp;
 }
 
+int		ft_up_alpha(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	else
+		return (0);
+}
+
 /*
 ** When triggered by a '$', save through to the next '$' || '\0' || ' '
 ** IF the characters inside != UPPER CASE APHLA dont save shit inside
 */
+
+char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
+{
+	char	*str;
+	int		i;
+	int		skip;
+
+	skip = 0;
+	i = 0;
+	while (trimmed[start] != '$' && trimmed[start] != ' ' &&
+				trimmed[start] != '\0')
+	{
+		if (ft_up_alpha(trimmed[start]) == 0)
+			skip = 1;
+		i++;
+		start++;
+	}
+	if (skip == 0)
+	{
+		str = ft_strldup(trimmed, i + 1);
+		printf("STR $ check =_%s_\n", str);
+		if (*str)
+			lst_new_back(&inp->arg_lst, str);
+	}
+	trimmed = trimmed + (i + 1);
+	return (trimmed);
+}
 
 /*
 ** check starting pos, see what the char is there Quote or Dquote
@@ -109,6 +144,8 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
+		else if (trimmed[i] == '$')
+			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
 		else
 			i++;
 	}
