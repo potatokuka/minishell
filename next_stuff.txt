@@ -1,3 +1,9 @@
+export = check to see if name is used in env name
+if it is not add it to the struct list
+	re attach the struct list pointer back to the struct
+
+
+
 NOTES : PARSER NEEDS TO BE ADJUSTED TO STORE FROM $->$ || \0 || ' '
 SANDER:
  finished ---> pwd
