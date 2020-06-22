@@ -98,6 +98,6 @@ int				env_init(t_input *inp)
 	}
 	inp->envp = convert_env(inp->env);
 	if (!inp->envp)
-		return (env_clear(inp->env, &free));
+		return (clear_env(inp->env, &free));
 	return (1);
 }

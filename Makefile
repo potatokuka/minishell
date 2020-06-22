@@ -30,7 +30,7 @@ SRCS			=	main.c\
 				ft_unset.c\
 				env_unset.c\
 				env_convert.c\
-				env_del
+				env_del.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST

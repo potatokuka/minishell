@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 13:44:14 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/22 15:23:34 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	reset_input(t_input *input);
 void	cmd_dispatch(t_input *inp);
 char	*ft_combine_str(const char *str1, const char *str2,
 			const char *str3);
+char	**free_array_null(char **str);
 
 /*
 ** PARSING

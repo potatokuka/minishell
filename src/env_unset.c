@@ -11,7 +11,7 @@ void		unset_env(t_var **env, char *str)
 	t_var	*prev;
 
 	curr = *env;
-	last = curr;
+	prev = curr;
 	if (!*env)
 		return ;
 	if (ft_strcmp(str, (*env)->name) == 0)
@@ -24,11 +24,11 @@ void		unset_env(t_var **env, char *str)
 	{
 		if (ft_strcmp(str, curr->name) == 0)
 		{
-			last->next = curr->next;
+			prev->next = curr->next;
 			env_del(curr);
-			curr = last;
+			curr = prev;
 		}
-		last = curr;
+		prev = curr;
 		curr = curr->next;
 	}
 }
