@@ -19,9 +19,10 @@ int	main(void)
 	t_input inp;
 
 	ft_bzero(&inp, sizeof(inp));
-	env_init(&inp);
+	/* env_init(&inp); */
 	while (1)
 	{
+		env_init(&inp);
 		print_prompt(&inp);
 		parse_init(&inp);
 		cmd_dispatch(&inp);
