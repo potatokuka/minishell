@@ -10,6 +10,7 @@ void		unset_env(t_var **env, char *str)
 	t_var	*curr;
 	t_var	*prev;
 
+	perror("unset env");
 	curr = *env;
 	prev = curr;
 	if (!*env)
