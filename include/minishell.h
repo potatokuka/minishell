@@ -82,6 +82,7 @@ void	cmd_dispatch(t_input *inp);
 char	*ft_combine_str(const char *str1, const char *str2,
 			const char *str3);
 char	**free_array_null(char **str);
+size_t	ft_strc_len(const char *str, int c);
 
 /*
 ** PARSING
@@ -121,6 +122,14 @@ void	ft_unset(t_input *inp);
 void	unset_env(t_var **env, char *str);
 void	update_env(t_input *inp);
 char	**convert_env(t_var *env);
+
+/*
+** EXPORT
+*/
+
+void	ft_export(t_input *inp);
+t_var	*env_set_val(const char *name, t_var **env, const char *val);
+t_var	*env_add(const char *name, const char *val);
 
 /*
 ** DEBUGGING

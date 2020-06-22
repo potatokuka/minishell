@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+/*
+** count the len unti it reaches the sent char
+*/
+
+size_t	ft_strc_len(const char *str, int c)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len] && str[len] != c)
+		len++;
+	return (len);
+}
+
 char	*ft_combine_str(const char *str1, const char *str2,
 			const char *str3)
 {

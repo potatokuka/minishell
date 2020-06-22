@@ -25,6 +25,7 @@ void	print_env(t_input *inp, char *str, int i)
 
 	/* this should move the pointer off of the '$' */
 	str += 1;
+	printf("Before to print-%s_\n", str);
 	name = ft_strdup(str);
 	len = ft_strlen(name);
 	to_print = get_env_val(name, inp->env, len);

@@ -57,7 +57,7 @@ size_t				ft_strlen_lib(const char *s);
 char				*ft_strdup_lib(const char *s1);
 char				*ft_substr_lib(char const *s, unsigned int start,							size_t len);
 char				*ft_strjoin_lib(char const *s1, char const *s2);
-int					ft_strcmp(char *s1, char *s2);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strldup(const char *src, size_t n);
 void				*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 

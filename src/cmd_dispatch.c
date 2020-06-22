@@ -26,6 +26,8 @@ void	cmd_dispatch(t_input *inp)
 		ft_cd(inp);
 	else if (ft_strncmp(inp->cmd, "unset", 5) == 0)
 		ft_unset(inp);
+	else if (ft_strncmp(inp->cmd, "export", 6) == 0)
+		ft_export(inp);
 	else
 		return ;
 }
