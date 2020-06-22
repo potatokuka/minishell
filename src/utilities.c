@@ -26,7 +26,7 @@ char	*ft_combine_str(const char *str1, const char *str2,
 	ft_strlcpy(combined, str1, ft_strlen(str1) + 1);
 	ft_strlcpy(combined + ft_strlen(str1), str2, ft_strlen(str2) + 1);
 	ft_strlcpy(combined + ft_strlen(str1) +ft_strlen(str2), str3,
-			ft_strlen(str3));
+			ft_strlen(str3) + 1);
 	return(combined);
 }
 void	reset_input(t_input *inp)

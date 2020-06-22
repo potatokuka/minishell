@@ -79,6 +79,8 @@ typedef struct		s_input
 void	print_prompt();
 void	reset_input(t_input *input);
 void	cmd_dispatch(t_input *inp);
+char	*ft_combine_str(const char *str1, const char *str2,
+			const char *str3);
 
 /*
 ** PARSING
