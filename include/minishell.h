@@ -110,6 +110,7 @@ void	error_builtin(t_input *inp);
 int		env_init(t_input *inp);
 char	*get_env_val(const char *name, t_var *env, size_t len);
 int		clear_env(t_var *env, void(*del)(void *));
+void	env_del(t_var *delete);
 
 /*
 ** UNSET

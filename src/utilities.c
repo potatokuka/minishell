@@ -23,10 +23,11 @@ char	*ft_combine_str(const char *str1, const char *str2,
 			+ ft_strlen_lib(str3) + 1, sizeof(char));
 	if (!combined)
 		return (NULL);
-	ft_strlcpy(combined, str1, ft_strlen(str1) + 1);
-	ft_strlcpy(combined + ft_strlen(str1), str2, ft_strlen(str2) + 1);
-	ft_strlcpy(combined + ft_strlen(str1) +ft_strlen(str2), str3,
-			ft_strlen(str3) + 1);
+	ft_strlcpy_lib(combined, str1, ft_strlen_lib(str1) + 1);
+	ft_strlcpy_lib(combined + ft_strlen_lib(str1), str2,
+			ft_strlen_lib(str2) + 1);
+	ft_strlcpy_lib(combined + ft_strlen_lib(str1) + ft_strlen_lib(str2),
+			str3, ft_strlen_lib(str3) + 1);
 	return(combined);
 }
 void	reset_input(t_input *inp)
