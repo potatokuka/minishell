@@ -69,7 +69,6 @@ void	ft_echo(t_input *inp)
 			if (inp->argc < 1)
 				break ;
 		}
-			/* inp->argv[i] = print_env(inp, inp->argv[i]); */
 		else if (inp->argc > 1)
 		{
 			printf(" ");
