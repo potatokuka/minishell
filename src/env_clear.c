@@ -16,6 +16,7 @@ int		clear_env(t_var *env, void(*del)(void *))
 {
 	t_var	*delete;
 	
+	perror("clear env");
 	while (env)
 	{
 		delete = env;

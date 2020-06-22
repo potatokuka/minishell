@@ -23,7 +23,7 @@ char	*get_env_val(const char *name, t_var *env, size_t len)
 	{
 		if (ft_strncmp(env->name, name, len) == 0)
 		{
-			if (ft_strlen(env->name) == len)
+			if (ft_strlen_lib(env->name) == len)
 				return (env->val);
 		}
 		env = env->next;
