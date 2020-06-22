@@ -28,8 +28,10 @@ char	*print_env(t_input *inp, char *str)
 	name = ft_strdup(str);
 	len = ft_strlen(name);
 	to_print = get_env_val(name, inp->env, len);
+	printf("TO PRINT =_%s\n", to_print);
 	if (!to_print)
 	{
+		/* it doesnt like this at all */
 		ft_printf_fd(2, "echo: %s not set\n", name);
 		return (NULL);
 	}

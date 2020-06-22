@@ -58,9 +58,10 @@ void	split_arg_lst(t_input *inp)
 	inp->argv = tmp;
 }
 
-int		ft_up_alpha(int c)
+int		ft_env_char(int c)
 {
-	if (c >= 'A' && c <= 'Z')
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+				|| (c >= 0 || c <= 9) || c == '_')
 		return (1);
 	else
 		return (0);
@@ -82,7 +83,7 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 	while (trimmed[start] != '$' && trimmed[start] != ' ' &&
 				trimmed[start] != '\0')
 	{
-		if (ft_up_alpha(trimmed[start]) == 0)
+		if (ft_env_char(trimmed[start]) == 0)
 			skip = 1;
 		i++;
 		start++;
