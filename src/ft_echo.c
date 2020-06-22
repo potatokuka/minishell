@@ -17,7 +17,7 @@
 ** then send this to get_env_val
 */
 
-char	*print_env(t_input *inp, char *str)
+void	print_env(t_input *inp, char *str)
 {
 	char	*name;
 	char	*to_print;
@@ -33,10 +33,17 @@ char	*print_env(t_input *inp, char *str)
 	{
 		/* it doesnt like this at all */
 		ft_printf_fd(2, "echo: %s not set\n", name);
-		return (NULL);
+		return ;
 	}
 	else
-		return (to_print);
+	{
+		printf("%s", to_print);
+		if (inp->argc > 1)
+			printf(" ");
+		else
+			printf("\n");
+	}
+	return ;
 }
 
 /*
@@ -53,9 +60,16 @@ void	ft_echo(t_input *inp)
 	printf("ECHO -------------\n");
 	while (inp->argc > 0)
 	{
-		printf("%s\n", inp->argv[i]);
+		/* printf("%s\n", inp->argv[i]); */
 		if (inp->argv[i][0] == '$')
-			inp->argv[i] = print_env(inp, inp->argv[i]);
+		{
+			print_env(inp, inp->argv[i]);
+			i += 1;
+			inp->argc -= 1;
+			if (inp->argc < 1)
+				break ;
+		}
+			/* inp->argv[i] = print_env(inp, inp->argv[i]); */
 		else if (inp->argc > 1)
 		{
 			printf(" ");
