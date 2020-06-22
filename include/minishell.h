@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/21 11:14:20 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/22 13:44:14 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,15 @@ void	error_builtin(t_input *inp);
 int		env_init(t_input *inp);
 char	*get_env_val(const char *name, t_var *env, size_t len);
 int		clear_env(t_var *env, void(*del)(void *));
+
+/*
+** UNSET
+*/
+
+void	ft_unset(t_input *inp);
+void	unset_env(t_var **env, char *str);
+void	update_env(t_input *inp);
+char	**convert_env(t_var *env);
 
 /*
 ** DEBUGGING

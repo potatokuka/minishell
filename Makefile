@@ -26,7 +26,10 @@ SRCS			=	main.c\
 				env_init.c\
 				env_get.c\
 				parse_args.c\
-				parse_cmd.c
+				parse_cmd.c\
+				ft_unset.c\
+				env_unset.c\
+				env_convert.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST
