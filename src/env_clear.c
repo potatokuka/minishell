@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 17:41:46 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 15:11:51 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/22 16:09:46 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		clear_env(t_var *env, void(*del)(void *))
 {
 	t_var	*delete;
 	
-	perror("clear env");
 	while (env)
 	{
 		delete = env;

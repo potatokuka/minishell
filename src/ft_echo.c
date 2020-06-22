@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/20 10:43:59 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/22 16:10:39 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_echo(t_input *inp)
 		}
 		else
 		{
-			perror("inside");
+			perror("PRINTING NEWLINE");
 			printf("\n");
 			return ;
 		}
