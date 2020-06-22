@@ -19,5 +19,5 @@ void	update_env(t_input *inp)
 	free_array_null(inp->envp);
 	inp->envp = convert_env(inp->env);
 	if (!inp->envp)
-		return (void)(clear_env(inp->env), &free);
+		return (void)(clear_env(inp->env, &free));
 }
