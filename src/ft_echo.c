@@ -63,7 +63,7 @@ void	ft_echo(t_input *inp)
 	printf("ECHO -------------\n");
 	while (inp->argc > 0)
 	{
-		/* printf("%s\n", inp->argv[i]); */
+		printf("%s", inp->argv[i]);
 		if (inp->argv[i][0] == '$')
 		{
 			print_env(inp, inp->argv[i], i);

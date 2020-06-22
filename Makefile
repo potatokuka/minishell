@@ -34,7 +34,7 @@ SRCS			=	main.c\
 				env_update.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
-CFLAGS			=	-Wall -Wextra -Werror -DNOLIST
+CFLAGS			=	-Wall -Wextra -Werror -DNOLIST -g
 INCLUDES		=	-I include\
 					-I lib/libft\
 					-I lib/liblist
