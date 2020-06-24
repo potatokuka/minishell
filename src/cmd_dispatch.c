@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 18:05:41 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 17:08:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	cmd_dispatch(t_input *inp)
 	else if (ft_strncmp(inp->cmd, "export", 6) == 0)
 		ft_export(inp);
 	else
-		return ;
+		ft_exec(inp);
 }

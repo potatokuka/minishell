@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:08:02 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/21 11:12:52 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 17:34:43 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*del_leading_space(char *res)
 {
 	while (*res)
 	{
-		if (ft_isalpha(*res) != 1)
+		if (*res == ' ')
 			res++;
 		else
 			break ;
@@ -42,7 +42,7 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 	int	i;
 
 	i = 0;
-	while (ft_isalpha(trimmed[i]))
+	while (ft_isalpha(trimmed[i]))//TODO fix this so input a.out isnt cmd = a arg = .out
 		i++;
 	inp->cmd = ft_strldup(trimmed, i);
 	if (!inp->cmd)

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 15:23:34 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 17:32:17 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <string.h>
+# include <sys/wait.h>
 
 /*
 **	Libft PrintF and Get Next Line Updated Lib List
@@ -66,7 +67,6 @@ typedef struct		s_input
 	char	*cmd;
 	char	**argv;
 	int		argc;
-	int		echo_flag;
 	t_list	*arg_lst;
 	char	**envp;
 	t_var	*env;
@@ -83,6 +83,7 @@ char	*ft_combine_str(const char *str1, const char *str2,
 			const char *str3);
 char	**free_array_null(char **str);
 size_t	ft_strc_len(const char *str, int c);
+char	*get_path(void);
 
 /*
 ** PARSING
@@ -103,6 +104,7 @@ void	ft_exit(t_input *inp);
 void	ft_echo(t_input *inp);
 void	ft_pwd(t_input *inp);
 void	ft_cd(t_input *inp);
+void	ft_exec(t_input *inp);
 void	error_builtin(t_input *inp);
 
 /*
@@ -137,6 +139,6 @@ t_var	*env_add(const char *name, const char *val);
 
 void	print_vars(t_input *inp);
 void	print_list(t_list *list);
-void			print_environ(char **environ);
+void	print_environ(char **environ);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/20 12:41:24 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 17:09:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,41 @@
 ** Set a larger path size
 */
 
-void	ft_pwd(t_input *inp)
+char	*get_path(void)
 {
 	char	*res;
 	char	*path;
 	size_t	size;
 
 	size = 20;
-	printf("inside pwd\n");
-	(void)inp;
-	path = malloc(sizeof(char) * (size + 1));
+	path = ft_calloc(sizeof(char), (size + 1));
 	if (!path)
-		put_error("Error Inside of PWD");
+		put_error("Error getting path");
 	res = getcwd(path, size + 1);
 	while (!res && errno == ERANGE)
 	{
 		size += 20;
 		free(path);
-		path = malloc(sizeof(char) * (size + 1));
+		path = ft_calloc(sizeof(char), (size + 1));
 		if (!path)
-			put_error("Error Inside of PWD");
+			put_error("Error getting path");
 		res = getcwd(path, size + 1);
 	}
-	if (res)
+	return (res);
+}
+
+void	ft_pwd(t_input *inp)
+{
+	char	*path;
+
+	printf("inside pwd\n");
+	(void)inp;
+	path = get_path();
+	if (path)
+	{
 		ft_printf("%s\n", path);
-	free(path);
+		free(path);
+	}
+	else
+		put_error("Error inside PWD");
 }

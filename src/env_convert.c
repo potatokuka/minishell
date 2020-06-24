@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:38 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 23:10:39 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 13:48:20 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char				**convert_env(t_var *env)
 
 	i = 0;
 	len = env_size(env);
-	env_arr = malloc(sizeof(char *) * (len + 1));
+	env_arr = ft_calloc(sizeof(char *), (len + 1));
 	if (!env_arr)
 		return (NULL);
 	while (i < len)

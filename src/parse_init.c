@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/21 11:13:02 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 17:41:11 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	parse_init(t_input *inp)
 {
 	char	*res;
 
-	(void)inp;
 	if (get_next_line(STDIN, &res) < 0)
 		put_error("Invalid input read");
 	parse_input(inp, res);

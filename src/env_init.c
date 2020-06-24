@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 17:41:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 16:09:56 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/24 13:48:40 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 /*
 ** stores the NAME of each ENV to be able to search through
+** return	-	new string of name preceding =
+**				char **str incremented to char after =
 */
 
 static char		*var_name(char **str)
@@ -26,7 +28,7 @@ static char		*var_name(char **str)
 	end_point = ft_strchr_lib(*str, '=');
 	if (!end_point)
 		return (NULL);
-	new = malloc(sizeof(char) * ((end_point - *str) + 1));
+	new = ft_calloc(sizeof(char), ((end_point - *str) + 1));
 	if (!new)
 		return (NULL);
 	while (**str && *str < end_point)
@@ -44,7 +46,7 @@ static t_var	*var_init(char *str)
 {
 	t_var	*new;
 
-	new = malloc(sizeof(t_var));
+	new = ft_calloc(sizeof(t_var), 1);
 	if (!new)
 		return (NULL);
 	new->len = ft_strlen_lib(str);
@@ -53,7 +55,10 @@ static t_var	*var_init(char *str)
 		return (NULL);
 	new->val = ft_strdup(str);
 	if (!new->val)
+	{
+		free(new->name);
 		return (NULL);
+	}
 	new->next = NULL;
 	return (new);
 }
@@ -66,7 +71,7 @@ static int		env_head_init(t_input *inp, char **environ)
 {
 	inp->env = NULL;
 	if (!environ || !environ[0])
-		return (1);
+		return (-1);
 	inp->env = var_init(environ[0]);
 	if (!inp->env)
 		return (clear_env(inp->env, &free));
@@ -75,7 +80,7 @@ static int		env_head_init(t_input *inp, char **environ)
 
 /*
 ** stores a shit load of values(VAL) for each ENV in seperate structs
-*/ 
+*/
 
 int				env_init(t_input *inp)
 {

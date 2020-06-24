@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 14:20:38 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/24 16:37:10 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	main(void)
 		parse_init(&inp);
 		cmd_dispatch(&inp);
 		/* reset_input(&inp); */
-		ft_bzero(&inp, sizeof(inp));
+		ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env
+		//Maybe we should split env into a different struct, so that we can just bzero input and not re parse in all of env every command
 	}
 	return (0);
 }
