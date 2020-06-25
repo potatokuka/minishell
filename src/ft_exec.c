@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/06/25 14:37:16 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/25 14:45:52 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,32 @@ int		file_match(char file[], char *file2)
 ** matching string exec
 */
 
+int		search_dir(DIR *dirp, char *exec)
+{
+	struct dirent	*file;
+
+	file = (void *)1;
+	while (file)
+	{
+		file = readdir(dirp);
+		if (file)//Also returns NULL on error, so do we need checks in here?
+		{
+			if (file_match(file->d_name, exec))//Might need to check file type DT_REG || DT_LNK
+			{
+				printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));
+				return (1);
+			}
+			/*free(file);*/
+		}
+	}
+	return (0);
+}
+
 char	*get_env_path_exec(char *exec, t_var *env)
 {
 	char			**paths;
 	char			*temp;
 	DIR				*dirp;
-	struct dirent	*file;
 
 	temp = get_env_val("PATH", env, 4);
 	printf("exec:%s\n", exec);
@@ -58,20 +78,8 @@ char	*get_env_path_exec(char *exec, t_var *env)
 		dirp = opendir(*paths);
 		if (dirp)//NULL on error, but do we care? maybe theres shit values in PATH, do we really want to throw then?
 		{
-			file = (void *)1;
-			while (!temp && file)
-			{
-				file = readdir(dirp);
-				if (file)//Also returns NULL on error, so do we need checks in here?
-				{
-					if (file_match(file->d_name, exec))//Might need to check file type DT_REG || DT_LNK
-					{
-						printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));
-						temp = ft_combine_str(*paths, "/", exec);
-					}
-					/*free(file);*/
-				}
-			}
+			if (search_dir(dirp, exec))
+				temp = ft_combine_str(*paths, "/", exec);
 			/*free(dirp);*/
 		}
 		paths++;
