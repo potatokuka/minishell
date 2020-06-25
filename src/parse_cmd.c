@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:08:02 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/24 17:34:43 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/25 14:34:00 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,30 @@ char	*del_leading_space(char *res)
 }
 
 /*
+** Returns 1 if the given string matches to a builtin
+*/
+
+int		is_cmd(char *cmd)
+{
+	if (ft_strncmp(cmd, "exit", 4) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "echo", 4) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "env", 3) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "pwd", 3) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "cd", 2) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "unset", 5) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "export", 6) == 0)
+		return (1);
+	else
+		return (0);
+}
+
+/*
 ** Saves from start of string to the first occurence of a non alpha 
 ** Null terminating the string
 ** Prepares trimmed for use in ARG
@@ -47,6 +71,7 @@ char	*parse_cmd(t_input *inp, char *trimmed)
 	inp->cmd = ft_strldup(trimmed, i);
 	if (!inp->cmd)
 		put_error("Invalid Command Given");
-	trimmed = trimmed + i;
+	if (is_cmd(inp->cmd))
+		trimmed = trimmed + i;
 	return (trimmed);
 }

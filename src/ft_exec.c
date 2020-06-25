@@ -6,12 +6,16 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/06/25 13:39:36 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/25 14:37:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <dirent.h>
+
+/*
+** Return 1 if a char array string matches the str ptr string
+*/
 
 int		file_match(char file[], char *file2)
 {
@@ -29,11 +33,16 @@ int		file_match(char file[], char *file2)
 	return (1);
 }
 
+/*
+** Search the $PATH variable directories a file matching with name
+** matching string exec
+*/
+
 char	*get_env_path_exec(char *exec, t_var *env)
 {
-	char	**paths;
-	char	*temp;
-	DIR		*dirp;
+	char			**paths;
+	char			*temp;
+	DIR				*dirp;
 	struct dirent	*file;
 
 	temp = get_env_val("PATH", env, 4);
@@ -55,9 +64,11 @@ char	*get_env_path_exec(char *exec, t_var *env)
 				file = readdir(dirp);
 				if (file)//Also returns NULL on error, so do we need checks in here?
 				{
-					printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));
-					if (file_match(file->d_name, exec))//Might need to check file type
+					if (file_match(file->d_name, exec))//Might need to check file type DT_REG || DT_LNK
+					{
+						printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));
 						temp = ft_combine_str(*paths, "/", exec);
+					}
 					/*free(file);*/
 				}
 			}
@@ -68,9 +79,13 @@ char	*get_env_path_exec(char *exec, t_var *env)
 	return (temp);
 }
 
+/*
+** Attempt to find and execute an executable based on a given absolute or 
+** relative path, or $PATH identifier.
+*/
+
 void	ft_exec(t_input *inp)
 {
-	//TODO allow for finding execs from path
 	//TODO Check how bash responds to errno and -1 response
 	//TODO Check if there is a MAX_ARGS
 	char	*path;
