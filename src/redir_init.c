@@ -42,20 +42,21 @@ char		**save_redir(char **argv, int flags)
 {
 	char	**redir;
 	size_t	i;
-	size_t	x;
+	int		x;
 
 	i = 0;
 	x = 0;
 	printf("flags = %d\n", flags);
-	redir = (char **)malloc(sizeof(char *) * flags);
-	while (argv[i])
+	redir = (char **)ft_calloc(sizeof(char *), flags);
+	while (x < flags)
 	{
 		if (check_redir(argv[i]))
 		{
 			printf("Flag Check = %s\n", argv[i]);
-			redir[x] = (char *)malloc(sizeof(char) * ft_strlen(argv[i] + 1));
+			redir[x] = ft_strdup_lib(argv[i]);
 			i++;
 			x++;
+			flags--;
 		}
 		else
 			i++;
