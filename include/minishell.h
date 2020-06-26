@@ -70,6 +70,7 @@ typedef struct		s_input
 	t_list	*arg_lst;
 	char	**envp;
 	t_var	*env;
+	char	**redirs;
 }			t_input;
 
 /*
@@ -133,6 +134,12 @@ char	**convert_env(t_var *env);
 void	ft_export(t_input *inp);
 t_var	*env_set_val(const char *name, t_var **env, const char *val);
 t_var	*env_add(const char *name, const char *val);
+
+/*
+** REDIRECTIONS
+*/
+
+void	redir_init(t_input *inp);
 
 /*
 ** DEBUGGING
