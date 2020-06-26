@@ -2,13 +2,13 @@
 
 static int	check_redir(char *str)
 {
-	if (str[0] == '<' && str[1] == '<')
+	if (str[0] == '<' && str[1] == '<' && ft_strlen(str) == 2)
 		return (1);
 	else if (str[0] == '<' && ft_strlen(str) == 1)
 		return (1);
 	else if (str[0] == '>' && ft_strlen(str) == 1)
 		return (1);
-	else if (str[0] == '>' && str[1] == '>')
+	else if (str[0] == '>' && str[1] == '>' && ft_strlen(str) == 2)
 		return (1);
 	else
 		return (0);
@@ -35,6 +35,7 @@ char		**save_redir(char **argv, int flags)
 
 	i = 0;
 	x = 0;
+	printf("flags = %d\n", flags);
 	redir = (char **)malloc(sizeof(char *) * flags);
 	while (argv[i])
 	{
@@ -58,27 +59,24 @@ char		**save_redir(char **argv, int flags)
 
 void		redir_init(t_input *inp)
 {
-	size_t	flags;
+	int		flags;
 	int		i;
 
 	flags = 0;
 	i = 0;
-	while (i < inp->argc)
+	while (inp->argv[i])
 	{
 		if (!check_redir(inp->argv[i]))
-		{
 			i++;
-			inp->argc--;
-		}
 		else
 		{
 			flags++;
 			i++;
-			inp->argc--;
 		}
 	}
 	if (flags)
 	{
+		printf("early flag check %d\n", flags);
 		inp->redirs = save_redir(inp->argv, flags);
 		print_flags(inp->redirs);
 	}
