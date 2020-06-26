@@ -35,7 +35,8 @@ SRCS			=	main.c\
 				ft_export.c\
 				env_add.c\
 				env_set_val.c\
-				ft_exec.c
+				ft_exec.c\
+				redir_init.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST -g
