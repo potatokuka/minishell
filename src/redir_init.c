@@ -4,6 +4,7 @@ static int	check_redir(char *str)
 {
 	if (ft_strlen(str) == 2)
 	{
+		perror("2");
 		if (str[0] == '<' && str[1] == '<')
 			return (1);
 		else if (str[0] == '>' && str[1] == '>')
@@ -13,6 +14,7 @@ static int	check_redir(char *str)
 	}
 	else if (ft_strlen(str) == 1)
 	{
+		perror("1");
 		if (str[0] == '<')
 			return (1);
 		else if (str[0] == '>')
@@ -21,7 +23,10 @@ static int	check_redir(char *str)
 			return (0);
 	}
 	else
+	{
+		perror("no match");
 		return (0);
+	}
 }
 
 void		print_flags(char **flags)
