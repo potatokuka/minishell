@@ -2,14 +2,24 @@
 
 static int	check_redir(char *str)
 {
-	if (str[0] == '<' && str[1] == '<' && ft_strlen(str) == 2)
-		return (1);
-	else if (str[0] == '<' && ft_strlen(str) == 1)
-		return (1);
-	else if (str[0] == '>' && ft_strlen(str) == 1)
-		return (1);
-	else if (str[0] == '>' && str[1] == '>' && ft_strlen(str) == 2)
-		return (1);
+	if (ft_strlen(str) == 2)
+	{
+		if (str[0] == '<' && str[1] == '<')
+			return (1);
+		else if (str[0] == '>' && str[1] == '>')
+			return (1);
+		else
+			return (0);
+	}
+	else if (ft_strlen(str) == 1)
+	{
+		if (str[0] == '<')
+			return (1);
+		else if (str[0] == '>')
+			return (1);
+		else
+			return (0);
+	}
 	else
 		return (0);
 }
