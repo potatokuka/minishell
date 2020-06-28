@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+/* if not CMD or REDIR, save that location of argv[i] to fd */
+
 static int	check_redir(char *str)
 {
 	if (ft_strlen(str) == 2)
@@ -86,6 +88,8 @@ void		redir_init(t_input *inp)
 			i++;
 		}
 	}
+	/* The seg fault is above this ^^^ */
+	perror("seg check 1");
 	if (flags)
 	{
 		printf("early flag check %d\n", flags);
