@@ -7,7 +7,7 @@ static int	check_redir(char *str)
 	if (ft_strlen(str) == 2)
 	{
 		perror("2");
-		if ((str[0] == '<' && str[1] == '<') || (str[0] == '>' && str[1] == '>'))
+		if (str[0] == '>' && str[1] == '>')
 			return (1);
 		else
 			return (0);
