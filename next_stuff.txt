@@ -1,3 +1,14 @@
+Ctrl-D : exit
+$? : return value most recent function
+Ctrl-\ : kill forground process
+| : PIPE
+; : do stuff
+redir : fuck this shit
+fix leaks
+
+
+
+
 File REDIRECTION:
 >
 takes std input and writes it to a file, over writes existing
