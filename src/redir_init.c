@@ -49,7 +49,6 @@ char		**save_redir(char **argv, int flags)
 	{
 		if (check_redir(argv[i]))
 		{
-			printf("Flag Check = %s\n", argv[i]);
 			redir[x] = ft_strdup_lib(argv[i]);
 			i++;
 			x++;

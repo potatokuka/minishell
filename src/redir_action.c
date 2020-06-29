@@ -58,7 +58,7 @@ void	redir_dispatch(t_input *inp)
 
 	i = 0;
 	printf("INSIDE OF REDIR_DISPATCH\n");
-	printf("redirs[0]= %s\n", inp->redirs[i]);
+	printf("redirs[%d]= %s\n", i, inp->redirs[i]);
 	if (ft_strncmp(inp->redirs[i], ">>", 2) == 0)
 		redir_append(inp);
 	/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
