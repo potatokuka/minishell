@@ -25,7 +25,7 @@
 ** check to see what kind of flag is given, direct to correct function 
 */
 
-void	redir_append(t_input *inp, int loc)
+void	redir_append(t_input *inp)
 {
 	int		i;
 	int		fd;
@@ -33,13 +33,23 @@ void	redir_append(t_input *inp, int loc)
 
 	i = 0;
 	printf("inside of REDIR APPEND\n");
-	printf("FILE TO SAVE TO = %s\n", inp->argv[loc+1]);
-	fd = open(inp->argv[loc + 1], O_CREAT | O_APPEND | O_WRONLY);
-	if (fd < 0)
-		put_error("Error with REDIR Append FD");
-	ret = dup2(fd, 1);
-	if (ret < 0)
-		put_error("Error with REDIR Append Dup2");
+	while (inp->argv[i])
+	{
+		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
+		{
+			
+			printf("FILE TO SAVE TO = %s\n", inp->argv[i+1]);
+			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY);
+			if (fd < 0)
+				put_error("Error with REDIR Append FD");
+			ret = dup2(fd, 1);
+			if (ret < 0)
+				put_error("Error with REDIR Append Dup2");
+			return ;
+		}
+		else
+			i++;
+	}
 }
 
 void	redir_dispatch(t_input *inp)
@@ -48,9 +58,9 @@ void	redir_dispatch(t_input *inp)
 
 	i = 0;
 	printf("INSIDE OF REDIR_DISPATCH\n");
-	printf("redirs[0]= %s\n", inp->redirs[0]);
-	if (ft_strncmp(inp->redirs[0], ">>", 2) == 0)
-		redir_append(inp, i);
+	printf("redirs[0]= %s\n", inp->redirs[i]);
+	if (ft_strncmp(inp->redirs[i], ">>", 2) == 0)
+		redir_append(inp);
 	/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
 	/* 	redir_std_input(inp); */
 	/* else if (ft_strncmp(inp->redirs[i], ">", 1)) */

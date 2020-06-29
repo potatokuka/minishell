@@ -77,7 +77,6 @@ typedef struct		s_input
 	char	**envp;
 	t_var	*env;
 	char	**redirs;
-	t_redir	*redir;
 }			t_input;
 
 /*
