@@ -25,18 +25,27 @@
 ** check to see what kind of flag is given, direct to correct function 
 */
 
+/*
+** once the flag is found, execute the command on the left, into the
+** target file on the right
+*/
+
 void	redir_append(t_input *inp)
 {
 	int		i;
 	int		fd;
 	int		ret;
+	int		pipfd[2];
 
+	pipe(pipfd);
 	i = 0;
 	printf("inside of REDIR APPEND\n");
 	while (inp->argv[i])
 	{
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
 		{
+			if (!argv[i + 1])
+				put_error("syntax error near unexpected token `newline'");
 			printf("FILE TO SAVE TO = %s\n", inp->argv[i+1]);
 			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);
 			if (fd < 0)
