@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 12:04:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/29 18:29:49 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	redir_append(t_input *inp)
 	{
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
 		{
-			if (!argv[i + 1])
+			if (!inp->argv[i + 1])
 				put_error("syntax error near unexpected token `newline'");
 			printf("FILE TO SAVE TO = %s\n", inp->argv[i+1]);
 			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 12:52:38 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/29 18:53:08 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,14 @@ char	*get_path(void);
 ** PARSING
 */
 
+int		is_cmd(char *cmd);
 char	*get_cmd(t_input *inp);
+char	*parse_cmd(t_input *inp, char *trimmed);
+char	*del_leading_space(char *res);
 void	parse_init(t_input *inp);
 void	split_arg_lst(t_input *inp);
 void	parse_args(t_input *inp, char *trimmed, int run_time);
-char	*del_leading_space(char *res);
-char	*parse_cmd(t_input *inp, char *trimmed);
-int		is_cmd(char *cmd);
+void	repl_env_vars(t_input *inp);
 
 /*
 ** BUILT-INS
