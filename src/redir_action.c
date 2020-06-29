@@ -38,7 +38,7 @@ void	redir_append(t_input *inp)
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
 		{
 			printf("FILE TO SAVE TO = %s\n", inp->argv[i+1]);
-			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY);//TODO should create with 664
+			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);
 			if (fd < 0)
 				put_error("Error with REDIR Append FD");
 			ret = dup2(fd, 1);

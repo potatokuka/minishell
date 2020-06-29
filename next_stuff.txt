@@ -16,7 +16,11 @@ takes std input and writes it to a file, over writes existing
 >>
 appends input to file
 <
-
+dup std:in
+open file
+dup2 to->std:in
+restore fd
+close
 
 
 export = check to see if name is used in env name
