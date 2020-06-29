@@ -82,8 +82,6 @@ void		redir_init(t_input *inp)
 			i++;
 		}
 	}
-	/* The seg fault is above this ^^^ */
-	perror("seg check 1");
 	if (flags)
 	{
 		printf("early flag check %d\n", flags);
