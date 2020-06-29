@@ -26,6 +26,7 @@ int	main(void)
 		print_prompt(&inp);
 		parse_init(&inp);
 		redir_init(&inp);
+		redir_dispatch(&inp);
 		cmd_dispatch(&inp);
 		/* reset_input(&inp); */
 		ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env
