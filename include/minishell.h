@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/25 14:28:19 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/29 12:52:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	ft_echo(t_input *inp);
 void	ft_pwd(t_input *inp);
 void	ft_cd(t_input *inp);
 void	ft_exec(t_input *inp);
+void	ft_env(t_input *inp);
 void	error_builtin(t_input *inp);
 
 /*

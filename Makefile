@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/06/24 16:48:21 by averheij      ########   odam.nl          #
+#    Updated: 2020/06/29 12:52:20 by averheij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS			=	main.c\
 				env_set_val.c\
 				ft_exec.c\
 				redir_init.c\
-				redir_action.c
+				redir_action.c\
+				ft_env.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST -g

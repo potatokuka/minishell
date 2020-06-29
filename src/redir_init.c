@@ -72,7 +72,7 @@ void		redir_init(t_input *inp)
 
 	flags = 0;
 	i = 0;
-	while (inp->argv[i])
+	while (i < inp->argc) //inp->argv[i])
 	{
 		if (!check_redir(inp->argv[i]))
 			i++;

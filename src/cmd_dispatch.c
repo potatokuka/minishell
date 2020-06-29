@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/25 14:28:28 by averheij      ########   odam.nl         */
+/*   Updated: 2020/06/29 12:42:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	cmd_dispatch(t_input *inp)
 		ft_exit(inp);
 	else if (ft_strncmp(inp->cmd, "echo", 4) == 0)
 		ft_echo(inp);
-	/* else if (ft_strncmp(inp->cmd, "env", 3) == 0) */
-	/* 	ft_env(inp); */
+	 else if (ft_strncmp(inp->cmd, "env", 3) == 0) 
+		ft_env(inp); 
 	else if (ft_strncmp(inp->cmd, "pwd", 3) == 0)
 		ft_pwd(inp);
 	else if (ft_strncmp(inp->cmd, "cd", 2) == 0)

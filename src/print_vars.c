@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:54 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 23:10:55 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/29 12:00:51 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void			print_environ(char **environ)
 	while (i < height)
 	{
 		printf("ENV_TEST_%s\n", environ[i]);
-		i++;	
+		i++;
 	}
 }
 
@@ -45,7 +45,7 @@ void	print_args(t_input *inp)
 	printf("--------\nPRINTING ARGS\nARGC = %d\n", inp->argc);
 	while (y < inp->argc)
 	{
-		printf("%s\n", inp->argv[y]);
+		printf("\t%s\n", inp->argv[y]);
 		y++;
 	}
 }

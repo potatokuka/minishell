@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/28 13:36:27 by greed         ########   odam.nl         */
+/*   Updated: 2020/06/29 12:04:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ void	redir_append(t_input *inp)
 	{
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
 		{
-			
 			printf("FILE TO SAVE TO = %s\n", inp->argv[i+1]);
-			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY);
+			fd = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY);//TODO should create with 664
 			if (fd < 0)
 				put_error("Error with REDIR Append FD");
 			ret = dup2(fd, 1);
@@ -58,13 +57,16 @@ void	redir_dispatch(t_input *inp)
 
 	i = 0;
 	printf("INSIDE OF REDIR_DISPATCH\n");
-	printf("redirs[%d]= %s\n", i, inp->redirs[i]);
-	if (ft_strncmp(inp->redirs[i], ">>", 2) == 0)
-		redir_append(inp);
-	/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
-	/* 	redir_std_input(inp); */
-	/* else if (ft_strncmp(inp->redirs[i], ">", 1)) */
-	/* 	redir_std_out(inp); */
-	perror("didnt go inside\n");
+	if (inp->redirs)
+	{
+		printf("redirs[%d]= %s\n", i, inp->redirs[i]);
+		if (ft_strncmp(inp->redirs[i], ">>", 2) == 0)
+			redir_append(inp);
+		/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
+		/* 	redir_std_input(inp); */
+		/* else if (ft_strncmp(inp->redirs[i], ">", 1)) */
+		/* 	redir_std_out(inp); */
+	}
+	perror("didnt go inside");
 	return ;
 }
