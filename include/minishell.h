@@ -53,6 +53,12 @@
 ** STRUCTS
 */
 
+typedef struct		s_redir
+{
+	char			**flags;
+	int				**pos;
+}					t_redir;
+
 typedef struct		s_var
 {
 	char			*name;
@@ -71,6 +77,7 @@ typedef struct		s_input
 	char	**envp;
 	t_var	*env;
 	char	**redirs;
+	t_redir	*redir;
 }			t_input;
 
 /*

@@ -27,6 +27,19 @@ static int	check_redir(char *str)
 	}
 }
 
+void		print_flag_pos(int **pos)
+{
+	int	i;
+
+	i = 0;
+	while (pos[i])
+	{
+		printf("flag pos = %d\n", &pos[i]);
+		i++;
+	}
+	return ;
+}
+
 void		print_flags(char **flags)
 {
 	int	i;
@@ -34,28 +47,31 @@ void		print_flags(char **flags)
 	i = 0;
 	while (flags[i])
 	{
-		printf("flags %d %s\n", i, flags[i]);
+		printf("flags= %d %s\n", i, flags[i]);
 		i++;
 	}
 	return ;
 }
 
-char		**save_redir(char **argv, int flags)
+char		**save_redir(t_input *inp, char **argv, int flags)
 {
 	char	**redir;
-	size_t	i;
+	int		i;
 	int		x;
 
 	i = 0;
 	x = 0;
 	printf("flags = %d\n", flags);
 	redir = (char **)ft_calloc(sizeof(char *), flags);
+	inp->redir->pos = (int **)ft_calloc(sizeof(int *), flags);
 	while (x < flags)
 	{
 		if (check_redir(argv[i]))
 		{
 			printf("Flag Check = %s\n", argv[i]);
 			redir[x] = ft_strdup_lib(argv[i]);
+			inp->redir->pos[x] = (int *)malloc(sizeof(int));
+			inp->redir->pos[x] = &i;
 			i++;
 			x++;
 			flags--;
@@ -93,8 +109,9 @@ void		redir_init(t_input *inp)
 	if (flags)
 	{
 		printf("early flag check %d\n", flags);
-		inp->redirs = save_redir(inp->argv, flags);
-		print_flags(inp->redirs);
+		inp->redir->flags = save_redir(inp, inp->argv, flags);
+		print_flags(inp->redir->flags);
+		print_flag_pos(inp->redir->pos);
 	}
 	return ;
 }
