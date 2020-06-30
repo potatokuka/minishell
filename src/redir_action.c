@@ -36,9 +36,11 @@ void	redir_append(t_input *inp)
 	int		fd;
 	int		ret;
 	int		pipfd[2];
+	pid_t	cpid;
 
 	pipe(pipfd);
 	i = 0;
+	cpid = fork();
 	printf("inside of REDIR APPEND\n");
 	while (inp->argv[i])
 	{
