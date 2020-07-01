@@ -72,40 +72,23 @@ void	redir_append(t_input *inp)
 		** on the right, check everything on LEFT for builtin CMD
 		** if builtin cmd run it, if not run EXEC
 		*/
+		/* ------------------------------------- */
 		int file = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);
-		if (inp->cmd)
-		{
+		if (file < 0)
+			put_error("Error with File in Redir Append");
 			dup2(file, STDOUT_FILENO);	
 			close(file);
-			cmd_dispatch(inp);
-		}
-		else
-		{
-			dup2(pipfd[1], STDOUT_FILENO);
-			close(pipfd[0]);
-			close(pipfd[1]);
-			ft_exec(inp);
-		}
-	}
-
-	int pid2;
-	pid2 = fork();
-	if (pid2 < 0)
-		put_error("Failed to fork pid2");
-	if (pid2 == 0)
-	{
-		/* Child Process 2 (right side)-> Save stdout to TARGET, i + 1 */
-		dup2(pipfd[0], STDOUT_FILENO);
-		close(pipfd[0]);
-		close(pipfd[1]);
-		
+			if (inp->cmd)
+				cmd_dispatch(inp);
+			else
+				ft_exec(inp);
 	}
 	close(pipfd[0]);
 	close(pipfd[1]);
 
 	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
 }
+
 void	redir_append_old(t_input *inp)
 {
 	int		i;
