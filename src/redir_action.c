@@ -45,7 +45,20 @@ void	redir_append(t_input *inp)
 {
 	int		pipfd[2];
 	int		pid1;
+	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
+	i = 0;
+	while (i < inp->argc)
+	{
+		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
+		{
+			if (!inp->argv[i + 1])
+				put_error("syntax error near unexpected token `newline'");
+			break ;
+		}
+		else
+			i++;
+	}
 	if (pipe(pipfd) == -1)
 		put_error("Redir append pipfd error");
 	pid1 = fork();
@@ -59,7 +72,15 @@ void	redir_append(t_input *inp)
 		** on the right, check everything on LEFT for builtin CMD
 		** if builtin cmd run it, if not run EXEC
 		*/
+		dup2(pipfd[1], STDOUT_FILENO);
+		close(pipfd[0]);
+		close(pipfd[1]);
+		if (inp->cmd)
+			cmd_dispatch(inp);
+
 	}
+
+	waitpid(pid1, NULL, 0);
 }
 void	redir_append_old(t_input *inp)
 {
