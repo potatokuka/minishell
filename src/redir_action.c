@@ -101,7 +101,6 @@ void	redir_append_old(t_input *inp)
 	i = 0;
 	cpid = fork();
 	printf("inside of REDIR APPEND\n");
-	if ()
 	while (inp->argv[i])
 	{
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
