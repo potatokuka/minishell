@@ -30,7 +30,38 @@
 ** target file on the right
 */
 
+/*
+** fork to preserve main process, on child process dup2 stdout to the FD of
+** target file, check for builtin cmds, if there execute them as normal,
+** if they are not there, send to ft_exec
+*/
+
+/*
+** pipe everything existing to the left of the cmd and read it into the 
+** target to the right
+*/
+
 void	redir_append(t_input *inp)
+{
+	int		pipfd[2];
+	int		pid1;
+// MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
+	if (pipe(pipfd) == -1)
+		put_error("Redir append pipfd error");
+	pid1 = fork();
+	if (pid1 < 0)
+		put_error("Redir append fork error");
+	if (pid1 == 0)
+	{
+		/* CHILD PROCESS 1 (LEFT SIDE)
+		** ----------------------------- 
+		** find '>>' check to make sure there is anything to RIGHT 
+		** on the right, check everything on LEFT for builtin CMD
+		** if builtin cmd run it, if not run EXEC
+		*/
+	}
+}
+void	redir_append_old(t_input *inp)
 {
 	int		i;
 	int		fd;
@@ -42,6 +73,7 @@ void	redir_append(t_input *inp)
 	i = 0;
 	cpid = fork();
 	printf("inside of REDIR APPEND\n");
+	if ()
 	while (inp->argv[i])
 	{
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
