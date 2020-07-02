@@ -84,6 +84,7 @@ typedef struct		s_input
 	char	*cmd;
 	char	**argv;
 	int		argc;
+	int		pipe_count;
 	t_list	*arg_lst;
 	char	**envp;
 	t_var	*env;
