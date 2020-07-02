@@ -2,4 +2,10 @@ ECHO -------------
 this >> that.txt
 ECHO -------------
 this >> that.txt
+[1;34m>>: [0mECHO -------------
+crazy 
+ECHO -------------
+crazy 
+[1;34m>>: [0mECHO -------------
+small dick 
 [1;34m>>: [0m
