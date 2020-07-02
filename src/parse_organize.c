@@ -12,6 +12,30 @@
 
 #include "minishell.h"
 
+void	print_cur_cmd(t_input *inp)
+{
+	int		i;
+
+	i = 0;
+	printf("-- PRINT CUR CMD STRUCT --\n");
+	if (inp->cmd->builtin)
+		printf("Builtin_%s\n", inp->cmd->builtin);
+	if (inp->cmd->pipe)
+		printf("Pipe_%s\n", inp->cmd->pipe);
+	if (inp->cmd->tar_file)
+		printf("Tar File_%s\n", inp->cmd->tar_file);
+	if (inp->cmd->argc)
+		printf("Argc_%d\n", inp->cmd->argc);
+	if (inp->cmd->argv)
+	{
+		while (i < argc)
+		{
+			printf("ARGV_%s\n",inp->cmd->argv[i]);
+			i++;
+		}
+	}
+}
+
 void	ft_save_redir(t_input *inp, int count)
 {
 	int		i;
@@ -33,9 +57,13 @@ void	ft_save_redir(t_input *inp, int count)
 			break ;
 		}
 		else
+		{
+			inp->cmd->argc += 1;
 			inp->cmd->argv[i] = ft_strdup(inp->argv[i]);
+		}
 		i++;
 	}
+	print_cur_cmd(inp);
 	inp->cmd = inp->cmd->next;
 }
 
