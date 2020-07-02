@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/02 16:53:14 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/02 22:39:51 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_redir
 	int				**pos;
 }					t_redir;
 
-typedef struct		s_cmd
+typedef struct		s_comd
 {
 	char			*builtin;
 	char			**argv;
@@ -68,7 +68,7 @@ typedef struct		s_cmd
 	int				argc;
 	int				pipfd[2];
 	struct s_cmd	*next;
-}					t_cmd;
+}					t_comd;
 
 typedef struct		s_var
 {
@@ -88,7 +88,7 @@ typedef struct		s_input
 	t_list	*arg_lst;
 	char	**envp;
 	t_var	*env;
-	t_cmd	*cmd;
+	t_comd	*comd;
 	char	**redirs;
 }			t_input;
 
