@@ -30,12 +30,13 @@ void	ft_save_redir(t_input *inp, int count)
 				put_error("no newline found save redir");
 			inp->cmd->pipe = ft_strdup(inp->argv[i]);
 			inp->cmd->tar_file = ft_strdup(inp->argv[i + 1]);
-			return ;
+			break ;
 		}
 		else
 			inp->cmd->argv[i] = ft_strdup(inp->argv[i]);
 		i++;
 	}
+	inp->cmd = inp->cmd->next;
 }
 
 void	ft_organize_inp(t_input *inp)
