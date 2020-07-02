@@ -84,7 +84,7 @@ void	redir_append(t_input *inp)
 		if (inp->cmd)
 		{
 			cmd_dispatch(inp);
-			exit (1);
+			exit(1);
 		}
 		/* else */
 		/* 	ft_exec(inp); */

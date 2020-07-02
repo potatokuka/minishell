@@ -59,6 +59,17 @@ typedef struct		s_redir
 	int				**pos;
 }					t_redir;
 
+typedef struct		s_cmd
+{
+	char			*builtin;
+	char			**argv;
+	char			*pipe;
+	char			*tar_file;
+	int				argc;
+	int				pipfd[2];
+	struct s_cmd	*next;
+}					t_cmd;
+
 typedef struct		s_var
 {
 	char			*name;
@@ -76,6 +87,7 @@ typedef struct		s_input
 	t_list	*arg_lst;
 	char	**envp;
 	t_var	*env;
+	t_cmd	*cmd;
 	char	**redirs;
 }			t_input;
 

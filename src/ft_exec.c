@@ -125,12 +125,13 @@ void	ft_exec(t_input *inp)
 	printf("pathname:%s\n", pathname);
 	pid = fork();
 	if (pid == -1)
-		put_error(strerror(errno));
+		put_error("pid 1");
 	else if (pid > 0)
 		waitpid(pid, &status, 0);
 	else
 	{
-		execve(pathname, inp->argv, inp->envp);
-		put_error(strerror(errno));
+		printf("excve pathname_%s\n", pathname);
+		if (execve(pathname, inp->argv, inp->envp) == -1)
+			put_error("execve 1");
 	}
 }
