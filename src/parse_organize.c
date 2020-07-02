@@ -12,6 +12,31 @@
 
 #include "minishell.h"
 
+void	ft_save_redir(t_input *inp, int count)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = count;
+	inp->cmd->argv = (char **)ft_calloc(sizeof(char *), count);
+	while (i < count)
+	{
+		if (is_cmd(inp->argv[i]))
+			inp->cmd->builtin = ft_strdup(inp->argv[i])
+		else if (inp->argv[i][0] == '>' || inp->argv[i][0] == '<')
+		{
+			if (!inp->argv[i + 1])
+				put_error("no newline found save redir");
+			inp->cmd->pipe = ft_strdup(inp->argv[i]);
+			inp->cmd->tar_file = ft_strdup(inp->argv[i + 1]);
+			return ;
+		}
+		else
+			inp->cmd->argv[i] = ft_strdup(inp->argv[i]);
+		i++;
+	}
+}
 
 void	ft_organize_inp(t_input *inp)
 {
