@@ -77,18 +77,19 @@ void	redir_append(t_input *inp)
 		int file = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);
 		if (file < 0)
 			put_error("Error with File in Redir Append");
-			dup2(file, STDOUT_FILENO);	
-			close(pipfd[0]);
-			close(pipfd[1]);
-			close(file);
-			if (inp->cmd)
-				cmd_dispatch(inp);
-			else
-				ft_exec(inp);
+		dup2(file, STDOUT_FILENO);	
+		close(pipfd[0]);
+		close(pipfd[1]);
+		close(file);
+		/* if (inp->cmd) */
+		/* 	cmd_dispatch(inp); */
+		/* else */
+		/* 	ft_exec(inp); */
 	}
 	close(pipfd[0]);
 	close(pipfd[1]);
 
+	/* this is not stopping after print */
 	waitpid(pid1, NULL, 0);
 }
 

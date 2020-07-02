@@ -29,13 +29,11 @@ void		print_flags(char **flags, int count)
 	int	i;
 
 	i = 0;
-	perror("seg check 4");
 	while (i < count)
 	{
 		printf("flags= %d %s\n", i, flags[i]);
 		i++;
 	}
-	perror("seg check 5");
 	return ;
 }
 
@@ -47,7 +45,6 @@ char		**save_redir(char **argv, int flags)
 
 	i = 0;
 	x = 0;
-	printf("flags = %d\n", flags);
 	redir = (char **)ft_calloc(sizeof(char *), flags);
 	while (x < flags)
 	{
@@ -61,7 +58,6 @@ char		**save_redir(char **argv, int flags)
 		else
 			i++;
 	}
-	perror("seg check 3");
 	return (redir);
 }
 
@@ -89,13 +85,8 @@ void		redir_init(t_input *inp)
 	}
 	if (flags)
 	{
-		printf("early flag check %d\n", flags);
 		inp->redirs = save_redir(inp->argv, flags);
-		perror("seg check 2");
 		print_flags(inp->redirs, flags);
-		perror("seg check 6");
 	}
-	/* -- seg fault above this -- */
-	perror("seg check 1");
 	return ;
 }
