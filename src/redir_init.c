@@ -4,6 +4,8 @@
 
 static int	check_redir(char *str)
 {
+	if (!str)
+		return (0);
 	if (ft_strlen(str) == 2)
 	{
 		if (str[0] == '>' && str[1] == '>')
