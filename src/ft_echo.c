@@ -26,6 +26,11 @@ void	ft_echo(t_input *inp)
 	printf("ECHO -------------\n");
 	while (i < inp->argc)
 	{
+		if (inp->argv[i][0] == '<' || inp->argv[i][0] == '>')
+		{
+			printf("\n");
+			return ;			
+		}
 		printf("%s", inp->argv[i]);
 		if ((inp->argc - i) > 1)
 			printf(" ");

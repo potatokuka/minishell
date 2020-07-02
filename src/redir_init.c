@@ -24,13 +24,13 @@ static int	check_redir(char *str)
 		return (0);
 }
 
-void		print_flags(char **flags)
+void		print_flags(char **flags, int count)
 {
 	int	i;
 
 	i = 0;
 	perror("seg check 4");
-	while (flags[i])
+	while (i < count)
 	{
 		printf("flags= %d %s\n", i, flags[i]);
 		i++;
@@ -92,7 +92,7 @@ void		redir_init(t_input *inp)
 		printf("early flag check %d\n", flags);
 		inp->redirs = save_redir(inp->argv, flags);
 		perror("seg check 2");
-		print_flags(inp->redirs);
+		print_flags(inp->redirs, flags);
 		perror("seg check 6");
 	}
 	/* -- seg fault above this -- */
