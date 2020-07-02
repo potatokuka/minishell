@@ -87,6 +87,40 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 }
 
 /*
+** check the pipe TYPE and save it, if REDIR type, save target file and
+** move pointer forward ALSO MOVE INTO CMD->NEXT
+*/
+
+char	*ft_save_pipe(t_input *inp, char *trim, int start)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (trim[start] == '|' || trim[start] == ';')
+	{
+		inp->cmd->pipe = ft_strldup(trim[start], 1);
+		trim = trim + (start + 1);
+		return (trim);
+	}
+	else if (trim[start + 1] && trim[start] == '>' && trim[start + 1] == '>')
+	{
+		inp->cmd->pipe = ft_strldup(trim, 2);
+		trim = del_leading_space(trim);
+		while (trim[i] && trim[i] != ' ' && trim[i] != '\0')
+		{
+			if (trim[i] == D_QOTE || trim[i] == S_QOTE)
+				trim = ft_save_quote(inp, (trim + 1), i, trim[i]);
+			else
+				i++;
+		}
+		inp->cmd->tar_file = ft_strldup(trim, i);
+	}
+	trim = trim + (i + 1);
+	return (trim);
+}
+
+/*
 ** check starting pos, see what the char is there Quote or Dquote
 ** save from +1 of start until next occurence of Quote
 */
@@ -136,6 +170,9 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
 		else if (trimmed[i] == '$')
 			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
+		/* else if (trimmed[i] == '>' || trimmed[i] == '>' || trimmed[i] == ';' */
+		/* 		|| trimmed[i] == '|') */
+		/* 	trimmed = ft_save_pipe(inp, trimmed, i); */
 		else
 			i++;
 	}
@@ -144,7 +181,6 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 		put_error("Error in arguement parsing");
 	if (*str)
 		lst_new_back(&inp->arg_lst, str);
-	run_time++;
 	trimmed = trimmed + i + 1;
 	if (*trimmed)
 		parse_args(inp, trimmed, run_time);

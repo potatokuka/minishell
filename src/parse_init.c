@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 18:57:52 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/02 16:55:20 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parse_input(t_input *inp, char *res)
 	char	*trimmed;
 
 	trimmed = del_leading_space(res);
-	trimmed = parse_cmd(inp, trimmed);
+	// trimmed = parse_cmd(inp, trimmed);
 	if (trimmed)
 		parse_args(inp, trimmed, 0);
 	split_arg_lst(inp);
@@ -37,5 +37,6 @@ void	parse_init(t_input *inp)
 	parse_input(inp, res);
 	free(res);
 	free_list(inp->arg_lst, &free);
+	parse_organize(inp);
 	print_vars(inp);
 }
