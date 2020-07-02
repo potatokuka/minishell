@@ -36,58 +36,60 @@ void	print_cur_cmd(t_input *inp)
 	}
 }
 
-void	ft_save_redir(t_input *inp, int count)
+int		drop_string(t_input *inp, int i)
+{
+	if (inp->argv[i])
+		free(inp->argv[i]);
+	inp->argv[i] = NULL;
+	return (0);
+}
+
+/* JUST FUCKING PARSE UNtIL A DELEMETER JUST FUCKING DONT BE A BITCH */
+void	re_organize(t_input *inp)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	j = count;
-	inp->cmd->argv = (char **)ft_calloc(sizeof(char *), count);
-	while (i < count)
+	j = 0;
+	while (i < inp->argc)
 	{
 		if (is_cmd(inp->argv[i]))
-			inp->cmd->builtin = ft_strdup(inp->argv[i])
-		else if (inp->argv[i][0] == '>' || inp->argv[i][0] == '<')
+		{
+			inp->cmd->builtin = ft_strdup(inp->argv[i]);
+			inp->argc -= 1;
+			drop_string(inp, i);
+		}
+		else if (inp->argv[i][0] == '|' || inp->argv[i][0] == ';')
+		{
+			inp->cmd->pipe = ft_strdup(inp->argv[i]);
+			inp->argc -= 1;
+			drop_string(inp, i);
+			inp->cmd = inp->cmd->next;
+			j = 0;
+		}
+		else if (inp->argv[i][0] == '<' || inp->argv[i][0] == '>')
 		{
 			if (!inp->argv[i + 1])
-				put_error("no newline found save redir");
+				put_error("could not find newline");
 			inp->cmd->pipe = ft_strdup(inp->argv[i]);
+			inp->argc -= 1;
 			inp->cmd->tar_file = ft_strdup(inp->argv[i + 1]);
-			break ;
+			drop_string(inp, i);
+			drop_string(inp, i + 1);
+			inp->cmd = inp->cmd->next;
+			j = 0;
+			i += 1;
 		}
 		else
 		{
+			inp->cmd->argv[j] = ft_strdup(inp->argv[i]);
 			inp->cmd->argc += 1;
-			inp->cmd->argv[i] = ft_strdup(inp->argv[i]);
+			inp->argc -= 1;
+			drop_string(inp, i);
 		}
 		i++;
 	}
-	print_cur_cmd(inp);
-	inp->cmd = inp->cmd->next;
-}
-
-void	ft_organize_inp(t_input *inp)
-{
-	int		count;
-	int		j;
-
-	count = 0;
-	j = 0;
-	while (count < inp->pipe_count)
-	{
-		if (inp->argv[i][0] == ';' || inp->argv[i][0] == '|' || inp->argv[i][0] == '>'
-				|| inp->argv[i][0] == '<')
-		{
-			if (inp->argv[i][0] == '>' || inp->argv[i][0] == '<')
-				ft_save_redir(inp, i);
-			inp->pipe_count -= 1;
-			i++;
-		}
-		else
-			i++;
-	}
-
 }
 
 /*
@@ -97,26 +99,8 @@ void	ft_organize_inp(t_input *inp)
 
 void	parse_organize(t_input *inp)
 {
-	int		i;
-	int		j;
-	int		flag;
-
-	i = 0;
-	j = 0;
-	flag = 0;
+	re_organize(t_input);
 	// count through for a pipe store if found check argv for a builtin
 	// save the builtin, and the rest of the argv UNTIL the pipe to the struct
 	// if REDIR save NEXT argv to tar_file, imp->cmd->next
-	while (i < inp->argc)
-	{
-		if (inp->argv[i][0] == ';' || inp->argv[i][0] == '|' || inp->argv[i][0] == '>'
-				|| inp->argv[i][0] == '<')
-		{
-			inp->pipe_count += 1;
-			i++;
-		}
-		else
-			i++;
-	}
-	ft_organize_inp(inp);
 }
