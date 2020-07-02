@@ -1,0 +1,5 @@
+ECHO -------------
+this >> that.txt
+ECHO -------------
+this >> that.txt
+[1;34m>>: [0m

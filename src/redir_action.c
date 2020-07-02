@@ -30,7 +30,69 @@
 ** target file on the right
 */
 
+/*
+** fork to preserve main process, on child process dup2 stdout to the FD of
+** target file, check for builtin cmds, if there execute them as normal,
+** if they are not there, send to ft_exec
+*/
+
+/*
+** pipe everything existing to the left of the cmd and read it into the 
+** target to the right
+*/
+
 void	redir_append(t_input *inp)
+{
+	int		pipfd[2];
+	int		pid1;
+	int		i;
+// MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
+	i = 0;
+	perror("here?");
+	while (i < inp->argc)
+	{
+		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
+		{
+			if (!inp->argv[i + 1])
+				put_error("syntax error near unexpected token `newline'");
+			break ;
+		}
+		else
+			i++;
+	}
+	if (pipe(pipfd) == -1)
+		put_error("Redir append pipfd error");
+	pid1 = fork();
+	if (pid1 < 0)
+		put_error("Redir append fork error");
+	if (pid1 == 0)
+	{
+		/* CHILD PROCESS 1 (LEFT SIDE)
+		** ----------------------------- 
+		** find '>>' check to make sure there is anything to RIGHT 
+		** on the right, check everything on LEFT for builtin CMD
+		** if builtin cmd run it, if not run EXEC
+		*/
+		/* ------------------------------------- */
+		int file = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);
+		if (file < 0)
+			put_error("Error with File in Redir Append");
+			dup2(file, STDOUT_FILENO);	
+			close(pipfd[0]);
+			close(pipfd[1]);
+			close(file);
+			if (inp->cmd)
+				cmd_dispatch(inp);
+			else
+				ft_exec(inp);
+	}
+	close(pipfd[0]);
+	close(pipfd[1]);
+
+	waitpid(pid1, NULL, 0);
+}
+
+void	redir_append_old(t_input *inp)
 {
 	int		i;
 	int		fd;
