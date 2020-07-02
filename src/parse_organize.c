@@ -51,9 +51,7 @@ void	ft_organize_inp(t_input *inp)
 				|| inp->argv[i][0] == '<')
 		{
 			if (inp->argv[i][0] == '>' || inp->argv[i][0] == '<')
-			{
 				ft_save_redir(inp, i);
-			}
 			inp->pipe_count -= 1;
 			i++;
 		}
