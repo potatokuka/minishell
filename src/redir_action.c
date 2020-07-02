@@ -48,6 +48,7 @@ void	redir_append(t_input *inp)
 	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	i = 0;
+	perror("here?");
 	while (i < inp->argc)
 	{
 		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
@@ -77,6 +78,8 @@ void	redir_append(t_input *inp)
 		if (file < 0)
 			put_error("Error with File in Redir Append");
 			dup2(file, STDOUT_FILENO);	
+			close(pipfd[0]);
+			close(pipfd[1]);
 			close(file);
 			if (inp->cmd)
 				cmd_dispatch(inp);
