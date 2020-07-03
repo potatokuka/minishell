@@ -6,108 +6,20 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 18:07:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/03 20:51:56 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_comd_full(t_input *inp)
+// static t_cmd	*save_in_pipe(t_input *inp, t_cmd *new, int i)
+
+static t_cmd	*split_init(t_input *inp)
 {
-	t_comd	*comd;
+	t_cmd	*new;
 	int		i;
 
-	i = 0;
-	comd = inp->comd;
-	while (comd)
-	{
-		printf("-- PRINT CUR CMD STRUCT --\n");
-		if (comd->builtin)
-			printf("Builtin_%s\n", comd->builtin);
-		if (comd->pipe)
-			printf("Pipe_%s\n", comd->pipe);
-		if (comd->tar_file)
-			printf("Tar File_%s\n", comd->tar_file);
-		if (comd->argc)
-			printf("Argc_%d\n", comd->argc);
-		if (comd->argv)
-		{
-			i = 0;
-			while (i < comd->argc)
-			{
-				printf("ARGV_%s\n",comd->argv[i]);
-				i++;
-			}
-		}
-		comd = comd->next;
-	}
-}
-
-void	print_cur_cmd(t_comd *comd)
-{
-	int		i;
-
-	i = 0;
-	printf("-- PRINT CUR CMD STRUCT --\n");
-	if (comd->builtin)
-		printf("Builtin_%s\n", comd->builtin);
-	if (comd->pipe)
-		printf("Pipe_%s\n", comd->pipe);
-	if (comd->tar_file)
-		printf("Tar File_%s\n", comd->tar_file);
-	if (comd->argc)
-		printf("Argc_%d\n", comd->argc);
-	if (comd->argv)
-	{
-		while (i < comd->argc)
-		{
-			printf("ARGV[%d]_%s\n", i, comd->argv[i]);
-			i++;
-		}
-	}
-}
-
-int		drop_string(t_input *inp, int i)
-{
-	if (inp->argv[i])
-		free(inp->argv[i]);
-	inp->argv[i] = NULL;
-	return (0);
-}
-
-/* JUST FUCKING PARSE UNtIL A DELEMETER JUST FUCKING DONT BE A BITCH */
-// TODO How to deal with dynamically allocation memory for the 2d array
-// TODO is it possible to do it without the linked list?
-
-int				clear_comd(t_comd *comd, void(*del)(void *))
-{
-	t_comd	*delete;
-
-	while (comd)
-	{
-		delete = comd;
-		comd = comd->next;
-		if (delete->builtin)
-			del(delete->builtin);
-		if (delete->pipe)
-			del(delete->pipe);
-		if (delete->tar_file)
-			del(delete->tar_file);
-		if (delete->argv)
-		{
-			fre_array(delete->argv);
-			del(delete->argv);
-		}
-	}
-	return (0);
-}
-
-static t_comd	*split_init(t_input *inp)
-{
-	t_comd	*new;
-	int		i;
-
-	new = ft_calloc(sizeof(t_comd), 1);
+	new = ft_calloc(sizeof(t_cmd), 1);
 	i = 0;
 	if (!new)
 		return (NULL);
@@ -148,15 +60,12 @@ static t_comd	*split_init(t_input *inp)
 		else
 		{
 			lst_new_back(&new->arr_list, ft_strdup(inp->argv[i]));
-			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
 			new->argc += 1;
 			inp->argc -= 1;
-			inp->org_argc += 1;
 			drop_string(inp, i);
 		}
 		i++;
 	}
-	/* inp->org_argc += i; */
 	if (new->arr_list && !new->pipe)
 		new->argv = split_arg_lst(new->arr_list);
 	new->next = NULL;
@@ -164,14 +73,14 @@ static t_comd	*split_init(t_input *inp)
 	return (new);
 }
 
-static int	comd_head_init(t_input *inp, char **argv)
+static int	cmd_head_init(t_input *inp, char **argv)
 {
-	inp->comd = NULL;
+	inp->cmd = NULL;
 	if (!argv || !argv[0])
 		return (-1);
-	inp->comd = split_init(inp);
-	if (!inp->comd)
-		return (clear_comd(inp->comd, &free));
+	inp->cmd = split_init(inp);
+	if (!inp->cmd)
+		return (clear_cmd(inp->cmd, &free));
 	return (-1);
 }
 
@@ -182,28 +91,25 @@ static int	comd_head_init(t_input *inp, char **argv)
 
 int	parse_organize(t_input *inp)
 {
-	t_comd	*comd;
+	t_cmd	*cmd;
 	int		i;
 	int		n;
 
-	i = comd_head_init(inp, inp->argv);
+	i = cmd_head_init(inp, inp->argv);
 	n = 0;
 	if (i != -1)
 		return (i);
 	i = 1;
-	comd = inp->comd;
-	/* print_cur_cmd(comd); */
+	cmd = inp->cmd;
 	while (inp->argc > 0)
 	{
 		n++;
-		comd->next = split_init(inp);
-		if (!comd->next)
-			return (clear_comd(inp->comd, &free));
-		comd = comd->next;
-		/* print_cur_cmd(comd); */
-		inp->org_argc += 1;
+		cmd->next = split_init(inp);
+		if (!cmd->next)
+			return (clear_cmd(inp->cmd, &free));
+		cmd = cmd->next;
 	}
-	print_comd_full(inp);
+	print_cmd_full(inp);
 	return (0);
 	// count through for a pipe store if found check argv for a builtin
 	// save the builtin, and the rest of the argv UNTIL the pipe to the struct

@@ -52,6 +52,6 @@ void	print_args(t_input *inp)
 
 void	print_vars(t_input *inp)
 {
-	ft_printf("CMD = %s\n", inp->cmd);
+	/* ft_printf("CMD = %s\n", inp->cmd); */
 	print_args(inp);
 }

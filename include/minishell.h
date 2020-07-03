@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 12:37:35 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 20:42:33 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_redir
 	int				**pos;
 }					t_redir;
 
-typedef struct		s_comd
+typedef struct		s_cmd
 {
 	char			*builtin;
 	char			**argv;
@@ -68,8 +68,8 @@ typedef struct		s_comd
 	int				argc;
 	int				pipfd[2];
 	t_list			*arr_list;
-	struct s_comd	*next;
-}					t_comd;
+	struct s_cmd	*next;
+}					t_cmd;
 
 typedef struct		s_var
 {
@@ -82,15 +82,12 @@ typedef struct		s_var
 /* should put this struct into another one later, because it's just input, but im lazy rn */
 typedef struct		s_input
 {
-	char	*cmd;
 	char	**argv;
 	int		argc;
-	int		org_argc;
-	int		pipe_count;
 	t_list	*arg_lst;
 	char	**envp;
 	t_var	*env;
-	t_comd	*comd;
+	t_cmd	*cmd;
 	char	**redirs;
 }			t_input;
 
@@ -121,6 +118,10 @@ void	parse_args(t_input *inp, char *trimmed, int run_time);
 void	repl_env_vars(t_input *inp);
 
 int		parse_organize(t_input *inp);
+int		clear_cmd(t_cmd *cmd, void(*del)(void *));
+void	print_cmd_full(t_input *inp);
+void	print_cur_cmd(t_cmd *cmd);
+int		drop_string(t_input *inp, int i);
 
 /*
 ** BUILT-INS

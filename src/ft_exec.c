@@ -115,10 +115,10 @@ void	ft_exec(t_input *inp)
 	}
 	else
 	{
-		pathname = get_env_path_exec(inp->cmd, inp->env);
+		pathname = get_env_path_exec(inp->cmd->builtin, inp->env);
 		if (!pathname)
 		{
-			printf("%s: command not found\n", inp->cmd);
+			printf("%s: command not found\n", inp->cmd->builtin);
 			return ;
 		}
 	}

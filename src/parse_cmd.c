@@ -61,17 +61,3 @@ int		is_cmd(char *cmd)
 ** Prepares trimmed for use in ARG
 */
 
-char	*parse_cmd(t_input *inp, char *trimmed)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isalpha(trimmed[i]))//TODO fix this so input a.out isnt cmd = a arg = .out
-		i++;
-	inp->cmd = ft_strldup(trimmed, i);
-	if (!inp->cmd)
-		put_error("Invalid Command Given");
-	if (is_cmd(inp->cmd))
-		trimmed = trimmed + i;
-	return (trimmed);
-}
