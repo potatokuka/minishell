@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 18:09:24 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 18:14:06 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ static t_comd	*split_init(t_input *inp)
 		return (NULL);
 	// TODO run the orgainze until it finds delimiter
 	printf("SPLIT INIT FIRST ORGC %d\n", inp->org_argc);
-	while (inp->org_argc <= inp->argc)
+	while (inp->org_argc < inp->argc)
 	{
 		if (is_cmd(inp->argv[i]))
 		{
@@ -212,17 +212,19 @@ int	parse_organize(t_input *inp)
 	comd = inp->comd;
 	print_cur_cmd(comd);
 	printf(" *** org argc %d inp argc %d\n", inp->org_argc, inp->argc);
-	while (inp->org_argc <= inp->argc)
+	while (inp->org_argc < inp->argc)
 	{
 		printf("counter %d\n", n);
 		n++;
 		comd->next = split_init(inp);
 		if (!comd->next)
 			return (clear_comd(inp->comd, &free));
+		perror("1");
 		comd = comd->next;
 		print_cur_cmd(comd);
 		inp->org_argc += 1;
 	}
+	inp->comd = comd;
 	print_comd_full(inp);
 	return (0);
 	// count through for a pipe store if found check argv for a builtin
