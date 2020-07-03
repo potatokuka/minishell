@@ -6,13 +6,39 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 20:51:56 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 21:05:28 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static t_cmd	*save_in_pipe(t_input *inp, t_cmd *new, int i)
+static t_cmd	*save_in_flag(t_input *inp, t_cmd *new, int i)
+{
+	if (!inp->argv[i + 1])
+			put_error("could not find newline");
+	new->pipe = ft_strdup(inp->argv[i]);
+	new->tar_file = ft_strdup(inp->argv[i + 1]);
+	drop_string(inp, i);
+	i += 1;
+	drop_string(inp, i);
+	inp->argc -= 2;
+	new->argv = split_arg_lst(new->arr_list);
+	new->next = NULL;
+	inp->argv = inp->argv + i + 1;
+	return (new);
+}
+
+static t_cmd	*save_in_pipe(t_input *inp, t_cmd *new, int i)
+{
+	new->pipe = ft_strdup(inp->argv[i]);
+	drop_string(inp, i);
+	print_list(new->arr_list);
+	new->argv = split_arg_lst(new->arr_list);
+	inp->argc -= 1;
+	new->next = NULL;
+	inp->argv = inp->argv + i + 1;
+	return (new);
+}
 
 static t_cmd	*split_init(t_input *inp)
 {
@@ -33,28 +59,12 @@ static t_cmd	*split_init(t_input *inp)
 		}
 		else if (inp->argv[i][0] == '|' || inp->argv[i][0] == ';')
 		{
-			new->pipe = ft_strdup(inp->argv[i]);
-			drop_string(inp, i);
-			print_list(new->arr_list);
-			new->argv = split_arg_lst(new->arr_list);
-			inp->argc -= 1;
-			new->next = NULL;
-			inp->argv = inp->argv + i + 1;
+			new = save_in_pipe(inp, new, i);
 			return (new);
 		}
 		else if (inp->argv[i][0] == '<' || inp->argv[i][0] == '>')
 		{
-			if (!inp->argv[i + 1])
-				put_error("could not find newline");
-			new->pipe = ft_strdup(inp->argv[i]);
-			new->tar_file = ft_strdup(inp->argv[i + 1]);
-			drop_string(inp, i);
-			i += 1;
-			drop_string(inp, i);
-			inp->argc -= 2;
-			new->argv = split_arg_lst(new->arr_list);
-			new->next = NULL;
-			inp->argv = inp->argv + i + 1;
+			new = save_in_flag(inp, new, i);
 			return (new);
 		}
 		else
