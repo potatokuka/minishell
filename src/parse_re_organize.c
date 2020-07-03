@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 18:25:26 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 17:32:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ int		drop_string(t_input *inp, int i)
 int				clear_comd(t_comd *comd, void(*del)(void *))
 {
 	t_comd	*delete;
-	int		i;
 
-	i = 0;
 	while (comd)
 	{
 		delete = comd;
@@ -140,7 +138,7 @@ static t_comd	*split_init(t_input *inp)
 			drop_string(inp, i);
 			printf("Else if pipe\n");
 			print_list(new->arr_list);
-			new->argv = split_arg_lst(new->arr_list); 
+			new->argv = split_arg_lst(new->arr_list);
 			test_print_arr(new->argv, new->argc);
 			inp->argc -= 1;
 			new->next = NULL;
@@ -156,14 +154,14 @@ static t_comd	*split_init(t_input *inp)
 			i += 1;
 			drop_string(inp, i);
 			inp->argc -= 2;
-			new->argv = split_arg_lst(new->arr_list); 
+			new->argv = split_arg_lst(new->arr_list);
 			new->next = NULL;
 			return (new);
 		}
 		else
 		{
 			printf("adding to back %d_%s\n", i, inp->argv[i]);
-			lst_new_back(&new->arr_list, inp->argv[i]);
+			lst_new_back(&new->arr_list, ft_strdup(inp->argv[i]));
 			print_list(new->arr_list);
 			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
 			new->argc += 1;
