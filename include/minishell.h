@@ -85,6 +85,7 @@ typedef struct		s_input
 	char	*cmd;
 	char	**argv;
 	int		argc;
+	int		org_argc;
 	int		pipe_count;
 	t_list	*arg_lst;
 	char	**envp;
@@ -119,7 +120,7 @@ char	**split_arg_lst(t_list *to_copy);
 void	parse_args(t_input *inp, char *trimmed, int run_time);
 void	repl_env_vars(t_input *inp);
 
-void	parse_organize(t_input *inp);
+int		parse_organize(t_input *inp);
 
 /*
 ** BUILT-INS
