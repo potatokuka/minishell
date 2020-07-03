@@ -41,7 +41,6 @@ char	**split_arg_lst(t_list *to_copy)
 		/*tmp[x] = lst->content;*/ //TODO why not just give lst->content address to tmp[i], and set lst->content to null, then dont need str, tried just now but I got errors and im too lazy to see why
 		str = lst->content;
 		tmp[x] = ft_strdup_lib(str);
-		printf("tmp[%d]_%s\n", x, tmp[x]);
 		lst = lst->next;
 		x++;
 	}
