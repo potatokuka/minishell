@@ -134,12 +134,14 @@ static t_comd	*split_init(t_input *inp)
 			perror("seg 2");
 			inp->argc -= 1;
 			drop_string(inp, i);
+			i++;
 		}
 		else if (inp->argv[i][0] == '|' || inp->argv[i][0] == ';')
 		{
 			new->pipe = ft_strdup(inp->argv[i]);
 			inp->argc -= 1;
 			drop_string(inp, i);
+			printf("Else if pipe\n");
 			print_list(new->arr_list);
 			new->argv = split_arg_lst(new->arr_list); 
 			test_print_arr(new->argv, new->argc);
@@ -164,7 +166,7 @@ static t_comd	*split_init(t_input *inp)
 		}
 		else
 		{
-			printf("adding to back_%s\n", inp->argv[i]);
+			printf("adding to back %d_%s\n", i, inp->argv[i]);
 			lst_new_back(&new->arr_list, inp->argv[i]);
 			print_list(new->arr_list);
 			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
@@ -172,8 +174,9 @@ static t_comd	*split_init(t_input *inp)
 			inp->argc -= 1;
 			inp->org_argc += 1;
 			drop_string(inp, i);
+			i++;
 		}
-		i++;
+		/* i++; */
 	}
 	/* inp->org_argc += i; */
 	if (new->arr_list && !new->pipe)

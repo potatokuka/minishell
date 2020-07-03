@@ -32,6 +32,7 @@ char	**split_arg_lst(t_list *to_copy)
 	int		x;
 
 	x = 0;
+	printf("split arg list\n");
 	print_list(to_copy);
 	size_len = lst_size(to_copy);
 	/* inp->argc = size_len; */
