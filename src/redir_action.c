@@ -43,24 +43,24 @@
 
 void	redir_append(t_input *inp)
 {
-	int		pipfd[2];
 	int		pid1;
 	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	i = 0;
 	perror("here?");
-	while (i < inp->argc)
+	while (i < inp->cmd->argc)
 	{
-		if (ft_strncmp(inp->argv[i], ">>", 2) == 0)
+		if (ft_strncmp(inp->cmd->argv[i], ">>", 2) == 0)
 		{
-			if (!inp->argv[i + 1])
+			if (!inp->cmd->argv[i + 1])
 				put_error("syntax error near unexpected token `newline'");
 			break ;
 		}
 		else
 			i++;
 	}
-	if (pipe(pipfd) == -1)
+	perror("seg check 2");
+	if (pipe(inp->cmd->pipfd) == -1)
 		put_error("Redir append pipfd error");
 	pid1 = fork();
 	if (pid1 < 0)
@@ -74,14 +74,16 @@ void	redir_append(t_input *inp)
 		** if builtin cmd run it, if not run EXEC
 		*/
 		/* ------------------------------------- */
-		int file = open(inp->argv[i + 1], O_CREAT | O_APPEND | O_WRONLY, 0664);
+		perror("seg check");
+		printf("tar check_%s\n", inp->cmd->tar_file);
+		int file = open(inp->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0664);
 		if (file < 0)
 			put_error("Error with File in Redir Append");
 		dup2(file, STDOUT_FILENO);	
-		close(pipfd[0]);
-		close(pipfd[1]);
+		close(inp->cmd->pipfd[0]);
+		close(inp->cmd->pipfd[1]);
 		close(file);
-		if (inp->cmd)
+		if (inp->cmd->builtin)
 		{
 			cmd_dispatch(inp);
 			exit(1);
@@ -89,8 +91,8 @@ void	redir_append(t_input *inp)
 		/* else */
 		/* 	ft_exec(inp); */
 	}
-	close(pipfd[0]);
-	close(pipfd[1]);
+	close(inp->cmd->pipfd[0]);
+	close(inp->cmd->pipfd[1]);
 
 	/* this is not stopping after print */
 	waitpid(pid1, NULL, 0);
@@ -102,10 +104,10 @@ void	redir_dispatch(t_input *inp)
 
 	i = 0;
 	printf("INSIDE OF REDIR_DISPATCH\n");
-	if (inp->redirs)
+	if (inp->cmd->pipe)
 	{
-		printf("redirs[%d]= %s\n", i, inp->redirs[i]);
-		if (ft_strncmp(inp->redirs[i], ">>", 2) == 0)
+		printf("pipe =%s\n", inp->cmd->pipe);
+		if (ft_strncmp(inp->cmd->pipe, ">>", 2) == 0)
 			redir_append(inp);
 		/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
 		/* 	redir_std_input(inp); */
