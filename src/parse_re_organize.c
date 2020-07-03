@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 18:14:06 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 18:25:26 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ static t_comd	*split_init(t_input *inp)
 			new->builtin = ft_strdup(inp->argv[i]);
 			drop_string(inp, i);
 			inp->argc -= 1;
-			i++;
 		}
 		else if (inp->argv[i][0] == '|' || inp->argv[i][0] == ';')
 		{
@@ -170,9 +169,8 @@ static t_comd	*split_init(t_input *inp)
 			new->argc += 1;
 			inp->org_argc += 1;
 			drop_string(inp, i);
-			i++;
 		}
-		/* i++; */
+		i++;
 	}
 	/* inp->org_argc += i; */
 	if (new->arr_list && !new->pipe)
@@ -204,6 +202,7 @@ int	parse_organize(t_input *inp)
 	int		n;
 
 	i = comd_head_init(inp, inp->argv);
+	printf("OUT OF HEAD INIT\n");
 	n = 0;
 	if (i != -1)
 		return (i);

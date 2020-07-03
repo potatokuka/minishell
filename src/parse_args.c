@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 17:42:02 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 18:26:32 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ char	**split_arg_lst(t_list *to_copy)
 	int		x;
 
 	x = 0;
-	printf("split arg list\n");
-	print_list(to_copy);
 	size_len = lst_size(to_copy);
 	/* inp->argc = size_len; */
 	tmp = (char **)ft_calloc(sizeof(char *), size_len);
