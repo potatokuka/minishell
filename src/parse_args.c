@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 18:43:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/03 11:31:33 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** split arg_lst into argc argv for easier access
 */
 
-void	split_arg_lst(t_input *inp)
+char	**split_arg_lst(t_input *inp, t_list *to_copy)
 {
 	char	**tmp;
 	char	*str;
@@ -32,10 +32,10 @@ void	split_arg_lst(t_input *inp)
 	int		x;
 
 	x = 0;
-	size_len = lst_size(inp->arg_lst);
+	size_len = lst_size(to_copy);
 	inp->argc = size_len;
 	tmp = (char **)ft_calloc(sizeof(char *), size_len);
-	lst = inp->arg_lst;
+	lst = to_copy;
 	while (x < size_len)
 	{
 		/*tmp[x] = lst->content;*/ //TODO why not just give lst->content address to tmp[i], and set lst->content to null, then dont need str, tried just now but I got errors and im too lazy to see why
@@ -44,7 +44,7 @@ void	split_arg_lst(t_input *inp)
 		lst = lst->next;
 		x++;
 	}
-	inp->argv = tmp;
+	return (tmp);
 }
 
 int		ft_env_char(int c)
@@ -80,7 +80,10 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 			put_error("Error in arguement parsing");
 		printf("STR $ check =_%s_\n", str);
 		if (*str)
+		{
+			inp->argc += 1;
 			lst_new_back(&inp->arg_lst, str);
+		}
 	}
 	trimmed = trimmed + (i + 1);
 	return (trimmed);
@@ -91,34 +94,34 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 ** move pointer forward ALSO MOVE INTO CMD->NEXT
 */
 
-char	*ft_save_pipe(t_input *inp, char *trim, int start)
-{
-	char	*str;
-	int		i;
+// char	*ft_save_pipe(t_input *inp, char *trim, int start)
+// {
+// 	char	*str;
+// 	int		i;
 
-	i = 0;
-	if (trim[start] == '|' || trim[start] == ';')
-	{
-		inp->cmd->pipe = ft_strldup(trim[start], 1);
-		trim = trim + (start + 1);
-		return (trim);
-	}
-	else if (trim[start + 1] && trim[start] == '>' && trim[start + 1] == '>')
-	{
-		inp->cmd->pipe = ft_strldup(trim, 2);
-		trim = del_leading_space(trim);
-		while (trim[i] && trim[i] != ' ' && trim[i] != '\0')
-		{
-			if (trim[i] == D_QOTE || trim[i] == S_QOTE)
-				trim = ft_save_quote(inp, (trim + 1), i, trim[i]);
-			else
-				i++;
-		}
-		inp->cmd->tar_file = ft_strldup(trim, i);
-	}
-	trim = trim + (i + 1);
-	return (trim);
-}
+// 	i = 0;
+// 	if (trim[start] == '|' || trim[start] == ';')
+// 	{
+// 		inp->cmd->pipe = ft_strldup(trim[start], 1);
+// 		trim = trim + (start + 1);
+// 		return (trim);
+// 	}
+// 	else if (trim[start + 1] && trim[start] == '>' && trim[start + 1] == '>')
+// 	{
+// 		inp->cmd->pipe = ft_strldup(trim, 2);
+// 		trim = del_leading_space(trim);
+// 		while (trim[i] && trim[i] != ' ' && trim[i] != '\0')
+// 		{
+// 			if (trim[i] == D_QOTE || trim[i] == S_QOTE)
+// 				trim = ft_save_quote(inp, (trim + 1), i, trim[i]);
+// 			else
+// 				i++;
+// 		}
+// 		inp->cmd->tar_file = ft_strldup(trim, i);
+// 	}
+// 	trim = trim + (i + 1);
+// 	return (trim);
+// }
 
 /*
 ** check starting pos, see what the char is there Quote or Dquote
@@ -140,7 +143,10 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 	if (!str)
 		put_error("Error in arguement parsing");
 	if (*str)
+	{
+		inp->argc += 1;
 		lst_new_back(&inp->arg_lst, str);
+	}
 	trimmed = trimmed + (i + 1);
 	return (trimmed);
 }
@@ -180,7 +186,10 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	if (!str)
 		put_error("Error in arguement parsing");
 	if (*str)
+	{
+		inp->argc += 1;
 		lst_new_back(&inp->arg_lst, str);
+	}
 	trimmed = trimmed + i + 1;
 	if (*trimmed)
 		parse_args(inp, trimmed, run_time);

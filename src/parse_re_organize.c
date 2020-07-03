@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse_organize.c                                   :+:    :+:            */
+/*   parse_re_organize.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/02 22:43:42 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/02 22:51:40 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	re_organize(t_input *inp)
 			inp->comd->pipe = ft_strdup(inp->argv[i]);
 			inp->argc -= 1;
 			drop_string(inp, i);
+			inp->comd->argv = split_arg_lst(inp, inp->comd->arr_list); 
 			inp->comd = inp->comd->next;
 			j = 0;
 		}
@@ -79,19 +80,24 @@ void	re_organize(t_input *inp)
 			inp->comd->tar_file = ft_strdup(inp->argv[i + 1]);
 			drop_string(inp, i);
 			drop_string(inp, i + 1);
+			inp->comd->argv = split_arg_lst(inp, inp->comd->arr_list); 
 			inp->comd = inp->comd->next;
 			j = 0;
 			i += 1;
 		}
 		else
 		{
-			inp->comd->argv[j] = ft_strdup(inp->argv[i]);
+			lst_new_back(&inp->comd->arr_list, inp->argv[i]);
+			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
 			inp->comd->argc += 1;
 			inp->argc -= 1;
 			drop_string(inp, i);
 		}
 		i++;
 	}
+	if (inp->comd->arr_list && !inp->comd->pipe)
+		inp->comd->argv = split_arg_lst(inp, inp->comd->arr_list);
+
 }
 
 /*

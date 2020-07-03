@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/06/29 18:53:40 by averheij      ########   odam.nl          #
+#    Updated: 2020/07/02 22:51:32 by greed         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS			=	main.c\
 				redir_action.c\
 				ft_env.c\
 				parse_env.c\
-				parse_organize.c
+				parse_re_organize.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror -DNOLIST -g

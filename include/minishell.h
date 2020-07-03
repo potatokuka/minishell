@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/02 22:39:51 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 11:27:55 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct		s_comd
 	char			*tar_file;
 	int				argc;
 	int				pipfd[2];
+	t_list			*arr_list;
 	struct s_cmd	*next;
 }					t_comd;
 
@@ -114,7 +115,7 @@ char	*get_cmd(t_input *inp);
 char	*parse_cmd(t_input *inp, char *trimmed);
 char	*del_leading_space(char *res);
 void	parse_init(t_input *inp);
-void	split_arg_lst(t_input *inp);
+char	**split_arg_lst(t_input *inp, t_list *to_copy);
 void	parse_args(t_input *inp, char *trimmed, int run_time);
 void	repl_env_vars(t_input *inp);
 
