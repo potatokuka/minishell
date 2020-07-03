@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-void	test_print_arr(char **argv, int argc)
-{
-	int i;
-
-	i = 0;
-	printf("-- * TEST PRINT ARR * --\n");
-	while (i < argc)
-	{
-		printf("argv[%d]_%s\n", i, argv[i]);
-		i++;
-	}
-}
 void	print_comd_full(t_input *inp)
 {
 	t_comd	*comd;
@@ -44,6 +32,7 @@ void	print_comd_full(t_input *inp)
 			printf("Argc_%d\n",comd->argc);
 		if (comd->argv)
 		{
+			i = 0;
 			while (i < comd->argc)
 			{
 				printf("ARGV_%s\n",comd->argv[i]);
@@ -123,7 +112,6 @@ static t_comd	*split_init(t_input *inp)
 	if (!new)
 		return (NULL);
 	// TODO run the orgainze until it finds delimiter
-	printf("SPLIT INIT FIRST ORGC %d\n", inp->org_argc);
 	while (inp->argc > 0)
 	{
 		if (is_cmd(inp->argv[i]))
@@ -136,10 +124,8 @@ static t_comd	*split_init(t_input *inp)
 		{
 			new->pipe = ft_strdup(inp->argv[i]);
 			drop_string(inp, i);
-			printf("Else if pipe\n");
 			print_list(new->arr_list);
 			new->argv = split_arg_lst(new->arr_list);
-			test_print_arr(new->argv, new->argc);
 			inp->argc -= 1;
 			new->next = NULL;
 			inp->argv = inp->argv + i + 1;
@@ -162,9 +148,7 @@ static t_comd	*split_init(t_input *inp)
 		}
 		else
 		{
-			printf("adding to back %d_%s\n", i, inp->argv[i]);
 			lst_new_back(&new->arr_list, ft_strdup(inp->argv[i]));
-			print_list(new->arr_list);
 			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
 			new->argc += 1;
 			inp->argc -= 1;
@@ -204,25 +188,21 @@ int	parse_organize(t_input *inp)
 	int		n;
 
 	i = comd_head_init(inp, inp->argv);
-	printf("OUT OF HEAD INIT\n");
 	n = 0;
 	if (i != -1)
 		return (i);
 	i = 1;
-	printf("This moves, comd to imp->comd\n");
 	comd = inp->comd;
-	print_cur_cmd(comd);
-	printf(" *** org argc %d inp argc %d\n", inp->org_argc, inp->argc);
+	/* print_cur_cmd(comd); */
 	while (inp->argc > 0)
 	{
-		printf("counter %d\n", n);
 		n++;
 		comd->next = split_init(inp);
 		if (!comd->next)
 			return (clear_comd(inp->comd, &free));
 		perror("1");
 		comd = comd->next;
-		print_cur_cmd(comd);
+		/* print_cur_cmd(comd); */
 		inp->org_argc += 1;
 	}
 	inp->comd = comd;
