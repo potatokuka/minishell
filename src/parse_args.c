@@ -23,7 +23,7 @@
 ** split arg_lst into argc argv for easier access
 */
 
-char	**split_arg_lst(t_input *inp, t_list *to_copy)
+char	**split_arg_lst(t_list *to_copy)
 {
 	char	**tmp;
 	char	*str;
@@ -33,7 +33,7 @@ char	**split_arg_lst(t_input *inp, t_list *to_copy)
 
 	x = 0;
 	size_len = lst_size(to_copy);
-	inp->argc = size_len;
+	/* inp->argc = size_len; */
 	tmp = (char **)ft_calloc(sizeof(char *), size_len);
 	lst = to_copy;
 	while (x < size_len)

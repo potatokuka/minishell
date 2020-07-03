@@ -47,56 +47,60 @@ int		drop_string(t_input *inp, int i)
 /* JUST FUCKING PARSE UNtIL A DELEMETER JUST FUCKING DONT BE A BITCH */
 // TODO How to deal with dynamically allocation memory for the 2d array
 // TODO is it possible to do it without the linked list?
-void	re_organize(t_input *inp)
+t_comd		*re_organize(t_input *inp, t_comd *comd)
 {
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
+	printf("Argc = %d\nArgv[i]_%s\n", inp->argc, inp->argv[i]);
 	while (i < inp->argc)
 	{
 		if (is_cmd(inp->argv[i]))
 		{
-			inp->comd->builtin = ft_strdup(inp->argv[i]);
+			perror("seg 1");
+			comd->builtin = ft_strdup(inp->argv[i]);
+			perror("seg 2");
 			inp->argc -= 1;
 			drop_string(inp, i);
 		}
 		else if (inp->argv[i][0] == '|' || inp->argv[i][0] == ';')
 		{
-			inp->comd->pipe = ft_strdup(inp->argv[i]);
+			comd->pipe = ft_strdup(inp->argv[i]);
 			inp->argc -= 1;
 			drop_string(inp, i);
-			inp->comd->argv = split_arg_lst(inp, inp->comd->arr_list); 
-			inp->comd = inp->comd->next;
+			comd->argv = split_arg_lst(comd->arr_list); 
+			comd = inp->comd->next;
 			j = 0;
 		}
 		else if (inp->argv[i][0] == '<' || inp->argv[i][0] == '>')
 		{
 			if (!inp->argv[i + 1])
 				put_error("could not find newline");
-			inp->comd->pipe = ft_strdup(inp->argv[i]);
+			comd->pipe = ft_strdup(inp->argv[i]);
 			inp->argc -= 1;
-			inp->comd->tar_file = ft_strdup(inp->argv[i + 1]);
+			comd->tar_file = ft_strdup(inp->argv[i + 1]);
 			drop_string(inp, i);
 			drop_string(inp, i + 1);
-			inp->comd->argv = split_arg_lst(inp, inp->comd->arr_list); 
-			inp->comd = inp->comd->next;
+			comd->argv = split_arg_lst(comd->arr_list); 
+			comd = comd->next;
 			j = 0;
 			i += 1;
 		}
 		else
 		{
-			lst_new_back(&inp->comd->arr_list, inp->argv[i]);
+			lst_new_back(&comd->arr_list, inp->argv[i]);
 			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
-			inp->comd->argc += 1;
+			comd->argc += 1;
 			inp->argc -= 1;
 			drop_string(inp, i);
 		}
 		i++;
 	}
-	if (inp->comd->arr_list && !inp->comd->pipe)
-		inp->comd->argv = split_arg_lst(inp, inp->comd->arr_list);
+	if (comd->arr_list && !comd->pipe)
+		comd->argv = split_arg_lst(comd->arr_list);
+	return (comd);
 
 }
 
@@ -107,7 +111,10 @@ void	re_organize(t_input *inp)
 
 void	parse_organize(t_input *inp)
 {
-	re_organize(inp);
+	t_comd	*comd;
+
+	comd = inp->comd;
+	inp->comd = re_organize(inp, comd);
 	// count through for a pipe store if found check argv for a builtin
 	// save the builtin, and the rest of the argv UNTIL the pipe to the struct
 	// if REDIR save NEXT argv to tar_file, imp->cmd->next

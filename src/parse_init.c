@@ -24,7 +24,7 @@ void	parse_input(t_input *inp, char *res)
 	// trimmed = parse_cmd(inp, trimmed);
 	if (trimmed)
 		parse_args(inp, trimmed, 0);
-	inp->argv = split_arg_lst(inp, inp->arg_lst);
+	inp->argv = split_arg_lst(inp->arg_lst);
 	repl_env_vars(inp);
 }
 
