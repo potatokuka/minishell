@@ -24,15 +24,15 @@ void	ft_echo(t_input *inp)
 
 	i = 0;
 	printf("ECHO -------------\n");
-	while (i < inp->argc)
+	while (i < inp->cmd->argc)
 	{
-		if (inp->argv[i][0] == '<' || inp->argv[i][0] == '>')
+		if (inp->cmd->argv[i][0] == '<' || inp->cmd->argv[i][0] == '>')
 		{
 			printf("\n");
 			return ;			
 		}
-		printf("%s", inp->argv[i]);
-		if ((inp->argc - i) > 1)
+		printf("%s", inp->cmd->argv[i]);
+		if ((inp->cmd->argc - i) > 1)
 			printf(" ");
 		else
 			printf("\n");

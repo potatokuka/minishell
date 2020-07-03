@@ -102,16 +102,16 @@ void	ft_exec(t_input *inp)
 	int		status;
 
 	printf("EXEC -------------\n");
-	if (inp->argc && inp->argv[0][0] == '.')
+	if (inp->cmd->argc && inp->cmd->argv[0][0] == '.')
 	{
 		path = get_path();
 		pathname = ft_strjoin(path, inp->argv[0] + 1);
 		free(path);
 	}
-	else if (inp->argc && inp->argv[0][0] == '/')
+	else if (inp->cmd->argc && inp->cmd->argv[0][0] == '/')
 	{
-		pathname = inp->argv[0];
-		inp->argv[0] = ft_strrchr(inp->argv[0], '/');
+		pathname = inp->cmd->argv[0];
+		inp->cmd->argv[0] = ft_strrchr(inp->cmd->argv[0], '/');
 	}
 	else
 	{
@@ -131,7 +131,7 @@ void	ft_exec(t_input *inp)
 	else
 	{
 		printf("excve pathname_%s\n", pathname);
-		if (execve(pathname, inp->argv, inp->envp) == -1)
+		if (execve(pathname, inp->cmd->argv, inp->envp) == -1)
 			put_error("execve 1");
 	}
 }
