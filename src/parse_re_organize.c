@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 17:32:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/03 17:48:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ static t_comd	*split_init(t_input *inp)
 			test_print_arr(new->argv, new->argc);
 			inp->argc -= 1;
 			new->next = NULL;
+			inp->argv = inp->argv + i + 1;
 			return (new);
 		}
 		else if (inp->argv[i][0] == '<' || inp->argv[i][0] == '>')
@@ -156,6 +157,7 @@ static t_comd	*split_init(t_input *inp)
 			inp->argc -= 2;
 			new->argv = split_arg_lst(new->arr_list);
 			new->next = NULL;
+			inp->argv = inp->argv + i + 1;
 			return (new);
 		}
 		else
@@ -174,6 +176,7 @@ static t_comd	*split_init(t_input *inp)
 	if (new->arr_list && !new->pipe)
 		new->argv = split_arg_lst(new->arr_list);
 	new->next = NULL;
+	inp->argv = inp->argv + i;
 	return (new);
 }
 
