@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/07/02 22:51:32 by greed         ########   odam.nl          #
+#    Updated: 2020/07/03 17:45:45 by greed         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ $(NAME): $(OFILES)
 	@echo "$(WHITE)/-----		Compiling liblist	-----\\ $(RESET)"
 	@make -C $(LIBLIST_LOC)
 	@echo "$(WHITE)/-----	Compiling minishell		-----\\ $(RESET)"
-	$(CC) -o $(NAME) $(OFILES) $(LIBS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OFILES) $(LIBS)
 %.o: %.c
 	@gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 clean:

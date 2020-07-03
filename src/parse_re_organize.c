@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/02 22:51:40 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/03 18:09:24 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,27 +125,25 @@ static t_comd	*split_init(t_input *inp)
 	if (!new)
 		return (NULL);
 	// TODO run the orgainze until it finds delimiter
+	printf("SPLIT INIT FIRST ORGC %d\n", inp->org_argc);
 	while (inp->org_argc <= inp->argc)
 	{
 		if (is_cmd(inp->argv[i]))
 		{
-			perror("seg 1");
 			new->builtin = ft_strdup(inp->argv[i]);
-			perror("seg 2");
-			inp->argc -= 1;
 			drop_string(inp, i);
+			inp->argc -= 1;
 			i++;
 		}
 		else if (inp->argv[i][0] == '|' || inp->argv[i][0] == ';')
 		{
 			new->pipe = ft_strdup(inp->argv[i]);
-			inp->argc -= 1;
 			drop_string(inp, i);
 			printf("Else if pipe\n");
 			print_list(new->arr_list);
 			new->argv = split_arg_lst(new->arr_list); 
 			test_print_arr(new->argv, new->argc);
-			inp->org_argc += i;
+			inp->argc -= 1;
 			new->next = NULL;
 			return (new);
 		}
@@ -154,12 +152,11 @@ static t_comd	*split_init(t_input *inp)
 			if (!inp->argv[i + 1])
 				put_error("could not find newline");
 			new->pipe = ft_strdup(inp->argv[i]);
-			inp->argc -= 1;
 			new->tar_file = ft_strdup(inp->argv[i + 1]);
 			drop_string(inp, i);
 			i += 1;
 			drop_string(inp, i);
-			inp->org_argc += i;
+			inp->argc -= 2;
 			new->argv = split_arg_lst(new->arr_list); 
 			new->next = NULL;
 			return (new);
@@ -171,7 +168,6 @@ static t_comd	*split_init(t_input *inp)
 			print_list(new->arr_list);
 			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
 			new->argc += 1;
-			inp->argc -= 1;
 			inp->org_argc += 1;
 			drop_string(inp, i);
 			i++;
@@ -181,6 +177,7 @@ static t_comd	*split_init(t_input *inp)
 	/* inp->org_argc += i; */
 	if (new->arr_list && !new->pipe)
 		new->argv = split_arg_lst(new->arr_list);
+	new->next = NULL;
 	return (new);
 }
 
@@ -211,8 +208,10 @@ int	parse_organize(t_input *inp)
 	if (i != -1)
 		return (i);
 	i = 1;
+	printf("This moves, comd to imp->comd\n");
 	comd = inp->comd;
 	print_cur_cmd(comd);
+	printf(" *** org argc %d inp argc %d\n", inp->org_argc, inp->argc);
 	while (inp->org_argc <= inp->argc)
 	{
 		printf("counter %d\n", n);
