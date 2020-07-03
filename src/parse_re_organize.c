@@ -23,13 +23,13 @@ void	print_comd_full(t_input *inp)
 	{
 		printf("-- PRINT CUR CMD STRUCT --\n");
 		if (comd->builtin)
-			printf("Builtin_%s\n",comd->builtin);
+			printf("Builtin_%s\n", comd->builtin);
 		if (comd->pipe)
-			printf("Pipe_%s\n",comd->pipe);
+			printf("Pipe_%s\n", comd->pipe);
 		if (comd->tar_file)
-			printf("Tar File_%s\n",comd->tar_file);
+			printf("Tar File_%s\n", comd->tar_file);
 		if (comd->argc)
-			printf("Argc_%d\n",comd->argc);
+			printf("Argc_%d\n", comd->argc);
 		if (comd->argv)
 		{
 			i = 0;
@@ -111,7 +111,6 @@ static t_comd	*split_init(t_input *inp)
 	i = 0;
 	if (!new)
 		return (NULL);
-	// TODO run the orgainze until it finds delimiter
 	while (inp->argc > 0)
 	{
 		if (is_cmd(inp->argv[i]))
@@ -200,12 +199,10 @@ int	parse_organize(t_input *inp)
 		comd->next = split_init(inp);
 		if (!comd->next)
 			return (clear_comd(inp->comd, &free));
-		perror("1");
 		comd = comd->next;
 		/* print_cur_cmd(comd); */
 		inp->org_argc += 1;
 	}
-	inp->comd = comd;
 	print_comd_full(inp);
 	return (0);
 	// count through for a pipe store if found check argv for a builtin
