@@ -213,7 +213,7 @@ int	parse_organize(t_input *inp)
 	comd = inp->comd;
 	print_cur_cmd(comd);
 	printf(" *** org argc %d inp argc %d\n", inp->org_argc, inp->argc);
-	while (inp->argv > 0)
+	while (inp->argc > 0)
 	{
 		printf("counter %d\n", n);
 		n++;
