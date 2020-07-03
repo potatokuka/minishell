@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 17:48:22 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/03 18:07:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static t_comd	*split_init(t_input *inp)
 		return (NULL);
 	// TODO run the orgainze until it finds delimiter
 	printf("SPLIT INIT FIRST ORGC %d\n", inp->org_argc);
-	while (inp->org_argc < inp->argc)
+	while (inp->argc > 0)
 	{
 		if (is_cmd(inp->argv[i]))
 		{
@@ -167,6 +167,7 @@ static t_comd	*split_init(t_input *inp)
 			print_list(new->arr_list);
 			/* inp->comd->argv[j] = ft_strdup(inp->argv[i]); */
 			new->argc += 1;
+			inp->argc -= 1;
 			inp->org_argc += 1;
 			drop_string(inp, i);
 		}
