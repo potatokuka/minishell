@@ -6,17 +6,17 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:42:16 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/20 14:31:42 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/06 13:39:56 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_home(t_input *inp)
+void	cd_home(t_var *env)
 {
 	char	*home;
 
-	home = get_env_val("HOME", inp->env, 4);
+	home = get_env_val("HOME", env, 4);
 	printf("CD HOME CHECK %s\n", home);
 	if (!home)
 	{
@@ -30,19 +30,10 @@ void	cd_home(t_input *inp)
 	}
 }
 
-void	ft_cd(t_input *inp)
+void	ft_cd(t_cmd *cmd, t_var *env)
 {
-	char	*path;
-
-	if (inp->argc == 0)
-		return (cd_home(inp));
-	path = ft_strdup(inp->argv[0]);
-	if (!path)
-		put_error("Error inside of CD");
-	if (chdir(path) == -1)
-	{
-		free(path);
-		return (error_builtin(inp));
-	}
-	printf("inside cd\n%s\n", inp->argv[0]);
+	if (cmd->argc == 0)
+		return (cd_home(env));
+	if (chdir(cmd->argv[0]) == -1)
+		return (error_builtin(cmd));
 }

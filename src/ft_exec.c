@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/06/25 14:45:52 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 13:47:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*get_env_path_exec(char *exec, t_var *env)
 ** relative path, or $PATH identifier.
 */
 
-void	ft_exec(t_input *inp)
+void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 {
 	//TODO Check how bash responds to errno and -1 response
 	//TODO Check if there is a MAX_ARGS
@@ -102,23 +102,23 @@ void	ft_exec(t_input *inp)
 	int		status;
 
 	printf("EXEC -------------\n");
-	if (inp->cmd->argc && inp->cmd->argv[0][0] == '.')
+	if (cmd->argc && cmd->argv[0][0] == '.')
 	{
 		path = get_path();
-		pathname = ft_strjoin(path, inp->argv[0] + 1);
+		pathname = ft_strjoin(path, cmd->argv[0] + 1);
 		free(path);
 	}
-	else if (inp->cmd->argc && inp->cmd->argv[0][0] == '/')
+	else if (cmd->argc && cmd->argv[0][0] == '/')
 	{
-		pathname = inp->cmd->argv[0];
-		inp->cmd->argv[0] = ft_strrchr(inp->cmd->argv[0], '/');
+		pathname = cmd->argv[0];
+		cmd->argv[0] = ft_strrchr(cmd->argv[0], '/');
 	}
 	else
 	{
-		pathname = get_env_path_exec(inp->cmd->builtin, inp->env);
+		pathname = get_env_path_exec(cmd->argv[0], env);
 		if (!pathname)
 		{
-			printf("%s: command not found\n", inp->cmd->builtin);
+			printf("%s: command not found\n", cmd->argv[0]);
 			return ;
 		}
 	}
@@ -131,7 +131,7 @@ void	ft_exec(t_input *inp)
 	else
 	{
 		printf("excve pathname_%s\n", pathname);
-		if (execve(pathname, inp->cmd->argv, inp->envp) == -1)
+		if (execve(pathname, cmd->argv, envp) == -1)
 			put_error("execve 1");
 	}
 }

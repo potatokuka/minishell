@@ -6,28 +6,31 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 12:42:29 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 13:50:33 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_dispatch(t_input *inp)
+void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 {
-	if (ft_strncmp(inp->cmd->builtin, "exit", 4) == 0)
-		ft_exit(inp);
-	else if (ft_strncmp(inp->cmd->builtin, "echo", 4) == 0)
-		ft_echo(inp);
-	 else if (ft_strncmp(inp->cmd->builtin, "env", 3) == 0) 
-		ft_env(inp); 
-	else if (ft_strncmp(inp->cmd->builtin, "pwd", 3) == 0)
-		ft_pwd(inp);
-	else if (ft_strncmp(inp->cmd->builtin, "cd", 2) == 0)
-		ft_cd(inp);
-	else if (ft_strncmp(inp->cmd->builtin, "unset", 5) == 0)
-		ft_unset(inp);
-	else if (ft_strncmp(inp->cmd->builtin, "export", 6) == 0)
-		ft_export(inp);
+	if (cmd->builtin)
+	{
+		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
+			ft_exit(cmd);
+		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
+			ft_echo(cmd);
+		else if (ft_strncmp(cmd->builtin, "env", 3) == 0)
+			ft_env(envp);
+		else if (ft_strncmp(cmd->builtin, "pwd", 3) == 0)
+			ft_pwd();
+		else if (ft_strncmp(cmd->builtin, "cd", 2) == 0)
+			ft_cd(cmd, *env);
+		else if (ft_strncmp(cmd->builtin, "unset", 5) == 0)
+			ft_unset(cmd, env);
+		else if (ft_strncmp(cmd->builtin, "export", 6) == 0)
+			ft_export(cmd, env);
+	}
 	else
-		ft_exec(inp);
+		ft_exec(cmd, *env, envp);
 }

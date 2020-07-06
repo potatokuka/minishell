@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 18:29:49 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 13:42:48 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,30 @@ void	redir_append(t_input *inp)
 		int file = open(inp->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0664);
 		if (file < 0)
 			put_error("Error with File in Redir Append");
-		dup2(file, STDOUT_FILENO);	
+		dup2(file, STDOUT_FILENO);
 		close(inp->cmd->pipfd[0]);
 		close(inp->cmd->pipfd[1]);
 		close(file);
-		if (inp->cmd->builtin)
-		{
-			cmd_dispatch(inp);
-			exit(1);
-		}
+		/*if (inp->cmd->builtin)*/
+		/*{*/
+			/*cmd_dispatch(inp);*/
+			/*exit(1);*/
+		/*}*/
 		/* else */
 		/* 	ft_exec(inp); */
 	}
-	close(inp->cmd->pipfd[0]);
-	close(inp->cmd->pipfd[1]);
+	else
+	{
+		close(inp->cmd->pipfd[0]);
+		close(inp->cmd->pipfd[1]);
 
-	/* this is not stopping after print */
-	waitpid(pid1, NULL, 0);
+		/* this is not stopping after print */
+		waitpid(pid1, NULL, 0);
+	}
 }
 
 void	redir_dispatch(t_input *inp)
 {
-	int		i;
-
-	i = 0;
 	printf("INSIDE OF REDIR_DISPATCH\n");
 	if (inp->cmd->pipe)
 	{

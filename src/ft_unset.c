@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 13:43:46 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 13:43:51 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/06 13:51:37 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 ** send each argv to get removed from ENV if they exist 
 */
 
-void		ft_unset(t_input *inp)
+void		ft_unset(t_cmd *cmd, t_var **env)
 {
 	int		i;
 
-	if (inp->argc < 1)
+	if (cmd->argc < 1)
 		return ;
 	i = 0;
-	while (inp->argv[i])
+	while (cmd->argv[i])
 	{
-		unset_env(&inp->env, inp->argv[i]);
+		unset_env(env, cmd->argv[i]);
 		i++;
 	}
-	update_env(inp);
+	cmd->update_env = 1;
 }

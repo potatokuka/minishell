@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 18:54:43 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 13:14:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,19 @@
 ** make a counter i starting at 0
 */
 
-void	ft_echo(t_input *inp)
+void	ft_echo(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
 	printf("ECHO -------------\n");
-	while (i < inp->cmd->argc)
+	while (i < cmd->argc)
 	{
-		if (inp->cmd->argv[i][0] == '<' || inp->cmd->argv[i][0] == '>')
-		{
-			printf("\n");
-			return ;			
-		}
-		printf("%s", inp->cmd->argv[i]);
-		if ((inp->cmd->argc - i) > 1)
-			printf(" ");
+		ft_printf_fd(1, "%s", cmd->argv[i]);
+		if ((cmd->argc - i) > 1)
+			ft_printf_fd(1, " ");
 		else
-			printf("\n");
+			ft_printf_fd(1, "\n");
 		i++;
 	}
 	return ;

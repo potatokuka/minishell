@@ -6,20 +6,20 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 12:42:18 by averheij      #+#    #+#                 */
-/*   Updated: 2020/06/29 12:52:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 13:13:30 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_input *inp)
+void	ft_env(char **envp)
 {
 	int		i;
 
 	i = 0;
-	while (inp->envp[i])
+	while (envp[i])
 	{
-		ft_printf_fd(1, "%s\n", inp->envp[i]);
+		ft_printf_fd(1, "%s\n", envp[i]);
 		i++;
 	}
 }

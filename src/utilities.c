@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/19 18:05:50 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/06 14:16:19 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,31 @@ char	*ft_combine_str(const char *str1, const char *str2,
 void	reset_input(t_input *inp)
 {
 	if (inp->argv)
-		fre_array(inp->argv);
+		inp->argv = (void *)0;
+		/*free_array_null(inp->argv);*/
+	inp->argc = 0;
+	/*if (inp->redirs)*/
+		/*free_array_null(inp->redirs);*/
+	inp->arg_lst = (void *)0;
+	inp->cmd = (void *)0;
 	return ;
 }
 
-void	error_builtin(t_input *inp)
+void	error_builtin(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	ft_printf_fd(2, "%s", inp->argv[i]);
+	ft_printf_fd(2, "%s", cmd->argv[i]);
 	ft_printf_fd(2, "%s: ", strerror(errno));
 	i += 1;
-	while (inp->argc > 1)
+	while (cmd->argc > 1)
 	{
-		if (inp->argc > 1)
+		if (cmd->argc > 1)
 		{
 			printf(" ");
 			i += 1;
-			inp->argc -= 1;
+			cmd->argc -= 1;
 		}
 		else
 		{

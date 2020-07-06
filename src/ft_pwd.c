@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/24 17:09:38 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 13:33:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ char	*get_path(void)
 	return (res);
 }
 
-void	ft_pwd(t_input *inp)
+void	ft_pwd(void)
 {
 	char	*path;
 
 	printf("inside pwd\n");
-	(void)inp;
 	path = get_path();
 	if (path)
 	{

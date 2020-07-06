@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/24 16:37:10 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/06 14:31:25 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ int	main(void)
 	t_input inp;
 
 	ft_bzero(&inp, sizeof(inp));
-	/* env_init(&inp); */
+	env_init(&inp);
 	while (1)
 	{
-		env_init(&inp);
 		print_prompt(&inp);
 		parse_init(&inp);
 		redir_init(&inp);
 		redir_dispatch(&inp);
-		cmd_dispatch(&inp);
-		/* reset_input(&inp); */
-		ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env
-		//Maybe we should split env into a different struct, so that we can just bzero input and not re parse in all of env every command
+		cmd_dispatch(inp.cmd, &inp.env, inp.envp);
+		if (inp.cmd->update_env)
+			update_env(&inp);
+		reset_input(&inp);
+		/*ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env*/
 	}
 	return (0);
 }

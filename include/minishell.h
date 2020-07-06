@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 20:42:33 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/06 13:50:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct		s_cmd
 	int				pipfd[2];
 	t_list			*arr_list;
 	struct s_cmd	*next;
+	int				update_env;
 }					t_cmd;
 
 typedef struct		s_var
@@ -97,7 +98,7 @@ typedef struct		s_input
 
 void	print_prompt();
 void	reset_input(t_input *input);
-void	cmd_dispatch(t_input *inp);
+void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp);
 char	*ft_combine_str(const char *str1, const char *str2,
 			const char *str3);
 char	**free_array_null(char **str);
@@ -127,13 +128,13 @@ int		drop_string(t_input *inp, int i);
 ** BUILT-INS
 */
 
-void	ft_exit(t_input *inp);
-void	ft_echo(t_input *inp);
-void	ft_pwd(t_input *inp);
-void	ft_cd(t_input *inp);
-void	ft_exec(t_input *inp);
-void	ft_env(t_input *inp);
-void	error_builtin(t_input *inp);
+void	ft_exit(t_cmd *cmd);
+void	ft_echo(t_cmd *cmd);
+void	ft_pwd(void);
+void	ft_cd(t_cmd *cmd, t_var *env);
+void	ft_env(char **envp);
+void	ft_exec(t_cmd *cmd, t_var *env, char **envp);
+void	error_builtin(t_cmd *cmd);
 
 /*
 ** ENV
@@ -148,7 +149,7 @@ void	env_del(t_var *delete);
 ** UNSET
 */
 
-void	ft_unset(t_input *inp);
+void	ft_unset(t_cmd *cmd, t_var **env);
 void	unset_env(t_var **env, char *str);
 void	update_env(t_input *inp);
 char	**convert_env(t_var *env);
@@ -157,7 +158,7 @@ char	**convert_env(t_var *env);
 ** EXPORT
 */
 
-void	ft_export(t_input *inp);
+void	ft_export(t_cmd *cmd, t_var **env);
 t_var	*env_set_val(const char *name, t_var **env, const char *val);
 t_var	*env_add(const char *name, const char *val);
 

@@ -6,30 +6,37 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 23:09:45 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/06 14:38:30 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_export(t_input *inp)
+void	ft_export(t_cmd *cmd, t_var **env)
 {
 	size_t	i;
 	size_t	tmp;
 
-	if (inp->argc < 1)
+	if (cmd->argc < 1)
 		return ;
 	i = 0;
-	while (inp->argv[i])
+	while (cmd->argv[i])
 	{
-		tmp = ft_strc_len(inp->argv[i], '=');
-		if (tmp < ft_strlen_lib(inp->argv[i]))
+		tmp = ft_strc_len(cmd->argv[i], '=');
+		if (tmp < ft_strlen_lib(cmd->argv[i]))
 		{
-			inp->argv[i][tmp] = '\0';
-			(void)env_set_val(inp->argv[i], &inp->env,
-					&inp->argv[i][tmp + 1]);
+			cmd->argv[i][tmp] = '\0';
+			(void)env_set_val(cmd->argv[i], env,
+					&cmd->argv[i][tmp + 1]);
 		}
 		i++;
 	}
-	update_env(inp);
+	t_var *envapwoidj;
+	envapwoidj = *env;
+	while (envapwoidj)
+	{
+		printf("	%s=%s\n", envapwoidj->name, envapwoidj->val);
+		envapwoidj = envapwoidj->next;
+	}
+	cmd->update_env = 1;
 }
