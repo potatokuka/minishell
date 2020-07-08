@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 14:31:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/08 18:37:49 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int	main(void)
 		parse_init(&inp);
 		redir_init(&inp);
 		redir_dispatch(&inp);
-		cmd_dispatch(inp.cmd, &inp.env, inp.envp);
-		if (inp.cmd->update_env)
-			update_env(&inp);
+		if (inp.cmd)
+		{
+			cmd_dispatch(inp.cmd, &inp.env, inp.envp);
+			if (inp.cmd->update_env)
+				update_env(&inp);
+		}
 		reset_input(&inp);
 		/*ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env*/
 	}

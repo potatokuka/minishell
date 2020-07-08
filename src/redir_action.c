@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 13:42:48 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/08 18:36:58 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	redir_append(t_input *inp)
 void	redir_dispatch(t_input *inp)
 {
 	printf("INSIDE OF REDIR_DISPATCH\n");
-	if (inp->cmd->pipe)
+	if (inp->cmd && inp->cmd->pipe)
 	{
 		printf("pipe =%s\n", inp->cmd->pipe);
 		if (ft_strncmp(inp->cmd->pipe, ">>", 2) == 0)
