@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/10 17:12:53 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/10 18:01:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 		{
 			perror("in here");
 			if (cmd->pipfd[0] != -1 &&
-					dup2(cmd->pipfd[0], STDIN) == -1)
+					dup2(cmd->pipfd[0], STDIN_FILENO) == -1)
 				put_error("Failed to dup STDIN for child");
 			if (cmd->pipfd[1] != -1 &&
-					dup2(cmd->pipfd[1], STDOUT) == -1)
+					dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
 				put_error("Failed to dup STDOU for child");
 		}
 		if (execve(pathname, cmd->argv, envp) == -1)
