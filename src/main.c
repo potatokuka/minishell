@@ -26,7 +26,7 @@ int	main(void)
 		parse_init(&inp);
 		// TODO make this a while_loop while imp.cmd and move im.cmd->next at
 		// bottom
-		if (inp.cmd)
+		while (inp.cmd)
 		{
 			redir_dispatch(&inp);
 			cmd_dispatch(inp.cmd, &inp.env, inp.envp);
@@ -34,8 +34,8 @@ int	main(void)
 				update_env(&inp);
 			if (inp.cmd->pipe && inp.cmd->pid1 == 0)
 				exit (1);
-			if (inp.cmd->next)
-				inp.cmd = imp.cmd->next;
+			/* if (inp.cmd->next) */
+			inp.cmd = inp.cmd->next;
 		}
 		reset_input(&inp);
 		/*ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env*/
