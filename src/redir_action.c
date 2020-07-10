@@ -46,8 +46,8 @@ void	redir_append(t_input *inp)
 	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	i = 0;
-	if (pipe(inp->cmd->pipfd) == -1)
-		put_error("Redir append pipfd error");
+	/* if (pipe(inp->cmd->pipfd) == -1) */
+	/* 	put_error("Redir append pipfd error"); */
 	inp->cmd->pid1 = fork();
 	if (inp->cmd->pid1 < 0)
 		put_error("Redir append fork error");
@@ -66,21 +66,14 @@ void	redir_append(t_input *inp)
 		if (file < 0)
 			put_error("Error with File in Redir Append");
 		dup2(file, STDOUT_FILENO);
-		close(inp->cmd->pipfd[0]);
-		close(inp->cmd->pipfd[1]);
+		/* close(inp->cmd->pipfd[0]); */
+		/* close(inp->cmd->pipfd[1]); */
 		close(file);
-		/*if (inp->cmd->builtin)*/
-		/*{*/
-			/*cmd_dispatch(inp);*/
-			/*exit(1);*/
-		/*}*/
-		/* else */
-		/* 	ft_exec(inp); */
 	}
 	else
 	{
-		close(inp->cmd->pipfd[0]);
-		close(inp->cmd->pipfd[1]);
+		/* close(inp->cmd->pipfd[0]); */
+		/* close(inp->cmd->pipfd[1]); */
 
 		/* this is not stopping after print */
 		waitpid(inp->cmd->pid1, NULL, 0);
@@ -92,8 +85,8 @@ void		redir_trunc(t_input *inp)
 	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	i = 0;
-	if (pipe(inp->cmd->pipfd) == -1)
-		put_error("Redir append pipfd error");
+	/* if (pipe(inp->cmd->pipfd) == -1) */
+	/* 	put_error("Redir append pipfd error"); */
 	inp->cmd->pid1 = fork();
 	if (inp->cmd->pid1 < 0)
 		put_error("Redir append fork error");
@@ -112,21 +105,14 @@ void		redir_trunc(t_input *inp)
 		if (file < 0)
 			put_error("Error with File in Redir Append");
 		dup2(file, STDOUT_FILENO);
-		close(inp->cmd->pipfd[0]);
-		close(inp->cmd->pipfd[1]);
+		/* close(inp->cmd->pipfd[0]); */
+		/* close(inp->cmd->pipfd[1]); */
 		close(file);
-		/*if (inp->cmd->builtin)*/
-		/*{*/
-			/*cmd_dispatch(inp);*/
-			/*exit(1);*/
-		/*}*/
-		/* else */
-		/* 	ft_exec(inp); */
 	}
 	else
 	{
-		close(inp->cmd->pipfd[0]);
-		close(inp->cmd->pipfd[1]);
+		/* close(inp->cmd->pipfd[0]); */
+		/* close(inp->cmd->pipfd[1]); */
 
 		/* this is not stopping after print */
 		waitpid(inp->cmd->pid1, NULL, 0);
@@ -157,7 +143,7 @@ void		redir_std_input(t_input *inp)
 		int file = open(inp->cmd->tar_file, O_RDONLY, 0664);
 		if (file < 0)
 			put_error("Error with File in Redir input");
-		dup2(file, inp->cmd->pipfd[0]);
+		dup2(file, inp->cmd->pipfd[1]);
 		close(inp->cmd->pipfd[0]);
 		close(inp->cmd->pipfd[1]);
 		close(file);
