@@ -6,12 +6,12 @@ void	redir_dispatch(t_input *inp)
 	if (inp->cmd && inp->cmd->pipe)
 	{
 		printf("pipe =%s\n", inp->cmd->pipe);
-		if (ft_strncmp(inp->cmd->pipe, ">>", 2) == 0)
+		if (ft_strcmp(inp->cmd->pipe, ">>") == 0)
 			redir_append(inp);
 		/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
 		/* 	redir_std_input(inp); */
-		/* else if (ft_strncmp(inp->redirs[i], ">", 1)) */
-		/* 	redir_std_out(inp); */
+		else if (ft_strcmp(inp->cmd->pipe, ">") == 0)
+			redir_trunc(inp);
 	}
 	return ;
 }
