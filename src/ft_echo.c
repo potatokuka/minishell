@@ -21,16 +21,24 @@
 void	ft_echo(t_cmd *cmd)
 {
 	int	i;
+	int flag;
 
+	flag = 0;
 	i = 0;
+	if (ft_strcmp(cmd->argv[0], "-n") == 0)
+		flag += 1;
 	printf("ECHO -------------\n");
 	while (i < cmd->argc)
 	{
 		ft_printf_fd(1, "%s", cmd->argv[i]);
-		if ((cmd->argc - i) > 1)
-			ft_printf_fd(1, " ");
-		else
+		/* if ((cmd->argc - i) > 1) */
+		/* 	ft_printf_fd(1, " "); */
+		/* else */
+		/* 	ft_printf_fd(1, "\n"); */
+		if (cmd->argc - i == 1 && flag == 0)
 			ft_printf_fd(1, "\n");
+		else
+			ft_printf_fd(1, " ");
 		i++;
 	}
 	return ;
