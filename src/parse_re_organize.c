@@ -16,6 +16,7 @@ static t_cmd	*save_in_flag(t_input *inp, t_cmd *new, int i)
 {
 	if (!inp->argv[i + 1])
 		put_error("could not find newline");
+	new->pid1 = -1;
 	new->pipe = ft_strdup(inp->argv[i]);
 	new->tar_file = ft_strdup(inp->argv[i + 1]);
 	drop_string(inp, i);

@@ -1,92 +1,17 @@
 #include "minishell.h"
 
-/* if not CMD or REDIR, save that location of argv[i] to fd */
-
-static int	check_redir(char *str)
+void	redir_dispatch(t_input *inp)
 {
-	if (!str)
-		return (0);
-	if (ft_strlen(str) == 2)
+	printf("INSIDE OF REDIR_DISPATCH\n");
+	if (inp->cmd && inp->cmd->pipe)
 	{
-		if (str[0] == '>' && str[1] == '>')
-			return (1);
-		else
-			return (0);
-	}
-	else if (ft_strlen(str) == 1)
-	{
-		if ((str[0] == '<') || (str[0] == '>'))
-			return (1);
-		else
-			return (0);
-	}
-	else
-		return (0);
-}
-
-void		print_flags(char **flags, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		printf("flags= %d %s\n", i, flags[i]);
-		i++;
-	}
-	return ;
-}
-
-char		**save_redir(char **argv, int flags)
-{
-	char	**redir;
-	int		i;
-	int		x;
-
-	i = 0;
-	x = 0;
-	redir = (char **)ft_calloc(sizeof(char *), flags);
-	while (x < flags)
-	{
-		if (check_redir(argv[i]))
-		{
-			redir[x] = ft_strdup_lib(argv[i]);
-			i++;
-			x++;
-			flags--;
-		}
-		else
-			i++;
-	}
-	return (redir);
-}
-
-/*
-** run through all of the args to check if a flag is check
-** malloc the each redir flag into a char array
-*/
-
-void		redir_init(t_input *inp)
-{
-	int		flags;
-	int		i;
-
-	flags = 0;
-	i = 0;
-	while (i < inp->argc)
-	{
-		if (!check_redir(inp->argv[i]))
-			i++;
-		else
-		{
-			flags++;
-			i++;
-		}
-	}
-	if (flags)
-	{
-		inp->redirs = save_redir(inp->argv, flags);
-		print_flags(inp->redirs, flags);
+		printf("pipe =%s\n", inp->cmd->pipe);
+		if (ft_strncmp(inp->cmd->pipe, ">>", 2) == 0)
+			redir_append(inp);
+		/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
+		/* 	redir_std_input(inp); */
+		/* else if (ft_strncmp(inp->redirs[i], ">", 1)) */
+		/* 	redir_std_out(inp); */
 	}
 	return ;
 }

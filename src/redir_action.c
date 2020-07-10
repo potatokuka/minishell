@@ -43,29 +43,15 @@
 
 void	redir_append(t_input *inp)
 {
-	int		pid1;
 	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	i = 0;
-	perror("here?");
-	while (i < inp->cmd->argc)
-	{
-		if (ft_strncmp(inp->cmd->argv[i], ">>", 2) == 0)
-		{
-			if (!inp->cmd->argv[i + 1])
-				put_error("syntax error near unexpected token `newline'");
-			break ;
-		}
-		else
-			i++;
-	}
-	perror("seg check 2");
 	if (pipe(inp->cmd->pipfd) == -1)
 		put_error("Redir append pipfd error");
-	pid1 = fork();
-	if (pid1 < 0)
+	inp->cmd->pid1 = fork();
+	if (inp->cmd->pid1 < 0)
 		put_error("Redir append fork error");
-	if (pid1 == 0)
+	if (inp->cmd->pid1 == 0)
 	{
 		/* CHILD PROCESS 1 (LEFT SIDE)
 		** ----------------------------- 
@@ -97,23 +83,7 @@ void	redir_append(t_input *inp)
 		close(inp->cmd->pipfd[1]);
 
 		/* this is not stopping after print */
-		waitpid(pid1, NULL, 0);
+		waitpid(inp->cmd->pid1, NULL, 0);
 	}
 }
 
-void	redir_dispatch(t_input *inp)
-{
-	printf("INSIDE OF REDIR_DISPATCH\n");
-	if (inp->cmd && inp->cmd->pipe)
-	{
-		printf("pipe =%s\n", inp->cmd->pipe);
-		if (ft_strncmp(inp->cmd->pipe, ">>", 2) == 0)
-			redir_append(inp);
-		/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
-		/* 	redir_std_input(inp); */
-		/* else if (ft_strncmp(inp->redirs[i], ">", 1)) */
-		/* 	redir_std_out(inp); */
-	}
-	perror("didnt go inside");
-	return ;
-}

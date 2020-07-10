@@ -24,13 +24,18 @@ int	main(void)
 	{
 		print_prompt(&inp);
 		parse_init(&inp);
-		redir_init(&inp);
-		redir_dispatch(&inp);
+		// TODO make this a while_loop while imp.cmd and move im.cmd->next at
+		// bottom
 		if (inp.cmd)
 		{
+			redir_dispatch(&inp);
 			cmd_dispatch(inp.cmd, &inp.env, inp.envp);
 			if (inp.cmd->update_env)
 				update_env(&inp);
+			if (inp.cmd->pipe && inp.cmd->pid1 == 0)
+				exit (1);
+			if (inp.cmd->next)
+				inp.cmd = imp.cmd->next;
 		}
 		reset_input(&inp);
 		/*ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env*/

@@ -67,6 +67,7 @@ typedef struct		s_cmd
 	char			*tar_file;
 	int				argc;
 	int				pipfd[2];
+	int				pid1;
 	t_list			*arr_list;
 	struct s_cmd	*next;
 	int				update_env;
@@ -168,6 +169,7 @@ t_var	*env_add(const char *name, const char *val);
 
 void	redir_init(t_input *inp);
 void	redir_dispatch(t_input *inp);
+void	redir_append(t_input *inp);
 
 /*
 ** DEBUGGING
