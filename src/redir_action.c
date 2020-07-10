@@ -124,8 +124,8 @@ void		redir_std_input(t_input *inp)
 	int		i;
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	i = 0;
-	if (pipe(inp->cmd->pipfd) == -1)
-		put_error("Redir input pipfd error");
+	/* if (pipe(inp->cmd->pipfd) == -1) */
+	/* 	put_error("Redir input pipfd error"); */
 	inp->cmd->pid1 = fork();
 	if (inp->cmd->pid1 < 0)
 		put_error("Redir input fork error");
@@ -143,10 +143,10 @@ void		redir_std_input(t_input *inp)
 		int file = open(inp->cmd->tar_file, O_RDONLY, 0664);
 		if (file < 0)
 			put_error("Error with File in Redir input");
-		dup2(file, inp->cmd->pipfd[1]);
-		close(inp->cmd->pipfd[0]);
-		close(inp->cmd->pipfd[1]);
-		close(file);
+		/* dup2(file, inp->cmd->pipfd[1]); */
+		/* close(inp->cmd->pipfd[0]); */
+		/* close(inp->cmd->pipfd[1]); */
+		/* close(file); */
 		/*if (inp->cmd->builtin)*/
 		/*{*/
 			/*cmd_dispatch(inp);*/
@@ -157,8 +157,8 @@ void		redir_std_input(t_input *inp)
 	}
 	else
 	{
-		close(inp->cmd->pipfd[0]);
-		close(inp->cmd->pipfd[1]);
+		/* close(inp->cmd->pipfd[0]); */
+		/* close(inp->cmd->pipfd[1]); */
 
 		/* this is not stopping after print */
 		waitpid(inp->cmd->pid1, NULL, 0);
