@@ -92,6 +92,14 @@ char	*get_env_path_exec(char *exec, t_var *env)
 ** relative path, or $PATH identifier.
 */
 
+void	close_in_out(int *in_out)
+{
+	if (in_out[0] != -1)
+		close(in_out[0]);
+	if (in_out[1] != -1)
+		close(in_out[1]);
+}
+
 void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 {
 	//TODO Check how bash responds to errno and -1 response
@@ -134,9 +142,10 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 		printf("excve pathname_%s\n", pathname);
 		if (cmd->pipe && ft_is_redir(cmd->pipe))
 		{
+			printf("\n\npid = %d\n--\n pip 0 = %d\npip 1 = %d\n", pid, cmd->pipfd[0], cmd->pipfd[1]);
 			perror("in here");
 			if (cmd->pipfd[0] != -1 &&
-					dup2(cmd->pipfd[0], STDIN_FILENO) == -1)
+					dup2(cmd->pipfd[0], STDIN) == -1)
 				put_error("Failed to dup STDIN for child");
 			if (cmd->pipfd[1] != -1 &&
 					dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
@@ -145,5 +154,7 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 		test_args(cmd->argv, cmd->argc);
 		if (execve(pathname, cmd->argv, envp) == -1)
 			put_error("execve 1");
+		exit (1);
 	}
+	/* close_in_out(cmd->pipfd); */
 }
