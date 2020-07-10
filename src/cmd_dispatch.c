@@ -16,6 +16,17 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 {
 	if (cmd->builtin)
 	{
+		if (cmd->pipe && ((ft_strcmp(cmd->pipe, ">>") == 0 ||
+					ft_strcmp(cmd->pipe, ">") == 0) ||
+				ft_strcmp(cmd->pipe, "<") == 0))
+		{
+			if (cmd->pipfd[1] != -1 &&
+					dup2(cmd->pipfd[0], STDOUT_FILENO) == -1)
+				put_error("Failed to dup STDOUT for Child");
+			if (cmd->pipfd[1] != -1 &&
+                    dup2(cmd->pipfd[1], STDOUT) == -1)
+				put_error("Failed to dup STDIN for Child");
+		}
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
 			ft_exit(cmd);
 		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
