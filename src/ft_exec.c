@@ -130,7 +130,15 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 		waitpid(pid, &status, 0);
 	else
 	{
+		/* printf("**** LOOK FOR THIS ****\n"); */
 		printf("excve pathname_%s\n", pathname);
+		/* if (ft_strcmp(cmd->pipe, "<") == 0) */
+		/* { */
+		/* 	perror("in here"); */
+		/* 	if (execve(pathname, STDIN, envp) == -1) */
+		/* 		put_error("execve 2"); */
+		/* } */
+		/* else */
 		if (execve(pathname, cmd->argv, envp) == -1)
 			put_error("execve 1");
 	}
