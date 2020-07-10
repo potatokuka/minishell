@@ -143,6 +143,7 @@ void		redir_std_input(t_input *inp)
 		int file = open(inp->cmd->tar_file, O_RDONLY, 0664);
 		if (file < 0)
 			put_error("Error with File in Redir input");
+		inp->cmd->pipfd[1] = file;
 		/* dup2(file, inp->cmd->pipfd[1]); */
 		/* close(inp->cmd->pipfd[0]); */
 		/* close(inp->cmd->pipfd[1]); */
