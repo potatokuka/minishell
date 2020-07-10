@@ -171,6 +171,7 @@ void	redir_init(t_input *inp);
 void	redir_dispatch(t_input *inp);
 void	redir_append(t_input *inp);
 void	redir_trunc(t_input *inp);
+void	redir_std_input(t_input *inp);
 
 /*
 ** DEBUGGING

@@ -8,8 +8,8 @@ void	redir_dispatch(t_input *inp)
 		printf("pipe =%s\n", inp->cmd->pipe);
 		if (ft_strcmp(inp->cmd->pipe, ">>") == 0)
 			redir_append(inp);
-		/* else if (ft_strncmp(inp->redirs[i], "<", 1)) */
-		/* 	redir_std_input(inp); */
+		else if (ft_strcmp(inp->cmd->pipe, "<") == 0)
+			redir_std_input(inp);
 		else if (ft_strcmp(inp->cmd->pipe, ">") == 0)
 			redir_trunc(inp);
 	}
