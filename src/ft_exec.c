@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/06 13:47:38 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/10 16:55:43 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,14 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 	{
 		/* printf("**** LOOK FOR THIS ****\n"); */
 		printf("excve pathname_%s\n", pathname);
-		/* if (ft_strcmp(cmd->pipe, "<") == 0) */
-		/* { */
-		/* 	perror("in here"); */
-		/* 	if (execve(pathname, STDIN, envp) == -1) */
-		/* 		put_error("execve 2"); */
-		/* } */
-		/* else */
-		if (execve(pathname, cmd->argv, envp) == -1)
-			put_error("execve 1");
+		if (cmd->pipe && ft_strcmp(cmd->pipe, "<") == 0)
+		{
+			perror("in here");
+			if (execve(pathname, STDIN, envp) == -1)
+				put_error("execve 2");
+		}
+		else
+			if (execve(pathname, cmd->argv, envp) == -1)
+				put_error("execve 1");
 	}
 }

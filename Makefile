@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/07/03 17:45:45 by greed         ########   odam.nl          #
+#    Updated: 2020/07/10 16:49:29 by averheij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS			=	main.c\
 				redir_init.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
-CFLAGS			=	-Wall -Wextra -Werror -DNOLIST -g
+CFLAGS			=	-DNOLIST -g #-Wall -Wextra -Werror
 INCLUDES		=	-I include\
 					-I lib/libft\
 					-I lib/liblist
