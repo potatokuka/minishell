@@ -50,6 +50,19 @@ void	print_args(t_input *inp)
 	}
 }
 
+void	test_args(char **argv, int argc)
+{
+	int	y;
+
+	y = 0;
+	printf("*** TESTING FT EXEC ARGS ***\n");
+	while (y < argc)
+	{
+		printf("\t_%s\n", argv[y]);
+		y++;
+	}
+}
+
 void	print_vars(t_input *inp)
 {
 	/* ft_printf("CMD = %s\n", inp->cmd); */

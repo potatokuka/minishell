@@ -46,13 +46,15 @@ void	redir_append(t_input *inp)
 	int file = open(inp->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0664);
 	if (file < 0)
 		put_error("Error with File in Redir Append");
-	inp->cmd->pipfd[0] = file;
+	inp->cmd->pipfd[1] = file;
 }
 
 void		redir_trunc(t_input *inp)
 {
 	int file = open(inp->cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0664);
-	inp->cmd->pipfd[0];
+	if (file < 0)
+			put_error("Error with File in Redir trunc");
+	inp->cmd->pipfd[1] = file;
 }
 
 void		redir_std_input(t_input *inp)

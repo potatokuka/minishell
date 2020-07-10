@@ -16,6 +16,17 @@
 ** count the len unti it reaches the sent char
 */
 
+int		ft_is_redir(char *str)
+{
+	if (ft_strcmp(str, "<") == 0)
+		return (1);
+	else if (ft_strcmp(str, ">>") == 0)
+		return (1);
+	else if (ft_strcmp(str, ">") == 0)
+		return (1);
+	else
+		return (0);
+}
 size_t	ft_strc_len(const char *str, int c)
 {
 	size_t	len;

@@ -16,16 +16,31 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 {
 	if (cmd->builtin)
 	{
-		if (cmd->pipe && ((ft_strcmp(cmd->pipe, ">>") == 0 ||
-					ft_strcmp(cmd->pipe, ">") == 0) ||
-				ft_strcmp(cmd->pipe, "<") == 0))
+		if (cmd->pipe && ft_is_redir(cmd->pipe))
 		{
-			if (cmd->pipfd[1] != -1 &&
-					dup2(cmd->pipfd[0], STDOUT_FILENO) == -1)
-				put_error("Failed to dup STDOUT for Child");
-			if (cmd->pipfd[1] != -1 &&
-                    dup2(cmd->pipfd[1], STDOUT) == -1)
-				put_error("Failed to dup STDIN for Child");
+			cmd->pid1 = fork();
+			if (cmd->pid1 < 0)
+				put_error("Redir Fork Error");
+			if (cmd->pid1 == 0)
+			{
+				if (cmd->pipfd[1] != -1 &&
+						dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
+					put_error("Failed to dup STDOUT for Child");
+				if (cmd->pipfd[0] != -1 &&
+						dup2(cmd->pipfd[1], STDIN_FILENO) == -1)
+					put_error("Failed to dup STDIN for Child");
+				if (cmd->pipfd[0] != -1)
+					close(cmd->pipfd[0]);
+				if (cmd->pipfd[1] != -1)
+					close(cmd->pipfd[1]);
+			}
+			else
+			{
+
+				close(cmd->pipfd[0]);
+				close(cmd->pipfd[1]);
+				waitpid(cmd->pid1, NULL, 0);
+			}
 		}
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
 			ft_exit(cmd);

@@ -172,6 +172,7 @@ void	redir_dispatch(t_input *inp);
 void	redir_append(t_input *inp);
 void	redir_trunc(t_input *inp);
 void	redir_std_input(t_input *inp);
+int		ft_is_redir(char *str);
 
 /*
 ** DEBUGGING
@@ -179,6 +180,7 @@ void	redir_std_input(t_input *inp);
 
 void	print_vars(t_input *inp);
 void	print_list(t_list *list);
+void	test_args(char  **argv, int argc);
 void	print_environ(char **environ);
 
 #endif

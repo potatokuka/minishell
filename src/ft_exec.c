@@ -132,7 +132,7 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 	{
 		/* printf("**** LOOK FOR THIS ****\n"); */
 		printf("excve pathname_%s\n", pathname);
-		if (cmd->pipe && ft_strcmp(cmd->pipe, "<") == 0)
+		if (cmd->pipe && ft_is_redir(cmd->pipe))
 		{
 			perror("in here");
 			if (cmd->pipfd[0] != -1 &&
@@ -142,6 +142,7 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 					dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
 				put_error("Failed to dup STDOU for child");
 		}
+		test_args(cmd->argv, cmd->argc);
 		if (execve(pathname, cmd->argv, envp) == -1)
 			put_error("execve 1");
 	}
