@@ -16,6 +16,17 @@
 ** count the len unti it reaches the sent char
 */
 
+int		ft_is_valid_pipe(t_cmd *cmd)
+{
+	if (cmd->pipe && cmd->next->pipe)
+	{
+		if (ft_strcmp(cmd->pipe, "|") == 0)
+			return (1);
+	}
+	else
+		return (0);
+}
+
 int		ft_is_redir(char *str)
 {
 	if (ft_strcmp(str, "<") == 0)

@@ -150,6 +150,8 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 			if (cmd->pipfd[1] != -1 &&
 					dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
 				put_error("Failed to dup STDOU for child");
+			close(cmd->pipfd[0]);
+			close(cmd->pipfd[1]);
 		}
 		test_args(cmd->argv, cmd->argc);
 		if (execve(pathname, cmd->argv, envp) == -1)

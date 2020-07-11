@@ -173,6 +173,7 @@ void	redir_append(t_input *inp);
 void	redir_trunc(t_input *inp);
 void	redir_std_input(t_input *inp);
 int		ft_is_redir(char *str);
+int		ft_is_valid_pipe(t_cmd *cmd);
 
 /*
 ** DEBUGGING
