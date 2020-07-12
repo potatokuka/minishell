@@ -18,24 +18,12 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 	{
 		if (ft_is_valid_pipe(cmd))
 		{
-			cmd->pid1 = fork();
-			if (cmd->pid1 < 0)
-				put_error("Pipe Fork Error");
-			if (cmd->pid1 == 0)
-			{
-				if (dup2(STDOUT, STDIN) == -1)
-					put_error("Failed to dup STDOUT to STDIN for Pipe");
-				if (cmd->pipfd[0] != -1)
-					close(cmd->pipfd[0]);
-				if (cmd->pipfd[1] != -1)
-					close(cmd->pipfd[1]);
-			}
-			else
-			{
+			if (dup2(STDOUT, STDIN) == -1)
+				put_error("Failed to dup STDOUT to STDIN for Pipe");
+			if (cmd->pipfd[0] != -1)
 				close(cmd->pipfd[0]);
-				close(cmd->pipfd[1]);
-				waitpid(cmd->pid1, NULL, 0);
-			}
+			if (cmd->pipfd[1] != -1)
+					close(cmd->pipfd[1]);
 		}
 		else if (cmd->pipe && ft_is_redir(cmd->pipe))
 		{
