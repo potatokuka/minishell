@@ -25,7 +25,7 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 			{
 				if (dup2(STDOUT, STDIN) == -1)
 					put_error("Failed to dup STDOUT to STDIN for Pipe");
-				if (cmd->pidfd[0] != -1)
+				if (cmd->pipfd[0] != -1)
 					close(cmd->pipfd[0]);
 				if (cmd->pipfd[1] != -1)
 					close(cmd->pipfd[1]);

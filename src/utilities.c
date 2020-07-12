@@ -18,7 +18,7 @@
 
 int		ft_is_valid_pipe(t_cmd *cmd)
 {
-	if (cmd->pipe && cmd->next->pipe)
+	if (cmd->pipe && cmd->next && cmd->next->pipe)
 	{
 		if (ft_strcmp(cmd->pipe, "|") == 0)
 			return (1);
