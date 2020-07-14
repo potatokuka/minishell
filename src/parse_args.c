@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 18:26:32 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/14 14:08:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 			lst_new_back(&inp->arg_lst, str);
 		}
 	}
-	trimmed = trimmed + (i + 1);
+	trimmed = trimmed + i + 1;
 	return (trimmed);
 }
 
@@ -147,7 +147,7 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 		inp->argc += 1;
 		lst_new_back(&inp->arg_lst, str);
 	}
-	trimmed = trimmed + (i + 1);
+	trimmed = trimmed + i;
 	return (trimmed);
 }
 
@@ -176,9 +176,9 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
 		else if (trimmed[i] == '$')
 			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
-		/* else if (trimmed[i] == '>' || trimmed[i] == '>' || trimmed[i] == ';' */
-		/* 		|| trimmed[i] == '|') */
-		/* 	trimmed = ft_save_pipe(inp, trimmed, i); */
+		else if (trimmed[i] == '>' || trimmed[i] == '>' || trimmed[i] == ';'
+				|| trimmed[i] == '|')
+			trimmed = ft_save_pipe(inp, trimmed, i);
 		else
 			i++;
 	}
@@ -190,7 +190,7 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 		inp->argc += 1;
 		lst_new_back(&inp->arg_lst, str);
 	}
-	trimmed = trimmed + i + 1;
+	trimmed = trimmed + i;
 	if (*trimmed)
 		parse_args(inp, trimmed, run_time);
 }
