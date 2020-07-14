@@ -81,8 +81,9 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 	int		i;
 
 	i = 0;
-	while (trimmed[start] && trimmed[start] != quote)
+	while (trimmed[start] != quote && trimmed[start])
 	{
+		printf("Testing IN QUOTE _%c\n", trimmed[i]);
 		i++;
 		start++;
 	}
@@ -119,6 +120,7 @@ void	parse_args(t_input *inp, char *trimmed)
 	trimmed = del_leading_space(trimmed);
 	while (trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
+		printf("Testing Char _%c\n", trimmed[i]);
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
 		else if (trimmed[i] == '$')
