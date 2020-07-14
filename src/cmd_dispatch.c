@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 13:50:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 13:22:00 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 						dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
 					put_error("Failed to dup STDOUT for Child");
 				if (cmd->pipfd[0] != -1 &&
-						dup2(cmd->pipfd[1], STDIN_FILENO) == -1)
+						dup2(cmd->pipfd[0], STDIN_FILENO) == -1)
 					put_error("Failed to dup STDIN for Child");
 				if (cmd->pipfd[0] != -1)
 					close(cmd->pipfd[0]);
