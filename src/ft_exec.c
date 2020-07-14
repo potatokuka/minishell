@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/10 18:01:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 13:08:25 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,11 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 	{
 		if (pipe(cmd->pipfd) == -1)
 			put_error("Redir Exec pipefd error");
-		cmd->pid1 = fork();
-		if (cmd->pid1 < 0)
-			put_error("Redir Exec Fork Error");
-		if (cmd->pid1 == 0)
-		{
+		/*cmd->pid1 = fork();*/
+		/*if (cmd->pid1 < 0)*/
+			/*put_error("Redir Exec Fork Error");*/
+		/*if (cmd->pid1 == 0)*/
+		/*{*/
 			if (cmd->pipfd[1] != -1 &&
 					dup2(cmd->pipfd[1], STDOUT) == -1)
 				put_error("Failed to dup STDOUT for Child");
@@ -113,14 +113,14 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 			/* close(cmd->pipfd[0]); */
 			/* close(cmd->pipfd[1]); */
 			if (execve(pathname, cmd->argv, envp) == -1)
-				put_error("execve 2");
-		}
-		else
-		{
-			close(cmd->pipfd[0]);
-			close(cmd->pipfd[1]);
-			waitpid(cmd->pid1, NULL, 0);
-		}
+				put_error(strerror(errno));
+		/*}*/
+		/*else*/
+		/*{*/
+			/*close(cmd->pipfd[0]);*/
+			/*close(cmd->pipfd[1]);*/
+			/*waitpid(cmd->pid1, NULL, 0);*/
+		/*}*/
 	}
 	else if (!cmd->pipe)
 	{
