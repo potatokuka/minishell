@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/14 15:05:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 17:38:11 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 	int		status;
 	if (cmd->pipe && ft_is_redir(cmd->pipe))
 	{
-		/*if (pipe(cmd->pipfd) == -1)*/
-			/*put_error("Redir Exec pipefd error");*/
 		cmd->pid1 = fork();
 		if (cmd->pid1 < 0)
 			put_error("Redir Exec Fork Error");
@@ -114,6 +112,7 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 				close(cmd->pipfd[1]);
 			if (cmd->pipfd[0] != -1)
 				close(cmd->pipfd[0]);
+			/* test_args(cmd->argv, 1); */
 			execve(pathname, cmd->argv, envp);
 			put_error(strerror(errno));
 		}

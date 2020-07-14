@@ -34,7 +34,7 @@ char	**split_arg_lst(t_list *to_copy)
 	x = 0;
 	size_len = lst_size(to_copy);
 	/* inp->argc = size_len; */
-	tmp = (char **)ft_calloc(sizeof(char *), size_len);
+	tmp = (char **)ft_calloc(sizeof(char *), size_len + 1);
 	lst = to_copy;
 	while (x < size_len)
 	{
@@ -44,6 +44,7 @@ char	**split_arg_lst(t_list *to_copy)
 		lst = lst->next;
 		x++;
 	}
+	tmp[x + 1] = NULL;
 	return (tmp);
 }
 

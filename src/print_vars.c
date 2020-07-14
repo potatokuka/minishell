@@ -56,7 +56,7 @@ void	test_args(char **argv, int argc)
 
 	y = 0;
 	printf("*** TESTING FT EXEC ARGS ***\n");
-	while (y < argc)
+	while (argv[y])
 	{
 		printf("\t_%s\n", argv[y]);
 		y++;
