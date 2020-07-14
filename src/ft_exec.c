@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/14 13:22:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 14:34:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,17 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 		if (cmd->pid1 == 0)
 		{
 			if (cmd->pipfd[1] != -1 &&
-					dup2(cmd->pipfd[1], STDOUT) == -1)
+					dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
 				put_error("Failed to dup STDOUT for Child");
 			if (cmd->pipfd[0] != -1 &&
-					dup2(cmd->pipfd[0], STDIN) == -1)
+					dup2(cmd->pipfd[0], STDIN_FILENO) == -1)
 				put_error("Failed to dup STDIN for Child");
 			if (cmd->pipfd[1] != -1)
 				close(cmd->pipfd[1]);
 			if (cmd->pipfd[0] != -1)
 				close(cmd->pipfd[0]);
-			if (execve(pathname, cmd->argv, envp) == -1)
-				put_error(strerror(errno));
+			execve(pathname, cmd->argv, envp);
+			put_error(strerror(errno));
 		}
 		else
 		{
@@ -131,8 +131,8 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 			put_error("No Redir Exec Fork Error");
 		if (cmd->pid1 == 0)
 		{
-			if (execve(pathname, cmd->argv, envp) == -1)
-				put_error("execve 2");
+			execve(pathname, cmd->argv, envp);
+			put_error("execve 2");
 		}
 		else
 			waitpid(cmd->pid1, &status, 0);

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/14 14:08:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 14:31:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,9 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
 		else if (trimmed[i] == '$')
 			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
-		else if (trimmed[i] == '>' || trimmed[i] == '>' || trimmed[i] == ';'
-				|| trimmed[i] == '|')
-			trimmed = ft_save_pipe(inp, trimmed, i);
+		/*else if (trimmed[i] == '>' || trimmed[i] == '>' || trimmed[i] == ';'*/
+				/*|| trimmed[i] == '|')*/
+			/*trimmed = ft_save_pipe(inp, trimmed, i);*/
 		else
 			i++;
 	}
