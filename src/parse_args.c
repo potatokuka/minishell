@@ -44,7 +44,6 @@ char	**split_arg_lst(t_list *to_copy)
 		lst = lst->next;
 		x++;
 	}
-	/* tmp[x + 1] = NULL; */
 	return (tmp);
 }
 

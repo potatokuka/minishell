@@ -112,7 +112,6 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 				close(cmd->pipfd[1]);
 			if (cmd->pipfd[0] != -1)
 				close(cmd->pipfd[0]);
-			/* test_args(cmd->argv, 1); */
 			execve(pathname, cmd->argv, envp);
 			put_error(strerror(errno));
 		}
@@ -179,32 +178,4 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 	}
 	printf("pathname:%s\n", pathname);
 	griffin_try(cmd, pathname, envp);
-	/* pid = fork(); */
-	/* if (pid == -1) */
-	/* 	put_error("pid 1"); */
-	/* else if (pid > 0) */
-	/* 	waitpid(pid, &status, 0); */
-	/* else */
-	/* { */
-	/* 	/1* printf("**** LOOK FOR THIS ****\n"); *1/ */
-	/* 	printf("excve pathname_%s\n", pathname); */
-	/* 	if (cmd->pipe && ft_is_redir(cmd->pipe)) */
-	/* 	{ */
-	/* 		printf("\n\npid = %d\n--\n pip 0 = %d\npip 1 = %d\n", pid, cmd->pipfd[0], cmd->pipfd[1]); */
-	/* 		perror("in here"); */
-	/* 		if (cmd->pipfd[0] != -1 && */
-	/* 				dup2(cmd->pipfd[0], STDIN) == -1) */
-	/* 			put_error("Failed to dup STDIN for child"); */
-	/* 		if (cmd->pipfd[1] != -1 && */
-	/* 				dup2(cmd->pipfd[1], STDOUT_FILENO) == -1) */
-	/* 			put_error("Failed to dup STDOU for child"); */
-	/* 		close(cmd->pipfd[0]); */
-	/* 		close(cmd->pipfd[1]); */
-	/* 	} */
-	/* 	test_args(cmd->argv, cmd->argc); */
-	/* 	if (execve(pathname, cmd->argv, envp) == -1) */
-	/* 		put_error("execve 1"); */
-	/* 	exit (1); */
-	/* } */
-	/* close_in_out(cmd->pipfd); */
 }
