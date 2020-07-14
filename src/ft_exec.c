@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/14 14:34:26 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 15:05:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		search_dir(DIR *dirp, char *exec)
 		{
 			if (file_match(file->d_name, exec))//Might need to check file type DT_REG || DT_LNK
 			{
-				printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));
+				/*printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));*/
 				return (1);
 			}
 			/*free(file);*/
@@ -67,14 +67,14 @@ char	*get_env_path_exec(char *exec, t_var *env)
 
 	temp = get_env_val("PATH", env, 4);
 	printf("exec:%s\n", exec);
-	printf("$PATH:%s\n", temp);
+	/*printf("$PATH:%s\n", temp);*/
 	paths = ft_split(temp, ':');
 	if (!paths)
 		put_error(strerror(errno));
 	temp = (void *)0;
 	while (!temp && *paths)
 	{
-		printf("path:%s\n", *paths);
+		/*printf("path:%s\n", *paths);*/
 		dirp = opendir(*paths);
 		if (dirp)//NULL on error, but do we care? maybe theres shit values in PATH, do we really want to throw then?
 		{
