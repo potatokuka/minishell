@@ -81,7 +81,7 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 	int		i;
 
 	i = 0;
-	while (trimmed[start] != quote && trimmed[start])
+	while (trimmed[start] && trimmed[start] != quote)
 	{
 		i++;
 		start++;
@@ -108,7 +108,7 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
 ** after it's fully finished
 */
 
-void	parse_args(t_input *inp, char *trimmed, int run_time)
+void	parse_args(t_input *inp, char *trimmed)
 {
 	char	*str;
 	int		i;
@@ -123,9 +123,6 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
 		else if (trimmed[i] == '$')
 			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
-		/*else if (trimmed[i] == '>' || trimmed[i] == '>' || trimmed[i] == ';'*/
-				/*|| trimmed[i] == '|')*/
-			/*trimmed = ft_save_pipe(inp, trimmed, i);*/
 		else
 			i++;
 	}
@@ -139,5 +136,5 @@ void	parse_args(t_input *inp, char *trimmed, int run_time)
 	}
 	trimmed = trimmed + i;
 	if (*trimmed)
-		parse_args(inp, trimmed, run_time);
+		parse_args(inp, trimmed);
 }

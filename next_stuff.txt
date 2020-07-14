@@ -2,6 +2,7 @@ bugs:
 	calls a builtin on commands like: cat pwd.txt ( calls cat )
 	sometimes gives bad arguemnts after mutiple inputs ( freeing problems or some memory resycle issues )
 	if quote is unclosed, reopen input and add to end of input str
+	: if Quote is found, save arg until that point, before starting to trim
 
 Ctrl-D : exit
 $? : return value most recent function

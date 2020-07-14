@@ -23,7 +23,7 @@ void	parse_input(t_input *inp, char *res)
 	trimmed = del_leading_space(res);
 	// trimmed = parse_cmd(inp, trimmed);
 	if (trimmed)
-		parse_args(inp, trimmed, 0);
+		parse_args(inp, trimmed);
 	inp->argv = list_to_chr_array(inp->arg_lst);
 	repl_env_vars(inp);
 }
