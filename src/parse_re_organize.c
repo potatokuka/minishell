@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 14:11:46 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 19:45:52 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_cmd	*save_in_flag(t_input *inp, t_cmd *new, int i)
 	i += 1;
 	drop_string(inp, i);
 	inp->argc -= 2;
-	new->argv = split_arg_lst(new->arr_list);
+	new->argv = list_to_chr_array(new->arr_list);
 	new->next = NULL;
 	inp->argv = inp->argv + i + 1;
 	return (new);
@@ -36,7 +36,7 @@ static t_cmd	*save_in_pipe(t_input *inp, t_cmd *new, int i)
 	new->pipe = ft_strdup(inp->argv[i]);
 	drop_string(inp, i);
 	print_list(new->arr_list);
-	new->argv = split_arg_lst(new->arr_list);
+	new->argv = list_to_chr_array(new->arr_list);
 	inp->argc -= 1;
 	new->next = NULL;
 	inp->argv = inp->argv + i + 1;
@@ -80,7 +80,7 @@ static t_cmd	*split_init(t_input *inp)
 		i++;
 	}
 	if (new->arr_list && !new->pipe)
-		new->argv = split_arg_lst(new->arr_list);
+		new->argv = list_to_chr_array(new->arr_list);
 	new->next = NULL;
 	inp->argv = inp->argv + i;
 	return (new);

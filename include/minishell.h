@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 13:50:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/07/14 19:44:58 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char	*get_cmd(t_input *inp);
 char	*parse_cmd(t_input *inp, char *trimmed);
 char	*del_leading_space(char *res);
 void	parse_init(t_input *inp);
-char	**split_arg_lst(t_list *to_copy);
+char	**list_to_chr_array(t_list *to_copy);
 void	parse_args(t_input *inp, char *trimmed, int run_time);
 void	repl_env_vars(t_input *inp);
 

@@ -23,8 +23,7 @@ int		ft_is_valid_pipe(t_cmd *cmd)
 		if (ft_strcmp(cmd->pipe, "|") == 0)
 			return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 int		ft_is_redir(char *str)

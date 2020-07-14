@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 11:54:46 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/14 19:45:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_input(t_input *inp, char *res)
 	// trimmed = parse_cmd(inp, trimmed);
 	if (trimmed)
 		parse_args(inp, trimmed, 0);
-	inp->argv = split_arg_lst(inp->arg_lst);
+	inp->argv = list_to_chr_array(inp->arg_lst);
 	repl_env_vars(inp);
 }
 

@@ -41,7 +41,8 @@ SRCS			=	main.c\
 				parse_env.c\
 				parse_re_organize.c\
 				parse_utils.c\
-				redir_init.c
+				redir_init.c\
+				list_to_char_array.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-DNOLIST -g #-Wall -Wextra -Werror
