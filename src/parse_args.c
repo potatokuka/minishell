@@ -75,13 +75,22 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 ** save from +1 of start until next occurence of Quote
 */
 
-char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote)
+// TODO IF HAS SPACE, IS TRIGGERED does normal save, if it's not triggered need
+// TODO work out how to correctly save test, BEFORE " and then join the two"
+char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *test)
 {
 	char	*str;
 	int		i;
+	int		has_space;
 
 	i = 0;
-	while (trimmed[start] != quote && trimmed[start])
+	has_space = 0;
+	if (test[start - 1] && test[start - 1] == ' ')
+		has_space += 1;
+	if (has_space)
+		printf("has_space\n");
+	printf("Before =_%c\nTest Trimmed_%s\n", test[start - 1], test);
+	while (has_space && trimmed[start] != quote && trimmed[start])
 	{
 		printf("Testing IN QUOTE _%c\n", trimmed[i]);
 		i++;
@@ -122,7 +131,7 @@ void	parse_args(t_input *inp, char *trimmed)
 	{
 		printf("Testing Char _%c\n", trimmed[i]);
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
-			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i]);
+			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i], trimmed);
 		else if (trimmed[i] == '$')
 			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
 		else
