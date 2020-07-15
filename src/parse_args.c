@@ -76,7 +76,9 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 */
 
 // TODO IF HAS SPACE, IS TRIGGERED does normal save, if it's not triggered need
-// TODO work out how to correctly save test, BEFORE " and then join the two"
+// TODO work out how to correctly save test, BEFORE " and then join the two
+// TODO CHECK before exit of save quote for last QUOTE + 1, if it is a non space
+// TODO save the next string until '/0' or ' '
 char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *test)
 {
 	char	*str;
@@ -90,6 +92,8 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *te
 	if (has_space)
 		printf("has_space\n");
 	printf("Before =_%c\nTest Trimmed_%s\n", test[start - 1], test);
+	if (!has_space)
+		ft_save_qu_str(inp, trimmed, start, quote, test);
 	while (has_space && trimmed[start] != quote && trimmed[start])
 	{
 		printf("Testing IN QUOTE _%c\n", trimmed[i]);
