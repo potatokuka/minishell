@@ -32,7 +32,7 @@ void	cd_home(t_var *env)
 
 void	ft_cd(t_cmd *cmd, t_var *env)
 {
-	if (cmd->argc == 0)
+	if (cmd->argc == 0 || (ft_strcmp(cmd->argv[0], "~") == 0))
 		return (cd_home(env));
 	if (chdir(cmd->argv[0]) == -1)
 		return (error_builtin(cmd));

@@ -2,7 +2,6 @@
 
 void	redir_dispatch(t_input *inp)
 {
-	printf("INSIDE OF REDIR_DISPATCH\n");
 	if (inp->cmd && inp->cmd->pipe)
 	{
 		printf("pipe =%s\n", inp->cmd->pipe);

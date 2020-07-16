@@ -17,11 +17,14 @@ void	ft_export(t_cmd *cmd, t_var **env)
 	size_t	i;
 	size_t	tmp;
 
+	perror("INSIDE THE SHIT FOR EXPORT");
 	if (cmd->argc < 1)
 		return ;
+	perror("under");
 	i = 0;
 	while (cmd->argv[i])
 	{
+		printf("\t-- Export --\nargv[%zu]_%s\n", i, cmd->argv[i]);
 		tmp = ft_strc_len(cmd->argv[i], '=');
 		if (tmp < ft_strlen_lib(cmd->argv[i]))
 		{
