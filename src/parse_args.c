@@ -91,7 +91,7 @@ void	drop_char(char *trim, char c, int count)
 		reader++;
 
 	}
-	trim[writer] = '\0';
+	trim[writer] = 0;
 }
 
 char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *test)
@@ -100,9 +100,11 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	char	*str;
 	int		i;
 	int		q_count;
+	int		skip;
 
 	i = 0;
 	q_count = 0;
+	skip = 0;
 	perror("1");
 	/* at this point, all spaces before are already trimmed */
 	while (q_count < 2 && test[i] != '\0')
@@ -124,9 +126,20 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	}
 	perror("3");
 	tmp = ft_strldup(test, i);
+	if (!tmp)
+		put_error("Error in arg parser 1");
+	if (*tmp)
+	{
+		inp->argc += 1;
+		lst_new_back(&inp->arg_lst, tmp);
+	}
 	printf("\t\tFINAL TEMP TEST =_%s\n", tmp);
+	skip += ft_strlen(tmp);
+	printf("trimmed b4_%s\n", trimmed);
+	trimmed += skip;
+	printf("trimmed after_%s\n", trimmed);
 	exit(1);
-	return (tmp);
+	return (trimmed);
 }
 /*
 ** check starting pos, see what the char is there Quote or Dquote
