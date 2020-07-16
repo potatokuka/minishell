@@ -79,13 +79,15 @@ void	drop_char(char *trim, char c, int count)
 	post_count = 0;
 	writer = 0;
 	reader = 0;
-	while (trim[reader] && post_count < count)
+	while (trim[reader])
 	{
-		if (trim[reader] != c)
+		if (trim[reader] == c && post_count < count)
 		{
-			trim[writer] = trim[reader];
-			writer++;
+			reader++;
+			post_count += 1;
 		}
+		trim[writer] = trim[reader];
+		writer++;
 		reader++;
 
 	}
@@ -110,9 +112,9 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 		i++;
 	}
 	drop_char(test, quote, 2);
-	printf("\t\ttest_%s\n", test);
+	printf("\t\ttest_%s i = %d\n", test, i);
 	perror("2");
-	while (test[i] != '\0' || test[i] != ' ')
+	while (test[i] != '\0' && test[i] != ' ')
 	{
 		if (test[i] == D_QOTE || test[i] == S_QOTE)
 		{
