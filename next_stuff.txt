@@ -4,6 +4,7 @@ bugs:
 	if quote is unclosed, reopen input and add to end of input str
 	: if Quote is found, save arg until that point, before starting to trim
 	cd ~ needs to move to home
+	Echo: with no given arg segfaults
 
 Ctrl-D : exit
 $? : return value most recent function
