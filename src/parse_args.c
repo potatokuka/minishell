@@ -70,6 +70,62 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 ** move pointer forward ALSO MOVE INTO CMD->NEXT
 */
 
+void	drop_char(char *trim, char c, int count)
+{
+	int		writer;
+	int		reader;
+	int		post_count;
+
+	post_count = 0;
+	writer = 0;
+	reader = 0;
+	while (trim[reader] && post_count < count)
+	{
+		if (trim[reader] != c)
+		{
+			trim[writer] = trim[reader];
+			writer++;
+		}
+		reader++;
+
+	}
+	trim[writer] = '\0';
+}
+
+char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *test)
+{
+	char	*tmp;
+	char	*str;
+	int		i;
+	int		q_count;
+
+	i = 0;
+	q_count = 0;
+	perror("1");
+	/* at this point, all spaces before are already trimmed */
+	while (q_count < 2 && test[i] != '\0')
+	{
+		if (test[i] == quote)
+			q_count += 1;
+		i++;
+	}
+	drop_char(test, quote, 2);
+	printf("\t\ttest_%s\n", test);
+	perror("2");
+	while (test[i] != '\0' || test[i] != ' ')
+	{
+		if (test[i] == D_QOTE || test[i] == S_QOTE)
+		{
+			drop_char(test, test[i], 2);
+		}
+		i++;
+	}
+	perror("3");
+	tmp = ft_strldup(test, i);
+	printf("\t\tFINAL TEMP TEST =_%s\n", tmp);
+	exit(1);
+	return (tmp);
+}
 /*
 ** check starting pos, see what the char is there Quote or Dquote
 ** save from +1 of start until next occurence of Quote
@@ -87,13 +143,17 @@ char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *te
 
 	i = 0;
 	has_space = 0;
+	printf("\tTest =_%s\tTrimmed =_%s\n", test, trimmed);
+	printf("\tStrlen Test_%zu\tStrlen Trimmed_%zu\n", ft_strlen(test), ft_strlen(trimmed));
 	if (test[start - 1] && test[start - 1] == ' ')
 		has_space += 1;
 	if (has_space)
 		printf("has_space\n");
 	printf("Before =_%c\nTest Trimmed_%s\n", test[start - 1], test);
-	if (!has_space)
-		ft_save_qu_str(inp, trimmed, start, quote, test);
+	/* if (!has_space) */
+	ft_save_qu_str(inp, trimmed, start, quote, test);
+	/* if (ft_strlen(test - 1) > ft_strlen(trimmed)) */
+		/* ft_save_qu_str(inp, trimmed, start, quote, test); */
 	while (has_space && trimmed[start] != quote && trimmed[start])
 	{
 		printf("Testing IN QUOTE _%c\n", trimmed[i]);
