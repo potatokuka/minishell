@@ -105,7 +105,6 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	i = 0;
 	q_count = 0;
 	skip = 0;
-	perror("1");
 	/* at this point, all spaces before are already trimmed */
 	while (q_count < 2 && test[i] != '\0')
 	{
@@ -115,7 +114,6 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	}
 	drop_char(test, quote, 2);
 	printf("\t\ttest_%s i = %d\n", test, i);
-	perror("2");
 	while (test[i] != '\0' && test[i] != ' ')
 	{
 		if (test[i] == D_QOTE || test[i] == S_QOTE)
@@ -124,7 +122,6 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 		}
 		i++;
 	}
-	perror("3");
 	tmp = ft_strldup(test, i);
 	if (!tmp)
 		put_error("Error in arg parser 1");
@@ -136,9 +133,9 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	printf("\t\tFINAL TEMP TEST =_%s\n", tmp);
 	skip += ft_strlen(tmp);
 	printf("trimmed b4_%s\n", trimmed);
-	trimmed += skip;
+	trimmed += (skip + 1);
 	printf("trimmed after_%s\n", trimmed);
-	exit(1);
+	/* exit(1); */
 	return (trimmed);
 }
 /*
@@ -152,38 +149,7 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 // TODO save the next string until '/0' or ' '
 char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *test)
 {
-	char	*str;
-	int		i;
-	int		has_space;
-
-	i = 0;
-	has_space = 0;
-	printf("\tTest =_%s\tTrimmed =_%s\n", test, trimmed);
-	printf("\tStrlen Test_%zu\tStrlen Trimmed_%zu\n", ft_strlen(test), ft_strlen(trimmed));
-	if (test[start - 1] && test[start - 1] == ' ')
-		has_space += 1;
-	if (has_space)
-		printf("has_space\n");
-	printf("Before =_%c\nTest Trimmed_%s\n", test[start - 1], test);
-	/* if (!has_space) */
-	ft_save_qu_str(inp, trimmed, start, quote, test);
-	/* if (ft_strlen(test - 1) > ft_strlen(trimmed)) */
-		/* ft_save_qu_str(inp, trimmed, start, quote, test); */
-	while (has_space && trimmed[start] != quote && trimmed[start])
-	{
-		printf("Testing IN QUOTE _%c\n", trimmed[i]);
-		i++;
-		start++;
-	}
-	str = ft_strldup(trimmed, i);
-	if (!str)
-		put_error("Error in arguement parsing");
-	if (*str)
-	{
-		inp->argc += 1;
-		lst_new_back(&inp->arg_lst, str);
-	}
-	trimmed = trimmed + i;
+	trimmed = ft_save_qu_str(inp, trimmed, start, quote, test);
 	return (trimmed);
 }
 
@@ -208,7 +174,6 @@ void	parse_args(t_input *inp, char *trimmed)
 	trimmed = del_leading_space(trimmed);
 	while (trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
-		printf("Testing Char _%c\n", trimmed[i]);
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i], trimmed);
 		else if (trimmed[i] == '$')
