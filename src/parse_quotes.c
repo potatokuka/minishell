@@ -21,8 +21,9 @@ void	drop_char(char *trim, char c, int count)
 	post_count = 0;
 	writer = 0;
 	reader = 0;
-	while (trim[reader])
+	while (trim[reader] && trim[reader] != '\0')
 	{
+		printf("trim_reader_%c\n", trim[reader]);
 		if (trim[reader] == c && post_count < count)
 		{
 			reader++;
@@ -33,6 +34,8 @@ void	drop_char(char *trim, char c, int count)
 		reader++;
 
 	}
+	if (post_count != 2)
+		put_error("Unclosed quotations");
 	printf("trim writer_%s\n", trim);
 	trim[writer] = '\0';
 }
