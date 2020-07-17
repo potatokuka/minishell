@@ -26,9 +26,11 @@ void	ft_export(t_cmd *cmd, t_var **env)
 	{
 		printf("\t-- Export --\nargv[%zu]_%s\n", i, cmd->argv[i]);
 		tmp = ft_strc_len(cmd->argv[i], '=');
+		printf("\n\ntmp =_%zu\n", tmp);
 		if (tmp < ft_strlen_lib(cmd->argv[i]))
 		{
 			cmd->argv[i][tmp] = '\0';
+			printf("testing argv[%zu]_%s\n%s\n", i, cmd->argv[i], &cmd->argv[i][tmp + 1]);
 			(void)env_set_val(cmd->argv[i], env,
 					&cmd->argv[i][tmp + 1]);
 		}
