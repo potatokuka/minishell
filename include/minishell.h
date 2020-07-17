@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/14 20:17:28 by greed         ########   odam.nl         */
+/*   Updated: 2020/07/17 10:05:18 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,20 +110,21 @@ char	*get_path(void);
 ** PARSING
 */
 
-int		is_cmd(char *cmd);
+char	**list_to_chr_array(t_list *to_copy);
 char	*get_cmd(t_input *inp);
 char	*parse_cmd(t_input *inp, char *trimmed);
 char	*del_leading_space(char *res);
+int		is_cmd(char *cmd);
 void	parse_init(t_input *inp);
-char	**list_to_chr_array(t_list *to_copy);
 void	parse_args(t_input *inp, char *trimmed);
 void	repl_env_vars(t_input *inp);
 
+char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *test);
 int		parse_organize(t_input *inp);
 int		clear_cmd(t_cmd *cmd, void(*del)(void *));
+int		drop_string(t_input *inp, int i);
 void	print_cmd_full(t_input *inp);
 void	print_cur_cmd(t_cmd *cmd);
-int		drop_string(t_input *inp, int i);
 
 /*
 ** BUILT-INS
