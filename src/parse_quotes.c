@@ -25,7 +25,7 @@ void	drop_char(char *trim, char c, int count)
 	reader = 0;
 	l1 = ft_strlen(trim);
 	l2 = 0;
-	while (trim[reader] && trim[reader] != '\0' && post_count < count)
+	while (trim[reader] && trim[reader] != '\0')
 	{
 		/* printf("trim_reader_%c\n", trim[reader]); */
 		if (trim[reader] == c && post_count < count)
@@ -35,8 +35,8 @@ void	drop_char(char *trim, char c, int count)
 		}
 		trim[writer] = trim[reader];
 		writer++;
-		if (post_count < 2)
-			reader++;
+		/* if (post_count < 2) */
+		reader++;
 
 	}
 	if (post_count != 2)
@@ -89,7 +89,7 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	printf("\t\tFINAL TEMP TEST =_%s\n", tmp);
 	skip += ft_strlen(tmp);
 	printf("trimmed b4_%s\n", trimmed);
-	trimmed += (skip);
+	trimmed += (skip + 1);
 	printf("trimmed after_%s\n", trimmed);
 	/* exit(1); */
 	return (trimmed);
