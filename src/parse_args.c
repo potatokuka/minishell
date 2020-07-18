@@ -94,7 +94,7 @@ void	parse_args(t_input *inp, char *trimmed)
 	if (!trimmed)
 		return ;
 	trimmed = del_leading_space(trimmed);
-	while (trimmed[i] != ' ' && trimmed[i] != '\0')
+	while (trimmed && trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i], trimmed);

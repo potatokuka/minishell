@@ -17,10 +17,15 @@ void	drop_char(char *trim, char c, int count)
 	int		writer;
 	int		reader;
 	int		post_count;
+	int		l1;
+	int		l2;
 
 	post_count = 0;
 	writer = 0;
 	reader = 0;
+	l1 = ft_strlen(trim);
+	printf("L1 =_%d\n", l1);
+	l2 = 0;
 	while (trim[reader] && trim[reader] != '\0')
 	{
 		printf("trim_reader_%c\n", trim[reader]);
@@ -31,13 +36,17 @@ void	drop_char(char *trim, char c, int count)
 		}
 		trim[writer] = trim[reader];
 		writer++;
-		reader++;
+		if (post_count < 2)
+			reader++;
 
 	}
+	perror("above this");
 	if (post_count != 2)
 		put_error("Unclosed quotations");
 	printf("trim writer_%s\n", trim);
 	trim[writer] = '\0';
+	l2 = ft_strlen(trim);
+	printf("L2 =_%d\n", l2);
 }
 
 char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *test)
