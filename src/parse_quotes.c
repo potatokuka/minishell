@@ -24,7 +24,6 @@ void	drop_char(char *trim, char c, int count)
 	writer = 0;
 	reader = 0;
 	l1 = ft_strlen(trim);
-	printf("L1 =_%d\n", l1);
 	l2 = 0;
 	while (trim[reader] && trim[reader] != '\0')
 	{
@@ -40,13 +39,10 @@ void	drop_char(char *trim, char c, int count)
 			reader++;
 
 	}
-	perror("above this");
 	if (post_count != 2)
 		put_error("Unclosed quotations");
 	printf("trim writer_%s\n", trim);
 	trim[writer] = '\0';
-	l2 = ft_strlen(trim);
-	printf("L2 =_%d\n", l2);
 }
 
 char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *test)
@@ -61,6 +57,8 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	q_count = 0;
 	skip = 0;
 	/* at this point, all spaces before are already trimmed */
+/* ISSUE: trimmed is increase extra + 1 somewhere */
+	printf("trimmed b3_%s\n", trimmed);
 	while (q_count < 2 && test[i] != '\0')
 	{
 		if (test[i] == quote)

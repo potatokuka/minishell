@@ -94,6 +94,8 @@ void	parse_args(t_input *inp, char *trimmed)
 	if (!trimmed)
 		return ;
 	trimmed = del_leading_space(trimmed);
+	printf("TRIMMED CHECK FIRST CHECK_%s\n", trimmed);
+	/* not cucked above this /\/\/\/\/\/\ */
 	while (trimmed && trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
