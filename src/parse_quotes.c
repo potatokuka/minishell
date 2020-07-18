@@ -25,9 +25,9 @@ void	drop_char(char *trim, char c, int count)
 	reader = 0;
 	l1 = ft_strlen(trim);
 	l2 = 0;
-	while (trim[reader] && trim[reader] != '\0')
+	while (trim[reader] && trim[reader] != '\0' && post_count < count)
 	{
-		printf("trim_reader_%c\n", trim[reader]);
+		/* printf("trim_reader_%c\n", trim[reader]); */
 		if (trim[reader] == c && post_count < count)
 		{
 			reader++;
