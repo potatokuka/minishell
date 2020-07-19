@@ -87,9 +87,10 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 		lst_new_back(&inp->arg_lst, tmp);
 	}
 	printf("\t\tFINAL TEMP TEST =_%s\n", tmp);
-	skip += ft_strlen(tmp);
+	skip += ft_strlen(tmp + 1);
 	printf("trimmed b4_%s\n", trimmed);
-	trimmed += (skip + 1);
+	/* trimmed += (skip + 1); */
+	trimmed += skip;
 	printf("trimmed after_%s\n", trimmed);
 	/* exit(1); */
 	return (trimmed);
