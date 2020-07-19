@@ -99,7 +99,12 @@ void	parse_args(t_input *inp, char *trimmed)
 	while (trimmed && trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+		{
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i], trimmed);
+			if (!trimmed)
+				printf("I guess this shit is NULL\n");
+			printf("trimmed after SAVE QUOTE_%s_\n", trimmed);
+		}
 		else if (trimmed[i] == '$')
 			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
 		else
