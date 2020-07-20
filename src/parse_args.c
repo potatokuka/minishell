@@ -101,8 +101,11 @@ void	parse_args(t_input *inp, char *trimmed)
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 		{
 			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i], trimmed);
-			if (!trimmed)
+			if (!*trimmed)
+			{
 				printf("I guess this shit is NULL\n");
+				return ;
+			}
 			printf("trimmed after SAVE QUOTE_%s_\n", trimmed);
 		}
 		else if (trimmed[i] == '$')

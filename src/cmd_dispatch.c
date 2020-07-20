@@ -64,7 +64,7 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 		else if (ft_strncmp(cmd->builtin, "unset", 5) == 0)
 			ft_unset(cmd, env);
 		else if (ft_strncmp(cmd->builtin, "export", 6) == 0)
-			ft_export(cmd, env);
+			ft_export(cmd, env, envp);
 	}
 	else
 		ft_exec(cmd, *env, envp);
