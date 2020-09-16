@@ -65,16 +65,17 @@ char	*ft_combine_str(const char *str1, const char *str2,
 			str3, ft_strlen_lib(str3) + 1);
 	return(combined);
 }
-void	reset_input(t_input *inp)
+
+void	reset_data(t_data *data)
 {
-	if (inp->argv)
-		inp->argv = (void *)0;
-		/*free_array_null(inp->argv);*/
-	inp->argc = 0;
-	/*if (inp->redirs)*/
-		/*free_array_null(inp->redirs);*/
-	inp->arg_lst = (void *)0;
-	inp->cmd = (void *)0;
+	if (data->argv)
+		data->argv = (void *)0;
+		/*free_array_null(data->argv);*/
+	data->argc = 0;
+	/*if (data->redirs)*/
+		/*free_array_null(data->redirs);*/
+	data->arg_lst = (void *)0;
+	data->cmd = (void *)0;
 	return ;
 }
 

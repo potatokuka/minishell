@@ -17,24 +17,24 @@
 ** their value
 */
 
-void	repl_env_vars(t_input *inp)
+void	repl_env_vars(t_data *data)
 {
 	int		i;
 	char	*ptr;
 
 	i = 0;
 	printf("repl env vars\n");
-	while (i < inp->argc)
+	while (i < data->argc)
 	{
-		printf("\t%s ", inp->argv[i]);
-		if (inp->argv[i][0] == '$' && ft_strlen(inp->argv[i]) > 1)
+		printf("\t%s ", data->argv[i]);
+		if (data->argv[i][0] == '$' && ft_strlen(data->argv[i]) > 1)
 		{
-			ptr = &(inp->argv[i][1]);
-			ptr = get_env_val(ptr, inp->env, ft_strlen(ptr));
+			ptr = &(data->argv[i][1]);
+			ptr = get_env_val(ptr, data->env, ft_strlen(ptr));
 			ptr = ft_strdup((ptr) ? ptr : "");
 			printf("val:%s", ptr);
-			free(inp->argv[i]);
-			inp->argv[i] = ptr;
+			free(data->argv[i]);
+			data->argv[i] = ptr;
 		}
 		printf("\n");
 		i++;

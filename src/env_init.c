@@ -67,14 +67,14 @@ static t_var	*var_init(char *str)
 ** sets the had of the env, stores for later and sets to -1 to make
 ** sure you only run this portion 1 time
 */
-static int		env_head_init(t_input *inp, char **environ)
+static int		env_head_init(t_data *data, char **environ)
 {
-	inp->env = NULL;
+	data->env = NULL;
 	if (!environ || !environ[0])
 		return (-1);
-	inp->env = var_init(environ[0]);
-	if (!inp->env)
-		return (clear_env(inp->env, &free));
+	data->env = var_init(environ[0]);
+	if (!data->env)
+		return (clear_env(data->env, &free));
 	return (-1);
 }
 
@@ -82,27 +82,27 @@ static int		env_head_init(t_input *inp, char **environ)
 ** stores a shit load of values(VAL) for each ENV in seperate structs
 */
 
-int				env_init(t_input *inp)
+int				env_init(t_data *data)
 {
 	extern char **environ;
 	t_var		*env;
 	int			i;
 
-	i = env_head_init(inp, environ);
+	i = env_head_init(data, environ);
 	if (i != -1)
 		return (i);
 	i = 1;
-	env = inp->env;
+	env = data->env;
 	while (environ[i])
 	{
 		env->next = var_init(environ[i]);
 		if (!env->next)
-			return (clear_env(inp->env, &free));
+			return (clear_env(data->env, &free));
 		env = env->next;
 		i++;
 	}
-	inp->envp = convert_env(inp->env);
-	if (!inp->envp)
-		return (clear_env(inp->env, &free));
+	data->envp = convert_env(data->env);
+	if (!data->envp)
+		return (clear_env(data->env, &free));
 	return (1);
 }

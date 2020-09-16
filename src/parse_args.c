@@ -33,7 +33,7 @@ int		ft_env_char(int c)
 ** IF the characters inside != UPPER CASE APHLA dont save shit inside
 */
 
-char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
+char	*ft_save_dolla(t_data *data, char *trimmed, int start)
 {
 	char	*str;
 	int		i;
@@ -57,8 +57,8 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 		printf("STR $ check =_%s_\n", str);
 		if (*str)
 		{
-			inp->argc += 1;
-			lst_new_back(&inp->arg_lst, str);
+			data->argc += 1;
+			lst_new_back(&data->arg_lst, str);
 		}
 	}
 	trimmed = trimmed + i + 1;
@@ -78,14 +78,14 @@ char	*ft_save_dolla(t_input *inp, char *trimmed, int start)
 /*
 ** save until non alpha into args[i]
 ** IF read a Quote or Dquote send to save with quotes
-** del_leading_space after each arg is saved
+** trim_spaces after each arg is saved
 ** maybe can do this recursively
 ** save everything from SP to SP, SP is 32 in ascii dec
 ** EASIER WAY, save each arg into linked list, split into array
 ** after it's fully finished
 */
 
-void	parse_args(t_input *inp, char *trimmed)
+void	parse_args(t_data *data, char *trimmed)
 {
 	char	*str;
 	int		i;
@@ -93,14 +93,14 @@ void	parse_args(t_input *inp, char *trimmed)
 	i = 0;
 	if (!trimmed)
 		return ;
-	trimmed = del_leading_space(trimmed);
+	trimmed = trim_spaces(trimmed);
 	printf("TRIMMED CHECK FIRST CHECK_%s\n", trimmed);
 	/* not cucked above this /\/\/\/\/\/\ */
 	while (trimmed && trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 		{
-			trimmed = ft_save_quote(inp, (trimmed + 1), i, trimmed[i], trimmed);
+			trimmed = ft_save_quote(data, (trimmed + 1), i, trimmed[i], trimmed);
 			if (!*trimmed)
 			{
 				printf("I guess this shit is NULL\n");
@@ -109,7 +109,7 @@ void	parse_args(t_input *inp, char *trimmed)
 			printf("trimmed after SAVE QUOTE_%s_\n", trimmed);
 		}
 		else if (trimmed[i] == '$')
-			trimmed = ft_save_dolla(inp, trimmed, (i + 1));
+			trimmed = ft_save_dolla(data, trimmed, (i + 1));
 		else
 			i++;
 	}
@@ -118,10 +118,10 @@ void	parse_args(t_input *inp, char *trimmed)
 		put_error("Error in arguement parsing");
 	if (*str)
 	{
-		inp->argc += 1;
-		lst_new_back(&inp->arg_lst, str);
+		data->argc += 1;
+		lst_new_back(&data->arg_lst, str);
 	}
 	trimmed = trimmed + i;
 	if (*trimmed)
-		parse_args(inp, trimmed);
+		parse_args(data, trimmed);
 }

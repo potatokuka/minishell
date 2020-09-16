@@ -37,15 +37,15 @@ void	print_list(t_list *list)
 	}
 }
 
-void	print_args(t_input *inp)
+void	print_args(t_data *data)
 {
 	int	y;
 
 	y = 0;
-	printf("--------\nPRINTING ARGS\nARGC = %d\n", inp->argc);
-	while (y < inp->argc)
+	printf("--------\nPRINTING ARGS\nARGC = %d\n", data->argc);
+	while (y < data->argc)
 	{
-		printf("\t%s\n", inp->argv[y]);
+		printf("\t%s\n", data->argv[y]);
 		y++;
 	}
 }
@@ -63,8 +63,8 @@ void	test_args(char **argv, int argc)
 	}
 }
 
-void	print_vars(t_input *inp)
+void	print_vars(t_data *data)
 {
-	/* ft_printf("CMD = %s\n", inp->cmd); */
-	print_args(inp);
+	/* ft_printf("CMD = %s\n", data->cmd); */
+	print_args(data);
 }

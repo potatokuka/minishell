@@ -12,8 +12,8 @@
 
 #include <minishell.h>
 
-void	print_prompt(t_input *inp)
+void	print_prompt(t_data *data)
 {
-  (void)inp;
+  (void)data;
   ft_printf("\e[1;34m%s\e[0m", PROMPT);
 }

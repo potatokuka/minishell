@@ -45,7 +45,7 @@ void	drop_char(char *trim, char c, int count)
 	trim[writer] = '\0';
 }
 
-char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *test)
+char	*ft_save_qu_str(t_data *data, char *trimmed, int start, char quote, char *test)
 {
 	char	*tmp;
 	char	*str;
@@ -83,8 +83,8 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 		put_error("Error in arg parser 1");
 	if (*tmp)
 	{
-		inp->argc += 1;
-		lst_new_back(&inp->arg_lst, tmp);
+		data->argc += 1;
+		lst_new_back(&data->arg_lst, tmp);
 	}
 	printf("\t\tFINAL TEMP TEST =_%s\n", tmp);
 	skip += ft_strlen(tmp + 1);
@@ -94,8 +94,8 @@ char	*ft_save_qu_str(t_input *inp, char *trimmed, int start, char quote, char *t
 	return (trimmed);
 }
 
-char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *test)
+char	*ft_save_quote(t_data *data, char *trimmed, int start, char quote, char *test)
 {
-	trimmed = ft_save_qu_str(inp, trimmed, start, quote, test);
+	trimmed = ft_save_qu_str(data, trimmed, start, quote, test);
 	return (trimmed);
 }

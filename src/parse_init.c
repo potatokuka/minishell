@@ -16,27 +16,24 @@
 ** Takes RES and returns a pointer to the next occurence of an alpha
 */
 
-void	parse_input(t_input *inp, char *res)
+void	parse_input(t_data *data, char *input_str)
 {
-	char	*trimmed;
-
-	trimmed = del_leading_space(res);
-	// trimmed = parse_cmd(inp, trimmed);
-	if (trimmed)
-		parse_args(inp, trimmed);
-	inp->argv = list_to_chr_array(inp->arg_lst);
-	repl_env_vars(inp);
+	input_str = trim_spaces(input_str);
+	if (input_str)
+		parse_args(data, input_str);
+	data->argv = list_to_string_array(data->arg_lst);
+	repl_env_vars(data);
 }
 
-void	parse_init(t_input *inp)
+void	parse_init(t_data *data)
 {
-	char	*res;
+	char	*input_str;
 
-	if (get_next_line(STDIN, &res) < 0)
+	if (get_next_line(STDIN, &input_str) < 0)
 		put_error("Invalid input read");
-	parse_input(inp, res);
-	free(res);
-	free_list(inp->arg_lst, &free);
-	parse_organize(inp);
-	print_vars(inp);
+	parse_input(data, input_str);
+	free(input_str);
+	free_list(data->arg_lst, &free);
+	parse_organize(data);
+	print_vars(data);
 }

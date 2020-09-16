@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	**list_to_chr_array(t_list *to_copy)
+char	**list_to_string_array(t_list *to_copy)
 {
 	char	**tmp;
 	char	*str;

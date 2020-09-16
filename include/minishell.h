@@ -82,7 +82,7 @@ typedef struct		s_var
 }					t_var;
 
 /* should put this struct into another one later, because it's just input, but im lazy rn */
-typedef struct		s_input
+typedef struct		s_data
 {
 	char	**argv;
 	int		argc;
@@ -91,14 +91,14 @@ typedef struct		s_input
 	t_var	*env;
 	t_cmd	*cmd;
 	char	**redirs;
-}			t_input;
+}			t_data;
 
 /*
 ** FUNCTION PROTOTYPES
 */
 
 void	print_prompt();
-void	reset_input(t_input *input);
+void	reset_data(t_data *data);
 void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp);
 char	*ft_combine_str(const char *str1, const char *str2,
 			const char *str3);
@@ -110,20 +110,18 @@ char	*get_path(void);
 ** PARSING
 */
 
-char	**list_to_chr_array(t_list *to_copy);
-char	*get_cmd(t_input *inp);
-char	*parse_cmd(t_input *inp, char *trimmed);
-char	*del_leading_space(char *res);
+char	**list_to_string_array(t_list *to_copy);
+char	*trim_spaces(char *res);
 int		is_cmd(char *cmd);
-void	parse_init(t_input *inp);
-void	parse_args(t_input *inp, char *trimmed);
-void	repl_env_vars(t_input *inp);
+void	parse_init(t_data *data);
+void	parse_args(t_data *data, char *trimmed);
+void	repl_env_vars(t_data *data);
 
-char	*ft_save_quote(t_input *inp, char *trimmed, int start, char quote, char *test);
-int		parse_organize(t_input *inp);
+char	*ft_save_quote(t_data *data, char *trimmed, int start, char quote, char *test);
+int		parse_organize(t_data *data);
 int		clear_cmd(t_cmd *cmd, void(*del)(void *));
-int		drop_string(t_input *inp, int i);
-void	print_cmd_full(t_input *inp);
+int		drop_string(t_data *data, int i);
+void	print_cmd_full(t_data *data);
 void	print_cur_cmd(t_cmd *cmd);
 
 /*
@@ -142,7 +140,7 @@ void	error_builtin(t_cmd *cmd);
 ** ENV
 */
 
-int		env_init(t_input *inp);
+int		env_init(t_data *data);
 char	*get_env_val(const char *name, t_var *env, size_t len);
 int		clear_env(t_var *env, void(*del)(void *));
 void	env_del(t_var *delete);
@@ -153,7 +151,7 @@ void	env_del(t_var *delete);
 
 void	ft_unset(t_cmd *cmd, t_var **env);
 void	unset_env(t_var **env, char *str);
-void	update_env(t_input *inp);
+void	update_env(t_data *data);
 char	**convert_env(t_var *env);
 
 /*
@@ -168,11 +166,11 @@ t_var	*env_add(const char *name, const char *val);
 ** REDIRECTIONS
 */
 
-void	redir_init(t_input *inp);
-void	redir_dispatch(t_input *inp);
-void	redir_append(t_input *inp);
-void	redir_trunc(t_input *inp);
-void	redir_std_input(t_input *inp);
+void	redir_init(t_data *data);
+void	redir_dispatch(t_data *data);
+void	redir_append(t_data *data);
+void	redir_trunc(t_data *data);
+void	redir_std_input(t_data *data);
 int		ft_is_redir(char *str);
 int		ft_is_valid_pipe(t_cmd *cmd);
 
@@ -180,7 +178,7 @@ int		ft_is_valid_pipe(t_cmd *cmd);
 ** DEBUGGING
 */
 
-void	print_vars(t_input *inp);
+void	print_vars(t_data *data);
 void	print_list(t_list *list);
 void	test_args(char  **argv, int argc);
 void	print_environ(char **environ);

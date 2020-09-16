@@ -41,27 +41,27 @@
 ** target to the right
 */
 
-void	redir_append(t_input *inp)
+void	redir_append(t_data *data)
 {
-	int file = open(inp->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	int file = open(data->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (file < 0)
 		put_error("Error with File in Redir Append");
-	inp->cmd->pipfd[1] = file;
+	data->cmd->pipfd[1] = file;
 }
 
-void		redir_trunc(t_input *inp)
+void		redir_trunc(t_data *data)
 {
-	int file = open(inp->cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	int file = open(data->cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir trunc");
-	inp->cmd->pipfd[1] = file;
+	data->cmd->pipfd[1] = file;
 }
 
-void		redir_std_input(t_input *inp)
+void		redir_std_input(t_data *data)
 {
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
-	int file = open(inp->cmd->tar_file, O_RDONLY, 0644);
+	int file = open(data->cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir input");
-	inp->cmd->pipfd[0] = file;
+	data->cmd->pipfd[0] = file;
 }

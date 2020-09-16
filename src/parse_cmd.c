@@ -19,7 +19,7 @@
 ** EVERY ' ' EXCEPT the FIRST one AFTER the last CHAR
 */
 
-char	*del_leading_space(char *res)
+char	*trim_spaces(char *res)
 {
 	while (*res)
 	{

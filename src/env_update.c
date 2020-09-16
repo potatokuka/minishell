@@ -26,10 +26,10 @@ char	**free_array_null(char **str)
 	return (NULL);
 }
 
-void	update_env(t_input *inp)
+void	update_env(t_data *data)
 {
-	free_array_null(inp->envp);
-	inp->envp = convert_env(inp->env);
-	if (!inp->envp)
-		return (void)(clear_env(inp->env, &free));
+	free_array_null(data->envp);
+	data->envp = convert_env(data->env);
+	if (!data->envp)
+		return (void)(clear_env(data->env, &free));
 }

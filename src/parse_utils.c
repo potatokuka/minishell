@@ -35,11 +35,11 @@ int				clear_cmd(t_cmd *cmd, void(*del)(void *))
 	return (0);
 }
 
-int		drop_string(t_input *inp, int i)
+int		drop_string(t_data *data, int i)
 {
-	if (inp->argv[i])
-		free(inp->argv[i]);
-	inp->argv[i] = NULL;
+	if (data->argv[i])
+		free(data->argv[i]);
+	data->argv[i] = NULL;
 	return (0);
 }
 
@@ -67,13 +67,13 @@ void	print_cur_cmd(t_cmd *cmd)
 	}
 }
 
-void	print_cmd_full(t_input *inp)
+void	print_cmd_full(t_data *data)
 {
 	t_cmd	*cmd;
 	int		i;
 
 	i = 0;
-	cmd = inp->cmd;
+	cmd = data->cmd;
 	while (cmd)
 	{
 		printf("-- PRINT CUR CMD STRUCT --\n");

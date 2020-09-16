@@ -16,29 +16,29 @@
 
 int	main(void)
 {
-	t_input inp;
+	t_data data;
 
-	ft_bzero(&inp, sizeof(inp));
-	env_init(&inp);
+	ft_bzero(&data, sizeof(data));
+	env_init(&data);
 	while (1)
 	{
-		print_prompt(&inp);
-		parse_init(&inp);
+		print_prompt(&data);
+		parse_init(&data);
 		// TODO make this a while_loop while imp.cmd and move im.cmd->next at
 		// bottom
-		while (inp.cmd)
+		while (data.cmd)
 		{
-			redir_dispatch(&inp);
-			cmd_dispatch(inp.cmd, &inp.env, inp.envp);
-			if (inp.cmd->update_env)
-				update_env(&inp);
-			if (inp.cmd->pipe && inp.cmd->pid1 == 0)
+			redir_dispatch(&data);
+			cmd_dispatch(data.cmd, &data.env, data.envp);
+			if (data.cmd->update_env)
+				update_env(&data);
+			if (data.cmd->pipe && data.cmd->pid1 == 0)
 				exit (1);
-			/* if (inp.cmd->next) */
-			inp.cmd = inp.cmd->next;
+			/* if (data.cmd->next) */
+			data.cmd = data.cmd->next;
 		}
-		reset_input(&inp);
-		/*ft_bzero(&inp, sizeof(inp));//TODO free argv, cmd, env*/
+		reset_data(&data);
+		/*ft_bzero(&data, sizeof(data));//TODO free argv, cmd, env*/
 	}
 	return (0);
 }
