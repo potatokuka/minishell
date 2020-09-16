@@ -25,7 +25,7 @@ void	ft_echo(t_cmd *cmd)
 
 	flag = 0;
 	i = 0;
-	if (ft_strcmp(cmd->argv[0], "-n") == 0)
+	if (cmd->argc != 0 && ft_strcmp(cmd->argv[0], "-n") == 0)
 		flag += 1;
 	printf("ECHO -------------\n");
 	while (i < cmd->argc)
