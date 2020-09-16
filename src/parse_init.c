@@ -22,7 +22,7 @@ void	parse_input(t_data *data, char *input_str)
 	if (input_str)
 		parse_args(data, input_str);
 	data->argv = list_to_string_array(data->arg_lst);
-	repl_env_vars(data);
+	subtitute_enviroment_variables(data);
 }
 
 void	parse_init(t_data *data)

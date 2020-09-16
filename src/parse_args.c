@@ -100,7 +100,7 @@ void	parse_args(t_data *data, char *trimmed)
 	{
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 		{
-			trimmed = ft_save_quote(data, (trimmed + 1), i, trimmed[i], trimmed);
+			trimmed = ft_save_literal(data, (trimmed + 1), i, trimmed[i], trimmed);
 			if (!*trimmed)
 			{
 				printf("I guess this shit is NULL\n");

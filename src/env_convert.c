@@ -38,7 +38,7 @@ char				**convert_env(t_var *env)
 		return (NULL);
 	while (i < len)
 	{
-		env_arr[i] = ft_combine_str(env->name, "=", env->val);
+		env_arr[i] = ft_3strjoin(env->name, "=", env->val);
 		if (!env_arr[i])
 			return (free_array_null(env_arr));
 		env = env->next;

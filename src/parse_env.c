@@ -17,7 +17,7 @@
 ** their value
 */
 
-void	repl_env_vars(t_data *data)
+void	subtitute_enviroment_variables(t_data *data)
 {
 	int		i;
 	char	*ptr;

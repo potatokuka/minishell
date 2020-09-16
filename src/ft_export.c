@@ -26,7 +26,7 @@ void	ft_export(t_cmd *cmd, t_var **env, char **envp)
 	while (cmd->argv[i])
 	{
 		printf("\t-- Export --\nargv[%zu]_%s\n", i, cmd->argv[i]);
-		tmp = ft_strc_len(cmd->argv[i], '=');
+		tmp = ft_strclen(cmd->argv[i], '=');
 		printf("\n\ntmp =_%zu\n", tmp);
 		if (tmp < ft_strlen_lib(cmd->argv[i]))
 		{

@@ -45,7 +45,7 @@ void	drop_char(char *trim, char c, int count)
 	trim[writer] = '\0';
 }
 
-char	*ft_save_qu_str(t_data *data, char *trimmed, int start, char quote, char *test)
+char	*ft_save_literal(t_data *data, char *trimmed, int start, char quote, char *test)
 {
 	char	*tmp;
 	char	*str;
@@ -91,11 +91,5 @@ char	*ft_save_qu_str(t_data *data, char *trimmed, int start, char quote, char *t
 	printf("trimmed b4_%s\n", trimmed);
 	trimmed += skip;
 	printf("trimmed after_%s\n", trimmed);
-	return (trimmed);
-}
-
-char	*ft_save_quote(t_data *data, char *trimmed, int start, char quote, char *test)
-{
-	trimmed = ft_save_qu_str(data, trimmed, start, quote, test);
 	return (trimmed);
 }

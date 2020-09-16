@@ -79,7 +79,7 @@ char	*get_env_path_exec(char *exec, t_var *env)
 		if (dirp)//NULL on error, but do we care? maybe theres shit values in PATH, do we really want to throw then?
 		{
 			if (search_dir(dirp, exec))
-				temp = ft_combine_str(*paths, "/", exec);
+				temp = ft_3strjoin(*paths, "/", exec);
 			/*free(dirp);*/
 		}
 		paths++;

@@ -100,10 +100,10 @@ typedef struct		s_data
 void	print_prompt();
 void	reset_data(t_data *data);
 void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp);
-char	*ft_combine_str(const char *str1, const char *str2,
+char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3);
 char	**free_array_null(char **str);
-size_t	ft_strc_len(const char *str, int c);
+size_t	ft_strclen(const char *str, int c);
 char	*get_path(void);
 
 /*
@@ -115,9 +115,9 @@ char	*trim_spaces(char *res);
 int		is_cmd(char *cmd);
 void	parse_init(t_data *data);
 void	parse_args(t_data *data, char *trimmed);
-void	repl_env_vars(t_data *data);
+void	subtitute_enviroment_variables(t_data *data);
 
-char	*ft_save_quote(t_data *data, char *trimmed, int start, char quote, char *test);
+char	*ft_save_literal(t_data *data, char *trimmed, int start, char quote, char *test);
 int		parse_organize(t_data *data);
 int		clear_cmd(t_cmd *cmd, void(*del)(void *));
 int		drop_string(t_data *data, int i);

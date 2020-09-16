@@ -37,7 +37,7 @@ int		ft_is_redir(char *str)
 	else
 		return (0);
 }
-size_t	ft_strc_len(const char *str, int c)
+size_t	ft_strclen(const char *str, int c)
 {
 	size_t	len;
 
@@ -47,7 +47,7 @@ size_t	ft_strc_len(const char *str, int c)
 	return (len);
 }
 
-char	*ft_combine_str(const char *str1, const char *str2,
+char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3)
 {
 	char	*combined;
