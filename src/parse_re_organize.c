@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/14 19:45:52 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/16 11:03:05 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static t_cmd	*save_in_flag(t_input *inp, t_cmd *new, int i)
 	new->pipfd[0] = -1;
 	new->pipfd[1] = -1;
 	new->pipe = ft_strdup(inp->argv[i]);
-	new->tar_file = ft_strdup(inp->argv[i + 1]);
 	drop_string(inp, i);
 	i += 1;
+	new->tar_file = ft_strdup(inp->argv[i]);
 	drop_string(inp, i);
 	inp->argc -= 2;
 	new->argv = list_to_chr_array(new->arr_list);
