@@ -12,9 +12,8 @@
 
 #include "minishell.h"
 
-void	ft_exit(t_cmd *cmd)
+void	ft_exit()
 {
-	(void)cmd;
 	printf("exiting from exit\n");
 	exit(0);
 }

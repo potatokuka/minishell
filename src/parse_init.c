@@ -28,9 +28,19 @@ void	parse_input(t_data *data, char *input_str)
 void	parse_init(t_data *data)
 {
 	char	*input_str;
+	int		ret;
 
-	if (get_next_line(STDIN, &input_str) < 0)
-		put_error("Invalid input read");
+	ret = (get_next_line(STDIN, &input_str));
+	if (ret <= 0)
+	{
+		if (ret == 0)
+		{
+			ft_printf("exit\n");
+			exit(1);
+		}
+		else
+			put_error("Invalid input read");
+	}
 	parse_input(data, input_str);
 	free(input_str);
 	free_list(data->arg_lst, &free);

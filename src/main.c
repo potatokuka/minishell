@@ -20,9 +20,10 @@ int	main(void)
 
 	ft_bzero(&data, sizeof(data));
 	env_init(&data);
+	set_signal();
 	while (1)
 	{
-		print_prompt(&data);
+		print_prompt();
 		parse_init(&data);
 		// TODO make this a while_loop while imp.cmd and move im.cmd->next at
 		// bottom

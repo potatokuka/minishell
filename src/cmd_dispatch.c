@@ -52,7 +52,7 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 			}
 		}
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
-			ft_exit(cmd);
+			ft_exit();
 		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
 			ft_echo(cmd);
 		else if (ft_strncmp(cmd->builtin, "env", 3) == 0)

@@ -123,12 +123,14 @@ int		clear_cmd(t_cmd *cmd, void(*del)(void *));
 int		drop_string(t_data *data, int i);
 void	print_cmd_full(t_data *data);
 void	print_cur_cmd(t_cmd *cmd);
+void	set_signal(void);
+void	sig_handler(int i);
 
 /*
 ** BUILT-INS
 */
 
-void	ft_exit(t_cmd *cmd);
+void	ft_exit();
 void	ft_echo(t_cmd *cmd);
 void	ft_pwd(void);
 void	ft_cd(t_cmd *cmd, t_var *env);
