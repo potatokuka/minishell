@@ -1,4 +1,6 @@
 bugs:
+	NEED TO MAKE FD_ARRAY to deal with multi PIPES
+
 	calls a builtin on commands like: cat pwd.txt ( calls cat )
 	sometimes gives bad arguemnts after mutiple inputs ( freeing problems
 	or some memory resycle issues )
@@ -7,6 +9,7 @@ bugs:
 	: if Quote is found, save arg until that point, before starting to trim
 	cd ~ needs to move to home
 	Echo: with no given arg segfaults
+
 
 Ctrl-D : exit
 $? : return value most recent function
