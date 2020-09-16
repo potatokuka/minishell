@@ -112,7 +112,7 @@ char	*get_path(void);
 
 char	**list_to_string_array(t_list *to_copy);
 char	*trim_spaces(char *res);
-int		is_cmd(char *cmd);
+int		is_builtin(char *cmd);
 void	parse_init(t_data *data);
 void	parse_args(t_data *data, char *trimmed);
 void	subtitute_enviroment_variables(t_data *data);

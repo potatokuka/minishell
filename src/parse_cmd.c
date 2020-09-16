@@ -35,7 +35,7 @@ char	*trim_spaces(char *res)
 ** Returns 1 if the given string matches to a builtin
 */
 
-int		is_cmd(char *cmd)
+int		is_builtin(char *cmd)
 {
 	if (ft_strncmp(cmd, "exit", 4) == 0)
 		return (1);

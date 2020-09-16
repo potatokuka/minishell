@@ -54,7 +54,7 @@ static t_cmd	*split_init(t_data *data)
 		return (NULL);
 	while (data->argc > 0)
 	{
-		if (new->argc == 0 && is_cmd(data->argv[i]))
+		if (new->argc == 0 && is_builtin(data->argv[i]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
 			drop_string(data, i);
