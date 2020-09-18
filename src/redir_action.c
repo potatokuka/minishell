@@ -55,7 +55,8 @@ void		redir_trunc(t_data *data)
 	int file = open(data->cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir trunc");
-	data->cmd->pipfd[1] = file;
+	if (data->cmd->next && !data->cmd->next->tar_file)
+		data->cmd->pipfd[1] = file;
 }
 
 void		redir_std_input(t_data *data)
@@ -64,5 +65,6 @@ void		redir_std_input(t_data *data)
 	int file = open(data->cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir input");
-	data->cmd->pipfd[0] = file;
+	if (data->cmd->next && !data->cmd->next->tar_file)
+		data->cmd->pipfd[0] = file;
 }
