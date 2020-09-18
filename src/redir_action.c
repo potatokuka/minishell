@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/08 18:36:58 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 21:07:34 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	redir_append(t_data *data)
 		put_error("Error with File in Redir Append");
 	if (data->cmd->next && !data->cmd->next->tar_file)
 		data->cmd->pipfd[1] = file;
+	else
+		close(file);
 }
 
 void		redir_trunc(t_data *data)
@@ -57,6 +59,8 @@ void		redir_trunc(t_data *data)
 			put_error("Error with File in Redir trunc");
 	if (data->cmd->next && !data->cmd->next->tar_file)
 		data->cmd->pipfd[1] = file;
+	else
+		close(file);
 }
 
 void		redir_std_input(t_data *data)
@@ -67,4 +71,6 @@ void		redir_std_input(t_data *data)
 			put_error("Error with File in Redir input");
 	if (data->cmd->next && !data->cmd->next->tar_file)
 		data->cmd->pipfd[0] = file;
+	else
+		close(file);
 }

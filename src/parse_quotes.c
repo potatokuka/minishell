@@ -72,6 +72,7 @@ char	*ft_save_literal(t_data *data, char *trimmed, int start, char quote, char *
 	{
 		if (test[i] == D_QOTE || test[i] == S_QOTE)
 		{
+			dprintf(2,"\nChecking this %c\n", test[i]);
 			drop_char(test, test[i], 2);
 		}
 		dprintf(2,"\n--**-- test[%d] =_%c --**--\n", i, test[i]);
