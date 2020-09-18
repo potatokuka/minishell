@@ -46,7 +46,8 @@ void	redir_append(t_data *data)
 	int file = open(data->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (file < 0)
 		put_error("Error with File in Redir Append");
-	data->cmd->pipfd[1] = file;
+	if (data->cmd->next && !data->cmd->next->tar_file)
+		data->cmd->pipfd[1] = file;
 }
 
 void		redir_trunc(t_data *data)

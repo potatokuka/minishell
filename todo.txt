@@ -2,7 +2,7 @@
 2: env check is supposedly too eager
 3: '|' && ';'
 4: '\' escape characters
-
+5: multifile redirections
 ------
 
 and a bunch of other shit i do not know at the time being.
