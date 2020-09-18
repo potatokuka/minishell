@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 17:41:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 13:24:34 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 14:36:32 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char		*var_name(char **str)
 		(*str)++;
 		i++;
 	}
-	new[i] = 0;
 	(*str)++;
 	return (new);
 }
@@ -71,11 +70,11 @@ static int		env_head_init(t_data *data, char **environ)
 {
 	data->env = NULL;
 	if (!environ || !environ[0])
-		return (-1);
+		return (0);
 	data->env = var_init(environ[0]);
 	if (!data->env)
 		return (clear_env(data->env, &free));
-	return (-1);
+	return (0);
 }
 
 /*
@@ -88,9 +87,8 @@ int				env_init(t_data *data)
 	t_var		*env;
 	int			i;
 
-	i = env_head_init(data, environ);
-	if (i != -1)
-		return (i);
+	if (env_head_init(data, environ))
+		return (1);
 	i = 1;
 	env = data->env;
 	while (environ[i])
@@ -104,5 +102,5 @@ int				env_init(t_data *data)
 	data->envp = convert_env(data->env);
 	if (!data->envp)
 		return (clear_env(data->env, &free));
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/08 18:37:49 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 14:52:42 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int	main(void)
 	t_data data;
 
 	ft_bzero(&data, sizeof(data));
-	env_init(&data);
+	if (env_init(&data))
+		put_error("Failed to parse env");
 	set_signal();
 	while (1)
 	{
 		print_prompt();
 		parse_init(&data);
-		// TODO make this a while_loop while imp.cmd and move im.cmd->next at
-		// bottom
 		while (data.cmd)
 		{
 			redir_dispatch(&data);
@@ -35,11 +34,9 @@ int	main(void)
 				update_env(&data);
 			if (data.cmd->pipe && data.cmd->pid1 == 0)
 				exit (1);
-			/* if (data.cmd->next) */
 			data.cmd = data.cmd->next;
 		}
-		reset_data(&data);
-		/*ft_bzero(&data, sizeof(data));//TODO free argv, cmd, env*/
+		reset_data(&data);//TODO actually make this comprehensive reset
 	}
 	return (0);
 }

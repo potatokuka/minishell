@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   signals.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: averheij <averheij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/18 13:39:53 by averheij      #+#    #+#                 */
+/*   Updated: 2020/09/18 13:39:55 by averheij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	sig_handler_inp(int i)
 {
 	(void)i;
-	ft_printf("\n");
+	ft_printf_fd(2, "\n");
 	print_prompt();
 	return ;
 }
 void	sig_handler(int i)
 {
 	(void)i;
-	ft_printf("\n");
+	ft_printf_fd(2, "\n");
 	return ;
 }
 

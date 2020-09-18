@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/17 10:04:23 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/18 15:23:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	parse_args(t_data *data, char *trimmed)
 	if (!trimmed)
 		return ;
 	trimmed = trim_spaces(trimmed);
-	printf("TRIMMED CHECK FIRST CHECK_%s\n", trimmed);
+	ft_printf_fd(2, "remaining string_%s\n", trimmed);
 	/* not cucked above this /\/\/\/\/\/\ */
 	while (trimmed && trimmed[i] != ' ' && trimmed[i] != '\0')
 	{
@@ -115,7 +115,7 @@ void	parse_args(t_data *data, char *trimmed)
 	}
 	str = ft_strldup(trimmed, i);
 	if (!str)
-		put_error("Error in arguement parsing");
+		put_error("Error in argument parsing");
 	if (*str)
 	{
 		data->argc += 1;
