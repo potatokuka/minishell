@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:54 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/29 12:00:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			print_environ(char **environ)
 		height++;
 	while (i < height)
 	{
-		printf("ENV_TEST_%s\n", environ[i]);
+		dprintf(2,"ENV_TEST_%s\n", environ[i]);
 		i++;
 	}
 }
@@ -32,7 +32,7 @@ void	print_list(t_list *list)
 {
 	while (list)
 	{
-		printf("lst:%p|%s\n", list->content, (char*)list->content);
+		dprintf(2,"lst:%p|%s\n", list->content, (char*)list->content);
 		list = list->next;
 	}
 }
@@ -42,10 +42,10 @@ void	print_args(t_data *data)
 	int	y;
 
 	y = 0;
-	printf("--------\nPRINTING ARGS\nARGC = %d\n", data->argc);
+	dprintf(2,"--------\nPRINTING ARGS\nARGC = %d\n", data->argc);
 	while (y < data->argc)
 	{
-		printf("\t%s\n", data->argv[y]);
+		dprintf(2,"\t%s\n", data->argv[y]);
 		y++;
 	}
 }
@@ -55,10 +55,10 @@ void	test_args(char **argv, int argc)
 	int	y;
 
 	y = 0;
-	printf("*** TESTING FT EXEC ARGS ***\n");
+	dprintf(2,"*** TESTING FT EXEC ARGS ***\n");
 	while (argv[y])
 	{
-		printf("\t_%s\n", argv[y]);
+		dprintf(2,"\t_%s\n", argv[y]);
 		y++;
 	}
 }

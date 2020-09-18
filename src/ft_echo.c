@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 13:14:13 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_echo(t_cmd *cmd)
 	i = 0;
 	if (cmd->argc != 0 && ft_strcmp(cmd->argv[0], "-n") == 0)
 		flag += 1;
-	printf("ECHO -------------\n");
+	dprintf(2,"ECHO -------------\n");
 	while (i < cmd->argc)
 	{
 		ft_printf_fd(1, "%s", cmd->argv[i]);

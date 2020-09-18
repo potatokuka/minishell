@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:29 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/22 23:10:30 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int		is_last(const char *name, t_var *curr, const char *val)
 	{
 		free(curr->val);
 		curr->val = ft_strdup_lib(val);
-		printf("\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);
+		dprintf(2,"\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);
 		return (1);
 	}
-	printf("\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);
+	dprintf(2,"\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);
 	perror("6");
 	return (0);
 }
@@ -53,7 +53,7 @@ t_var	*env_set_val(const char *name, t_var **env, const char *val)
 	perror("3");
 	if (curr == *env)
 	{
-		printf("\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);
+		dprintf(2,"\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);
 		*env = env_add(name, val);
 		return (*env);
 	}
@@ -61,7 +61,7 @@ t_var	*env_set_val(const char *name, t_var **env, const char *val)
 	if (is_last(name, curr, val))
 		return (curr->val ? curr : NULL);
 	perror("5");
-	printf("\n\n ** - TESTING THIS SHIT B4 RETURN - **\n\nname_%s\nval_%s\n\n", name, val);
+	dprintf(2,"\n\n ** - TESTING THIS SHIT B4 RETURN - **\n\nname_%s\nval_%s\n\n", name, val);
 	curr->next = env_add(name, val);
 	return (curr->next);
 }

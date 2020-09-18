@@ -6,7 +6,7 @@
 /*   By: abe <marvin@42.fr>                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 09:41:44 by abe           #+#    #+#                 */
-/*   Updated: 2020/01/14 11:52:12 by aaugusti      ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,5 @@ int		main(void)
 	test_lst_reverse();
 	test_lst_size();
 	test_lst_foreach();
-	printf("Everything is fine!\n");
+	dprintf(2,"Everything is fine!\n");
 }

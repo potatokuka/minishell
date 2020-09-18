@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/14 17:38:11 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_env_path_exec(char *exec, t_var *env)
 	DIR				*dirp;
 
 	temp = get_env_val("PATH", env, 4);
-	printf("exec:%s\n", exec);
+	dprintf(2,"exec:%s\n", exec);
 	/*printf("$PATH:%s\n", temp);*/
 	paths = ft_split(temp, ':');
 	if (!paths)
@@ -155,7 +155,7 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 	pid_t	pid;
 	int		status;
 
-	printf("EXEC -------------\n");
+	dprintf(2,"EXEC -------------\n");
 	if (cmd->argc && cmd->argv[0][0] == '.')
 	{
 		path = get_path();
@@ -172,10 +172,10 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 		pathname = get_env_path_exec(cmd->argv[0], env);
 		if (!pathname)
 		{
-			printf("%s: command not found\n", cmd->argv[0]);
+			dprintf(2,"%s: command not found\n", cmd->argv[0]);
 			return ;
 		}
 	}
-	printf("pathname:%s\n", pathname);
+	dprintf(2,"pathname:%s\n", pathname);
 	griffin_try(cmd, pathname, envp);
 }

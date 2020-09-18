@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 14:16:19 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,15 @@ void	error_builtin(t_cmd *cmd)
 	{
 		if (cmd->argc > 1)
 		{
-			printf(" ");
+			dprintf(2," ");
 			i += 1;
 			cmd->argc -= 1;
 		}
 		else
 		{
-			printf("\n");
+			dprintf(2,"\n");
 			return ;
 		}
 	}
-	printf("\n");
+	dprintf(2,"\n");
 }

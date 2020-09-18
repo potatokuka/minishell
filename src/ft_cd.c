@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:42:16 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/06 13:39:56 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cd_home(t_var *env)
 	char	*home;
 
 	home = get_env_val("HOME", env, 4);
-	printf("CD HOME CHECK %s\n", home);
+	dprintf(2,"CD HOME CHECK %s\n", home);
 	if (!home)
 	{
 		ft_printf_fd(2, "cd: HOME not set\n");

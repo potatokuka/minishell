@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 20:45:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/03 20:50:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@ void	print_cur_cmd(t_cmd *cmd)
 	int		i;
 
 	i = 0;
-	printf("-- PRINT CUR CMD STRUCT --\n");
+	dprintf(2,"-- PRINT CUR CMD STRUCT --\n");
 	if (cmd->builtin)
-		printf("Builtin_%s\n", cmd->builtin);
+		dprintf(2,"Builtin_%s\n", cmd->builtin);
 	if (cmd->pipe)
-		printf("Pipe_%s\n", cmd->pipe);
+		dprintf(2,"Pipe_%s\n", cmd->pipe);
 	if (cmd->tar_file)
-		printf("Tar File_%s\n", cmd->tar_file);
+		dprintf(2,"Tar File_%s\n", cmd->tar_file);
 	if (cmd->argc)
-		printf("Argc_%d\n", cmd->argc);
+		dprintf(2,"Argc_%d\n", cmd->argc);
 	if (cmd->argv)
 	{
 		while (i < cmd->argc)
 		{
-			printf("ARGV[%d]_%s\n", i, cmd->argv[i]);
+			dprintf(2,"ARGV[%d]_%s\n", i, cmd->argv[i]);
 			i++;
 		}
 	}
@@ -76,21 +76,21 @@ void	print_cmd_full(t_data *data)
 	cmd = data->cmd;
 	while (cmd)
 	{
-		printf("-- PRINT CUR CMD STRUCT --\n");
+		dprintf(2,"-- PRINT CUR CMD STRUCT --\n");
 		if (cmd->builtin)
-			printf("Builtin_%s\n", cmd->builtin);
+			dprintf(2,"Builtin_%s\n", cmd->builtin);
 		if (cmd->pipe)
-			printf("Pipe_%s\n", cmd->pipe);
+			dprintf(2,"Pipe_%s\n", cmd->pipe);
 		if (cmd->tar_file)
-			printf("Tar File_%s\n", cmd->tar_file);
+			dprintf(2,"Tar File_%s\n", cmd->tar_file);
 		if (cmd->argc)
-			printf("Argc_%d\n", cmd->argc);
+			dprintf(2,"Argc_%d\n", cmd->argc);
 		if (cmd->argv)
 		{
 			i = 0;
 			while (i < cmd->argc)
 			{
-				printf("ARGV_%s\n",cmd->argv[i]);
+				dprintf(2,"ARGV_%s\n",cmd->argv[i]);
 				i++;
 			}
 		}
