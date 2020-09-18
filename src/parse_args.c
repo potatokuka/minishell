@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 15:23:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/18 17:09:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,33 +95,22 @@ void	parse_args(t_data *data, char *trimmed)
 		return ;
 	trimmed = trim_spaces(trimmed);
 	ft_printf_fd(2, "remaining string_%s\n", trimmed);
-	/* not cucked above this /\/\/\/\/\/\ */
-	while (trimmed && trimmed[i] != ' ' && trimmed[i] != '\0')
+	if (*trimmed == D_QOTE || *trimmed == S_QOTE)
+		trimmed = ft_save_literal(data, (trimmed + 1), 0, *trimmed, trimmed);
+	else if (*trimmed == '$')
+		trimmed = ft_save_dolla(data, trimmed, 1);
+	else
 	{
-		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+		str = ft_strldup(trimmed, ft_strchr_lib(trimmed, ' ') - trimmed);
+		if (!str)
+			put_error("Error in argument parsing");
+		if (*str)
 		{
-			trimmed = ft_save_literal(data, (trimmed + 1), i, trimmed[i], trimmed);
-			if (!*trimmed)
-			{
-				printf("I guess this shit is NULL\n");
-				return ;
-			}
-			printf("trimmed after SAVE QUOTE_%s_\n", trimmed);
+			data->argc += 1;
+			lst_new_back(&data->arg_lst, str);
 		}
-		else if (trimmed[i] == '$')
-			trimmed = ft_save_dolla(data, trimmed, (i + 1));
-		else
-			i++;
+		trimmed = trimmed + ft_strlen_lib(str);
 	}
-	str = ft_strldup(trimmed, i);
-	if (!str)
-		put_error("Error in argument parsing");
-	if (*str)
-	{
-		data->argc += 1;
-		lst_new_back(&data->arg_lst, str);
-	}
-	trimmed = trimmed + i;
 	if (*trimmed)
 		parse_args(data, trimmed);
 }
