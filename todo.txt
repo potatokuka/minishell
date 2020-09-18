@@ -1,0 +1,8 @@
+1: single quotes are literal
+2: env check is supposedly too eager
+3: '|' && ';'
+4: '\' escape characters
+
+------
+
+and a bunch of other shit i do not know at the time being.
