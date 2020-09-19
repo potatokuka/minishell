@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/07/17 10:05:18 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/19 18:28:23 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct		s_data
 	int		argc;
 	t_list	*arg_lst;
 	char	**envp;
+	int		redir_count;
 	t_var	*env;
 	t_cmd	*cmd;
 	char	**redirs;

@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/18 21:13:08 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		file_match(char file[], char *file2)
 	int		i;
 
 	i = 0;
+	dprintf(2, "file: %s file2: %s\n", file, file2);
 	while ((file[i] || file2[i]) && i < 256)
 	{
 		if (file[i] != file2[i])

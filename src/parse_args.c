@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 17:46:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/19 18:30:40 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	parse_args(t_data *data, char *trimmed)
 			put_error("Error in argument parsing");
 		if (*str)
 		{
+			if (*str == '<' || *str == '>')
+			{
+				data->redir_count += 1;
+				dprintf(2, "Redir Count = %d\n", data->redir_count);
+			}
 			data->argc += 1;
 			lst_new_back(&data->arg_lst, str);
 		}

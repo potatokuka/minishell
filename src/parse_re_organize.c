@@ -6,16 +6,34 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/16 11:03:05 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/19 20:05:07 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
 		put_error("could not find newline");
+	// ! this is a dumb fix, but maybe a work around.
+	if (data->redir_count > 1)
+	{
+		drop_string(data, i);
+		i += 1;
+		int file = open(data->argv[i], O_RDONLY, 0644);
+		close (file);
+		drop_string(data, i);
+		new->argv = list_to_string_array(new->arr_list);
+		new->next = NULL;
+		data->redir_count -= 1;
+		data->argv = data->argv + i + 1;
+		data->argc -= 2;
+		return (new);
+	}
 	new->pid1 = -1;
 	new->pipfd[0] = -1;
 	new->pipfd[1] = -1;
