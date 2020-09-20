@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 17:01:56 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/20 10:39:55 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	main(void)
 {
 	t_data data;
-
+	int		times = 1;
 	ft_bzero(&data, sizeof(data));
 	if (env_init(&data))
 		put_error("Failed to parse env");
@@ -32,8 +32,8 @@ int	main(void)
 			cmd_dispatch(data.cmd, &data.env, data.envp);
 			if (data.cmd->update_env)
 				update_env(&data);
-			if (data.cmd->pipe && data.cmd->pid1 == 0)
-				exit (1);
+			// if (data.cmd->pipe && data.cmd->pid1 == 0)
+			// 	exit (1);
 			data.cmd = data.cmd->next;
 		}
 		reset_data(&data);//TODO actually make this comprehensive reset
