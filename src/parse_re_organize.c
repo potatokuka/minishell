@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/19 20:05:07 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/20 11:21:34 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
+	dprintf(2, "checking this input %s \n", data->argv[i]);
 	new->pipe = ft_strdup(data->argv[i]);
 	drop_string(data, i);
 	print_list(new->arr_list);
+	dprintf(2, "checking this input %s \n", new->argv[i]);
 	new->argv = list_to_string_array(new->arr_list);
 	data->argc -= 1;
 	new->next = NULL;

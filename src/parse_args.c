@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/19 18:30:40 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/20 11:49:49 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,46 @@
 ** after it's fully finished
 */
 
+char	*ft_save_flags(t_data *data, char *str, char flag)
+{
+	int		i;
+	char	*tmp;
+	int		end;
+	
+	i = 0;
+	end = 0;
+	dprintf(2, "testing new FLAG save %s\n", str);
+	if (str[0] == '>' && str[1] == '>')
+	{
+		tmp = ft_strldup(str, 2);
+		if (!tmp)
+			put_error("Error in Arg Parsing FLAG");
+		if (*tmp)
+		{
+			data->argc += 1;
+			lst_new_back(&data->arg_lst, tmp);
+		}
+		str += 2;
+	}
+	else
+	{
+		tmp = ft_strldup(str, 1);
+		if (!tmp)
+			put_error("Error in Arg Parsing FLAG");
+		if (*tmp)
+		{
+			data->argc += 1;
+			lst_new_back(&data->arg_lst, tmp);
+		}
+		str += 1;
+	}
+	return (str);
+}
+
 void	parse_args(t_data *data, char *trimmed)
 {
 	char	*str;
+	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -32,8 +69,85 @@ void	parse_args(t_data *data, char *trimmed)
 		return ;
 	trimmed = trim_spaces(trimmed);
 	ft_printf_fd(2, "remaining string_%s\n", trimmed);
+	// TODO While not at the end of the string or reading a Quote or Pipe increment end
+	// continue to do this until the string is done, if you find the end of the input
+	// or you find a QUOTE or PIPE save all input in string at that point, and then handle the
+	// case then, incrementing the pointer after
+	while (trimmed[i])
+	{
+		i = 0;
+		tmp = "";
+		while (trimmed[i])
+		{
+			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
+					|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';')
+			{
+				if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+				{
+					if (i > 0)
+					{
+						str = (ft_strldup(trimmed, i - 1));
+						if (!str)
+							put_error("Error in arg parsing");
+						data->argc += 1;
+						lst_new_back(&data->arg_lst, str);
+						trimmed += i;
+					}
+					trimmed = ft_save_literal(data, (trimmed[i] + 1), 0, trimmed[i], 
+					trimmed);
+				}
+				else if (trimmed[i] == '>' && trimmed[i+1] == '>')
+				{
+					if (i > 0)
+					{
+						str = ft_strldup(trimmed, i - 1);
+						if (!str)
+							put_error("Error in arg Parsing");
+						data->argc += 1;
+						lst_new_back(&data->arg_lst, str);
+						trimmed += i;
+					}
+					tmp = ft_strldup(trimmed, 3);
+					if (!tmp)
+						put_error("Error in arg Parsing");
+					if (*tmp)
+					{
+						data->argc += 1;
+						lst_new_back(&data->arg_lst, tmp);
+						trimmed += 2;
+					}
+				}
+				else if (trimmed[i] == '>' || trimmed[i] == '|' || trimmed[i] == ';'
+							|| trimmed[i] == '<')
+				{
+					if (i > 0)
+					{
+						str = ft_strldup(trimmed, i - 1);
+						if (!str)
+							put_error("Error in arg Parsing");
+						data->argc += 1;
+						lst_new_back(&data->arg_lst, str);
+						trimmed += i;
+					}
+					tmp = ft_strldup(trimmed, 1);
+					if (!tmp)
+						put_error("Error in Arg Parsing");
+					if (*tmp)
+					{
+						data->argc += 1;
+						lst_new_back(&data->arg_lst, tmp);
+					}
+					trimmed += 1;
+				}
+			}
+			i++;
+		}
+	}
+	}
 	if (*trimmed == D_QOTE || *trimmed == S_QOTE)
 		trimmed = ft_save_literal(data, (trimmed + 1), 0, *trimmed, trimmed);
+	else if (*trimmed == '|' || *trimmed == ';' || *trimmed == '<' || *trimmed == '>')
+		trimmed = ft_save_flags(data, trimmed, *trimmed);
 	else
 	{
 		str = ft_strldup(trimmed, ft_strchr_lib(trimmed, ' ') - trimmed);
