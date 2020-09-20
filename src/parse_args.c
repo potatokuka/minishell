@@ -79,6 +79,7 @@ void	parse_args(t_data *data, char *trimmed)
 		tmp = "";
 		while (trimmed[i])
 		{
+			i = 0;
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
 					|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';')
 			{
@@ -138,6 +139,21 @@ void	parse_args(t_data *data, char *trimmed)
 						lst_new_back(&data->arg_lst, tmp);
 					}
 					trimmed += 1;
+				}
+				else if (trimmed[i] == ' ')
+				{
+					if (i > 0)
+					{
+						str = ft_strldup(trimmed, i - 1)
+						if (!str)
+							put_error("Error in args parsing");
+						data->argc += 1;
+						lst_new_back(&data->arg_lst, str);
+						trimmed += i;
+					}
+					while (trimmed[i] == ' ')
+						i++;
+					trimmed += i;
 				}
 			}
 			i++;
