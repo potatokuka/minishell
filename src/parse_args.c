@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/20 11:49:49 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/20 13:44:24 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ void	parse_args(t_data *data, char *trimmed)
 	// case then, incrementing the pointer after
 	while (trimmed[i])
 	{
-		i = 0;
+		perror("inside");
 		tmp = "";
 		while (trimmed[i])
 		{
-			i = 0;
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
 					|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';')
 			{
+				perror("1");
 				if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 				{
 					if (i > 0)
@@ -93,12 +93,15 @@ void	parse_args(t_data *data, char *trimmed)
 						data->argc += 1;
 						lst_new_back(&data->arg_lst, str);
 						trimmed += i;
+						i = 0;
 					}
-					trimmed = ft_save_literal(data, (trimmed[i] + 1), 0, trimmed[i], 
+					trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i], 
 					trimmed);
+					i = 0;
 				}
 				else if (trimmed[i] == '>' && trimmed[i+1] == '>')
 				{
+					perror("2");
 					if (i > 0)
 					{
 						str = ft_strldup(trimmed, i - 1);
@@ -107,6 +110,7 @@ void	parse_args(t_data *data, char *trimmed)
 						data->argc += 1;
 						lst_new_back(&data->arg_lst, str);
 						trimmed += i;
+						i = 0;
 					}
 					tmp = ft_strldup(trimmed, 3);
 					if (!tmp)
@@ -116,11 +120,13 @@ void	parse_args(t_data *data, char *trimmed)
 						data->argc += 1;
 						lst_new_back(&data->arg_lst, tmp);
 						trimmed += 2;
+						i = 0;
 					}
 				}
 				else if (trimmed[i] == '>' || trimmed[i] == '|' || trimmed[i] == ';'
 							|| trimmed[i] == '<')
 				{
+					perror("3");
 					if (i > 0)
 					{
 						str = ft_strldup(trimmed, i - 1);
@@ -129,6 +135,7 @@ void	parse_args(t_data *data, char *trimmed)
 						data->argc += 1;
 						lst_new_back(&data->arg_lst, str);
 						trimmed += i;
+						i = 0;
 					}
 					tmp = ft_strldup(trimmed, 1);
 					if (!tmp)
@@ -139,12 +146,16 @@ void	parse_args(t_data *data, char *trimmed)
 						lst_new_back(&data->arg_lst, tmp);
 					}
 					trimmed += 1;
+					i = 0;
 				}
 				else if (trimmed[i] == ' ')
 				{
+					perror("4");
+					perror("there");
 					if (i > 0)
 					{
-						str = ft_strldup(trimmed, i - 1)
+						perror("here");
+						str = ft_strldup(trimmed, i - 1);
 						if (!str)
 							put_error("Error in args parsing");
 						data->argc += 1;
@@ -154,33 +165,35 @@ void	parse_args(t_data *data, char *trimmed)
 					while (trimmed[i] == ' ')
 						i++;
 					trimmed += i;
+					i = 0;
 				}
+				else
+					i++;
 			}
-			i++;
 		}
 	}
-	}
-	if (*trimmed == D_QOTE || *trimmed == S_QOTE)
-		trimmed = ft_save_literal(data, (trimmed + 1), 0, *trimmed, trimmed);
-	else if (*trimmed == '|' || *trimmed == ';' || *trimmed == '<' || *trimmed == '>')
-		trimmed = ft_save_flags(data, trimmed, *trimmed);
-	else
-	{
-		str = ft_strldup(trimmed, ft_strchr_lib(trimmed, ' ') - trimmed);
-		if (!str)
-			put_error("Error in argument parsing");
-		if (*str)
-		{
-			if (*str == '<' || *str == '>')
-			{
-				data->redir_count += 1;
-				dprintf(2, "Redir Count = %d\n", data->redir_count);
-			}
-			data->argc += 1;
-			lst_new_back(&data->arg_lst, str);
-		}
-		trimmed = trimmed + ft_strlen_lib(str);
-	}
-	if (*trimmed)
-		parse_args(data, trimmed);
+	// }
+	// if (*trimmed == D_QOTE || *trimmed == S_QOTE)
+	// 	trimmed = ft_save_literal(data, (trimmed + 1), 0, *trimmed, trimmed);
+	// else if (*trimmed == '|' || *trimmed == ';' || *trimmed == '<' || *trimmed == '>')
+	// 	trimmed = ft_save_flags(data, trimmed, *trimmed);
+	// else
+	// {
+	// 	str = ft_strldup(trimmed, ft_strchr_lib(trimmed, ' ') - trimmed);
+	// 	if (!str)
+	// 		put_error("Error in argument parsing");
+	// 	if (*str)
+	// 	{
+	// 		if (*str == '<' || *str == '>')
+	// 		{
+	// 			data->redir_count += 1;
+	// 			dprintf(2, "Redir Count = %d\n", data->redir_count);
+	// 		}
+	// 		data->argc += 1;
+	// 		lst_new_back(&data->arg_lst, str);
+	// 	}
+	// 	trimmed = trimmed + ft_strlen_lib(str);
+	// }
+	// if (*trimmed)
+	// 	parse_args(data, trimmed);
 }
