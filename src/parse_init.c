@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 14:58:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 16:35:37 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	parse_init(t_data *data)
 		return ;
 	parse_args(data, input_str);
 	data->argv = list_to_string_array(data->arg_lst);
-	argv_env_replace(data);
 	free(input_str);
 	free_list(data->arg_lst, &free);
 	parse_organize(data);

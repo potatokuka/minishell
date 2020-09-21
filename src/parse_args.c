@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 14:15:21 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 16:46:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	add_arg(t_data *data, char **trimmed, int *i)
 	if (!str)
 		put_error("Error in arg parsing");
 	data->argc += 1;
+	str = str_env_replace(data, str, 1);
 	lst_new_back(&data->arg_lst, str);
 	*trimmed += *i;
 	*i = 0;
@@ -106,6 +107,7 @@ void	add_arg_string_join(t_data *data, char **trimmed, int *start, char quote)
 	quote_str = ft_strldup((*trimmed) + *start + 1, len - 1);
 	if (quote == D_QOTE)
 		quote_str = str_env_replace(data, quote_str, 1);
+	printf("quote_str%s\n", quote_str);
 	str = ft_strjoin(ft_strldup((*trimmed), *start), quote_str);
 	//Protection
 	data->argc += 1;
@@ -133,13 +135,12 @@ void	parse_args(t_data *data, char *trimmed)
 	// case then, incrementing the pointer after
 	while (trimmed[i])
 	{
-		perror("inside");
 		tmp = "";
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || iscset(trimmed[i], "><|; "))
 		{
-			perror("1");
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			{
+				perror("quote");
 				if (i > 0)
 					add_arg_string_join(data, &trimmed, &i, trimmed[i]);
 				else
@@ -151,7 +152,7 @@ void	parse_args(t_data *data, char *trimmed)
 			}
 			else if (trimmed[i] == '>' && trimmed[i + 1] == '>')
 			{
-				perror("2");
+				perror("append");
 				if (i > 0)
 					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 3);
@@ -165,9 +166,9 @@ void	parse_args(t_data *data, char *trimmed)
 					i = 0;
 				}
 			}
-			else if (iscset(trimmed[i], ">|:<"))
+			else if (iscset(trimmed[i], ">|;<"))
 			{
-				perror("3");
+				perror("redir/semi");
 				if (i > 0)
 					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 1);
@@ -183,7 +184,7 @@ void	parse_args(t_data *data, char *trimmed)
 			}
 			else if (trimmed[i] == ' ')
 			{
-				perror("4");
+				perror("normal arg");
 				perror("there");
 				if (i > 0)
 					add_arg(data, &trimmed, &i);
