@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 12:35:27 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 12:39:23 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void	parse_args(t_data *data, char *trimmed)
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || iscset(trimmed[i], "><|; "))
 		{
 			perror("1");
+			if (i > 0)
+				add_arg(data, &trimmed, &i);
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			{
-				if (i > 0)
-					add_arg(data, &trimmed, &i);
 				trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i],
 					trimmed);
 				i = 0;
@@ -115,8 +115,6 @@ void	parse_args(t_data *data, char *trimmed)
 			else if (trimmed[i] == '>' && trimmed[i + 1] == '>')
 			{
 				perror("2");
-				if (i > 0)
-					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 3);
 				if (!tmp)
 					put_error("Error in arg Parsing");
@@ -132,8 +130,6 @@ void	parse_args(t_data *data, char *trimmed)
 						|| trimmed[i] == '<')
 			{
 				perror("3");
-				if (i > 0)
-					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 1);
 				if (!tmp)
 					put_error("Error in Arg Parsing");
@@ -149,8 +145,6 @@ void	parse_args(t_data *data, char *trimmed)
 			{
 				perror("4");
 				perror("there");
-				if (i > 0)
-					add_arg(data, &trimmed, &i);
 				while (trimmed[i] == ' ')
 					i++;
 				trimmed += i;
