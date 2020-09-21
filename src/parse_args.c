@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 11:43:43 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 12:35:27 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_save_flags(t_data *data, char *str, char flag)
 	int		i;
 	char	*tmp;
 	int		end;
-	
+
 	i = 0;
 	end = 0;
 	dprintf(2, "testing new FLAG save %s\n", str);
@@ -58,6 +58,30 @@ char	*ft_save_flags(t_data *data, char *str, char flag)
 	return (str);
 }
 
+int		iscset(char c, char *set)
+{
+	while (*set)
+	{
+		if (c == *set)
+			return (1);
+		set++;
+	}
+	return (0);
+}
+
+void	add_arg(t_data *data, char **trimmed, int *i)
+{
+	char *str;
+
+	str = ft_strldup(*trimmed, *i);
+	if (!str)
+		put_error("Error in arg parsing");
+	data->argc += 1;
+	lst_new_back(&data->arg_lst, str);
+	*trimmed += *i;
+	*i = 0;
+}
+
 void	parse_args(t_data *data, char *trimmed)
 {
 	char	*str;
@@ -77,39 +101,22 @@ void	parse_args(t_data *data, char *trimmed)
 	{
 		perror("inside");
 		tmp = "";
-		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
-				|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';' || trimmed[i] == ' ')
+		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || iscset(trimmed[i], "><|; "))
 		{
 			perror("1");
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			{
 				if (i > 0)
-				{
-					str = (ft_strldup(trimmed, i - 1));
-					if (!str)
-						put_error("Error in arg parsing");
-					data->argc += 1;
-					lst_new_back(&data->arg_lst, str);
-					trimmed += i;
-					i = 0;
-				}
+					add_arg(data, &trimmed, &i);
 				trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i],
 					trimmed);
 				i = 0;
 			}
-			else if (trimmed[i] == '>' && trimmed[i+1] == '>')
+			else if (trimmed[i] == '>' && trimmed[i + 1] == '>')
 			{
 				perror("2");
 				if (i > 0)
-				{
-					str = ft_strldup(trimmed, i - 1);
-					if (!str)
-						put_error("Error in arg Parsing");
-					data->argc += 1;
-					lst_new_back(&data->arg_lst, str);
-					trimmed += i;
-					i = 0;
-				}
+					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 3);
 				if (!tmp)
 					put_error("Error in arg Parsing");
@@ -126,15 +133,7 @@ void	parse_args(t_data *data, char *trimmed)
 			{
 				perror("3");
 				if (i > 0)
-				{
-					str = ft_strldup(trimmed, i - 1);
-					if (!str)
-						put_error("Error in arg Parsing");
-					data->argc += 1;
-					lst_new_back(&data->arg_lst, str);
-					trimmed += i;
-					i = 0;
-				}
+					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 1);
 				if (!tmp)
 					put_error("Error in Arg Parsing");
@@ -151,15 +150,7 @@ void	parse_args(t_data *data, char *trimmed)
 				perror("4");
 				perror("there");
 				if (i > 0)
-				{
-					perror("here");
-					str = ft_strldup(trimmed, i - 1);
-					if (!str)
-						put_error("Error in args parsing");
-					data->argc += 1;
-					lst_new_back(&data->arg_lst, str);
-					trimmed += i;
-				}
+					add_arg(data, &trimmed, &i);
 				while (trimmed[i] == ' ')
 					i++;
 				trimmed += i;
@@ -169,6 +160,8 @@ void	parse_args(t_data *data, char *trimmed)
 		else
 			i++;
 	}
+	if (i > 0)
+		add_arg(data, &trimmed, &i);
 	// }
 	// if (*trimmed == D_QOTE || *trimmed == S_QOTE)
 	// 	trimmed = ft_save_literal(data, (trimmed + 1), 0, *trimmed, trimmed);
