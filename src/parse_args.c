@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/20 13:44:24 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/21 11:42:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,100 +77,97 @@ void	parse_args(t_data *data, char *trimmed)
 	{
 		perror("inside");
 		tmp = "";
-		while (trimmed[i])
+		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
+				|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';')
 		{
-			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
-					|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';')
+			perror("1");
+			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			{
-				perror("1");
-				if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
+				if (i > 0)
 				{
-					if (i > 0)
-					{
-						str = (ft_strldup(trimmed, i - 1));
-						if (!str)
-							put_error("Error in arg parsing");
-						data->argc += 1;
-						lst_new_back(&data->arg_lst, str);
-						trimmed += i;
-						i = 0;
-					}
-					trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i], 
-					trimmed);
-					i = 0;
-				}
-				else if (trimmed[i] == '>' && trimmed[i+1] == '>')
-				{
-					perror("2");
-					if (i > 0)
-					{
-						str = ft_strldup(trimmed, i - 1);
-						if (!str)
-							put_error("Error in arg Parsing");
-						data->argc += 1;
-						lst_new_back(&data->arg_lst, str);
-						trimmed += i;
-						i = 0;
-					}
-					tmp = ft_strldup(trimmed, 3);
-					if (!tmp)
-						put_error("Error in arg Parsing");
-					if (*tmp)
-					{
-						data->argc += 1;
-						lst_new_back(&data->arg_lst, tmp);
-						trimmed += 2;
-						i = 0;
-					}
-				}
-				else if (trimmed[i] == '>' || trimmed[i] == '|' || trimmed[i] == ';'
-							|| trimmed[i] == '<')
-				{
-					perror("3");
-					if (i > 0)
-					{
-						str = ft_strldup(trimmed, i - 1);
-						if (!str)
-							put_error("Error in arg Parsing");
-						data->argc += 1;
-						lst_new_back(&data->arg_lst, str);
-						trimmed += i;
-						i = 0;
-					}
-					tmp = ft_strldup(trimmed, 1);
-					if (!tmp)
-						put_error("Error in Arg Parsing");
-					if (*tmp)
-					{
-						data->argc += 1;
-						lst_new_back(&data->arg_lst, tmp);
-					}
-					trimmed += 1;
-					i = 0;
-				}
-				else if (trimmed[i] == ' ')
-				{
-					perror("4");
-					perror("there");
-					if (i > 0)
-					{
-						perror("here");
-						str = ft_strldup(trimmed, i - 1);
-						if (!str)
-							put_error("Error in args parsing");
-						data->argc += 1;
-						lst_new_back(&data->arg_lst, str);
-						trimmed += i;
-					}
-					while (trimmed[i] == ' ')
-						i++;
+					str = (ft_strldup(trimmed, i - 1));
+					if (!str)
+						put_error("Error in arg parsing");
+					data->argc += 1;
+					lst_new_back(&data->arg_lst, str);
 					trimmed += i;
 					i = 0;
 				}
-				else
+				trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i], 
+				trimmed);
+				i = 0;
+			}
+			else if (trimmed[i] == '>' && trimmed[i+1] == '>')
+			{
+				perror("2");
+				if (i > 0)
+				{
+					str = ft_strldup(trimmed, i - 1);
+					if (!str)
+						put_error("Error in arg Parsing");
+					data->argc += 1;
+					lst_new_back(&data->arg_lst, str);
+					trimmed += i;
+					i = 0;
+				}
+				tmp = ft_strldup(trimmed, 3);
+				if (!tmp)
+					put_error("Error in arg Parsing");
+				if (*tmp)
+				{
+					data->argc += 1;
+					lst_new_back(&data->arg_lst, tmp);
+					trimmed += 2;
+					i = 0;
+				}
+			}
+			else if (trimmed[i] == '>' || trimmed[i] == '|' || trimmed[i] == ';'
+						|| trimmed[i] == '<')
+			{
+				perror("3");
+				if (i > 0)
+				{
+					str = ft_strldup(trimmed, i - 1);
+					if (!str)
+						put_error("Error in arg Parsing");
+					data->argc += 1;
+					lst_new_back(&data->arg_lst, str);
+					trimmed += i;
+					i = 0;
+				}
+				tmp = ft_strldup(trimmed, 1);
+				if (!tmp)
+					put_error("Error in Arg Parsing");
+				if (*tmp)
+				{
+					data->argc += 1;
+					lst_new_back(&data->arg_lst, tmp);
+				}
+				trimmed += 1;
+				i = 0;
+			}
+			else if (trimmed[i] == ' ')
+			{
+				perror("4");
+				perror("there");
+				if (i > 0)
+				{
+					perror("here");
+					str = ft_strldup(trimmed, i - 1);
+					if (!str)
+						put_error("Error in args parsing");
+					data->argc += 1;
+					lst_new_back(&data->arg_lst, str);
+					trimmed += i;
+				}
+				while (trimmed[i] == ' ')
 					i++;
+				trimmed += i;
+				i = 0;
 			}
 		}
+		else
+			i++;
 	}
 	// }
 	// if (*trimmed == D_QOTE || *trimmed == S_QOTE)
