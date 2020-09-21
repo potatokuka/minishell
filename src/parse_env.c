@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/21 13:21:39 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 13:29:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*str_env_replace(t_data *data, char *str, int all)
 		}
 		i++;
 	}
+	return (str);
 }
 
 void	argv_env_replace(t_data *data)
