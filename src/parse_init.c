@@ -33,7 +33,7 @@ void	parse_init(t_data *data)
 		return ;
 	parse_args(data, input_str);
 	data->argv = list_to_string_array(data->arg_lst);
-	subtitute_enviroment_variables(data);
+	argv_env_replace(data);
 	free(input_str);
 	free_list(data->arg_lst, &free);
 	parse_organize(data);
