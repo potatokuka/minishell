@@ -37,19 +37,22 @@ char	*trim_spaces(char *res)
 
 int		is_builtin(char *cmd)
 {
-	if (ft_strncmp(cmd, "exit", 4) == 0)
+	int	len;
+
+	len = ft_strlen_lib(cmd);
+	if (ft_strncmp(cmd, "exit", len) == 0)
 		return (1);
-	else if (ft_strncmp(cmd, "echo", 4) == 0)
+	else if (ft_strncmp(cmd, "echo", len) == 0)
 		return (1);
-	else if (ft_strncmp(cmd, "env", 3) == 0)
+	else if (ft_strncmp(cmd, "env", len) == 0)
 		return (1);
-	else if (ft_strncmp(cmd, "pwd", 3) == 0)
+	else if (ft_strncmp(cmd, "pwd", len) == 0)
 		return (1);
-	else if (ft_strncmp(cmd, "cd", 2) == 0)
+	else if (ft_strncmp(cmd, "cd", len) == 0)
 		return (1);
-	else if (ft_strncmp(cmd, "unset", 5) == 0)
+	else if (ft_strncmp(cmd, "unset", len) == 0)
 		return (1);
-	else if (ft_strncmp(cmd, "export", 6) == 0)
+	else if (ft_strncmp(cmd, "export", len) == 0)
 		return (1);
 	else
 		return (0);
