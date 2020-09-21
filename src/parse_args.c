@@ -82,6 +82,35 @@ void	add_arg(t_data *data, char **trimmed, int *i)
 	*i = 0;
 }
 
+void	add_string(t_data *data, char **trimmed, int *start, char quote)
+{
+	// save the string from the start of trimmed to i on stack,
+	// save inside of the quotes, if a DOUBLE Quote, save inside of quotes and
+	// check for valid ENV check, if Single Quote just save letter for letter
+	// inside.
+	char	*str;
+	char	*quote_str;
+	int		q_count;
+	int		len;
+
+	q_count = 0;
+	len = 0;
+	while (q_count < 2 && *trimmed[len + *start])
+	{
+		if (*trimmed[*start + len] == D_QOTE)
+			q_count += 1;
+		len++;
+	}
+	if (q_count < 2)
+		put_error("Error: Your Quotes are shit mate.");
+	quote_str = ft_strldup(*trimmed + *start, len);
+	if (quote == D_QOTE)
+		quote_str = str_env_replace(data, quote_str, 1);
+	str = ft_strjoin(ft_strldup(*trimmed, *start), quote_str);
+	*trimmed += (*start + len);
+	*start = 0;
+}
+
 void	parse_args(t_data *data, char *trimmed)
 {
 	char	*str;
