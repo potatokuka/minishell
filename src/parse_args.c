@@ -107,7 +107,7 @@ void	add_string(t_data *data, char **trimmed, int *start, char quote)
 	if (quote == D_QOTE)
 		quote_str = str_env_replace(data, quote_str, 1);
 	str = ft_strjoin(ft_strldup(*trimmed, *start), quote_str);
-	*trimmed += (*start + len);
+	*trimmed += (*start + len + 1);
 	*start = 0;
 }
 

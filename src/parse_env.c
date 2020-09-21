@@ -78,7 +78,7 @@ void	argv_env_replace(t_data *data)
 	i = 0;
 	while (i < data->argc)
 	{
-		str_env_replace(data, data->argv[i]);
+		str_env_replace(data, data->argv[i], 1);
 		i++;
 	}
 }
