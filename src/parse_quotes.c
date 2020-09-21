@@ -78,6 +78,11 @@ char	*ft_save_string(t_data *data, char *trimmed, int start, char quote, char *t
 		dprintf(2,"\n--**-- test[%d] =_%c --**--\n", i, test[i]);
 		i++;
 	}
+	if (quote == D_QOTE)
+	{
+		test = ft_strldup(test, i);
+		test = str_env_replace(data, test, 1);
+	}
 	tmp = ft_strldup(test, i);
 	dprintf(2,"\t\tTEMP_%s i = %d TEMP i_%c\n", tmp, i, tmp[i]);
 	if (!tmp)
@@ -91,6 +96,6 @@ char	*ft_save_string(t_data *data, char *trimmed, int start, char quote, char *t
 	skip += ft_strlen(tmp + 1);
 	dprintf(2,"trimmed b4_%s\n", trimmed);
 	trimmed += skip;
-	dprintf(2,"trimmed after_%s\n", trimmed);
+	dprintf(2,"trimmed after 1_%s\n", trimmed);
 	return (trimmed);
 }

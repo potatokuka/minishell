@@ -35,6 +35,7 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	char	*res;
 
 	str[envstart] = '\0';
+	dprintf(2, "str = %s\n", str);
 	envvar = str + envstart + 1;
 	envend = 0;
 	while (envvar[envend] && ft_env_char(envvar[envend]))
@@ -44,7 +45,8 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 		envvar = get_env_val(envvar, data->env, envend);
 		envvar = ft_strdup((envvar) ? envvar : "");
 		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);
-		free(str);
+		if (str)
+			free(str);
 		free(envvar);
 		str = res;
 	}
