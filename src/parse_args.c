@@ -83,6 +83,38 @@ void	add_arg(t_data *data, char **trimmed, int *i)
 	*i = 0;
 }
 
+void	add_string(t_data *data, char **trimmed, char quote)
+{
+	// save the string from the start of trimmed to i on stack,
+	// save inside of the quotes, if a DOUBLE Quote, save inside of quotes and
+	// check for valid ENV check, if Single Quote just save letter for letter
+	// inside.
+	char	*quote_str;
+	int		q_count;
+	int		len;
+
+	q_count = 1;
+	len = 0;
+	while (q_count < 2 && (*trimmed)[1 + len])
+	{
+		if ((*trimmed)[1 + len] == quote)
+			q_count += 1;
+		len++;
+	}
+	if (q_count != 2)
+		put_error("Your Quotes are shit mate.");
+	quote_str = ft_strldup((*trimmed) + 1, len - 1);
+	if (quote == D_QOTE)
+		quote_str = str_env_replace(data, quote_str, 1);
+	printf("quote_str%s\n", quote_str);
+	//Protection
+	data->argc += 1;
+	lst_new_back(&data->arg_lst, quote_str);
+	printf("%s\n", quote_str);
+	(*trimmed) += (len + 1);
+	printf("%s\n", *trimmed);
+}
+
 void	add_arg_string_join(t_data *data, char **trimmed, int *start, char quote)
 {
 	// save the string from the start of trimmed to i on stack,
@@ -145,8 +177,9 @@ void	parse_args(t_data *data, char *trimmed)
 					add_arg_string_join(data, &trimmed, &i, trimmed[i]);
 				else
 				{
-					trimmed = ft_save_string(data, (trimmed + i + 1), 0, trimmed[i],
-							trimmed);
+					add_string(data, &trimmed, trimmed[i]);
+					/* trimmed = ft_save_string(data, (trimmed + i + 1), 0, trimmed[i], */
+					/* 		trimmed); */
 					i = 0;
 				}
 			}
