@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 12:46:00 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 14:15:21 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	add_arg(t_data *data, char **trimmed, int *i)
 	*i = 0;
 }
 
-void	add_string(t_data *data, char **trimmed, int *start, char quote)
+void	add_arg_string_join(t_data *data, char **trimmed, int *start, char quote)
 {
 	// save the string from the start of trimmed to i on stack,
 	// save inside of the quotes, if a DOUBLE Quote, save inside of quotes and
@@ -93,21 +93,26 @@ void	add_string(t_data *data, char **trimmed, int *start, char quote)
 	int		q_count;
 	int		len;
 
-	q_count = 0;
+	q_count = 1;
 	len = 0;
-	while (q_count < 2 && *trimmed[len + *start])
+	while (q_count < 2 && (*trimmed)[*start + 1 + len])
 	{
-		if (*trimmed[*start + len] == D_QOTE)
+		if ((*trimmed)[*start + 1 + len] == quote)
 			q_count += 1;
 		len++;
 	}
-	if (q_count < 2)
-		put_error("Error: Your Quotes are shit mate.");
-	quote_str = ft_strldup(*trimmed + *start, len);
+	if (q_count != 2)
+		put_error("Your Quotes are shit mate.");
+	quote_str = ft_strldup((*trimmed) + *start + 1, len - 1);
 	if (quote == D_QOTE)
 		quote_str = str_env_replace(data, quote_str, 1);
-	str = ft_strjoin(ft_strldup(*trimmed, *start), quote_str);
-	*trimmed += (*start + len + 1);
+	str = ft_strjoin(ft_strldup((*trimmed), *start), quote_str);
+	//Protection
+	data->argc += 1;
+	lst_new_back(&data->arg_lst, str);
+	printf("%s\n", str);
+	(*trimmed) += (*start + len + 1);
+	printf("%s\n", *trimmed);
 	*start = 0;
 }
 
@@ -133,17 +138,22 @@ void	parse_args(t_data *data, char *trimmed)
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || iscset(trimmed[i], "><|; "))
 		{
 			perror("1");
-			if (i > 0)
-				add_arg(data, &trimmed, &i);
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			{
-				trimmed = ft_save_string(data, (trimmed + i + 1), 0, trimmed[i],
-					trimmed);
-				i = 0;
+				if (i > 0)
+					add_arg_string_join(data, &trimmed, &i, trimmed[i]);
+				else
+				{
+					trimmed = ft_save_string(data, (trimmed + i + 1), 0, trimmed[i],
+							trimmed);
+					i = 0;
+				}
 			}
 			else if (trimmed[i] == '>' && trimmed[i + 1] == '>')
 			{
 				perror("2");
+				if (i > 0)
+					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 3);
 				if (!tmp)
 					put_error("Error in arg Parsing");
@@ -158,6 +168,8 @@ void	parse_args(t_data *data, char *trimmed)
 			else if (iscset(trimmed[i], ">|:<"))
 			{
 				perror("3");
+				if (i > 0)
+					add_arg(data, &trimmed, &i);
 				tmp = ft_strldup(trimmed, 1);
 				if (!tmp)
 					put_error("Error in Arg Parsing");
@@ -173,6 +185,8 @@ void	parse_args(t_data *data, char *trimmed)
 			{
 				perror("4");
 				perror("there");
+				if (i > 0)
+					add_arg(data, &trimmed, &i);
 				while (trimmed[i] == ' ')
 					i++;
 				trimmed += i;
