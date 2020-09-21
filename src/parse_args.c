@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 11:42:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 11:43:43 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	parse_args(t_data *data, char *trimmed)
 		perror("inside");
 		tmp = "";
 		if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE || trimmed[i] == '>'
-				|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';')
+				|| trimmed[i] == '<' || trimmed[i] == '|' || trimmed[i] == ';' || trimmed[i] == ' ')
 		{
 			perror("1");
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
@@ -93,8 +93,8 @@ void	parse_args(t_data *data, char *trimmed)
 					trimmed += i;
 					i = 0;
 				}
-				trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i], 
-				trimmed);
+				trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i],
+					trimmed);
 				i = 0;
 			}
 			else if (trimmed[i] == '>' && trimmed[i+1] == '>')
