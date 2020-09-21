@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 16:46:29 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 17:19:53 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	add_string(t_data *data, char **trimmed, char quote)
 	char	*quote_str;
 	int		q_count;
 	int		len;
+	int		start;
 
 	q_count = 1;
 	len = 0;
@@ -106,12 +107,17 @@ void	add_string(t_data *data, char **trimmed, char quote)
 	quote_str = ft_strldup((*trimmed) + 1, len - 1);
 	if (quote == D_QOTE)
 		quote_str = str_env_replace(data, quote_str, 1);
+	start = 1 + len;
+	len = 0;
+	while ((*trimmed)[start + len] && !iscset((*trimmed)[start + len], "><|; '\""))
+		len++;
+	quote_str = ft_strjoin(quote_str, ft_strldup((*trimmed) + start, len));
 	printf("quote_str%s\n", quote_str);
 	//Protection
 	data->argc += 1;
 	lst_new_back(&data->arg_lst, quote_str);
 	printf("%s\n", quote_str);
-	(*trimmed) += (len + 1);
+	(*trimmed) += (len + start);
 	printf("%s\n", *trimmed);
 }
 
@@ -141,11 +147,16 @@ void	add_arg_string_join(t_data *data, char **trimmed, int *start, char quote)
 		quote_str = str_env_replace(data, quote_str, 1);
 	printf("quote_str%s\n", quote_str);
 	str = ft_strjoin(ft_strldup((*trimmed), *start), quote_str);
+	*start = *start + 1 + len;
+	len = 0;
+	while ((*trimmed)[*start + len] && !iscset((*trimmed)[*start + len], "><|; '\""))
+		len++;
+	str = ft_strjoin(str, ft_strldup((*trimmed) + *start, len));
 	//Protection
 	data->argc += 1;
 	lst_new_back(&data->arg_lst, str);
 	printf("%s\n", str);
-	(*trimmed) += (*start + len + 1);
+	(*trimmed) += (*start + len);
 	printf("%s\n", *trimmed);
 	*start = 0;
 }
