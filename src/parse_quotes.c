@@ -45,7 +45,7 @@ void	drop_char(char *trim, char c, int count)
 	trim[writer] = '\0';
 }
 
-char	*ft_save_literal(t_data *data, char *trimmed, int start, char quote, char *test)
+char	*ft_save_string(t_data *data, char *trimmed, int start, char quote, char *test)
 {
 	char	*tmp;
 	char	*str;

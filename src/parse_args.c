@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 12:39:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/21 12:46:00 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	parse_args(t_data *data, char *trimmed)
 				add_arg(data, &trimmed, &i);
 			if (trimmed[i] == D_QOTE || trimmed[i] == S_QOTE)
 			{
-				trimmed = ft_save_literal(data, (trimmed + i + 1), 0, trimmed[i],
+				trimmed = ft_save_string(data, (trimmed + i + 1), 0, trimmed[i],
 					trimmed);
 				i = 0;
 			}
@@ -126,8 +126,7 @@ void	parse_args(t_data *data, char *trimmed)
 					i = 0;
 				}
 			}
-			else if (trimmed[i] == '>' || trimmed[i] == '|' || trimmed[i] == ';'
-						|| trimmed[i] == '<')
+			else if (iscset(trimmed[i], ">|:<"))
 			{
 				perror("3");
 				tmp = ft_strldup(trimmed, 1);
@@ -158,7 +157,7 @@ void	parse_args(t_data *data, char *trimmed)
 		add_arg(data, &trimmed, &i);
 	// }
 	// if (*trimmed == D_QOTE || *trimmed == S_QOTE)
-	// 	trimmed = ft_save_literal(data, (trimmed + 1), 0, *trimmed, trimmed);
+	// 	trimmed = ft_save_string(data, (trimmed + 1), 0, *trimmed, trimmed);
 	// else if (*trimmed == '|' || *trimmed == ';' || *trimmed == '<' || *trimmed == '>')
 	// 	trimmed = ft_save_flags(data, trimmed, *trimmed);
 	// else

@@ -118,7 +118,7 @@ void	parse_init(t_data *data);
 void	parse_args(t_data *data, char *trimmed);
 void	subtitute_enviroment_variables(t_data *data);
 
-char	*ft_save_literal(t_data *data, char *trimmed, int start, char quote, char *test);
+char	*ft_save_string(t_data *data, char *trimmed, int start, char quote, char *test);
 int		parse_organize(t_data *data);
 int		clear_cmd(t_cmd *cmd, void(*del)(void *));
 int		drop_string(t_data *data, int i);
