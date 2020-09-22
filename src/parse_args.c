@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 15:08:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/22 15:12:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		parse_args(t_data *data, char *input)
 		i++;
 	}
 	if (in_quote)
-		put_error("Unclosed quotes");
+		put_error("Unclosed quotes");//Instead of throwing error, clear any parsing and join a new input string with current string
 	if (iscset(input[i], "><|;"))
 	{
 		add_arg(data, ft_strldup(input + i, (input[i + 1] == '>') ? 2 : 1));
