@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/21 13:21:44 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/22 15:09:37 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,11 @@ char	**list_to_string_array(t_list *to_copy);
 char	*trim_spaces(char *res);
 int		is_builtin(char *cmd);
 void	parse_init(t_data *data);
-void	parse_args(t_data *data, char *trimmed);
+int		parse_args(t_data *data, char *input);
 void	argv_env_replace(t_data *data);
 char	*str_env_replace(t_data *data, char *str, int all);
 char	*str_env_replace_index(t_data *data, char *str, int envstart);
 
-char	*ft_save_string(t_data *data, char *trimmed, int start, char quote, char *test);
 int		parse_organize(t_data *data);
 int		clear_cmd(t_cmd *cmd, void(*del)(void *));
 int		drop_string(t_data *data, int i);
