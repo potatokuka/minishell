@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 17:25:09 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/22 19:06:26 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,20 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	return (new);
 }
 
+static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
+{
+	dprintf(2, "checking this input %s \n", data->argv[i]);
+	drop_string(data, i);
+	print_list(new->arr_list);
+	if (new->argv)
+		dprintf(2, "checking this input %s \n", new->argv[i]);
+	new->argv = list_to_string_array(new->arr_list);
+	data->argc -= 1;
+	new->next = NULL;
+	data->argv = data->argv + i + 1;
+	return (new);
+}
+
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	dprintf(2, "checking this input %s \n", data->argv[i]);
@@ -80,15 +94,22 @@ static t_cmd	*split_init(t_data *data)
 		return (NULL);
 	while (data->argc > 0)
 	{
+		perror("fucking shit cunt");
 		if (new->argc == 0 && is_builtin(data->argv[i]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
 			drop_string(data, i);
 			data->argc -= 1;
 		}
-		else if (data->argv[i] && (data->argv[i][0] == '|' || data->argv[i][0] == ';'))
+		else if (data->argv[i] && (data->argv[i][0] == '|'))
 		{
 			new = save_in_pipe(data, new, i);
+			return (new);
+		}
+		else if (data->argv[i][0] == ';')
+		{
+			perror("am i here");
+			new = save_in_semi(data, new, i);
 			return (new);
 		}
 		else if (data->argv[i] && (data->argv[i][0] == '<' || data->argv[i][0] == '>'))

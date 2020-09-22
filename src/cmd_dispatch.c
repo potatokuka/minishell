@@ -6,24 +6,45 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 17:54:03 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 19:31:01 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
+void	set_fork_redir(t_cmd *cmd)
 {
-	if (cmd->builtin)
-	{
 		if (ft_is_valid_pipe(cmd))
 		{
-			if (dup2(STDOUT, STDIN) == -1)
-				put_error("Failed to dup STDOUT to STDIN for Pipe");
-			if (cmd->pipfd[0] != -1)
-				close(cmd->pipfd[0]);
-			if (cmd->pipfd[1] != -1)
-					close(cmd->pipfd[1]);
+			// cmd->pid1 = fork();
+			// if (cmd->pid1 < 0)
+			// 	put_error("Redir Fork Error");
+			// if (cmd->pid1 == 0)
+			// {	
+			// 	if (dup2(STDOUT, STDIN) == -1)
+			// 		put_error("Failed to dup STDOUT to STDIN for Pipe");
+			// 	if (cmd->pipfd[0] != -1)
+			// 		close(cmd->pipfd[0]);
+			// 	if (cmd->pipfd[1] != -1)
+			// 		close(cmd->pipfd[1]);
+			// }
+			// else
+			// {
+			// 	waitpid(cmd->pid1, NULL, 0);
+			// }
+			perror("HERE YA CUNT");
+			cmd->pid1 = fork();
+			if (cmd->pid1 < 0)
+				put_error("Pipe Fork Error");
+			if (cmd->pid1 == 0)
+			{
+				if (dup2(STDOUT, STDIN) == -1)
+					put_error("Failed to dup for Pipe");
+			}
+			else
+			{
+				waitpid(cmd->pid1, NULL, 0);
+			}
 		}
 		else if (cmd->pipe && ft_is_redir(cmd->pipe))
 		{
@@ -45,12 +66,17 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 			}
 			else
 			{
-
 				close(cmd->pipfd[0]);
 				close(cmd->pipfd[1]);
 				waitpid(cmd->pid1, NULL, 0);
 			}
 		}
+}
+
+void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
+{
+	if (cmd->builtin)
+	{
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
 			ft_exit();
 		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
@@ -68,4 +94,6 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 	}
 	else
 		ft_exec(cmd, *env, envp);
+	if (cmd->pipe && cmd->pid1 == 0)
+		exit (1);
 }

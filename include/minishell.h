@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 15:09:37 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/22 18:44:32 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ void	redir_trunc(t_cmd *cmd);
 void	redir_std_input(t_cmd *cmd);
 int		ft_is_redir(char *str);
 int		ft_is_valid_pipe(t_cmd *cmd);
+void	set_fork_redir(t_cmd *cmd);
 
 /*
 ** DEBUGGING

@@ -6,13 +6,14 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 17:54:50 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 19:35:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* first step, print out PROMPT and allow for exit */
+
 
 int	main(void)
 {
@@ -29,12 +30,14 @@ int	main(void)
 		while (data.cmd)
 		{
 			// redir_dispatch(&data);
+			if (data.cmd->pipe)
+				set_fork_redir(data.cmd);
 			cmd_dispatch(data.cmd, &data.env, data.envp);
 			if (data.cmd->update_env)
 				update_env(&data);
-			if (data.cmd->pipe && data.cmd->pid1 == 0 &&
-					ft_strncmp(data.cmd->pipe, ";", 2))
-					exit (1);
+			// if (data.cmd->pipe && data.cmd->pid1 == 0 &&
+			// 		ft_strncmp(data.cmd->pipe, "|", 2) == 0)
+			// 		exit (1);
 			perror("MOVING TO NEXT IN MAIN");
 			data.cmd = data.cmd->next;
 		}
