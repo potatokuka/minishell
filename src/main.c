@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 17:06:32 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 17:45:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(void)
 			cmd_dispatch(data.cmd, &data.env, data.envp);
 			if (data.cmd->update_env)
 				update_env(&data);
-			if (data.cmd->pipe && data.cmd->pid1 == 0)
-				exit (1);
+			/*if (data.cmd->pipe && data.cmd->pid1 == 0)*/
+				/*exit (1);*/
 			perror("MOVING TO NEXT IN MAIN");
 			data.cmd = data.cmd->next;
 		}
