@@ -39,7 +39,7 @@ int		is_builtin(char *cmd)
 {
 	int	len;
 
-	len = ft_strlen_lib(cmd);
+	len = (ft_strlen_lib(cmd) + 1);
 	if (ft_strncmp(cmd, "exit", len) == 0)
 		return (1);
 	else if (ft_strncmp(cmd, "echo", len) == 0)
@@ -49,7 +49,10 @@ int		is_builtin(char *cmd)
 	else if (ft_strncmp(cmd, "pwd", len) == 0)
 		return (1);
 	else if (ft_strncmp(cmd, "cd", len) == 0)
+	{
+		perror("inside this shit");
 		return (1);
+	}
 	else if (ft_strncmp(cmd, "unset", len) == 0)
 		return (1);
 	else if (ft_strncmp(cmd, "export", len) == 0)

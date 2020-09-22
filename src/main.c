@@ -32,8 +32,9 @@ int	main(void)
 			cmd_dispatch(data.cmd, &data.env, data.envp);
 			if (data.cmd->update_env)
 				update_env(&data);
-			if (data.cmd->pipe && data.cmd->pid1 == 0)
-				exit (1);
+			/* if (data.cmd->pipe && data.cmd->pid1 == 0) */
+			/* 	exit (1); */
+			perror("MOVING TO NEXT IN MAIN");
 			data.cmd = data.cmd->next;
 		}
 		reset_data(&data);//TODO actually make this comprehensive reset
