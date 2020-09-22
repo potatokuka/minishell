@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 15:12:45 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/22 17:47:24 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 
 int		add_arg(t_data *data, char *arg)
 {
-	printf("%s\n", arg);
+	dprintf(2, "%s\n", arg);
 	if (!arg)
 		return (1);
 	data->argc += 1;
