@@ -145,6 +145,7 @@ int				parse_organize(t_data *data)
 		cmd->next = split_init(data);
 		if (!cmd->next)
 			return (clear_cmd(data->cmd, &free));
+		perror("moving cmd->NEXT in PARSE ORGANIZE");
 		cmd = cmd->next;
 	}
 	dprintf(2, "This is b4 print_cmd_full\n");
