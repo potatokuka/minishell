@@ -19,6 +19,7 @@ int				clear_cmd(t_cmd *cmd, void(*del)(void *))
 	while (cmd)
 	{
 		delete = cmd;
+		perror("moving cmd->NEXT in CLEAR_CMD");
 		cmd = cmd->next;
 		if (delete->builtin)
 			del(delete->builtin);
@@ -94,6 +95,7 @@ void	print_cmd_full(t_data *data)
 				i++;
 			}
 		}
+		perror("Moving cmd->NEXT in Print CMD FULL");
 		cmd = cmd->next;
 	}
 }

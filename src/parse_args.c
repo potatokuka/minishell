@@ -131,5 +131,6 @@ int		parse_args(t_data *data, char *input)
 	}
 	if (input[i])
 		return(parse_args(data, input + i));
+	return (0);
 }
 

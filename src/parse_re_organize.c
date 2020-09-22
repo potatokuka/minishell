@@ -56,7 +56,8 @@ static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 	new->pipe = ft_strdup(data->argv[i]);
 	drop_string(data, i);
 	print_list(new->arr_list);
-	dprintf(2, "checking this input %s \n", new->argv[i]);
+	if (new->argv)
+		dprintf(2, "checking this input %s \n", new->argv[i]);
 	new->argv = list_to_string_array(new->arr_list);
 	data->argc -= 1;
 	new->next = NULL;
@@ -144,6 +145,7 @@ int				parse_organize(t_data *data)
 		cmd->next = split_init(data);
 		if (!cmd->next)
 			return (clear_cmd(data->cmd, &free));
+		perror("moving cmd->NEXT in PARSE ORGANIZE");
 		cmd = cmd->next;
 	}
 	dprintf(2, "This is b4 print_cmd_full\n");
