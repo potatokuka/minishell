@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 11:04:06 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 17:14:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	new->next = NULL;
 	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
 	data->argv = data->argv + i + 1;
+	redir_dispatch(new);
 	return (new);
 }
 
@@ -84,15 +85,17 @@ static t_cmd	*split_init(t_data *data)
 			drop_string(data, i);
 			data->argc -= 1;
 		}
-		else if (data->argv[i][0] == '|' || data->argv[i][0] == ';')
+		else if (data->argv[i] && (data->argv[i][0] == '|' || data->argv[i][0] == ';'))
 		{
 			new = save_in_pipe(data, new, i);
 			return (new);
 		}
-		else if (data->argv[i][0] == '<' || data->argv[i][0] == '>')
+		else if (data->argv[i] && (data->argv[i][0] == '<' || data->argv[i][0] == '>'))
 		{
+			dprintf(2, "B4 Argc = %d\n", data->argc);
 			new = save_in_flag(data, new, i);
-			return (new);
+			dprintf(2, "AFTER Argc = %d\n", data->argc);
+			// return (new);
 		}
 		else
 		{
