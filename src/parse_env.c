@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/21 13:34:07 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/22 15:01:05 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	char	*res;
 
 	str[envstart] = '\0';
-	dprintf(2, "str = %s\n", str);
 	envvar = str + envstart + 1;
 	envend = 0;
 	while (envvar[envend] && ft_env_char(envvar[envend]))
