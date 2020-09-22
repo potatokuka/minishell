@@ -35,6 +35,7 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	// 	data->argc -= 2;
 	// 	return (new);
 	// }
+	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
 	new->pid1 = -1;
 	new->pipfd[0] = -1;
 	new->pipfd[1] = -1;
@@ -46,6 +47,7 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	data->argc -= 2;
 	new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
+	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
 	data->argv = data->argv + i + 1;
 	return (new);
 }
