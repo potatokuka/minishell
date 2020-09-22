@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 19:55:29 by greed         #+#    #+#                 */
-/*   Updated: 2020/06/17 20:02:47 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 14:53:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strldup(const char *src, size_t n)
 		return (NULL);
 	len = ft_strlen_lib(src);
 	len = (len > n ? n : len) + 1;
-	res = (char *)malloc(len);
+	res = (char *)ft_calloc(len, sizeof(char));
 	if (res == NULL)
 		return (NULL);
 	ft_strlcpy_lib(res, src, len);
