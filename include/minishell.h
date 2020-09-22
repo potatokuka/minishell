@@ -171,10 +171,10 @@ t_var	*env_add(const char *name, const char *val);
 */
 
 void	redir_init(t_data *data);
-void	redir_dispatch(t_data *data);
-void	redir_append(t_data *data);
-void	redir_trunc(t_data *data);
-void	redir_std_input(t_data *data);
+void	redir_dispatch(t_cmd *cmd);
+void	redir_append(t_cmd *cmd);
+void	redir_trunc(t_cmd *cmd);
+void	redir_std_input(t_cmd *cmd);
 int		ft_is_redir(char *str);
 int		ft_is_valid_pipe(t_cmd *cmd);
 

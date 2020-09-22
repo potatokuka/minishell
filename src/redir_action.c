@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 16:42:31 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 17:08:12 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,27 @@
 ** target to the right
 */
 
-void	redir_append(t_data *data)
+void	redir_append(t_cmd *cmd)
 {
-	int file = open(data->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	int file = open(cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (file < 0)
 		put_error("Error with File in Redir Append");
-	data->cmd->pipfd[1] = file;
+	cmd->pipfd[1] = file;
 }
 
-void		redir_trunc(t_data *data)
+void		redir_trunc(t_cmd *cmd)
 {
-	int file = open(data->cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	int file = open(cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir trunc");
-	data->cmd->pipfd[1] = file;
+	cmd->pipfd[1] = file;
 }
 
-void		redir_std_input(t_data *data)
+void		redir_std_input(t_cmd *cmd)
 {
 // MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
-	int file = open(data->cmd->tar_file, O_RDONLY, 0644);
+	int file = open(cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir input");
-	data->cmd->pipfd[0] = file;
+	cmd->pipfd[0] = file;
 }
