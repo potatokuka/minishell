@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 17:14:30 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 17:25:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	// 	data->argc -= 2;
 	// 	return (new);
 	// }
+	//check if there is already an fd open, and close it
 	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
 	new->pid1 = -1;
 	new->pipfd[0] = -1;
@@ -48,7 +49,7 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
 	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
-	data->argv = data->argv + i + 1;
+	data->argv = data->argv;
 	redir_dispatch(new);
 	return (new);
 }
@@ -95,6 +96,7 @@ static t_cmd	*split_init(t_data *data)
 			dprintf(2, "B4 Argc = %d\n", data->argc);
 			new = save_in_flag(data, new, i);
 			dprintf(2, "AFTER Argc = %d\n", data->argc);
+			i++;
 			// return (new);
 		}
 		else
