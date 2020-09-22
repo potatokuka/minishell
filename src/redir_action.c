@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 10:58:53 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/22 16:42:31 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,17 @@
 void	redir_append(t_data *data)
 {
 	int file = open(data->cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
-	perror("Inside Redir action");
 	if (file < 0)
 		put_error("Error with File in Redir Append");
-	// if (data->cmd->next && !data->cmd->next->tar_file)
 	data->cmd->pipfd[1] = file;
-	// else
-	// 	close(file);
 }
 
 void		redir_trunc(t_data *data)
 {
 	int file = open(data->cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	put_error("inside redir action");
 	if (file < 0)
 			put_error("Error with File in Redir trunc");
-	// if (data->cmd->next && !data->cmd->next->tar_file)
 	data->cmd->pipfd[1] = file;
-	// else
-	// 	close(file);
 }
 
 void		redir_std_input(t_data *data)
@@ -71,8 +63,5 @@ void		redir_std_input(t_data *data)
 	int file = open(data->cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir input");
-	// if (data->cmd->next && !data->cmd->next->tar_file || !data->cmd->next)
 	data->cmd->pipfd[0] = file;
-	// else
-	// 	close(file);
 }
