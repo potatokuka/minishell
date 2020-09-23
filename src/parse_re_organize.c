@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 21:05:11 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 13:07:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static t_cmd	*split_init(t_data *data)
 		return (NULL);
 	while (data->argc > 0)
 	{
-		perror("fucking shit cunt");
+		/*perror("fucking shit cunt");*/
 		if (new->argc == 0 && is_builtin(data->argv[i]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
@@ -111,7 +111,6 @@ static t_cmd	*split_init(t_data *data)
 		}
 		else if (data->argv[i][0] == ';')
 		{
-			perror("am i here");
 			new = save_in_semi(data, new, i);
 			return (new);
 		}
