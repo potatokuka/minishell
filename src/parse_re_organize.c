@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 13:07:09 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/23 14:12:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 	new->pid1 = -1;
 	new->pipfd[0] = -1;
 	new->pipfd[1] = -1;
+	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
 	new->pipe = ft_strdup(data->argv[i]);
 	drop_string(data, i);
 	print_list(new->arr_list);

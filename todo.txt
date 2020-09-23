@@ -1,10 +1,10 @@
 1: single quotes are literal-FIXED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 2: env check is supposedly too eager <-- This seems okay
 3: '|' && ';' <-- '|' stdout -> stdin ';' Do full command, then next
-4: '\' escape characters <-- Not sure how to go about this
-5: multifile redirections <-- in theory should be okay
-6: recursive string join that keeps checking if theres something it needs to concat to the end after
-	e.g. echo hello"$USER"youre'$USER'"$POTATO"
+4: '\' escape characters
+5: multifile redirections <-- working!
+6: recursive string join - FIXED!!!!!!!!!!!!!!!!!!!!!!!!!!
+7: redirection into multiple files
 ------
 
 and a bunch of other shit i do not know at the time being.
