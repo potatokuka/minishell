@@ -20,8 +20,10 @@ void	close_the_shit(t_cmd *cmd)
 	// 	close(cmd->pipfd[1]);
 	if (cmd->pid1 == 0)
 		exit (1);
-	dup2(cmd->resetfd[0], STDIN_FILENO);
-	dup2(cmd->resetfd[1], STDOUT_FILENO);
+	if (dup2(cmd->resetfd[0], STDIN_FILENO) == -1)
+		put_error("Failed to reset STDIN");
+	if (dup2(cmd->resetfd[1], STDOUT_FILENO) == -1)
+		put_error("Failed to reset STDIN");
 	cmd->resetfd[0] = -1;
 	cmd->resetfd[1] = -1;
 }
