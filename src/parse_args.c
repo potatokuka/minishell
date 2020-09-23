@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 17:47:24 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 13:26:02 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ char	*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 
 int		add_arg(t_data *data, char *arg)
 {
-	dprintf(2, "%s\n", arg);
+	/*dprintf(2, "%s\n", arg);*/
 	if (!arg)
 		return (1);
+	if (*arg == '\0')
+	{
+		free (arg);
+		return (0);
+	}
 	data->argc += 1;
 	lst_new_back(&data->arg_lst, arg);
 	return (0);
@@ -108,7 +113,7 @@ int		parse_args(t_data *data, char *input)
 	if (!input)
 		return (1);
 	input = trim_spaces(input);
-	ft_printf_fd(2, "remaining string_%s\n", input);
+	/*ft_printf_fd(2, "remaining string_%s\n", input);*/
 	if (*input)
 		if (add_arg(data, parse_arg(data, input, "><|; ", 0)))
 			put_error("Failed to parse input");
