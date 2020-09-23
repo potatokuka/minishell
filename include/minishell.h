@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 20:06:24 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 20:36:16 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ typedef struct		s_redir
 typedef	struct		s_pid
 {
 	int				count;
-	int				*value;
-	int				*status;
+	int				**value;
+	int				**status;
 }					t_pid;
 
 
