@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 10:08:41 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 11:00:29 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 		{
 			// redir_dispatch(&data);
 			// if (data.cmd->pipe)
-			set_fork_redir(data.cmd);
+			// set_fork_redir(data.cmd);
 			cmd_dispatch(data.cmd, &data.env, data.envp);
 			if (data.cmd->update_env)
 				update_env(&data);
