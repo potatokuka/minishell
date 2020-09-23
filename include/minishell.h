@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 10:09:19 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 12:17:22 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_cmd
 	char			**argv;
 	char			*pipe;
 	char			*tar_file;
+	int				resetfd[2];
 	int				argc;
 	int				pipfd[2];
 	int				pid1;
@@ -180,6 +181,7 @@ int		ft_is_redir(char *str);
 int		ft_is_valid_pipe(t_cmd *cmd);
 void	set_pipe_open(t_cmd *cmd);
 void	set_fork_redir(t_cmd *cmd);
+void	close_the_shit(t_cmd *cmd);
 
 /*
 ** DEBUGGING

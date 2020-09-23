@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 20:45:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 12:39:29 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	print_cmd_full(t_data *data)
 				i++;
 			}
 		}
-		perror("Moving cmd->NEXT in Print CMD FULL");
 		cmd = cmd->next;
 	}
 }
