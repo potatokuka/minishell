@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 19:31:01 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 10:34:41 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,41 @@
 
 void	set_fork_redir(t_cmd *cmd)
 {
-		if (ft_is_valid_pipe(cmd))
-		{
-			// cmd->pid1 = fork();
-			// if (cmd->pid1 < 0)
-			// 	put_error("Redir Fork Error");
-			// if (cmd->pid1 == 0)
-			// {	
-			// 	if (dup2(STDOUT, STDIN) == -1)
-			// 		put_error("Failed to dup STDOUT to STDIN for Pipe");
-			// 	if (cmd->pipfd[0] != -1)
-			// 		close(cmd->pipfd[0]);
-			// 	if (cmd->pipfd[1] != -1)
-			// 		close(cmd->pipfd[1]);
-			// }
-			// else
-			// {
-			// 	waitpid(cmd->pid1, NULL, 0);
-			// }
-			perror("HERE YA CUNT");
-			cmd->pid1 = fork();
-			if (cmd->pid1 < 0)
-				put_error("Pipe Fork Error");
-			if (cmd->pid1 == 0)
-			{
-				if (dup2(STDOUT, STDIN) == -1)
-					put_error("Failed to dup for Pipe");
-			}
-			else
-			{
-				waitpid(cmd->pid1, NULL, 0);
-			}
-		}
-		else if (cmd->pipe && ft_is_redir(cmd->pipe))
+		// if (ft_is_valid_pipe(cmd))
+		// {
+		// 	// cmd->pid1 = fork();
+		// 	// if (cmd->pid1 < 0)
+		// 	// 	put_error("Redir Fork Error");
+		// 	// if (cmd->pid1 == 0)
+		// 	// {	
+		// 	// 	if (dup2(STDOUT, STDIN) == -1)
+		// 	// 		put_error("Failed to dup STDOUT to STDIN for Pipe");
+		// 	// 	if (cmd->pipfd[0] != -1)
+		// 	// 		close(cmd->pipfd[0]);
+		// 	// 	if (cmd->pipfd[1] != -1)
+		// 	// 		close(cmd->pipfd[1]);
+		// 	// }
+		// 	// else
+		// 	// {
+		// 	// 	waitpid(cmd->pid1, NULL, 0);
+		// 	// }
+		// 	if (pipe(cmd->pipfd) == -1)
+		// 	{
+		// 		free(cmd);
+		// 		put_error("Failed in Pipe");
+		// 	}
+		// 	cmd->pipfd[0] = cmd->pipfd[0];
+		// 	if (cmd->next && cmd->next->pipe[0] == '|')
+		// 		cmd->next->pipfd[1] = cmd->next->pipfd[1];
+		// }
+		if (cmd->pipe && ft_is_redir(cmd->pipe))
 		{
 			cmd->pid1 = fork();
 			if (cmd->pid1 < 0)
 				put_error("Redir Fork Error");
 			if (cmd->pid1 == 0)
 			{
+				dprintf(2, "Dup2 FD in : %d\n", cmd->pipfd[0]);
 				if (cmd->pipfd[1] != -1 &&
 						dup2(cmd->pipfd[1], STDOUT_FILENO) == -1)
 					put_error("Failed to dup STDOUT for Child");
@@ -77,6 +73,9 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 {
 	if (cmd->builtin)
 	{
+		
+		// is there a '|', if there is FORK if not, dup2 all the according
+		// fds. If there is a '|', fork and then run.
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
 			ft_exit();
 		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)

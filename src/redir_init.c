@@ -11,6 +11,8 @@ void	redir_dispatch(t_cmd *cmd)
 			redir_std_input(cmd);
 		else if (ft_strcmp(cmd->pipe, ">") == 0)
 			redir_trunc(cmd);
+		else if (ft_strcmp(cmd->pipe, "|") == 0)
+			set_pipe_open(cmd);
 	}
 	return ;
 }

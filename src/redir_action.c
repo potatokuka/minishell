@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/22 19:26:40 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 10:13:48 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,13 @@ void		redir_std_input(t_cmd *cmd)
 	int file = open(cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir input");
-	cmd->pipfd[0] = file;
+	dprintf(2, "Input Redir FD : %d\n", file);
+	cmd->pipfd[READ] = file;
+}
+
+void		set_pipe_open(t_cmd *cmd)
+{
+	cmd->pipfd[1] = cmd->pipfd[0];
+	if (cmd->next && cmd->next->pipe[0] == '|')
+		cmd->next->pipfd[0] = cmd->next->pipfd[1];
 }
