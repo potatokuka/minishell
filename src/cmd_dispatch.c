@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 12:41:02 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 19:52:48 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	dup_redir(t_cmd *cmd)
 	}
 }
 
-void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
+void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 {
 
 	if (cmd->pipfd[IN] != -1 || cmd->pipfd[OUT] != -1)
@@ -114,7 +114,7 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp)
 			close_the_shit(cmd);
 	}
 	else
-		ft_exec(cmd, *env, envp);
+		ft_exec(cmd, *env, envp, data);
 	if (cmd->pipfd[IN] != -1 || cmd->pipfd[OUT] != -1)
 		close_the_shit(cmd);
 }

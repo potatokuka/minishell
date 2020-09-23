@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 11:00:29 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 19:56:21 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(void)
 			if (data.cmd->pipfd2[READ_FD] != -1 && data.cmd->pipfd2[WRITE_FD] != -1)
 				fork_next_and_pipe(data.cmd, &data.env, data.envp);
 			else
-				cmd_dispatch(data.cmd, &data.env, data.envp);
+				cmd_dispatch(data.cmd, &data.env, data.envp, &data);
 			if (data.cmd->update_env)
 				update_env(&data);
 			if (data.cmd->next)

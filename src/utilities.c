@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 20:07:20 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,30 @@
 /*
 ** count the len unti it reaches the sent char
 */
+
+void	ft_add_pid(t_pid *pid, int add_value, int add_status, t_data *data)
+{
+	int		i;
+	t_pid	*tmp;
+
+	// ! tmp = ft_calloc(sizeof(pid), 1);
+	i = 0;
+	tmp->value = ft_calloc(sizeof(int), pid->count + 1);
+	tmp->status = ft_calloc(sizeof(int), pid->count + 1);
+	while (i < pid->count)
+	{
+		tmp->count += 1;
+		tmp->value[i] = pid->value[i];
+		tmp->status[i] = pid->status[i];
+		i++;
+	}
+	i += 1;
+	tmp->count = i;
+	tmp->value[i] = add_value;
+	tmp->status[i] = add_status;
+	free(pid);
+	data->pid = tmp;
+}
 
 int		ft_is_redir(char *str)
 {

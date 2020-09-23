@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/23 12:37:35 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 20:04:04 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,16 @@ char	*get_env_path_exec(char *exec, t_var *env)
 ** relative path, or $PATH identifier.
 */
 
-void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
+void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_data *data)
 {
 	int		status;
+	t_pid	*new;
 
-	cmd->pid1 = fork();
-	if (cmd->pid1 < 0)
+	data->pid->value[data->pid->count] = fork();
+	ft_add_pid(data->pid, data->pid->value[data->pid->count], status, data);
+	if (data->pid->value[data->pid->count] < 0)
 		put_error("No Redir Exec Fork Error");
-	if (cmd->pid1 == 0)
+	if (data->pid->value[data->pid->count] == 0)
 	{
 		execve(pathname, cmd->argv, envp);
 		put_error("execve 2");
@@ -112,7 +114,7 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp)
 	}
 }
 
-void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
+void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_data *data)
 {
 	//TODO Check how bash responds to errno and -1 response
 	//TODO Check if there is a MAX_ARGS
@@ -143,5 +145,5 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp)
 		}
 	}
 	dprintf(2,"pathname:%s\n", pathname);
-	griffin_try(cmd, pathname, envp);
+	griffin_try(cmd, pathname, envp, data);
 }
