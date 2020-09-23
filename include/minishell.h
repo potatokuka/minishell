@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 13:39:44 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/23 14:16:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@
 # define SPACE 32
 
 /*
+** ENUMS
+*/
+
+enum			redirs
+{
+	IN,
+	OUT,
+};
+
+enum			pipes
+{
+	READ_FD,
+	WRITE_FD,
+};
+
+/*
 ** STRUCTS
 */
 
@@ -64,11 +80,11 @@ typedef struct		s_cmd
 {
 	char			*builtin;
 	char			**argv;
-	char			*pipe;
 	char			*tar_file;
 	int				resetfd[2];
 	int				argc;
 	int				pipfd[2];
+	int				pipfd2[2];
 	int				pid1;
 	t_list			*arr_list;
 	struct s_cmd	*next;
@@ -102,6 +118,7 @@ typedef struct		s_data
 
 void	print_prompt();
 void	reset_data(t_data *data);
+void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp);
 void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp);
 char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3);
@@ -173,13 +190,12 @@ t_var	*env_add(const char *name, const char *val);
 */
 
 void	redir_init(t_data *data);
-void	redir_dispatch(t_cmd *cmd);
+void	redir_dispatch(t_cmd *cmd, char *pipe);
 void	redir_append(t_cmd *cmd);
 void	redir_trunc(t_cmd *cmd);
 void	redir_std_input(t_cmd *cmd);
 int		ft_is_redir(char *str);
-int		ft_is_valid_pipe(t_cmd *cmd);
-void	set_pipe_open(t_cmd *cmd);
+void	open_pipe(t_cmd *cmd);
 void	set_fork_redir(t_cmd *cmd);
 void	close_the_shit(t_cmd *cmd);
 

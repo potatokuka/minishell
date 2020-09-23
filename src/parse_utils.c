@@ -23,8 +23,6 @@ int				clear_cmd(t_cmd *cmd, void(*del)(void *))
 		cmd = cmd->next;
 		if (delete->builtin)
 			del(delete->builtin);
-		if (delete->pipe)
-			del(delete->pipe);
 		if (delete->tar_file)
 			del(delete->tar_file);
 		if (delete->argv)
@@ -52,8 +50,14 @@ void	print_cur_cmd(t_cmd *cmd)
 	dprintf(2,"-- PRINT CUR CMD STRUCT --\n");
 	if (cmd->builtin)
 		dprintf(2,"Builtin_%s\n", cmd->builtin);
-	if (cmd->pipe)
-		dprintf(2,"Pipe_%s\n", cmd->pipe);
+	if (cmd->pipfd[IN] != -1)
+		dprintf(2,"Redir In_%d\n", cmd->pipfd[IN]);
+	if (cmd->pipfd[OUT] != -1)
+		dprintf(2,"Redir Out_%d\n", cmd->pipfd[OUT]);
+	if (cmd->pipfd2[WRITE_FD] != -1)
+		dprintf(2,"Pipe Write_%d\n", cmd->pipfd2[WRITE_FD]);
+	if (cmd->pipfd2[READ_FD] != -1)
+		dprintf(2,"Pipe Read_%d\n", cmd->pipfd2[READ_FD]);
 	if (cmd->tar_file)
 		dprintf(2,"Tar File_%s\n", cmd->tar_file);
 	if (cmd->argc)
@@ -80,8 +84,14 @@ void	print_cmd_full(t_data *data)
 		dprintf(2,"-- PRINT CUR CMD STRUCT --\n");
 		if (cmd->builtin)
 			dprintf(2,"Builtin_%s\n", cmd->builtin);
-		if (cmd->pipe)
-			dprintf(2,"Pipe_%s\n", cmd->pipe);
+		if (cmd->pipfd[IN] != -1)
+			dprintf(2,"Redir In_%d\n", cmd->pipfd[IN]);
+		if (cmd->pipfd[OUT] != -1)
+			dprintf(2,"Redir Out_%d\n", cmd->pipfd[OUT]);
+		if (cmd->pipfd2[WRITE_FD] != -1)
+			dprintf(2,"Pipe Write_%d\n", cmd->pipfd2[WRITE_FD]);
+		if (cmd->pipfd2[READ_FD] != -1)
+			dprintf(2,"Pipe Read_%d\n", cmd->pipfd2[READ_FD]);
 		if (cmd->tar_file)
 			dprintf(2,"Tar File_%s\n", cmd->tar_file);
 		if (cmd->argc)

@@ -1,18 +1,16 @@
 #include "minishell.h"
 
-void	redir_dispatch(t_cmd *cmd)
+void	redir_dispatch(t_cmd *cmd, char *pipe)
 {
-	if (cmd && cmd->pipe)
+	if (cmd && pipe)
 	{
-		dprintf(2, "pipe =%s\n", cmd->pipe);
-		if (ft_strcmp(cmd->pipe, ">>") == 0)
+		dprintf(2, "pipe =%s\n", pipe);
+		if (ft_strcmp(pipe, ">>") == 0)
 			redir_append(cmd);
-		else if (ft_strcmp(cmd->pipe, "<") == 0)
+		else if (ft_strcmp(pipe, "<") == 0)
 			redir_std_input(cmd);
-		else if (ft_strcmp(cmd->pipe, ">") == 0)
+		else if (ft_strcmp(pipe, ">") == 0)
 			redir_trunc(cmd);
-		else if (ft_strcmp(cmd->pipe, "|") == 0)
-			set_pipe_open(cmd);
 	}
 	return ;
 }

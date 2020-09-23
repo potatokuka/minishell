@@ -36,5 +36,5 @@ void	parse_init(t_data *data)
 	free(input_str);
 	free_list(data->arg_lst, &free);
 	parse_organize(data);
-	print_vars(data);
+	// print_vars(data);
 }

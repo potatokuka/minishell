@@ -1,10 +1,10 @@
-1: single quotes are literal-FIXED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-2: env check is supposedly too eager <-- This seems okay
-3: '|' && ';' <-- '|' stdout -> stdin ';' Do full command, then next
+1: single quotes are literal - FIXED!!
+2: env check is supposedly too eager - FIXED!!
+3: '|' - Single pipe works, double pipe doesn't
+3.1: ';' - WORKING!!
 4: '\' escape characters
-5: multifile redirections <-- working!
-6: recursive string join - FIXED!!!!!!!!!!!!!!!!!!!!!!!!!!
-7: redirection into multiple files
+5: multifile redirections <-- WORKING!!
+6: recursive string join - FIXED!!
 ------
 
 and a bunch of other shit i do not know at the time being.

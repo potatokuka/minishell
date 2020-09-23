@@ -29,16 +29,14 @@ int	main(void)
 		parse_init(&data);
 		while (data.cmd)
 		{
-			// redir_dispatch(&data);
-			// if (data.cmd->pipe)
-			// set_fork_redir(data.cmd);
-			cmd_dispatch(data.cmd, &data.env, data.envp);
+			if (data.cmd->pipfd2[READ_FD] != -1 && data.cmd->pipfd2[WRITE_FD] != -1)
+				fork_next_and_pipe(data.cmd, &data.env, data.envp);
+			else
+				cmd_dispatch(data.cmd, &data.env, data.envp);
 			if (data.cmd->update_env)
 				update_env(&data);
-			// if (data.cmd->pipe && data.cmd->pid1 == 0 &&
-			// 		ft_strncmp(data.cmd->pipe, "|", 2) == 0)
-			// 		exit (1);
-			perror("MOVING TO NEXT IN MAIN");
+			if (data.cmd->next)
+				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;
 		}
 		reset_data(&data);//TODO actually make this comprehensive reset

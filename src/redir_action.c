@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 10:13:48 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/23 14:09:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	redir_append(t_cmd *cmd)
 	int file = open(cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (file < 0)
 		put_error("Error with File in Redir Append");
-	cmd->pipfd[1] = file;
+	cmd->pipfd[OUT] = file;
 }
 
 void		redir_trunc(t_cmd *cmd)
@@ -54,7 +54,7 @@ void		redir_trunc(t_cmd *cmd)
 	int file = open(cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir trunc");
-	cmd->pipfd[1] = file;
+	cmd->pipfd[OUT] = file;
 }
 
 void		redir_std_input(t_cmd *cmd)
@@ -67,9 +67,8 @@ void		redir_std_input(t_cmd *cmd)
 	cmd->pipfd[READ] = file;
 }
 
-void		set_pipe_open(t_cmd *cmd)
+void		open_pipe(t_cmd *cmd)
 {
-	cmd->pipfd[1] = cmd->pipfd[0];
-	if (cmd->next && cmd->next->pipe[0] == '|')
-		cmd->next->pipfd[0] = cmd->next->pipfd[1];
+	if (pipe(cmd->pipfd2) == -1)
+		put_error("Failed to open pipe");
 }

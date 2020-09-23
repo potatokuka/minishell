@@ -19,48 +19,23 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
 		put_error("could not find newline");
-	// ! this is a dumb fix, but maybe a work around.
-	// if (data->redir_count > 1)
-	// {
-	// 	put_error("inside redir count");
-	// 	drop_string(data, i);
-	// 	i += 1;
-	// 	int file = open(data->argv[i], O_RDONLY, 0644);
-	// 	close (file);
-	// 	drop_string(data, i);
-	// 	new->argv = list_to_string_array(new->arr_list);
-	// 	new->next = NULL;
-	// 	data->redir_count -= 1;
-	// 	data->argv = data->argv + i + 1;
-	// 	data->argc -= 2;
-	// 	return (new);
-	// }
-	//check if there is already an fd open, and close it
-	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
+	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
 	new->pid1 = -1;
-	new->pipfd[0] = -1;
-	new->pipfd[1] = -1;
-	new->pipe = ft_strdup(data->argv[i]);
+	new->tar_file = ft_strdup(data->argv[i + 1]);
+	redir_dispatch(new, data->argv[i]);
 	drop_string(data, i);
 	i += 1;
-	new->tar_file = ft_strdup(data->argv[i]);
 	drop_string(data, i);
 	data->argc -= 2;
 	new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
-	dprintf(2, "checking for argv[i] %s %s\n", data->argv[i], data->argv[i+1]);
-	data->argv = data->argv;
-	redir_dispatch(new);
 	return (new);
 }
 
 static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 {
-	dprintf(2, "checking this input %s \n", data->argv[i]);
+	dprintf(2, "saving semicolon %s \n", data->argv[i]);
 	drop_string(data, i);
-	print_list(new->arr_list);
-	if (new->argv)
-		dprintf(2, "checking this input %s \n", new->argv[i]);
 	new->argv = list_to_string_array(new->arr_list);
 	data->argc -= 1;
 	new->next = NULL;
@@ -70,16 +45,11 @@ static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
-	dprintf(2, "checking this input %s \n", data->argv[i]);
+	dprintf(2, "saving pipe %s \n", data->argv[i]);
 	new->pid1 = -1;
-	new->pipfd[0] = -1;
-	new->pipfd[1] = -1;
 	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
-	new->pipe = ft_strdup(data->argv[i]);
+	open_pipe(new);
 	drop_string(data, i);
-	print_list(new->arr_list);
-	if (new->argv)
-		dprintf(2, "checking this input %s \n", new->argv[i]);
 	new->argv = list_to_string_array(new->arr_list);
 	data->argc -= 1;
 	new->next = NULL;
@@ -93,12 +63,17 @@ static t_cmd	*split_init(t_data *data)
 	int		i;
 
 	new = ft_calloc(sizeof(t_cmd), 1);
+	new->resetfd[IN] = -1;
+	new->resetfd[OUT] = -1;
+	new->pipfd[IN] = -1;
+	new->pipfd[OUT] = -1;
+	new->pipfd2[READ_FD] = -1;
+	new->pipfd2[WRITE_FD] = -1;
 	i = 0;
 	if (!new)
 		return (NULL);
 	while (data->argc > 0)
 	{
-		/*perror("fucking shit cunt");*/
 		if (new->argc == 0 && is_builtin(data->argv[i]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
@@ -117,11 +92,8 @@ static t_cmd	*split_init(t_data *data)
 		}
 		else if (data->argv[i] && (data->argv[i][0] == '<' || data->argv[i][0] == '>'))
 		{
-			dprintf(2, "B4 Argc = %d\n", data->argc);
 			new = save_in_flag(data, new, i);
-			dprintf(2, "AFTER Argc = %d\n", data->argc);
 			i++;
-			// return (new);
 		}
 		else
 		{
@@ -132,7 +104,7 @@ static t_cmd	*split_init(t_data *data)
 		}
 		i++;
 	}
-	if (new->arr_list && !new->pipe)
+	if (new->arr_list && (new->pipfd[IN] == -1 && new->pipfd[OUT] == -1))
 		new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
 	data->argv = data->argv + i;
@@ -176,10 +148,8 @@ int				parse_organize(t_data *data)
 		cmd->next = split_init(data);
 		if (!cmd->next)
 			return (clear_cmd(data->cmd, &free));
-		perror("moving cmd->NEXT in PARSE ORGANIZE");
 		cmd = cmd->next;
 	}
-	dprintf(2, "This is b4 print_cmd_full\n");
 	print_cmd_full(data);
 	return (0);
 }
