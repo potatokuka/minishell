@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:45:38 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 13:23:14 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,12 @@ int		ft_is_redir(char *str);
 void	open_pipe(t_cmd *cmd);
 void	set_fork_redir(t_cmd *cmd);
 void	close_the_shit(t_cmd *cmd);
+
+/*
+** UTILITIES
+*/
+
+void	ft_free(void **free_me);
 
 /*
 ** DEBUGGING
