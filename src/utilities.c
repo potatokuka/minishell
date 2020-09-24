@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 13:22:08 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/24 13:24:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	ft_free(void **free_me)
 {
 	if (*free_me)
 	{
-		free(*free_me)
+		free(*free_me);
 		*free_me = (void *)0;
 	}
 }
