@@ -113,7 +113,7 @@ typedef struct		s_data
 	char	**argv;
 	int		argc;
 	t_list	*arg_lst;
-	t_pid	*pid;
+	t_pid	pid;
 	char	**envp;
 	int		redir_count;
 	t_var	*env;

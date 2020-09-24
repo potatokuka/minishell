@@ -39,11 +39,13 @@ int	main(void)
 				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;
 		}
-		while (data.pid->count > 0)
+		while (data.pid.count > 0)
 		{
-			waitpid(data.pid->value[data.pid->count], &data.pid->status[data.pid->count], 0);
-			data.pid->count--;
+			waitpid(data.pid.value[data.pid.count], &data.pid.status[data.pid.count], 0);
+			data.pid.count--;
 		}
+		free(data.pid.value);
+		free(data.pid.status);
 		reset_data(&data);//TODO actually make this comprehensive reset
 	}
 	return (0);

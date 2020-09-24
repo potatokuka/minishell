@@ -18,13 +18,14 @@
 
 void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 {
+	perror("Inside add pid");
 	int		i;
 	int		*tmp_value;
 	int		*tmp_status;
+	t_pid	tmp;
 
-	pid->count += 1;
-	tmp_value = ft_calloc(sizeof(int), pid->count);
-	tmp_status = ft_calloc(sizeof(int), pid->count);
+	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
+	tmp_status = ft_calloc(sizeof(int), pid->count + 2);
 	i = 0;
 	while (i < pid->count)
 	{
@@ -32,6 +33,7 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 		tmp_status[i] = pid->status[i];
 		i++;
 	}
+	pid->count += 1;
 	tmp_value[i + 1] = add_value;
 	tmp_status[i + 1] = add_status;
 	free(pid->value);

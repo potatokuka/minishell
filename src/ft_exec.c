@@ -98,11 +98,10 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_data *data)
 	int		status;
 	t_pid	*new;
 
-	data->pid->value[data->pid->count] = fork();
-	ft_add_pid(data->pid, data->pid->value[data->pid->count], status);
-	if (data->pid->value[data->pid->count] < 0)
+	ft_add_pid(&data->pid, fork(), status);
+	if (data->pid.value[data->pid.count] < 0)
 		put_error("No Redir Exec Fork Error");
-	if (data->pid->value[data->pid->count] == 0)
+	if (data->pid.value[data->pid.count] == 0)
 	{
 		execve(pathname, cmd->argv, envp);
 		put_error("execve 2");
