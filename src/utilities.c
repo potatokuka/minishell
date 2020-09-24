@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 20:37:23 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:15:35 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status, t_data *data)
 	i += 1;
 	tmp->count = i;
 	tmp->value[i] = ft_calloc(sizeof(int), 1);
-	tmp->value[i] = add_value;
+	tmp->value[i] = &add_value;
 	tmp->status[i] = ft_calloc(sizeof(int), 1);
-	tmp->status[i] = add_status;
+	tmp->status[i] = &add_status;
 	free(pid);
 	data->pid = tmp;
 }

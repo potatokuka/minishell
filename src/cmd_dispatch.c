@@ -6,13 +6,13 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 19:52:48 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:16:35 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp)
+void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 {
 	int		status;
 
@@ -29,7 +29,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp)
 		//This is intended to fork the next child if needed, and pipe to them, but doesn't work
 		// if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
 		// 	fork_next_and_pipe(cmd->next->next, env, envp);
-		cmd_dispatch(cmd->next, env, envp);
+		cmd_dispatch(cmd->next, env, envp, data);
 		close(cmd->pipfd2[READ_FD]);
 		dprintf(2, "end of child process\n");
 		exit (0);
@@ -42,7 +42,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp)
 		else
 			close(cmd->pipfd2[READ_FD]);
 		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
-		cmd_dispatch(cmd, env, envp);
+		cmd_dispatch(cmd, env, envp, data);
 		close(cmd->pipfd2[WRITE_FD]);
 		waitpid(cmd->pid1, &status, 0);
 		//This is intended to skip over every cmd that is going to be forked and piped by the child

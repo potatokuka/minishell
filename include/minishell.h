@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 20:36:16 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:17:23 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct		s_data
 
 void	print_prompt();
 void	reset_data(t_data *data);
-void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp);
+void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data);
 void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_data *data);
 char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3);
