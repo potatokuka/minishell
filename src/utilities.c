@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 13:24:35 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/24 14:15:19 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@
 
 void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 {
-	perror("Inside add pid");
 	int		i;
 	int		*tmp_value;
 	int		*tmp_status;
 	t_pid	tmp;
 
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
+	if (!tmp_value)
+		put_error("Allocation fail");
 	tmp_status = ft_calloc(sizeof(int), pid->count + 2);
+	if (!tmp_status)
+		put_error("Allocation fail");
 	i = 0;
 	while (i < pid->count)
 	{
@@ -36,8 +39,8 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 	pid->count += 1;
 	tmp_value[i + 1] = add_value;
 	tmp_status[i + 1] = add_status;
-	free(pid->value);
-	free(pid->status);
+	ft_free((void **)&pid->value);
+	ft_free((void **)&pid->status);
 	pid->value = tmp_value;
 	pid->status = tmp_status;
 }

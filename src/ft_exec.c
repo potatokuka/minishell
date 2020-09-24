@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/24 12:45:57 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 14:11:50 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,33 +93,35 @@ char	*get_env_path_exec(char *exec, t_var *env)
 ** relative path, or $PATH identifier.
 */
 
-void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_data *data)
+void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 {
 	int		status;
 	t_pid	*new;
+	int		pid_temp;
 
-	ft_add_pid(&data->pid, fork(), status);
-	if (data->pid.value[data->pid.count] < 0)
+	pid_temp = fork();
+	if (pid_temp != 0)
+		ft_add_pid(pid, pid_temp, status);
+	if (pid->value[pid->count - 1] < 0)
 		put_error("No Redir Exec Fork Error");
-	if (data->pid.value[data->pid.count] == 0)
+	if (pid->value[pid->count - 1] == 0)
 	{
 		execve(pathname, cmd->argv, envp);
 		put_error("execve 2");
 	}
-	else
-	{
-		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
-		waitpid(cmd->pid1, &status, 0);
-	}
+	/*else*/
+	/*{*/
+		/*//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks*/
+		/*waitpid(cmd->pid1, &status, 0);*/
+	/*}*/
 }
 
-void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_data *data)
+void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 {
 	//TODO Check how bash responds to errno and -1 response
 	//TODO Check if there is a MAX_ARGS
 	char	*path;
 	char	*pathname;
-	pid_t	pid;
 	int		status;
 
 	dprintf(2,"EXEC -------------\n");
@@ -144,5 +146,5 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_data *data)
 		}
 	}
 	dprintf(2,"pathname:%s\n", pathname);
-	griffin_try(cmd, pathname, envp, data);
+	griffin_try(cmd, pathname, envp, pid);
 }

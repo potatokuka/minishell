@@ -6,23 +6,24 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:45:51 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 14:10:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
+void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
 {
 	int		status;
-	int		pid1;
+	int		pid_temp;
 
-	pid1 = fork();
-	ft_add_pid(&data->pid, pid1, status);
-	if (data->pid.value[data->pid.count] < 0)
+	pid_temp = fork();
+	if (pid_temp != 0)
+		ft_add_pid(pid, pid_temp, status);
+	if (pid->value[pid->count] < 0)
 		put_error("No Redir Exec Fork Error");
-	if (data->pid.value[data->pid.count] == 0)
-	{	
+	if (pid->value[pid->count] == 0)
+	{
 		close(cmd->pipfd2[WRITE_FD]);
 		if (cmd->next->pipfd[IN] == -1)
 			cmd->next->pipfd[IN] = cmd->pipfd2[READ_FD];
@@ -31,7 +32,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 		//This is intended to fork the next child if needed, and pipe to them, but doesn't work
 		// if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
 		// 	fork_next_and_pipe(cmd->next->next, env, envp);
-		cmd_dispatch(cmd->next, env, envp, data);
+		cmd_dispatch(cmd->next, env, envp, pid);
 		close(cmd->pipfd2[READ_FD]);
 		dprintf(2, "end of child process\n");
 		exit (0);
@@ -44,7 +45,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 		else
 			close(cmd->pipfd2[READ_FD]);
 		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
-		cmd_dispatch(cmd, env, envp, data);
+		cmd_dispatch(cmd, env, envp, pid);
 		close(cmd->pipfd2[WRITE_FD]);
 		// ! waitpid(cmd->pid1, &status, 0);
 		//This is intended to skip over every cmd that is going to be forked and piped by the child
@@ -56,7 +57,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 void	close_the_shit(t_cmd *cmd)
 {
 	if (cmd->pid1 == 0)
-		exit (1);
+		exit (0);
 	if (cmd->resetfd[IN] != -1 && dup2(cmd->resetfd[IN], STDIN_FILENO) == -1)
 		put_error("Failed to reset STDIN");
 	if (cmd->resetfd[OUT] != -1 && dup2(cmd->resetfd[OUT], STDOUT_FILENO) == -1)
@@ -89,7 +90,7 @@ void	dup_redir(t_cmd *cmd)
 	}
 }
 
-void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_data *data)
+void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
 {
 
 	if (cmd->pipfd[IN] != -1 || cmd->pipfd[OUT] != -1)
@@ -116,7 +117,7 @@ void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 			close_the_shit(cmd);
 	}
 	else
-		ft_exec(cmd, *env, envp, data);
+		ft_exec(cmd, *env, envp, pid);
 	if (cmd->pipfd[IN] != -1 || cmd->pipfd[OUT] != -1)
 		close_the_shit(cmd);
 }

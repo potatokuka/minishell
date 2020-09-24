@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:51:05 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 16:34:28 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	main(void)
 		while (data.cmd)
 		{
 			if (data.cmd->pipfd2[READ_FD] != -1 && data.cmd->pipfd2[WRITE_FD] != -1)
-				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data);
+				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid);
 			else
-				cmd_dispatch(data.cmd, &data.env, data.envp, &data);
+				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
 			if (data.cmd->update_env)
 				update_env(&data);
 			if (data.cmd->next)
@@ -41,11 +41,11 @@ int	main(void)
 		}
 		while (data.pid.count > 0)
 		{
-			waitpid(data.pid.value[data.pid.count], &data.pid.status[data.pid.count], 0);
+			waitpid(data.pid.value[data.pid.count - 1], &data.pid.status[data.pid.count - 1], 0);
 			data.pid.count--;
 		}
-		free(data.pid.value);
-		free(data.pid.status);
+		ft_free((void **)&data.pid.value);
+		ft_free((void **)&data.pid.status);
 		reset_data(&data);//TODO actually make this comprehensive reset
 	}
 	return (0);
