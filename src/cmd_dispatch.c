@@ -49,11 +49,12 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
 		else
 			close(cmd->pipfd2[READ_FD]);
 		//This is intended to fork the next child if needed, and pipe to them, but doesn't work
-		// if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
-		// 	fork_next_and_pipe(cmd->next->next, env, envp);
+		if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
+			fork_next_and_pipe(cmd->next->next, env, envp, pid);
 		cmd_dispatch(cmd->next, env, envp, pid);
 		close(cmd->pipfd2[READ_FD]);
 		dprintf(2, "end of child process\n");
+		wait_for_children(pid);
 		exit (0);
 	}
 	else
