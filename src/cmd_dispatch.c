@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:30:30 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:45:51 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 	int		pid1;
 
 	pid1 = fork();
-	ft_add_pid(data->pid, pid1, status, data);
+	ft_add_pid(data->pid, pid1, status);
 	if (data->pid->value[data->pid->count] < 0)
 		put_error("No Redir Exec Fork Error");
 	if (data->pid->value[data->pid->count] == 0)

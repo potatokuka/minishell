@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:17:23 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:45:38 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ typedef struct		s_redir
 typedef	struct		s_pid
 {
 	int				count;
-	int				**value;
-	int				**status;
+	int				*value;
+	int				*status;
 }					t_pid;
 
 
@@ -134,7 +134,7 @@ char	*ft_3strjoin(const char *str1, const char *str2,
 char	**free_array_null(char **str);
 size_t	ft_strclen(const char *str, int c);
 char	*get_path(void);
-void	ft_add_pid(t_pid *pid, int add_value, int add_status, t_data *data);
+void	ft_add_pid(t_pid *pid, int add_value, int add_status);
 
 /*
 ** PARSING

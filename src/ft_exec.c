@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/23 20:04:04 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:45:57 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_data *data)
 	t_pid	*new;
 
 	data->pid->value[data->pid->count] = fork();
-	ft_add_pid(data->pid, data->pid->value[data->pid->count], status, data);
+	ft_add_pid(data->pid, data->pid->value[data->pid->count], status);
 	if (data->pid->value[data->pid->count] < 0)
 		put_error("No Redir Exec Fork Error");
 	if (data->pid->value[data->pid->count] == 0)

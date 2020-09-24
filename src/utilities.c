@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:41:47 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:45:25 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,28 @@
 ** count the len unti it reaches the sent char
 */
 
-void	ft_add_pid(t_pid *pid, int add_value, int add_status, t_data *data)
+void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 {
 	int		i;
-	int		*tmp;
+	int		*tmp_value;
 	int		*tmp_status;
 
+	pid->count += 1;
+	tmp_value = ft_calloc(sizeof(int), pid->count);
+	tmp_status = ft_calloc(sizeof(int), pid->count);
 	i = 0;
-	tmp = ft_calloc(sizeof(int), pid->count + 1);
-	tmp_status = ft_calloc(sizeof(int), pid->count + 1);
 	while (i < pid->count)
 	{
-		tmp->value[i] = pid->value[i];
-		tmp->status[i] = pid->status[i];
+		tmp_value[i] = pid->value[i];
+		tmp_status[i] = pid->status[i];
 		i++;
 	}
-	pid->count = i + 1;
-	tmp = &add_value;
-	pid->status[i + 1] = &add_status;
-	data->pid = tmp;
+	tmp_value[i + 1] = &add_value;
+	tmp_status[i + 1] = &add_status;
+	free(pid->value);
+	free(pid->status);
+	pid->value = tmp_value;
+	pid->status = tmp_status;
 }
 
 int		ft_is_redir(char *str)
