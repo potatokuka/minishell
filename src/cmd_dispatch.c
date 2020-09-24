@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:16:35 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:30:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 {
 	int		status;
+	int		pid1;
 
-	cmd->pid1 = fork();
-	if (cmd->pid1 < 0)
+	pid1 = fork();
+	ft_add_pid(data->pid, pid1, status, data);
+	if (data->pid->value[data->pid->count] < 0)
 		put_error("No Redir Exec Fork Error");
-	if (cmd->pid1 == 0)
+	if (data->pid->value[data->pid->count] == 0)
 	{	
 		close(cmd->pipfd2[WRITE_FD]);
 		if (cmd->next->pipfd[IN] == -1)
@@ -44,7 +46,7 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_data *data)
 		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
 		cmd_dispatch(cmd, env, envp, data);
 		close(cmd->pipfd2[WRITE_FD]);
-		waitpid(cmd->pid1, &status, 0);
+		// ! waitpid(cmd->pid1, &status, 0);
 		//This is intended to skip over every cmd that is going to be forked and piped by the child
 		// while (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
 		cmd->next = cmd->next->next;
