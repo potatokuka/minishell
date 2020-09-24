@@ -28,13 +28,17 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status, t_data *data)
 	while (i < pid->count)
 	{
 		tmp->count += 1;
+		tmp->value[i] = ft_calloc(sizeof(int), 1);
 		tmp->value[i] = pid->value[i];
+		tmp->status[i] = ft_calloc(sizeof(int), 1);
 		tmp->status[i] = pid->status[i];
 		i++;
 	}
 	i += 1;
 	tmp->count = i;
+	tmp->value[i] = ft_calloc(sizeof(int), 1);
 	tmp->value[i] = add_value;
+	tmp->status[i] = ft_calloc(sizeof(int), 1);
 	tmp->status[i] = add_status;
 	free(pid);
 	data->pid = tmp;
