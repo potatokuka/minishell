@@ -6,11 +6,30 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 14:10:45 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/24 17:07:39 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	wait_for_children(t_pid *pid)
+{
+	int i = 0;
+	/*while (pid->value[i])*/
+	while (i < pid->count)
+	{
+		dprintf(2, "[%d]_%d\n", i, pid->value[i]);
+		i++;
+	}
+	while (pid->count > 0)
+	{
+		dprintf(2, "waiting pid:%d\n", pid->value[pid->count - 1]);
+		waitpid(pid->value[pid->count - 1], &pid->status[pid->count - 1], 0);
+		pid->count--;
+	}
+	ft_free((void **)&pid->value);
+	ft_free((void **)&pid->status);
+}
 
 void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
 {

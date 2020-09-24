@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 13:52:49 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/24 17:08:34 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	print_prompt();
 void	reset_data(t_data *data);
 void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid);
 void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_pid *pid);
+void	wait_for_children(t_pid *pid);
 char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3);
 char	**free_array_null(char **str);
