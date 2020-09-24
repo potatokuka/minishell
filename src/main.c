@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:18:39 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:51:05 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(void)
 		}
 		while (data.pid->count > 0)
 		{
-			waitpid(&data.pid->value[data.pid->count], data.pid->status[data.pid->count], 0);
+			waitpid(data.pid->value[data.pid->count], &data.pid->status[data.pid->count], 0);
 			data.pid->count--;
 		}
 		reset_data(&data);//TODO actually make this comprehensive reset

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 12:45:25 by greed         ########   odam.nl         */
+/*   Updated: 2020/09/24 12:50:45 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 		tmp_status[i] = pid->status[i];
 		i++;
 	}
-	tmp_value[i + 1] = &add_value;
-	tmp_status[i + 1] = &add_status;
+	tmp_value[i + 1] = add_value;
+	tmp_status[i + 1] = add_status;
 	free(pid->value);
 	free(pid->status);
 	pid->value = tmp_value;
