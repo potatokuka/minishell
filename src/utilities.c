@@ -23,6 +23,7 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 	int		*tmp_status;
 	t_pid	tmp;
 
+	dprintf(2, "adding child pid:%d\n", add_value);
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
 	if (!tmp_value)
 		put_error("Allocation fail");
@@ -32,6 +33,7 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 	i = 0;
 	while (i < pid->count)
 	{
+		dprintf(2, "existing pid[%d]:%d\n", i, pid->value[i]);
 		tmp_value[i] = pid->value[i];
 		tmp_status[i] = pid->status[i];
 		i++;

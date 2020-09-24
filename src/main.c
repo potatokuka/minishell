@@ -39,8 +39,16 @@ int	main(void)
 				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;
 		}
+		int i = 0;
+		/*while (data.pid.value[i])*/
+		while (i < data.pid.count)
+		{
+			dprintf(2, "[%d]_%d\n", i, data.pid.value[i]);
+			i++;
+		}
 		while (data.pid.count > 0)
 		{
+			dprintf(2, "waiting pid:%d\n", data.pid.value[data.pid.count - 1]);
 			waitpid(data.pid.value[data.pid.count - 1], &data.pid.status[data.pid.count - 1], 0);
 			data.pid.count--;
 		}
