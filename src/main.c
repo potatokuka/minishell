@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 17:06:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/25 14:20:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 	ft_bzero(&data, sizeof(data));
 	if (env_init(&data))
 		put_error("Failed to parse env");
-	/*set_signal();*/
+	set_signal();
 	while (1)
 	{
 		print_prompt();
@@ -30,16 +30,16 @@ int	main(void)
 		while (data.cmd)
 		{
 			if (data.cmd->pipfd2[READ_FD] != -1 && data.cmd->pipfd2[WRITE_FD] != -1)
-				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid);
+				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid, 1);
 			else
 				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
 			if (data.cmd->update_env)
 				update_env(&data);
+			wait_for_children(&data.pid);
 			if (data.cmd->next)
 				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;
 		}
-		wait_for_children(&data.pid);
 		reset_data(&data);//TODO actually make this comprehensive reset
 	}
 	return (0);

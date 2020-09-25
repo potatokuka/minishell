@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/24 17:23:32 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/25 15:04:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	wait_for_children(t_pid *pid)
 	ft_free((void **)&pid->status);
 }
 
-void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
+void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, int is_parent)
 {
 	int		status;
 	int		pid_temp;
@@ -43,37 +43,51 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
 	{
-		close(cmd->pipfd2[WRITE_FD]);
+		//Closing my duplicate of senders pipe and assigning my read end
+		close(cmd->pipfd2[WRITE_FD]);//Does this need protection
 		if (cmd->next->pipfd[IN] == -1)
 			cmd->next->pipfd[IN] = cmd->pipfd2[READ_FD];
-		else
-			close(cmd->pipfd2[READ_FD]);
-		//This is intended to fork the next child if needed, and pipe to them, but doesn't work
-		/*if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)*/
-			/*fork_next_and_pipe(cmd->next->next, env, envp, pid);*/
+
+		//Closing my duplicate of recievers pipe and opening my write end
+		if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
+		{
+			close(cmd->next->pipfd2[READ_FD]);//Does this need protectoin
+			if (cmd->next->pipfd[OUT] == -1)
+				cmd->next->pipfd[OUT] = cmd->next->pipfd2[WRITE_FD];
+		}
+
+		perror("about to cmd_dispatch this command:");
+		print_cur_cmd(cmd->next);
 		cmd_dispatch(cmd->next, env, envp, pid);
-		close(cmd->pipfd2[READ_FD]);
-		dprintf(2, "end of child process\n");
-		/*wait_for_children(pid);*/
+
+		//My pipe to my reciever
+		if (cmd->next->pipfd2[WRITE_FD] != -1)
+			close(cmd->next->pipfd2[WRITE_FD]);//Does this need protectoin
+		//My pipe
+		close(cmd->pipfd2[READ_FD]);//Does this need protectoin
+		perror("end of child process");
 		exit (0);
 	}
-	else
+	else if (is_parent)
 	{
-		close(cmd->pipfd2[READ_FD]);
+		while (cmd->next && cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
+		{
+			perror("forking child from while loop");
+			fork_next_and_pipe(cmd->next, env, envp, pid, 0);
+			cmd->next = cmd->next->next;
+		}
+		cmd->next = cmd->next->next;
+
+		close(cmd->pipfd2[READ_FD]);//Does this need protectoin
 		if (cmd->pipfd[OUT] == -1)
 			cmd->pipfd[OUT] = cmd->pipfd2[WRITE_FD];
-		else
-			close(cmd->pipfd2[READ_FD]);
-		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
 		//for multiple pipes i.e. echo fag | cat | cat, try calling the forking from inside here, rather than inside the child
-		/*if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)*/
-			/*fork_next_and_pipe(cmd->next->next, env, envp, pid);*/
+
 		cmd_dispatch(cmd, env, envp, pid);
-		close(cmd->pipfd2[WRITE_FD]);
+		close(cmd->pipfd2[WRITE_FD]);//Does this need protectoin
 		// ! waitpid(cmd->pid1, &status, 0);
 		//This is intended to skip over every cmd that is going to be forked and piped by the child
 		// while (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
-		cmd->next = cmd->next->next;
 	}
 }
 
