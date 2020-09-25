@@ -39,9 +39,9 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
 	pid_temp = fork();
 	if (pid_temp != 0)
 		ft_add_pid(pid, pid_temp, status);
-	if (pid->value[pid->count] < 0)
+	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
-	if (pid->value[pid->count] == 0)
+	if (pid_temp == 0)
 	{
 		close(cmd->pipfd2[WRITE_FD]);
 		if (cmd->next->pipfd[IN] == -1)
