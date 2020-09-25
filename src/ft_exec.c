@@ -99,7 +99,8 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	t_pid	*new;
 	int		pid_temp;
 
-	pid_temp = fork();
+	if (pid->count > 0 &&pid->value[count] != 0)
+		pid_temp = fork();
 	if (pid_temp != 0)
 		ft_add_pid(pid, pid_temp, status);
 	if (pid->value[pid->count - 1] < 0)
