@@ -22,6 +22,31 @@
 ** after it's fully finished
 */
 
+char	*handle_escape_quotes(char *arg)
+{
+	char	*ret;
+	char	*tmp;
+	int		i;
+	int		x;
+
+	i = 0;
+	x = 0;
+	dprintf(2, "Arg= %s\n", arg);
+	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
+	while (arg[i])
+	{
+		if (arg[i] == '\\')
+			i++;
+		tmp[x] = arg[i];
+		x++;
+		i++;
+	}
+	ret = ft_strldup(tmp, x);
+	free(tmp);
+	dprintf(2, "Test RET_%s\n", ret);
+	return (ret);
+}
+
 int		iscset(char c, char *set)
 {
 	while (*set)
@@ -78,6 +103,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 {
 	int		i;
 	char	*arg;
+	char	*tmp;
 
 	i = 0;
 	while (input[i] && !iscset(input[i], break_chars))
@@ -88,8 +114,13 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 		else if (quote && input[i] == quote && (quote == S_QOTE || (i > 0 && input[i - 1] != '\\')))
 		{
 			arg = ft_strldup(input, i);
+			dprintf(2, "testing arg %s\n", arg);
 			if (quote == D_QOTE)
+			{
+				arg = handle_escape_quotes(arg);
+				dprintf(2, "testing char %c %c\n", input[i - 1], input[i]);
 				arg = str_env_replace(d, arg, 1);
+			}
 			if (!iscset(input[i + 1], "><|; "))
 			{
 				if (input[i + 1] == D_QOTE || input[i] == S_QOTE)
@@ -99,8 +130,16 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			}
 			return (arg);
 		}
+		else if (i > 0 && input[i] == '\\')
+		{
+			if (input[i] == '\\' && input[i + 1] == '\"')
+			{
+
+			}
+		}
 		i++;
 	}
+	dprintf(2, "134 check : %s\n", input);
 	return (ft_strldup(input, i));
 }
 

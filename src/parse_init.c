@@ -12,6 +12,33 @@
 
 #include "minishell.h"
 
+char	*clear_escape_quotes(char *str)
+{
+	int		i;
+	int		x;
+	char	*tmp;
+	char	*ret;
+	int		in_quote;
+
+	i = 0;
+	x = 0;
+	in_quote = 0;
+	tmp = ft_calloc((ft_strlen(str) + 1), sizeof(char));
+	while (str[i])
+	{
+		if (str[i] == '\\' && str[i + 1] == '\\')
+		{
+			i += 1;
+		}
+		tmp[x] = str[i];
+		i++;
+		x++;
+	}
+	ret = ft_strldup(tmp, x);
+	free(tmp);
+	return(ret);
+}
+
 void	parse_init(t_data *data)
 {
 	char	*input_str;
@@ -28,6 +55,7 @@ void	parse_init(t_data *data)
 		else
 			put_error("Invalid input read");
 	}
+	input_str = clear_escape_quotes(input_str);
 	input_str = trim_spaces(input_str);
 	if (!*input_str)
 		return ;
