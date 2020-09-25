@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/24 14:11:50 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/25 14:14:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,22 +99,22 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	t_pid	*new;
 	int		pid_temp;
 
-	if (pid->count > 0 &&pid->value[count] != 0)
-		pid_temp = fork();
-	if (pid_temp != 0)
-		ft_add_pid(pid, pid_temp, status);
-	if (pid->value[pid->count - 1] < 0)
+	/*if (pid->count > 0 && pid->value[pid->count] != 0)*/
+	pid_temp = fork();
+	/*if (pid_temp != 0)*/
+		/*ft_add_pid(pid, pid_temp, status);*/
+	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
-	if (pid->value[pid->count - 1] == 0)
+	if (pid_temp == 0)
 	{
 		execve(pathname, cmd->argv, envp);
 		put_error("execve 2");
 	}
-	/*else*/
-	/*{*/
-		/*//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks*/
-		/*waitpid(cmd->pid1, &status, 0);*/
-	/*}*/
+	else
+	{
+		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
+		waitpid(pid_temp, &status, 0);
+	}
 }
 
 void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
