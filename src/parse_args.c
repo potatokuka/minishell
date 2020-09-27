@@ -35,11 +35,17 @@ char	*handle_escape_quotes(char *arg)
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
 	while (arg[i])
 	{
-		if (arg[i] == '\\')
+		if (arg[i] == '\\' && arg[i + 1] == '\\')
+		{
+			tmp[x] = arg[i];
+			i += 2;
+		}
+		else
+		{
+			tmp[x] = arg[i];
+			x++;
 			i++;
-		tmp[x] = arg[i];
-		x++;
-		i++;
+		}
 	}
 	ret = ft_strldup(tmp, x);
 	free(tmp);
@@ -109,6 +115,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	while (input[i] && !iscset(input[i], break_chars))
 	{
 		/*printf("%d %c\n", i, input[i]);*/
+		dprintf(2, "this, is check : %s\n", input);
 		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE))
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
 		else if (quote && input[i] == quote && (quote == S_QOTE || (i > 0 && input[i - 1] != '\\')))
@@ -118,7 +125,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			if (quote == D_QOTE)
 			{
 				arg = handle_escape_quotes(arg);
-				dprintf(2, "testing char %c %c\n", input[i - 1], input[i]);
+				dprintf(2, "testing char %c %c arg = %s\n", input[i - 1], input[i], arg);
 				arg = str_env_replace(d, arg, 1);
 			}
 			if (!iscset(input[i + 1], "><|; "))
@@ -129,13 +136,6 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 					return (ft_strjoin(arg, parse_arg(d, input + i + 1, "><|; ", 0)));//Leaks
 			}
 			return (arg);
-		}
-		else if (i > 0 && input[i] == '\\')
-		{
-			if (input[i] == '\\' && input[i + 1] == '\"')
-			{
-
-			}
 		}
 		i++;
 	}
@@ -158,6 +158,7 @@ int		parse_args(t_data *data, char *input)
 			put_error("Failed to parse input");
 	i = 0;
 	in_quote = 0;
+	dprintf(2, "Testing input before first WHILE: %s\n", input);
 	while (input[i] && (in_quote || !iscset(input[i], "><|; ")))
 	{
 		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE))
