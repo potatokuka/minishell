@@ -39,6 +39,8 @@ int		is_builtin(char *cmd)
 {
 	int	len;
 
+	if (!cmd)
+		return (0);
 	len = (ft_strlen_lib(cmd) + 1);
 	if (ft_strncmp(cmd, "exit", len) == 0)
 		return (1);

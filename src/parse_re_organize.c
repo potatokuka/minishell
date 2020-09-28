@@ -15,29 +15,56 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-void			convert_esc(t_data *data, int i, t_cmd *new)
+int				has_escape(char *str)
 {
-	char	*tmp;
-	char	*res;
-	int		x;
-	int		y;
+	int i;
 
-	dprintf(2, "hello im inside the convert esc\n");
-	x = 1;
-	y = 0;
-	tmp = ft_calloc(ft_strlen(data->argv[i]), sizeof(char));
-	while (data->argv[i][x])
+	i = 0;
+	while (str[i])
 	{
-		tmp[y] = data->argv[i][x];
-		y++;
-		x++;
+		if (str[i] == '\\')
+			return (1);
+		i++;
 	}
-	res = ft_strldup(tmp, y);
-	lst_new_back(&new->arr_list, ft_strdup(res));
+	return (0);
+}
+
+void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
+{
+	char	*ret;
+	char	*tmp;
+	int		i;
+	int		x;
+
+	i = 0;
+	x = 0;
+	dprintf(2, "Arg= %s\n", arg);
+	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
+	while (arg[i])
+	{
+		dprintf(2, "testing arg[i] %c\n", arg[i]);
+		if (arg[i] == '\\')
+		{
+			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
+			tmp[x] = arg[i + 1];
+			i += 2;
+			x++;
+		}
+		else
+		{
+			tmp[x] = arg[i];
+			x++;
+			i++;
+		}
+	}
+	ret = ft_strldup(tmp, x);
+	free(tmp);
+	dprintf(2, "Test RET_%s\n", ret);
+	lst_new_back(&new->arr_list, ft_strdup(ret));
 	free(tmp);
 	new->argc += 1;
 	data->argc -= 1;
-	drop_string(data, i);
+	drop_string(data, index);
 }
 
 static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
@@ -87,6 +114,7 @@ static t_cmd	*split_init(t_data *data)
 {
 	t_cmd	*new;
 	int		i;
+	int		x;
 
 	new = ft_calloc(sizeof(t_cmd), 1);
 	new->resetfd[IN] = -1;
@@ -101,6 +129,7 @@ static t_cmd	*split_init(t_data *data)
 	dprintf(2, "Split init Arg Structure:\n");
 	while (data->argc > 0)
 	{
+		x = 0;
 		dprintf(2, "%s\n", data->argv[i]);
 		if (new->argc == 0 && is_builtin(data->argv[i]))
 		{
@@ -123,9 +152,14 @@ static t_cmd	*split_init(t_data *data)
 			new = save_in_flag(data, new, i);
 			i++;
 		}
-		else if (data->argv[i] && (data->argv[i][0] == '\\'))
+		else if (data->argv[i] && has_escape(data->argv[i]))
 		{
-			convert_esc(data, i, new);
+			perror("uWu");
+			convert_esc(data, new, data->argv[i], i);
+			dprintf(2, "ARGC %d\n", data->argc);
+			if (data->argc < 1)
+				break;
+				/* return (new); */
 		}
 		else
 		{
@@ -136,6 +170,7 @@ static t_cmd	*split_init(t_data *data)
 		}
 		i++;
 	}
+	perror("this");
 	if (new->arr_list && (new->pipfd[IN] == -1 && new->pipfd[OUT] == -1))
 		new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
