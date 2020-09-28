@@ -22,6 +22,16 @@
 ** after it's fully finished
 */
 
+bool	check_escape(char *str, int i)
+{
+	if (i > 1 && str[i - 2] == '\\' && str[i - 1] == '\\')
+		return (true);
+	else if (i > 0 && (str[i - 1] == '\\'))
+		return (false);
+	else
+		return (true);
+}
+
 char	*handle_escape_quotes(char *arg)
 {
 	char	*ret;
@@ -38,8 +48,16 @@ char	*handle_escape_quotes(char *arg)
 		if (arg[i] == '\\' && arg[i + 1] == '\\')
 		{
 			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
-			tmp[x] = arg[i];
-			i++;
+			tmp[x] = arg[i + 1];
+			i += 2;
+			x++;
+		}
+		else if (arg[i] == '\\' && arg[i + 1] == '\"')
+		{
+			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
+			tmp[x] = arg[i + 1];
+			i += 2;
+			x++;
 		}
 		else
 		{
@@ -52,6 +70,17 @@ char	*handle_escape_quotes(char *arg)
 	free(tmp);
 	dprintf(2, "Test RET_%s\n", ret);
 	return (ret);
+}
+
+int		escset(char *input, char *set, int i)
+{
+	while (*set)
+	{
+		if (input[i] == *set && check_escape(input, i))
+			return (1);
+		set++;
+	}
+	return (0);
 }
 
 int		iscset(char c, char *set)
@@ -113,13 +142,13 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	char	*tmp;
 
 	i = 0;
-	while (input[i] && !iscset(input[i], break_chars))
+	while (input[i] && !escset(input, break_chars, i))
 	{
 		/*printf("%d %c\n", i, input[i]);*/
-		dprintf(2, "this, is check : %s\n", input);
+		/* dprintf(2, "this, is check : %s\n", input); */
 		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE))
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
-		else if (quote && input[i] == quote)
+		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
 			arg = ft_strldup(input, i);
 			dprintf(2, "testing arg %s\n", arg);
@@ -131,11 +160,14 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			}
 			if (!iscset(input[i + 1], "><|; "))
 			{
+
+				dprintf(2, "iscest being returned : %s\n", arg);
 				if (input[i + 1] == D_QOTE || input[i] == S_QOTE)
 					return (ft_strjoin(arg, parse_arg(d, input + i + 2, "", input[i + 1])));//Leaks
 				else
 					return (ft_strjoin(arg, parse_arg(d, input + i + 1, "><|; ", 0)));//Leaks
 			}
+			dprintf(2, "Arg being returned : %s\n", arg);
 			return (arg);
 		}
 		i++;
@@ -160,11 +192,11 @@ int		parse_args(t_data *data, char *input)
 	i = 0;
 	in_quote = 0;
 	dprintf(2, "Testing input before first WHILE: %s\n", input);
-	while (input[i] && (in_quote || !iscset(input[i], "><|; ")))
+	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
 	{
 		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE))
 			in_quote = input[i];
-		else if (in_quote && input[i] == in_quote && (in_quote == S_QOTE || (i > 0 && input[i - 1] != '\\')))
+		else if (in_quote && input[i] == in_quote && check_escape(input, i))
 			in_quote = 0;
 		i++;
 	}

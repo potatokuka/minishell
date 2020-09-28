@@ -17,8 +17,9 @@
 
 static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
+
 	if (!data->argv[i + 1])
-		put_error("could not find newline");
+		put_error("could not find target file");
 	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
 	new->pid1 = -1;
 	new->tar_file = ft_strdup(data->argv[i + 1]);
@@ -72,8 +73,10 @@ static t_cmd	*split_init(t_data *data)
 	i = 0;
 	if (!new)
 		return (NULL);
+	dprintf(2, "Split init Arg Structure:\n");
 	while (data->argc > 0)
 	{
+		dprintf(2, "%s\n", data->argv[i]);
 		if (new->argc == 0 && is_builtin(data->argv[i]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
@@ -95,6 +98,10 @@ static t_cmd	*split_init(t_data *data)
 			new = save_in_flag(data, new, i);
 			i++;
 		}
+		/* else if (data->argv[i] && (data->argv[i][0] == '\\')) */
+		/* { */
+		/* 	convert_esc(data); */
+		/* } */
 		else
 		{
 			lst_new_back(&new->arr_list, ft_strdup(data->argv[i]));
