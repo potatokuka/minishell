@@ -37,8 +37,9 @@ char	*handle_escape_quotes(char *arg)
 	{
 		if (arg[i] == '\\' && arg[i + 1] == '\\')
 		{
+			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
 			tmp[x] = arg[i];
-			i += 2;
+			i++;
 		}
 		else
 		{
@@ -118,7 +119,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 		dprintf(2, "this, is check : %s\n", input);
 		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE))
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
-		else if (quote && input[i] == quote && (quote == S_QOTE || (i > 0 && input[i - 1] != '\\')))
+		else if (quote && input[i] == quote)
 		{
 			arg = ft_strldup(input, i);
 			dprintf(2, "testing arg %s\n", arg);
