@@ -15,6 +15,31 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+void			convert_esc(t_data *data, int i, t_cmd *new)
+{
+	char	*tmp;
+	char	*res;
+	int		x;
+	int		y;
+
+	dprintf(2, "hello im inside the convert esc\n");
+	x = 1;
+	y = 0;
+	tmp = ft_calloc(ft_strlen(data->argv[i]), sizeof(char));
+	while (data->argv[i][x])
+	{
+		tmp[y] = data->argv[i][x];
+		y++;
+		x++;
+	}
+	res = ft_strldup(tmp, y);
+	lst_new_back(&new->arr_list, ft_strdup(res));
+	free(tmp);
+	new->argc += 1;
+	data->argc -= 1;
+	drop_string(data, i);
+}
+
 static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 
@@ -98,10 +123,10 @@ static t_cmd	*split_init(t_data *data)
 			new = save_in_flag(data, new, i);
 			i++;
 		}
-		/* else if (data->argv[i] && (data->argv[i][0] == '\\')) */
-		/* { */
-		/* 	convert_esc(data); */
-		/* } */
+		else if (data->argv[i] && (data->argv[i][0] == '\\'))
+		{
+			convert_esc(data, i, new);
+		}
 		else
 		{
 			lst_new_back(&new->arr_list, ft_strdup(data->argv[i]));

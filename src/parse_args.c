@@ -24,12 +24,41 @@
 
 bool	check_escape(char *str, int i)
 {
-	if (i > 1 && str[i - 2] == '\\' && str[i - 1] == '\\')
-		return (true);
-	else if (i > 0 && (str[i - 1] == '\\'))
-		return (false);
-	else
-		return (true);
+	// TRUE, BREAK STRING HERE EVEN == GTFO
+	// FALSE, ESCAPE IT. ODD == ESCAPE
+	// go from this point, backwards while i > 0
+	// count consecutive '\\' in a row
+	// while ('\\')
+	int		count;
+
+	count = 0;
+	if (i > 0)
+	{
+		i -= 1;
+		while (i > 0 && (str[i] == '\\'))
+		{
+			count += 1;
+			i--;
+		}
+		if (count % 2 == 0)
+		{
+			dprintf(2, "%d mod 2 : TRUE\n", count);
+			return (true);
+		}
+		else
+		{
+
+			dprintf(2, "%d mod 2 : FALSE\n", count);
+			return (false);
+		}
+	}
+	return (true);
+	/* if (i > 1 && str[i - 2] == '\\' && str[i - 1] == '\\') */
+	/* 	return (true); */
+	/* else if (i > 0 && (str[i - 1] == '\\')) */
+	/* 	return (false); */
+	/* else */
+	/* 	return (true); */
 }
 
 char	*handle_escape_quotes(char *arg)
