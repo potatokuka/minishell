@@ -29,6 +29,11 @@ int	main(void)
 		parse_init(&data);
 		while (data.cmd)
 		{
+			if (data.cmd->argc < 1 && !data.cmd->builtin)
+			{
+				dprintf(2, "syntax error near unexpected token ';'\n");
+				break ;
+			}
 			if (data.cmd->pipfd2[READ_FD] != -1 && data.cmd->pipfd2[WRITE_FD] != -1)
 				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid);
 			else
