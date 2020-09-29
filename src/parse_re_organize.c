@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 14:12:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/25 14:15:57 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 
 static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 {
-	dprintf(2, "saving semicolon %s \n", data->argv[i]);
+	/*dprintf(2, "saving semicolon %s \n", data->argv[i]);*/
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
 	data->argc -= 1;
@@ -98,7 +98,7 @@ static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
-	dprintf(2, "saving pipe %s \n", data->argv[i]);
+	/*dprintf(2, "saving pipe %s \n", data->argv[i]);*/
 	new->pid1 = -1;
 	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
 	open_pipe(new);
