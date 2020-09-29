@@ -2,7 +2,7 @@
 2: env check is supposedly too eager - FIXED!!
 3: '|' - Single pipe works, double pipe doesn't
 3.1: ';' - WORKING!!
-4: '\' escape characters
+4: '\' escape characters <---- FIXED!
 5: multifile redirections <-- WORKING!!
 6: recursive string join - FIXED!!
 ------
