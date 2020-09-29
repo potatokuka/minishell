@@ -5,6 +5,7 @@
 4: '\' escape characters <---- FIXED!
 5: multifile redirections <-- WORKING!!
 6: recursive string join - FIXED!!
+7: ;; input
 ------
 
 and a bunch of other shit i do not know at the time being.
