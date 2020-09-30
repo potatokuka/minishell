@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 13:08:42 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 10:50:51 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ typedef	struct		s_pid
 	int				*status;
 }					t_pid;
 
+typedef struct		s_fd_sto
+{
+	int				*fd_arr;
+	int				mem;
+	int				used;
+}					t_fd_sto;
 
 typedef struct		s_cmd
 {
@@ -93,7 +99,7 @@ typedef struct		s_cmd
 	int				argc;
 	int				pipfd[2];
 	int				pipfd2[2];
-	int				pid1;
+	int				io_fd[2];
 	t_list			*arr_list;
 	struct s_cmd	*next;
 	int				update_env;
@@ -110,16 +116,17 @@ typedef struct		s_var
 /* should put this struct into another one later, because it's just input, but im lazy rn */
 typedef struct		s_data
 {
-	char	**argv;
-	int		argc;
-	t_list	*arg_lst;
-	t_pid	pid;
-	char	**envp;
-	int		redir_count;
-	t_var	*env;
-	t_cmd	*cmd;
-	char	**redirs;
-}			t_data;
+	char			**argv;
+	int				argc;
+	t_list			*arg_lst;
+	t_pid			pid;
+	t_fd_sto		fd;
+	char			**envp;
+	int				redir_count;
+	t_var			*env;
+	t_cmd			*cmd;
+	char			**redirs;
+}					t_data;
 
 /*
 ** FUNCTION PROTOTYPES
@@ -135,6 +142,7 @@ char	*ft_3strjoin(const char *str1, const char *str2,
 char	**free_array_null(char **str);
 size_t	ft_strclen(const char *str, int c);
 char	*get_path(void);
+void	ft_reset_pid(t_pid *pid);
 void	ft_add_pid(t_pid *pid, int add_value, int add_status);
 
 /*

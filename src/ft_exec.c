@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/25 14:14:13 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/29 13:43:18 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,9 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	t_pid	*new;
 	int		pid_temp;
 
-	/*if (pid->count > 0 && pid->value[pid->count] != 0)*/
 	pid_temp = fork();
-	/*if (pid_temp != 0)*/
-		/*ft_add_pid(pid, pid_temp, status);*/
+	if (pid_temp != 0)
+		ft_add_pid(pid, pid_temp, status);
 	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
@@ -112,8 +111,7 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	}
 	else
 	{
-		//Add all pids to an array (or vector if youre a fag) and close them later, or a linked list if you love leaks
-		waitpid(pid_temp, &status, 0);
+		/*waitpid(pid_temp, &status, 0);*/
 	}
 }
 

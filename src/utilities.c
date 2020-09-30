@@ -6,11 +6,18 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 14:18:12 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/29 13:47:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_reset_pid(t_pid *pid)
+{
+	pid->count = 0;
+	ft_free((void **)&pid->value);
+	ft_free((void **)&pid->status);
+}
 
 /*
 ** count the len unti it reaches the sent char
@@ -23,7 +30,7 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 	int		*tmp_status;
 	t_pid	tmp;
 
-	/*dprintf(2, "adding child pid:%d\n", add_value);*/
+	dprintf(2, "adding child pid:%d\n", add_value);
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
 	if (!tmp_value)
 		put_error("Allocation fail");
@@ -46,12 +53,12 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 	ft_free((void **)&pid->status);
 	pid->value = tmp_value;
 	pid->status = tmp_status;
-	i = 0;
-	while (i < pid->count)
-	{
-		dprintf(2, "new pid array[%d]:%d\n", i, pid->value[i]);
-		i++;
-	}
+	/*i = 0;*/
+	/*while (i < pid->count)*/
+	/*{*/
+		/*dprintf(2, "new pid array[%d]:%d\n", i, pid->value[i]);*/
+		/*i++;*/
+	/*}*/
 }
 
 int		ft_is_redir(char *str)

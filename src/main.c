@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 14:20:16 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 10:58:58 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(void)
 				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
 			if (data.cmd->update_env)
 				update_env(&data);
-			wait_for_children(&data.pid);
 			if (data.cmd->next)
 				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 15:04:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 10:59:19 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,43 @@
 
 void	wait_for_children(t_pid *pid)
 {
-	int i = 0;
-	/*while (pid->value[i])*/
+	int i;
+
+	i = 0;
 	while (i < pid->count)
 	{
 		dprintf(2, "[%d]_%d\n", i, pid->value[i]);
 		i++;
 	}
-	while (pid->count > 0)
+	i = 0;
+	while (i < pid->count)
 	{
-		dprintf(2, "waiting pid:%d\n", pid->value[pid->count - 1]);
-		waitpid(pid->value[pid->count - 1], &pid->status[pid->count - 1], 0);
-		pid->count--;
+		dprintf(2, "waiting pid:%d\n", pid->value[i]);
+		waitpid(pid->value[i], &pid->status[i], 0);
+		i++;
 	}
 	ft_free((void **)&pid->value);
 	ft_free((void **)&pid->status);
 }
 
+/*
+ * Add all fds that get opened to a list/array, but no need to remove the current pidfds, maybe rename them though
+ * assign the used ones to io_fd[2]
+ * close all others i.e. those that dont match to either io_fd[0] io_fd[1]
+*/
+
 void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, int is_parent)
 {
+	//Commands that are aids
+	//echo hello | cat | cat -n
+	//echo hello | cat | echo lol
+	//echo aa | sed "s/a/b/g" | sed "s/b/c/g"
 	int		status;
 	int		pid_temp;
+	int		reset_fd[2];
 
+	reset_fd[OUT] = -1;
+	reset_fd[IN] = -1;
 	pid_temp = fork();
 	if (pid_temp != 0)
 		ft_add_pid(pid, pid_temp, status);
@@ -43,28 +58,49 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, int is
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
 	{
-		//Closing my duplicate of senders pipe and assigning my read end
-		close(cmd->pipfd2[WRITE_FD]);//Does this need protection
-		if (cmd->next->pipfd[IN] == -1)
-			cmd->next->pipfd[IN] = cmd->pipfd2[READ_FD];
+		ft_reset_pid(pid);
+		perror("about to cmd_dispatch this command:");
+		perror(cmd->next->argv[0]);
+		/*print_cur_cmd(cmd->next);*/
 
-		//Closing my duplicate of recievers pipe and opening my write end
-		if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
+		//Closing my duplicate of senders pipe 
+		close(cmd->pipfd2[WRITE_FD]);//Does this need protection
+		//Assigning my read end of pipe
+		/*if (cmd->next->pipfd[IN] == -1)*/
+			/*cmd->next->pipfd[IN] = cmd->pipfd2[READ_FD];*/
+		if (cmd->next->pipfd[IN] == -1)
 		{
-			close(cmd->next->pipfd2[READ_FD]);//Does this need protectoin
-			if (cmd->next->pipfd[OUT] == -1)
-				cmd->next->pipfd[OUT] = cmd->next->pipfd2[WRITE_FD];
+			dprintf(2, "Pipe Dup2 in : %d\n", cmd->pipfd2[READ_FD]);
+			if (dup2(cmd->pipfd2[READ_FD], STDIN_FILENO) == -1)
+				put_error("Failed to dup STDIN\n");
 		}
 
-		perror("about to cmd_dispatch this command:");
-		print_cur_cmd(cmd->next);
+		//Checking if the next command wants to pipe
+		if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
+		{
+			//Closing my duplicate of recievers end of pipe
+			close(cmd->next->pipfd2[READ_FD]);//Does this need protectoin
+			//Assigning my write end of pipe
+			/*if (cmd->next->pipfd[OUT] == -1)*/
+				/*cmd->next->pipfd[OUT] = cmd->next->pipfd2[WRITE_FD];*/
+			if (cmd->next->pipfd[OUT] == -1)
+			{
+				dprintf(2, "Pipe Dup2 out : %d\n", cmd->next->pipfd2[WRITE_FD]);
+				if(dup2(cmd->next->pipfd2[WRITE_FD], STDOUT_FILENO) == -1)
+					put_error("Failed to dup STDOUT\n");
+			}
+		}
+
 		cmd_dispatch(cmd->next, env, envp, pid);
 
 		//My pipe to my reciever
-		if (cmd->next->pipfd2[WRITE_FD] != -1)
+		if (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
 			close(cmd->next->pipfd2[WRITE_FD]);//Does this need protectoin
 		//My pipe
 		close(cmd->pipfd2[READ_FD]);//Does this need protectoin
+
+		//FDs have to be closed first, then forked execve can end
+		wait_for_children(pid);
 		perror("end of child process");
 		exit (0);
 	}
@@ -78,16 +114,26 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, int is
 		}
 		cmd->next = cmd->next->next;
 
+		//Closing my duplicate of receivers pipe
 		close(cmd->pipfd2[READ_FD]);//Does this need protectoin
+		//Assinging my write end of the pipe
+		/*if (cmd->pipfd[OUT] == -1)*/
+			/*cmd->pipfd[OUT] = cmd->pipfd2[WRITE_FD];*/
 		if (cmd->pipfd[OUT] == -1)
-			cmd->pipfd[OUT] = cmd->pipfd2[WRITE_FD];
+		{
+			dprintf(2, "Pipe Dup2 out : %d\n", cmd->pipfd2[WRITE_FD]);
+			reset_fd[OUT] = dup(STDOUT_FILENO);
+			if(dup2(cmd->pipfd2[WRITE_FD], STDOUT_FILENO) == -1)
+				put_error("Failed to dup STDOUT\n");
+		}
 		//for multiple pipes i.e. echo fag | cat | cat, try calling the forking from inside here, rather than inside the child
 
 		cmd_dispatch(cmd, env, envp, pid);
 		close(cmd->pipfd2[WRITE_FD]);//Does this need protectoin
-		// ! waitpid(cmd->pid1, &status, 0);
-		//This is intended to skip over every cmd that is going to be forked and piped by the child
-		// while (cmd->next->pipfd2[READ_FD] != -1 && cmd->next->pipfd2[WRITE_FD] != -1)
+		if (reset_fd[OUT] != -1)
+			if (dup2(reset_fd[OUT], STDOUT_FILENO) == -1)
+				put_error("Failed to dup STDOUT\n");
+		wait_for_children(pid);
 	}
 }
 
