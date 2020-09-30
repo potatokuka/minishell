@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 10:50:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 12:18:42 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef	struct		s_pid
 
 typedef struct		s_fd_sto
 {
-	int				*fd_arr;
+	int				*arr;
 	int				mem;
 	int				used;
 }					t_fd_sto;
@@ -95,11 +95,10 @@ typedef struct		s_cmd
 	char			*builtin;
 	char			**argv;
 	char			*tar_file;
-	int				resetfd[2];
 	int				argc;
-	int				pipfd[2];
-	int				pipfd2[2];
 	int				io_fd[2];
+	int				pipe_read_end;
+	int				resetfd[2];
 	t_list			*arr_list;
 	struct s_cmd	*next;
 	int				update_env;
@@ -134,7 +133,7 @@ typedef struct		s_data
 
 void	print_prompt();
 void	reset_data(t_data *data);
-void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, int is_parent);
+void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, t_fd_sto *fd, int is_parent);
 void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_pid *pid);
 void	wait_for_children(t_pid *pid);
 char	*ft_3strjoin(const char *str1, const char *str2,
@@ -144,6 +143,8 @@ size_t	ft_strclen(const char *str, int c);
 char	*get_path(void);
 void	ft_reset_pid(t_pid *pid);
 void	ft_add_pid(t_pid *pid, int add_value, int add_status);
+int		sto_fd(t_fd_sto *fd, int add_fd);
+void	close_fd(t_fd_sto *fd, int io_fd[2]);
 
 /*
 ** PARSING
@@ -209,12 +210,12 @@ t_var	*env_add(const char *name, const char *val);
 */
 
 void	redir_init(t_data *data);
-void	redir_dispatch(t_cmd *cmd, char *pipe);
-void	redir_append(t_cmd *cmd);
-void	redir_trunc(t_cmd *cmd);
-void	redir_std_input(t_cmd *cmd);
+void	redir_dispatch(t_fd_sto *fd, t_cmd *cmd, char *pipe);
+void	redir_append(t_fd_sto *fd, t_cmd *cmd);
+void	redir_trunc(t_fd_sto *fd, t_cmd *cmd);
+void	redir_std_input(t_fd_sto *fd, t_cmd *cmd);
 int		ft_is_redir(char *str);
-void	open_pipe(t_cmd *cmd);
+void	open_pipe(t_fd_sto *fd, t_cmd *cmd);
 void	set_fork_redir(t_cmd *cmd);
 void	close_the_shit(t_cmd *cmd);
 

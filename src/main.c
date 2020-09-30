@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 10:58:58 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 12:19:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ int	main(void)
 	{
 		print_prompt();
 		parse_init(&data);
-		while (data.cmd)
-		{
-			if (data.cmd->pipfd2[READ_FD] != -1 && data.cmd->pipfd2[WRITE_FD] != -1)
-				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid, 1);
+		/*while (data.cmd)*/
+		/*{*/
+			if (data.cmd->pipe_read_end != -1)
+				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid, &data.fd, 1);
 			else
 				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
 			if (data.cmd->update_env)
 				update_env(&data);
 			if (data.cmd->next)
 				dprintf(2, "-- NEXT CMD --\n");
-			data.cmd = data.cmd->next;
-		}
+			/*data.cmd = data.cmd->next;*/
+		/*}*/
 		reset_data(&data);//TODO actually make this comprehensive reset
 	}
 	return (0);
