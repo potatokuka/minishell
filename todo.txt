@@ -7,6 +7,8 @@
 6: recursive string join - FIXED!!
 7: \$ must be able to escape env variable from being checked
 8: throw error on trailing |
+9: check file descriptor leaks at some point :)
+10: and normal leaks
 ------
 
 and a bunch of other shit i do not know at the time being.

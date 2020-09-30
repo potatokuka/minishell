@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:15:20 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/30 12:30:17 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 15:14:12 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		sto_fd(t_fd_sto *fd, int add_fd)
 			i++;
 		}
 	}
-
 	if (!fd->arr || fd->mem == 0)
 	{
 		fd->arr = ft_calloc(1, sizeof(int));
@@ -42,13 +41,11 @@ int		sto_fd(t_fd_sto *fd, int add_fd)
 			return (1);
 		temp = ft_memcpy(temp, fd->arr, fd->used * sizeof(int));
 		ft_free((void **)&fd->arr);
-		/*free(fd->arr);*/
 		fd->arr = temp;
 		fd->mem *= 2;
 	}
 	fd->arr[fd->used] = add_fd;
 	fd->used++;
-
 	dprintf(2, "after\n");
 	i = 0;
 	while (i < fd->used)
