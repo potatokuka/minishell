@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/18 13:39:53 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/18 13:39:55 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/28 11:15:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	set_signal(void)
 {
 	signal(SIGQUIT, sig_handler_inp);
 	signal(SIGINT, sig_handler_inp);
-	signal(SIGSTOP, sig_handler_inp);
+	/*signal(SIGSTOP, sig_handler_inp);*/
 }

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 14:15:57 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 15:33:48 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	if (!data->argv[i + 1])
 		put_error("could not find target file");
 	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
-	new->pid1 = -1;
 	new->tar_file = ft_strdup(data->argv[i + 1]);
-	redir_dispatch(new, data->argv[i]);
+	redir_dispatch(&data->fd, new, data->argv[i]);
 	drop_string(data, i);
 	i += 1;
 	drop_string(data, i);
@@ -99,9 +98,8 @@ static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	/*dprintf(2, "saving pipe %s \n", data->argv[i]);*/
-	new->pid1 = -1;
 	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
-	open_pipe(new);
+	open_pipe(&data->fd, new);
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
 	data->argc -= 1;
@@ -119,10 +117,9 @@ static t_cmd	*split_init(t_data *data)
 	new = ft_calloc(sizeof(t_cmd), 1);
 	new->resetfd[IN] = -1;
 	new->resetfd[OUT] = -1;
-	new->pipfd[IN] = -1;
-	new->pipfd[OUT] = -1;
-	new->pipfd2[READ_FD] = -1;
-	new->pipfd2[WRITE_FD] = -1;
+	new->io_fd[IN] = -1;
+	new->io_fd[OUT] = -1;
+	new->pipe_read_end = -1;
 	i = 0;
 	if (!new)
 		return (NULL);
@@ -170,8 +167,7 @@ static t_cmd	*split_init(t_data *data)
 		}
 		i++;
 	}
-	perror("this");
-	if (new->arr_list && (new->pipfd[IN] == -1 && new->pipfd[OUT] == -1))
+	if (new->arr_list && (new->io_fd[IN] == -1 && new->io_fd[OUT] == -1))
 		new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
 	data->argv = data->argv + i;
@@ -204,6 +200,15 @@ int				parse_organize(t_data *data)
 	int		n;
 
 	i = cmd_head_init(data, data->argv);
+
+	/*dprintf(2, "argc%d\n", data->cmd->argc);*/
+	/*n = 0;*/
+	/*while (n < data->cmd->argc)*/
+	/*{*/
+		/*dprintf(2, "arg[%d]_%s\n", n, data->cmd->argv[n]);*/
+		/*n++;*/
+	/*}*/
+
 	n = 0;
 	if (i != -1)
 		return (i);
@@ -213,10 +218,20 @@ int				parse_organize(t_data *data)
 	{
 		n++;
 		cmd->next = split_init(data);
+
+		/*i = 0;*/
+		/*dprintf(2, "argc%d\n", cmd->next->argc);*/
+		/*while (i < cmd->next->argc)*/
+		/*{*/
+			/*dprintf(2, "arg[%d]_%s\n", i, cmd->next->argv[i]);*/
+			/*i++;*/
+		/*}*/
+
 		if (!cmd->next)
 			return (clear_cmd(data->cmd, &free));
 		cmd = cmd->next;
 	}
+	perror("hello");
 	print_cmd_full(data);
 	return (0);
 }

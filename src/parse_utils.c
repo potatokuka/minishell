@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 20:45:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 13:53:37 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 12:36:36 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ void	print_cur_cmd(t_cmd *cmd)
 	dprintf(2,"-- PRINT CUR CMD STRUCT --\n");
 	if (cmd->builtin)
 		dprintf(2,"Builtin_%s\n", cmd->builtin);
-	if (cmd->pipfd[IN] != -1)
-		dprintf(2,"Redir In_%d\n", cmd->pipfd[IN]);
-	if (cmd->pipfd[OUT] != -1)
-		dprintf(2,"Redir Out_%d\n", cmd->pipfd[OUT]);
-	if (cmd->pipfd2[WRITE_FD] != -1)
-		dprintf(2,"Pipe Write_%d\n", cmd->pipfd2[WRITE_FD]);
-	if (cmd->pipfd2[READ_FD] != -1)
-		dprintf(2,"Pipe Read_%d\n", cmd->pipfd2[READ_FD]);
+	if (cmd->io_fd[IN] != -1)
+		dprintf(2,"Redir In_%d\n", cmd->io_fd[IN]);
+	if (cmd->io_fd[OUT] != -1)
+		dprintf(2,"Redir Out_%d\n", cmd->io_fd[OUT]);
+	if (cmd->pipe_read_end != -1)
+		dprintf(2,"Pipe Read_%d\n", cmd->pipe_read_end);
 	if (cmd->tar_file)
 		dprintf(2,"Tar File_%s\n", cmd->tar_file);
 	if (cmd->argc)
