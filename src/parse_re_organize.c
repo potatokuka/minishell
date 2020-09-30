@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/25 14:15:57 by averheij      ########   odam.nl         */
+/*   Updated: 2020/09/30 10:44:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	if (!data->argv[i + 1])
 		put_error("could not find newline");
 	/*dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);*/
-	new->pid1 = -1;
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	redir_dispatch(new, data->argv[i]);
 	drop_string(data, i);
@@ -46,7 +45,6 @@ static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	/*dprintf(2, "saving pipe %s \n", data->argv[i]);*/
-	new->pid1 = -1;
 	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
 	open_pipe(new);
 	drop_string(data, i);

@@ -5,6 +5,7 @@
 4: '\' escape characters
 5: multifile redirections <-- WORKING!!
 6: recursive string join - FIXED!!
+7: \$ must be able to escape env variable from being checked
 ------
 
 and a bunch of other shit i do not know at the time being.

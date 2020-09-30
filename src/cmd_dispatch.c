@@ -93,8 +93,6 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, int is
 
 void	close_the_shit(t_cmd *cmd)
 {
-	if (cmd->pid1 == 0)
-		exit (0);
 	if (cmd->resetfd[IN] != -1 && dup2(cmd->resetfd[IN], STDIN_FILENO) == -1)
 		put_error("Failed to reset STDIN");
 	if (cmd->resetfd[OUT] != -1 && dup2(cmd->resetfd[OUT], STDOUT_FILENO) == -1)
@@ -111,7 +109,7 @@ void	dup_redir(t_cmd *cmd)
 		dprintf(2, "Dup2 FD in : %d\n", cmd->pipfd[IN]);
 		if (cmd->pipfd[IN] != -1 &&
 				dup2(cmd->pipfd[IN], STDIN_FILENO) == -1)
-			put_error("Failed to dup STDIN for Child");
+			put_error("Failed to dup STDIN");
 		if (cmd->pipfd[IN] != -1)
 			close(cmd->pipfd[IN]);
 	}
@@ -121,7 +119,7 @@ void	dup_redir(t_cmd *cmd)
 		dprintf(2, "Dup2 FD out : %d\n", cmd->pipfd[OUT]);
 		if (cmd->pipfd[OUT] != -1 &&
 					dup2(cmd->pipfd[OUT], STDOUT_FILENO) == -1)
-			put_error("Failed to dup STDOUT for Child");
+			put_error("Failed to dup STDOUT");
 		if (cmd->pipfd[OUT] != -1)
 			close(cmd->pipfd[OUT]);
 	}
