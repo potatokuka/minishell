@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 15:32:26 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 13:42:43 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(void)
 				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid, &data.fd, 1);
 			else
 				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
+			wait_for_children(&data.pid);
 			if (data.cmd->update_env)
 				update_env(&data);
 			if (data.cmd->next)
