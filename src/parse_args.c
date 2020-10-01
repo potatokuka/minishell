@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 12:22:18 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 12:43:19 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,9 +181,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	i = 0;
 	while (input[i] && !escset(input, break_chars, i))
 	{
-		/*printf("%d %c\n", i, input[i]);*/
-		/* dprintf(2, "this, is check : %s\n", input); */
-		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE))
+		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
 		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
@@ -209,7 +207,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 		}
 		i++;
 	}
-	dprintf(2, "134 check : %s\n", input);
+	/*dprintf(2, "134 check : %s,%d\n", input, i);*/
 	arg = ft_strldup(input, i);
 	arg = str_env_replace(d, arg, 1);
 	return (handle_escape_quotes(arg));
