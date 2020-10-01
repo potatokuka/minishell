@@ -19,7 +19,6 @@ int				clear_cmd(t_cmd *cmd, void(*del)(void *))
 	while (cmd)
 	{
 		delete = cmd;
-		perror("moving cmd->NEXT in CLEAR_CMD");
 		cmd = cmd->next;
 		if (delete->builtin)
 			del(delete->builtin);

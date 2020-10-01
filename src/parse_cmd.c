@@ -52,7 +52,6 @@ int		is_builtin(char *cmd)
 		return (1);
 	else if (ft_strncmp(cmd, "cd", len) == 0)
 	{
-		perror("inside this shit");
 		return (1);
 	}
 	else if (ft_strncmp(cmd, "unset", len) == 0)

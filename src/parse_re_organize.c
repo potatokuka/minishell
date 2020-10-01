@@ -231,7 +231,6 @@ int				parse_organize(t_data *data)
 			return (clear_cmd(data->cmd, &free));
 		cmd = cmd->next;
 	}
-	perror("hello");
 	print_cmd_full(data);
 	return (0);
 }

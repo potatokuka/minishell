@@ -46,24 +46,19 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, t_fd_s
 	if (pid_temp == 0)
 	{
 		ft_reset_pid(pid);
-		perror("about to cmd_dispatch this command:");
-		perror(cmd->next->argv[0]);
 		if (cmd->next->io_fd[IN] == -1)
 		{
 			cmd->next->io_fd[IN] = cmd->pipe_read_end;
-			perror("set");
 		}
 		close_fd(fd, cmd->next->io_fd);
 		cmd_dispatch(cmd->next, env, envp, pid);
 		wait_for_children(pid);
-		perror("end of child process");
 		exit (0);
 	}
 	else if (is_parent)
 	{
 		while (cmd->next && cmd->next->pipe_read_end != -1)
 		{
-			perror("forking child from while loop");
 			fork_next_and_pipe(cmd->next, env, envp, pid, fd, 0);
 			cmd->next = cmd->next->next;
 		}

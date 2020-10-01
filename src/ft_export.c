@@ -17,11 +17,9 @@ void	ft_export(t_cmd *cmd, t_var **env, char **envp)
 	size_t	i;
 	size_t	tmp;
 
-	perror("INSIDE THE SHIT FOR EXPORT");
 	dprintf(2,"argc = %d\n", cmd->argc);
 	if (cmd->argc == 0)
 		return (ft_env(envp));
-	perror("under");
 	i = 0;
 	while (cmd->argv[i])
 	{

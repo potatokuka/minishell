@@ -22,13 +22,14 @@
 ** after it's fully finished
 */
 
-bool	check_escape(char *str, int i)
-{
 	// TRUE, BREAK STRING HERE EVEN == GTFO
 	// FALSE, ESCAPE IT. ODD == ESCAPE
 	// go from this point, backwards while i > 0
 	// count consecutive '\\' in a row
 	// while ('\\')
+
+bool	check_escape(char *str, int i)
+{
 	int		count;
 
 	dprintf(2, "check escape_%s,%d\n", str, i);
@@ -43,24 +44,15 @@ bool	check_escape(char *str, int i)
 		}
 		if (count % 2 == 0)
 		{
-			dprintf(2, "%d mod 2 : TRUE\n", count);
 			return (true);
 		}
 		else
 		{
 
-			dprintf(2, "%d mod 2 : FALSE\n", count);
 			return (false);
 		}
 	}
-	dprintf(2, "%d mod 2 : NEVER IN LOOP\n", count);
 	return (true);
-	/* if (i > 1 && str[i - 2] == '\\' && str[i - 1] == '\\') */
-	/* 	return (true); */
-	/* else if (i > 0 && (str[i - 1] == '\\')) */
-	/* 	return (false); */
-	/* else */
-	/* 	return (true); */
 }
 
 char	*handle_escape_quotes(char *arg, int flag)
