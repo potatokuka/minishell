@@ -32,7 +32,7 @@ bool	check_escape(char *str, int i)
 {
 	int		count;
 
-	dprintf(2, "check escape_%s,%d\n", str, i);
+	/* dprintf(2, "check escape_%s,%d\n", str, i); */
 	count = 0;
 	if (i > 0)
 	{
@@ -64,20 +64,20 @@ char	*handle_escape_quotes(char *arg, int flag)
 
 	i = 0;
 	x = 0;
-	dprintf(2, "Arg= %s\n", arg);
+	/* dprintf(2, "Arg= %s\n", arg); */
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
 	while (arg[i])
 	{
 		if (arg[i] == '\\' && arg[i + 1] == '\\')
 		{
-			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
+			/* dprintf(2, "arg check again %s char %c\n", arg, arg[i]); */
 			tmp[x] = arg[i + 1];
 			i += 2;
 			x++;
 		}
 		else if (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
 		{
-			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
+			/* dprintf(2, "arg check again %s char %c\n", arg, arg[i]); */
 			tmp[x] = arg[i + 1];
 			i += 2;
 			x++;
@@ -97,7 +97,7 @@ char	*handle_escape_quotes(char *arg, int flag)
 	}
 	ret = ft_strldup(tmp, x);
 	free(tmp);
-	dprintf(2, "Test RET_%s\n", ret);
+	/* dprintf(2, "Test RET_%s\n", ret); */
 	return (ret);
 }
 
@@ -219,7 +219,7 @@ int		parse_args(t_data *data, char *input)
 			put_error("Failed to parse input");
 	i = 0;
 	in_quote = 0;
-	dprintf(2, "Testing input before first WHILE: %s\n", input);
+	/* dprintf(2, "Testing input before first WHILE: %s\n", input); */
 	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
 	{
 		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
