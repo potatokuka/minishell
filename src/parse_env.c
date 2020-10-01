@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/01 14:06:32 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 15:26:42 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@
 //	try to get env val based on var
 //	3strjoin pre, env-val, post
 
-int		ft_env_char(int c)
+bool	ft_env_char(int c, int first)
 {
-	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_');
+	bool	yes_question_mark;
+
+	yes_question_mark = 0;
+	if (first && ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'))
+		yes_question_mark = 1;
+	else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9'))
+		yes_question_mark = 1;
+	return (yes_question_mark);
 }
 
 char	*str_env_replace_index(t_data *data, char *str, int envstart)
@@ -37,7 +44,7 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	str[envstart] = '\0';
 	envvar = str + envstart + 1;
 	envend = 0;
-	while (envvar[envend] && ft_env_char(envvar[envend]))
+	while (envvar[envend] && ft_env_char(envvar[envend], (envend == 0) ? 1 : 0))
 		envend++;
 	if (envend == 0 && *envvar == '?')
 		envend = 1;

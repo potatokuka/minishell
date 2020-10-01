@@ -5,12 +5,14 @@
 4: '\' escape characters <---- FIXED!
 5: multifile redirections <-- WORKING!!
 6: recursive string join <- FIXED!!
-7: ;; input
-7: \$ must be able to escape env variable from being checked
+7: ;; input <-- FIXED!!
+7: \$ must be able to escape env variable from being checked <-- FIXED!!
 8: throw error on trailing |
 9: check file descriptor leaks at some point :)
 10: and normal leaks
 11: empty env var (check for segs)
+12: `cat` then `^C` should set $? to 130
+13: `cd nonexistent` shoud set $? to 1
 ------
 
 and a bunch of other shit i do not know at the time being.
