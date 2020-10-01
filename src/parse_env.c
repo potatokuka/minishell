@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/01 11:57:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 14:06:32 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	envend = 0;
 	while (envvar[envend] && ft_env_char(envvar[envend]))
 		envend++;
-	if (envend > 1)
+	if (envend == 0 && *envvar == '?')
+		envend = 1;
+	if (envend >= 1)
 	{
 		envvar = get_env_val(envvar, data->env, envend);
 		envvar = ft_strdup((envvar) ? envvar : "");
