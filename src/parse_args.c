@@ -82,7 +82,7 @@ char	*handle_escape_quotes(char *arg)
 			i += 2;
 			x++;
 		}
-		else if (arg[i] == '\\' && arg[i + 1] == '\"')
+		if (arg[i] == '\\' && arg[i + 1] == '\"')
 		{
 			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
 			tmp[x] = arg[i + 1];
@@ -204,7 +204,8 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	}
 	dprintf(2, "134 check : %s\n", input);
 	arg = ft_strldup(input, i);
-	return (str_env_replace(d, arg, 1));
+	arg = str_env_replace(d, arg, 1);
+	return (handle_escape_quotes(arg));
 }
 
 int		parse_args(t_data *data, char *input)

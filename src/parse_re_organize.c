@@ -149,15 +149,15 @@ static t_cmd	*split_init(t_data *data)
 			new = save_in_flag(data, new, i);
 			i++;
 		}
-		else if (data->argv[i] && has_escape(data->argv[i]))
-		{
-			perror("uWu");
-			convert_esc(data, new, data->argv[i], i);
-			dprintf(2, "ARGC %d\n", data->argc);
-			if (data->argc < 1)
-				break;
-				/* return (new); */
-		}
+		/* else if (data->argv[i] && has_escape(data->argv[i])) */
+		/* { */
+		/* 	dprintf(2, "argv[i] = %s\n", data->argv[i]); */
+		/* 	convert_esc(data, new, data->argv[i], i); */
+		/* 	dprintf(2, "ARGC %d\n", data->argc); */
+		/* 	if (data->argc < 1) */
+		/* 		break; */
+		/* 		/1* return (new); *1/ */
+		/* } */
 		else
 		{
 			lst_new_back(&new->arr_list, ft_strdup(data->argv[i]));
