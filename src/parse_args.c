@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 11:24:12 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 12:11:33 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	check_escape(char *str, int i)
 	if (i > 0)
 	{
 		i -= 1;
-		while (i > 0 && (str[i] == '\\'))
+		while (i >= 0 && (str[i] == '\\'))
 		{
 			count += 1;
 			i--;
