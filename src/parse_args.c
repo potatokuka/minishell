@@ -52,6 +52,7 @@ bool	check_escape(char *str, int i)
 			return (false);
 		}
 	}
+	dprintf(2, "%d mod 2 : NEVER IN LOOP\n", count);
 	return (true);
 	/* if (i > 1 && str[i - 2] == '\\' && str[i - 1] == '\\') */
 	/* 	return (true); */
@@ -183,9 +184,9 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			dprintf(2, "testing arg %s\n", arg);
 			if (quote == D_QOTE)
 			{
-				arg = handle_escape_quotes(arg);
-				dprintf(2, "testing char %c %c arg = %s\n", input[i - 1], input[i], arg);
 				arg = str_env_replace(d, arg, 1);
+				dprintf(2, "ARG after strENV : %s\n", arg);
+				arg = handle_escape_quotes(arg);
 			}
 			if (!iscset(input[i + 1], "><|; "))
 			{

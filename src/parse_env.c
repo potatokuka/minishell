@@ -59,8 +59,9 @@ char	*str_env_replace(t_data *data, char *str, int all)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && !check_escape(str, i))
 		{
+			perror("cunt");
 			str = str_env_replace_index(data, str, i);
 			if (!all)
 				break;

@@ -166,6 +166,7 @@ void	print_cmd_full(t_data *data);
 void	print_cur_cmd(t_cmd *cmd);
 void	set_signal(void);
 void	sig_handler(int i);
+bool	check_escape(char *str, int i);
 
 /*
 ** BUILT-INS
