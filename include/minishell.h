@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 12:18:42 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 15:03:19 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef	struct		s_pid
 	int				count;
 	int				*value;
 	int				*status;
+	int				last_status;
 }					t_pid;
 
 typedef struct		s_fd_sto
@@ -203,8 +204,9 @@ char	**convert_env(t_var *env);
 */
 
 void	ft_export(t_cmd *cmd, t_var **env, char **envp);
-t_var	*env_set_val(const char *name, t_var **env, const char *val);
+void	env_set_val(const char *name, t_var **env, const char *val);
 t_var	*env_add(const char *name, const char *val);
+void	set_exit_env_val(t_var **env, int *last_status);
 
 /*
 ** REDIRECTIONS

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 17:41:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 14:36:32 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 15:07:05 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int				env_init(t_data *data)
 		env = env->next;
 		i++;
 	}
+	i = 0;
+	set_exit_env_val(&data->env, &i);
 	data->envp = convert_env(data->env);
 	if (!data->envp)
 		return (clear_env(data->env, &free));

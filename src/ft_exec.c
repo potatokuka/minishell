@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/29 13:43:18 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 14:21:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	else
 	{
 		/*waitpid(pid_temp, &status, 0);*/
+		/*//Add exit status to ENV var called $?*/
+		/*env_add("?", ft_itoa(status));*/
 	}
 }
 

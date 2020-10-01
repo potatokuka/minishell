@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 13:42:43 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 15:03:25 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(void)
 			else
 				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
 			wait_for_children(&data.pid);
+			set_exit_env_val(&data.env, &data.pid.last_status);
 			if (data.cmd->update_env)
 				update_env(&data);
 			if (data.cmd->next)

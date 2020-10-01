@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 15:29:17 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 14:35:01 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void	wait_for_children(t_pid *pid)
 	{
 		dprintf(2, "waiting pid:%d\n", pid->value[i]);
 		waitpid(pid->value[i], &pid->status[i], 0);
+		pid->last_status = pid->status[i];
 		i++;
 	}
 	ft_free((void **)&pid->value);
 	ft_free((void **)&pid->status);
+	pid->count = 0;
 }
 
 void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, t_fd_sto *fd, int is_parent)
@@ -66,7 +68,6 @@ void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, t_fd_s
 			cmd->next = cmd->next->next;
 		close_fd(fd, cmd->io_fd);
 		cmd_dispatch(cmd, env, envp, pid);
-		wait_for_children(pid);
 	}
 }
 
