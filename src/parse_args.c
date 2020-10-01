@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 12:11:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 12:22:18 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ bool	check_escape(char *str, int i)
 	// while ('\\')
 	int		count;
 
+	dprintf(2, "check escape_%s,%d\n", str, i);
 	count = 0;
 	if (i > 0)
 	{
@@ -216,7 +217,6 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 
 int		parse_args(t_data *data, char *input)
 {
-	char	*input_head;
 	int		i;
 	int		in_quote;
 
@@ -232,7 +232,7 @@ int		parse_args(t_data *data, char *input)
 	dprintf(2, "Testing input before first WHILE: %s\n", input);
 	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
 	{
-		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE))
+		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
 			in_quote = input[i];
 		else if (in_quote && input[i] == in_quote && check_escape(input, i))
 			in_quote = 0;
