@@ -82,7 +82,7 @@ char	*handle_escape_quotes(char *arg)
 			i += 2;
 			x++;
 		}
-		if (arg[i] == '\\' && arg[i + 1] == '\"')
+		else if (arg[i] == '\\' && arg[i + 1] == '\"')
 		{
 			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
 			tmp[x] = arg[i + 1];
