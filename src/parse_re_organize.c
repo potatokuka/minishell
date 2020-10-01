@@ -128,7 +128,7 @@ static t_cmd	*split_init(t_data *data)
 	{
 		x = 0;
 		dprintf(2, "%s\n", data->argv[i]);
-		if (new->argc == 0 && is_builtin(data->argv[i]))
+		if (new->argc == 0 && is_builtin(data->argv[0]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
 			drop_string(data, i);

@@ -89,6 +89,12 @@ char	*handle_escape_quotes(char *arg)
 			i += 2;
 			x++;
 		}
+		else if (arg[i] == '\\' && arg[i + 1] != '\\')
+		{
+			tmp[x] = arg[i + 1];
+			i += 2;
+			x++;
+		}
 		else
 		{
 			tmp[x] = arg[i];
