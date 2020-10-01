@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 13:26:02 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 11:24:12 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,8 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 		i++;
 	}
 	dprintf(2, "134 check : %s\n", input);
-	return (ft_strldup(input, i));
+	arg = ft_strldup(input, i);
+	return (str_env_replace(d, arg, 1));
 }
 
 int		parse_args(t_data *data, char *input)
