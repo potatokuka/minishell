@@ -63,7 +63,7 @@ bool	check_escape(char *str, int i)
 	/* 	return (true); */
 }
 
-char	*handle_escape_quotes(char *arg)
+char	*handle_escape_quotes(char *arg, int flag)
 {
 	char	*ret;
 	char	*tmp;
@@ -83,7 +83,7 @@ char	*handle_escape_quotes(char *arg)
 			i += 2;
 			x++;
 		}
-		else if (arg[i] == '\\' && arg[i + 1] == '\"')
+		else if (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
 		{
 			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
 			tmp[x] = arg[i + 1];
@@ -193,7 +193,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			{
 				arg = str_env_replace(d, arg, 1);
 				dprintf(2, "ARG after strENV : %s\n", arg);
-				arg = handle_escape_quotes(arg);
+				arg = handle_escape_quotes(arg, 1);
 			}
 			if (!iscset(input[i + 1], "><|; "))
 			{
@@ -212,7 +212,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	dprintf(2, "134 check : %s\n", input);
 	arg = ft_strldup(input, i);
 	arg = str_env_replace(d, arg, 1);
-	return (handle_escape_quotes(arg));
+	return (handle_escape_quotes(arg, 0));
 }
 
 int		parse_args(t_data *data, char *input)
