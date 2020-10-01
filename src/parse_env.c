@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/22 15:01:05 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/01 11:57:59 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*str_env_replace(t_data *data, char *str, int all)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && !check_escape(str, i))
+		if (str[i] == '$' && check_escape(str, i))
 		{
 			perror("cunt");
 			str = str_env_replace_index(data, str, i);
