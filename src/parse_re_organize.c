@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 15:33:48 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/02 13:48:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ static t_cmd	*split_init(t_data *data)
 		}
 		else if (data->argv[i] && (data->argv[i][0] == '|'))
 		{
+			if (data->argc == 1)
+				put_error("Trailing pipe");
 			new = save_in_pipe(data, new, i);
 			return (new);
 		}
