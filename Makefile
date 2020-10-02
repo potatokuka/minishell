@@ -45,7 +45,8 @@ SRCS			=	main.c\
 				list_to_char_array.c\
 				parse_quotes.c\
 				signals.c\
-				fd_sto_utils.c
+				fd_sto_utils.c\
+				reset_prompt.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-DNOLIST -g #-fsanitize=address #-Wall -Wextra -Werror
