@@ -36,6 +36,7 @@ int		sto_fd(t_fd_sto *fd, int add_fd)
 	}
 	fd->arr[fd->used] = add_fd;
 	fd->used++;
+	return (0);
 }
 
 void	close_fd(t_fd_sto *fd, int io_fd[2])

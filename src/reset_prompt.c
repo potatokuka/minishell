@@ -12,18 +12,18 @@
 void		free_fd(t_fd_sto *fd)
 {
 	if (fd->arr)
-		ft_free((void **)&fd_arr);
+		ft_free((void **)&fd->arr);
 }
 
-void		free_var(t_var *var)
+void		free_var(t_var *env)
 {
-	if (var->name)
-		ft_free((void **)&var->name);
-	if (var->val)
-		ft_free((void **)&var->val);
-	if (var->next && var->next != NULL)
-		free_var(t_var->next);
-	ft_free((void **)&var);
+	if (env->name)
+		ft_free((void **)&env->name);
+	if (env->val)
+		ft_free((void **)&env->val);
+	if (env->next && env->next != NULL)
+		free_var(env->next);
+	ft_free((void **)&env);
 }
 
 void		free_pid(t_pid *pid)
@@ -68,28 +68,18 @@ void		reset_data_struct(t_data *data)
 	}
 	if (data->arg_lst)
 	{
-		free_list(arg_lst, free);
+		free_list(data->arg_lst, free);
 		data->arg_lst = NULL;
 	}
-	if (data->pid)
+	free_pid(&data->pid);
+	if (data->env)
 	{
-		free_pid(data->pid);
-		data->pid = NULL;
+		free_var(data->env);
+		ft_free((void **)&data->env);
 	}
-	if (data->var)
-	{
-		free_var(data->var);
-		ft_free((void **)&data->var);
-	}
-	if (data->fd)
-	{
-		free_fd(data->fd);
-		ft_free((void **)&data->fd);
-	}
+	free_fd(&data->fd);
 	if (data->envp)
 		free_array_null(data->envp);
-	if (data != NULL)
-		data = NULL;
 }
 
 void		error_reset(t_data *data, char *error)
