@@ -57,7 +57,7 @@ void		free_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
-void		reset_data_struct(t_data *data)
+void		reset_data_struct(t_data *data, int all)
 {
 	if (!data)
 		return ;
@@ -72,21 +72,25 @@ void		reset_data_struct(t_data *data)
 		data->arg_lst = NULL;
 	}
 	free_pid(&data->pid);
-	if (data->env)
+	if (all == 1)
 	{
-		free_var(data->env);
-		ft_free((void **)&data->env);
+		if (data->env)
+		{
+			free_var(data->env);
+			ft_free((void **)&data->env);
+		}
 	}
 	free_fd(&data->fd);
 	if (data->envp)
 		free_array_null(data->envp);
 }
 
-void		error_reset(t_data *data, char *error, int error_code)
+void		error_reset(t_data *data, char *error, int error_status, int all)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
 	// PUT THE FUCKING ERROR CODE HERE BITCHES
-	reset_data_struct(data);
+	data->pid.last_status = error_code;
+	reset_data_struct(data, all);
 }

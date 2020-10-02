@@ -226,7 +226,7 @@ void	close_the_shit(t_cmd *cmd);
 */
 
 void	ft_free(void **free_me);
-void	reset_prompt(t_data *data, char *error);
+void	reset_prompt(t_data *data, char *error, int error_status, int all);
 
 /*
 ** DEBUGGING
