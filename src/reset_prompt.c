@@ -86,7 +86,10 @@ void		reset_data_struct(t_data *data)
 		free_fd(data->fd);
 		ft_free((void **)&data->fd);
 	}
-	if (data->)
+	if (data->envp)
+		free_array_null(data->envp);
+	if (data != NULL)
+		data = NULL;
 }
 
 void		error_reset(t_data *data, char *error)
