@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 15:03:19 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/02 14:58:36 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct		s_data
 	char			**redirs;
 }					t_data;
 
+int					g_signal_exit;
+
 /*
 ** FUNCTION PROTOTYPES
 */
@@ -166,7 +168,6 @@ int		drop_string(t_data *data, int i);
 void	print_cmd_full(t_data *data);
 void	print_cur_cmd(t_cmd *cmd);
 void	set_signal(void);
-void	sig_handler(int i);
 bool	check_escape(char *str, int i);
 
 /*

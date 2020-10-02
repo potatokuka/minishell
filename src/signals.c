@@ -6,29 +6,30 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/18 13:39:53 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/28 11:15:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/02 14:58:20 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_handler_inp(int i)
+void	sig_handler_quit(int i)
 {
-	(void)i;
+	g_signal_exit = i;
 	ft_printf_fd(2, "\n");
-	print_prompt();
+	/*print_prompt();*/
 	return ;
 }
-void	sig_handler(int i)
+void	sig_handler_int(int i)
 {
-	(void)i;
+	g_signal_exit = i;
 	ft_printf_fd(2, "\n");
 	return ;
 }
 
 void	set_signal(void)
 {
-	signal(SIGQUIT, sig_handler_inp);
-	signal(SIGINT, sig_handler_inp);
+	signal(SIGQUIT, sig_handler_quit);
+	signal(SIGINT, sig_handler_int);
 	/*signal(SIGSTOP, sig_handler_inp);*/
+	g_signal_exit = 0;
 }
