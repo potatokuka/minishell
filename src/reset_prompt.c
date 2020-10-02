@@ -9,7 +9,11 @@
 // free the shit that's malloc, (*) then free the fucking
 // struct
 
-
+void		free_fd(t_fd_sto *fd)
+{
+	if (fd->arr)
+		ft_free((void **)&fd_arr);
+}
 
 void		free_var(t_var *var)
 {
@@ -79,8 +83,10 @@ void		reset_data_struct(t_data *data)
 	}
 	if (data->fd)
 	{
-
+		free_fd(data->fd);
+		ft_free((void **)&data->fd);
 	}
+	if (data->)
 }
 
 void		error_reset(t_data *data, char *error)
