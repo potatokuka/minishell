@@ -82,10 +82,11 @@ void		reset_data_struct(t_data *data)
 		free_array_null(data->envp);
 }
 
-void		error_reset(t_data *data, char *error)
+void		error_reset(t_data *data, char *error, int error_code)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
+	// PUT THE FUCKING ERROR CODE HERE BITCHES
 	reset_data_struct(data);
 }
