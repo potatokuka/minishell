@@ -125,7 +125,6 @@ typedef struct		s_data
 	int				redir_count;
 	t_var			*env;
 	t_cmd			*cmd;
-	char			**redirs;
 }					t_data;
 
 /*
@@ -227,6 +226,7 @@ void	close_the_shit(t_cmd *cmd);
 */
 
 void	ft_free(void **free_me);
+void	reset_prompt(t_data *data, char *error);
 
 /*
 ** DEBUGGING
