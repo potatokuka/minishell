@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 13:01:22 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 14:25:17 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,10 @@ static t_cmd	*split_init(t_data *data)
 		else if (data->argv[i] && (data->argv[i][0] == '|'))
 		{
 			if (data->argc == 1)
-				put_error("Trailing pipe");
+			{
+				reset_prompt(data, "Trailing pipe", 1, 0);
+				return (NULL);
+			}
 			new = save_in_pipe(data, new, i);
 			return (new);
 		}
@@ -181,11 +184,11 @@ static int		cmd_head_init(t_data *data, char **argv)
 {
 	data->cmd = NULL;
 	if (!argv || !argv[0])
-		return (-1);
+		return (1);
 	data->cmd = split_init(data);
 	if (!data->cmd)
 		return (clear_cmd(data->cmd, &free));
-	return (-1);
+	return (0);
 }
 
 /*
@@ -202,19 +205,9 @@ int				parse_organize(t_data *data)
 	int		i;
 	int		n;
 
-	i = cmd_head_init(data, data->argv);
-
-	/*dprintf(2, "argc%d\n", data->cmd->argc);*/
-	/*n = 0;*/
-	/*while (n < data->cmd->argc)*/
-	/*{*/
-		/*dprintf(2, "arg[%d]_%s\n", n, data->cmd->argv[n]);*/
-		/*n++;*/
-	/*}*/
-
 	n = 0;
-	if (i != -1)
-		return (i);
+	if (cmd_head_init(data, data->argv))
+		return (1);
 	i = 1;
 	cmd = data->cmd;
 	while (data->argc > 0)

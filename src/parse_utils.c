@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 20:45:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/30 12:36:36 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 14:05:48 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ int				clear_cmd(t_cmd *cmd, void(*del)(void *))
 		if (delete->tar_file)
 			del(delete->tar_file);
 		if (delete->argv)
-		{
 			fre_array(delete->argv);
-			del(delete->argv);
-		}
 	}
-	return (0);
+	return (1);
 }
 
 int		drop_string(t_data *data, int i)

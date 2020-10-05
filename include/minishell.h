@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/02 14:58:36 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:57:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ void	close_the_shit(t_cmd *cmd);
 */
 
 void	ft_free(void **free_me);
-void	reset_prompt(t_data *data, char *error, int error_status, int all);
+int		reset_prompt(t_data *data, char *error, int error_status, int all);
 
 /*
 ** DEBUGGING

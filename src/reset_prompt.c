@@ -81,7 +81,7 @@ void		reset_data_struct(t_data *data, int all)
 		data->envp = free_array_null(data->envp);
 }
 
-void		error_reset(t_data *data, char *error, int error_status, int all)
+int		reset_prompt(t_data *data, char *error, int error_status, int all)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(error, 2);
@@ -89,4 +89,5 @@ void		error_reset(t_data *data, char *error, int error_status, int all)
 	// PUT THE FUCKING ERROR CODE HERE BITCHES
 	data->pid.last_status = error_status;
 	reset_data_struct(data, all);
+	return (error_status);
 }

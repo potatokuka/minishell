@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/01 15:26:42 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:44:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	if (envend >= 1)
 	{
 		envvar = get_env_val(envvar, data->env, envend);
-		envvar = ft_strdup((envvar) ? envvar : "");
-		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);
+		envvar = ft_strdup((envvar) ? envvar : "");//Leaks
+		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);//Protection
 		if (str)
 			free(str);
 		free(envvar);

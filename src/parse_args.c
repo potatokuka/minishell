@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 12:43:19 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:57:59 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,13 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
 		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
-			arg = ft_strldup(input, i);
+			arg = ft_strldup(input, i);//Leaks
 			dprintf(2, "testing arg %s\n", arg);
 			if (quote == D_QOTE)
 			{
-				arg = str_env_replace(d, arg, 1);
+				arg = str_env_replace(d, arg, 1);//Protection
 				dprintf(2, "ARG after strENV : %s\n", arg);
-				arg = handle_escape_quotes(arg, 1);
+				arg = handle_escape_quotes(arg, 1);//Leaks
 			}
 			if (!iscset(input[i + 1], "><|; "))
 			{
@@ -200,9 +200,9 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 		i++;
 	}
 	/*dprintf(2, "134 check : %s,%d\n", input, i);*/
-	arg = ft_strldup(input, i);
-	arg = str_env_replace(d, arg, 1);
-	return (handle_escape_quotes(arg, 0));
+	arg = ft_strldup(input, i);//Leaks
+	arg = str_env_replace(d, arg, 1);//Leaks
+	return (handle_escape_quotes(arg, 0));//Leaks
 }
 
 int		parse_args(t_data *data, char *input)
@@ -229,14 +229,14 @@ int		parse_args(t_data *data, char *input)
 		i++;
 	}
 	if (in_quote)
-		put_error("Unclosed quotes");//Instead of throwing error, clear any parsing and join a new input string with current string
+		return (reset_prompt(data, "Unclosed quotes", 1, 0));
 	if (iscset(input[i], "><|;"))
 	{
 		add_arg(data, ft_strldup(input + i, (input[i + 1] == '>') ? 2 : 1));
 		i += (input[i + 1] == '>') ? 2 : 1;
 	}
 	if (input[i])
-		return(parse_args(data, input + i));
+		return (parse_args(data, input + i));
 	return (0);
 }
 
