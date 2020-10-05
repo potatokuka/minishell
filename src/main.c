@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 14:54:28 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 16:55:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ int	main(void)
 			else
 				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
 			wait_for_children(&data.pid);
-			update_env(&data);
+			if (data.cmd->next)
+				update_env(&data);
 			if (data.cmd->next)
 				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;
 		}
 		reset_data_struct(&data, 0);//TODO actually make this comprehensive reset
+		update_env(&data);
 	}
 	return (0);
 }
