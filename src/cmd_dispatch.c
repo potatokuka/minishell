@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 14:35:01 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 17:46:05 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,39 @@ void	wait_for_children(t_pid *pid)
 	pid->count = 0;
 }
 
-void	fork_next_and_pipe(t_cmd *cmd, t_var **env, char **envp, t_pid *pid, t_fd_sto *fd, int is_parent)
+void	fork_next_and_pipe(t_data *data, int is_parent)
 {
 	int		status;
 	int		pid_temp;
 
 	pid_temp = fork();
 	if (pid_temp != 0)
-		ft_add_pid(pid, pid_temp, status);
+		ft_add_pid(&data->pid, pid_temp, status);
 	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
 	{
-		ft_reset_pid(pid);
-		if (cmd->next->io_fd[IN] == -1)
+		ft_reset_pid(&data->pid);
+		if (data->cmd->next->io_fd[IN] == -1)
 		{
-			cmd->next->io_fd[IN] = cmd->pipe_read_end;
+			data->cmd->next->io_fd[IN] = data->cmd->pipe_read_end;
 		}
-		close_fd(fd, cmd->next->io_fd);
-		cmd_dispatch(cmd->next, env, envp, pid);
-		wait_for_children(pid);
+		close_fd(&data->fd, data->cmd->next->io_fd);
+		cmd_dispatch(data);
+		wait_for_children(&data->pid);
 		exit (0);
 	}
 	else if (is_parent)
 	{
-		while (cmd->next && cmd->next->pipe_read_end != -1)
+		while (data->cmd->next && data->cmd->next->pipe_read_end != -1)
 		{
-			fork_next_and_pipe(cmd->next, env, envp, pid, fd, 0);
-			cmd->next = cmd->next->next;
+			fork_next_and_pipe(data, 0);
+			data->cmd->next = data->cmd->next->next;
 		}
-		if (cmd->next)
-			cmd->next = cmd->next->next;
-		close_fd(fd, cmd->io_fd);
-		cmd_dispatch(cmd, env, envp, pid);
+		if (data->cmd->next)
+			data->cmd->next = data->cmd->next->next;
+		close_fd(&data->fd, data->cmd->io_fd);
+		cmd_dispatch(data);
 	}
 }
 
@@ -118,30 +118,29 @@ void	dup_redir(t_cmd *cmd)
 	}
 }
 
-void	cmd_dispatch(t_cmd *cmd, t_var **env, char **envp, t_pid *pid)
+void	cmd_dispatch(t_data *data)
 {
-
-	if (cmd->io_fd[IN] != -1 || cmd->io_fd[OUT] != -1)
-		dup_redir(cmd);
-	if (cmd->builtin)
+	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
+		dup_redir(data->cmd);
+	if (data->cmd->builtin)
 	{
-		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
+		if (ft_strncmp(data->cmd->builtin, "exit", 4) == 0)
 			ft_exit();
-		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
-			ft_echo(cmd);
-		else if (ft_strncmp(cmd->builtin, "env", 3) == 0)
-			ft_env(envp);
-		else if (ft_strncmp(cmd->builtin, "pwd", 3) == 0)
+		else if (ft_strncmp(data->cmd->builtin, "echo", 4) == 0)
+			ft_echo(data->cmd);
+		else if (ft_strncmp(data->cmd->builtin, "env", 3) == 0)
+			ft_env(data->envp);
+		else if (ft_strncmp(data->cmd->builtin, "pwd", 3) == 0)
 			ft_pwd();
-		else if (ft_strncmp(cmd->builtin, "cd", 2) == 0)
-			ft_cd(cmd, *env);
-		else if (ft_strncmp(cmd->builtin, "unset", 5) == 0)
-			ft_unset(cmd, env);
-		else if (ft_strncmp(cmd->builtin, "export", 6) == 0)
-			ft_export(cmd, env, envp);
+		else if (ft_strncmp(data->cmd->builtin, "cd", 2) == 0)
+			data->pid.last_status = ft_cd(data->cmd, data->env);
+		else if (ft_strncmp(data->cmd->builtin, "unset", 5) == 0)
+			ft_unset(data->cmd, &data->env);
+		else if (ft_strncmp(data->cmd->builtin, "export", 6) == 0)
+			ft_export(data->cmd, &data->env, data->envp);
 	}
 	else
-		ft_exec(cmd, *env, envp, pid);
-	if (cmd->io_fd[IN] != -1 || cmd->io_fd[OUT] != -1)
-		close_the_shit(cmd);
+		ft_exec(data->cmd, data->env, data->envp, &data->pid);
+	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
+		close_the_shit(data->cmd);
 }
