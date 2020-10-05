@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:18 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/02 14:51:42 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:31:48 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	**free_array_null(char **str)
 void	update_env(t_data *data)
 {
 	set_exit_env_val(&data->env, &data->pid.last_status);
-	free_array_null(data->envp);
+	if (data->envp)
+		free_array_null(data->envp);
 	data->envp = convert_env(data->env);
 	if (!data->envp)
 		return (void)(clear_env(data->env, &free));
