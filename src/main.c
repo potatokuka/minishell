@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/02 14:55:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 14:54:28 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(void)
 				dprintf(2, "-- NEXT CMD --\n");
 			data.cmd = data.cmd->next;
 		}
-		reset_data(&data);//TODO actually make this comprehensive reset
+		reset_data_struct(&data, 0);//TODO actually make this comprehensive reset
 	}
 	return (0);
 }

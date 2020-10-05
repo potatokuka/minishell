@@ -9,15 +9,10 @@
 7: \$ must be able to escape env variable from being checked <-- FIXED!!
 8: throw error on trailing | <-- FIXED!!
 9: empty env var (check for segs)
-10: Exit status
-	The return status (see Exit Status) of a simple command is its exit status as provided by the POSIX 1003.1 waitpid function, or 128+n if the command was terminated by signal n.
-	`cat` then `^C` should set $? to 130
-	`cd nonexistent` shoud set $? to 1
-11:	no exit on non fatal errors
-
-	10/11, change put error to flow back into prompt, by setting data to null and doing if(put_error) return ;
-			add an arg `exit_code` to put_error and set the error code appropraitely
-			set $? in signals aswel -- Done but not tested well
+10: Exit status <-- Not implemented for builtins
+11:	no exit on non fatal errors <-- Unclosed quote and trailing pipes implemented, anything else?
+12: set $? in signals aswel (128+signal_int) <-- Done but not tested well
+13: check put error conditinons in the main while(data->cmd)
 
 ------
 
