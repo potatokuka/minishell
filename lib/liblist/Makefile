@@ -6,7 +6,7 @@
 #    By: aaugusti <aaugusti@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/29 11:05:37 by aaugusti       #+#    #+#                 #
-#    Updated: 2020/10/05 14:31:57 by averheij      ########   odam.nl          #
+#    Updated: 2020/10/05 14:49:26 by averheij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS			=	foreach\
 CFILES			=	$(SRCS:%=lst_%.c)
 OFILES			=	$(SRCS:%=lst_%.o)
 
-FLAGS			=	-Wall -Werror -Wextra -g
+FLAGS			=	-Wall -Werror -Wextra
 
 AR_COMMAND		= ar rs
 
