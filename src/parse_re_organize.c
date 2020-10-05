@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/02 13:48:29 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 13:01:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,8 @@ static t_cmd	*split_init(t_data *data)
 		}
 		i++;
 	}
-	if (new->arr_list && (new->io_fd[IN] == -1 && new->io_fd[OUT] == -1))
+	/*if (new->arr_list && (new->io_fd[IN] == -1 && new->io_fd[OUT] == -1))*/
+	if (new->arr_list)
 		new->argv = list_to_string_array(new->arr_list);
 	new->next = NULL;
 	data->argv = data->argv + i;
