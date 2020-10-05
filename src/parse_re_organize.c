@@ -79,8 +79,8 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	i += 1;
 	drop_string(data, i);
 	data->argc -= 2;
-	new->argv = list_to_string_array(new->arr_list);
-	new->next = NULL;
+	/* new->argv = list_to_string_array(new->arr_list); */
+	/* new->next = NULL; */
 	return (new);
 }
 
