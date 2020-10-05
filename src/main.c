@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 16:55:22 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 17:42:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(void)
 				break ;
 			}
 			if (data.cmd->pipe_read_end != -1)
-				fork_next_and_pipe(data.cmd, &data.env, data.envp, &data.pid, &data.fd, 1);
+				fork_next_and_pipe(&data, 1);
 			else
-				cmd_dispatch(data.cmd, &data.env, data.envp, &data.pid);
+				cmd_dispatch(&data);
 			wait_for_children(&data.pid);
 			if (data.cmd->next)
 				update_env(&data);
