@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/29 13:47:13 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/05 17:41:34 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,29 +114,10 @@ void	reset_data(t_data *data)
 	return ;
 }
 
-void	error_builtin(t_cmd *cmd)
+int 	error_builtin(t_cmd *cmd, int error)
 {
-	int	i;
-
-	i = 0;
-	ft_printf_fd(2, "%s", cmd->argv[i]);
-	ft_printf_fd(2, "%s: ", strerror(errno));
-	i += 1;
-	while (cmd->argc > 1)
-	{
-		if (cmd->argc > 1)
-		{
-			dprintf(2," ");
-			i += 1;
-			cmd->argc -= 1;
-		}
-		else
-		{
-			dprintf(2,"\n");
-			return ;
-		}
-	}
-	dprintf(2,"\n");
+	ft_printf_fd(2, "cd: %s: %s\n", cmd->argv[0], strerror(errno));
+	return (error);
 }
 
 void	ft_free(void **free_me)
