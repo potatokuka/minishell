@@ -6,17 +6,11 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 12:53:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 13:28:53 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_reset_pid(t_pid *pid)
-{
-	pid->count = 0;
-	ft_free((void **)&pid->value);
-}
 
 /*
 ** count the len unti it reaches the sent char
