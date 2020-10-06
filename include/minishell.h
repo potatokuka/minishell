@@ -203,7 +203,7 @@ char	**convert_env(t_var *env);
 ** EXPORT
 */
 
-void	ft_export(t_cmd *cmd, t_var **env, char **envp);
+int		ft_export(t_cmd *cmd, t_var **env, char **envp);
 void	env_set_val(const char *name, t_var **env, const char *val);
 t_var	*env_add(const char *name, const char *val);
 void	set_exit_env_val(t_var **env, int *last_status);

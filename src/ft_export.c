@@ -22,6 +22,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 	if (cmd->argc == 0)
 	{
 		ft_env(envp);
+		return (0);
 	}
 	i = 0;
 	while (cmd->argv[i])
@@ -38,6 +39,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 				if (!ft_env_char(cmd->argv[i][a], !a))
 				{
 					ft_printf_fd(2, "Export: %s: not a valid identifier\n", cmd->argv[i]);
+					return (1);
 				}
 				a++;
 			}
@@ -49,4 +51,5 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 		i++;
 	}
 	cmd->update_env = 1;
+	return (0);
 }
