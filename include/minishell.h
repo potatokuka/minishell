@@ -80,7 +80,6 @@ typedef	struct		s_pid
 {
 	int				count;
 	int				*value;
-	int				*status;
 	int				last_status;
 }					t_pid;
 
@@ -228,6 +227,7 @@ void	close_the_shit(t_cmd *cmd);
 
 void	ft_free(void **free_me);
 int		reset_prompt(t_data *data, char *error, int error_status, int all);
+void	free_pid(t_pid *pid);
 void	reset_data_struct(t_data *data, int all);
 
 /*

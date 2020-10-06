@@ -16,7 +16,6 @@ void	ft_reset_pid(t_pid *pid)
 {
 	pid->count = 0;
 	ft_free((void **)&pid->value);
-	ft_free((void **)&pid->status);
 }
 
 /*
@@ -27,38 +26,22 @@ void	ft_add_pid(t_pid *pid, int add_value, int add_status)
 {
 	int		i;
 	int		*tmp_value;
-	int		*tmp_status;
 	t_pid	tmp;
 
 	dprintf(2, "adding child pid:%d\n", add_value);
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
 	if (!tmp_value)
 		put_error("Allocation fail");
-	tmp_status = ft_calloc(sizeof(int), pid->count + 2);
-	if (!tmp_status)
-		put_error("Allocation fail");
 	i = 0;
-	/*dprintf(2, "existing pids %d\n", pid->count);*/
 	while (i < pid->count)
 	{
-		/*dprintf(2, "existing pid[%d]:%d\n", i, pid->value[i]);*/
 		tmp_value[i] = pid->value[i];
-		tmp_status[i] = pid->status[i];
 		i++;
 	}
 	pid->count += 1;
 	tmp_value[i] = add_value;
-	tmp_status[i] = add_status;
 	ft_free((void **)&pid->value);
-	ft_free((void **)&pid->status);
 	pid->value = tmp_value;
-	pid->status = tmp_status;
-	/*i = 0;*/
-	/*while (i < pid->count)*/
-	/*{*/
-		/*dprintf(2, "new pid array[%d]:%d\n", i, pid->value[i]);*/
-		/*i++;*/
-	/*}*/
 }
 
 int		ft_is_redir(char *str)

@@ -26,12 +26,11 @@ void	wait_for_children(t_pid *pid)
 	while (i < pid->count)
 	{
 		dprintf(2, "waiting pid:%d\n", pid->value[i]);
-		waitpid(pid->value[i], &pid->status[i], 0);
-		pid->last_status = pid->status[i];
+		waitpid(pid->value[i], &pid->last_status, 0);
+		dprintf(2, "exited with:%d\n", pid->last_status);
 		i++;
 	}
 	ft_free((void **)&pid->value);
-	ft_free((void **)&pid->status);
 	pid->count = 0;
 }
 
@@ -47,7 +46,7 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
 	{
-		ft_reset_pid(&data->pid);
+		free_pid(&data->pid);
 		if (data->cmd->next->io_fd[IN] == -1)
 		{
 			data->cmd->next->io_fd[IN] = data->cmd->pipe_read_end;

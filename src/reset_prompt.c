@@ -30,10 +30,9 @@ void		free_var(t_var *env)
 
 void		free_pid(t_pid *pid)
 {
+	pid->count = 0;
 	if (pid->value)
 		ft_free((void **)&pid->value);
-	if (pid->status)
-		ft_free((void **)pid->status);
 }
 
 void		free_cmd(t_cmd *cmd)
