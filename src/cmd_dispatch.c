@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 12:52:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 13:49:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	wait_for_children(t_pid *pid)
 	{
 		dprintf(2, "waiting pid:%d\n", pid->value[i]);
 		waitpid(pid->value[i], &pid->last_status, 0);
+		pid->last_status = pid->last_status / 256;
 		dprintf(2, "exited with:%d\n", pid->last_status);
 		i++;
 	}
