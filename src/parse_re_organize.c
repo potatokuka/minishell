@@ -58,6 +58,8 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 		}
 	}
 	ret = ft_strldup(tmp, x);
+	if (!ret)
+		put_error("Allocation Failed");
 	free(tmp);
 	dprintf(2, "Test RET_%s\n", ret);
 	lst_new_back(&new->arr_list, ft_strdup(ret));
