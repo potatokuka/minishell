@@ -96,7 +96,10 @@ char	*handle_escape_quotes(char *arg, int flag)
 		}
 	}
 	ret = ft_strldup(tmp, x);
+	if (!ret)
+		put_error("Allocation Failed");
 	free(tmp);
+	free(arg);
 	/* dprintf(2, "Test RET_%s\n", ret); */
 	return (ret);
 }
