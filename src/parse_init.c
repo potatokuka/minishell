@@ -55,7 +55,6 @@ void	parse_init(t_data *data)
 		else
 			put_error("Invalid input read");
 	}
-	/* input_str = clear_escape_quotes(input_str); */
 	input_str = trim_spaces(input_str);
 	if (!*input_str)
 		return ;
@@ -69,5 +68,4 @@ void	parse_init(t_data *data)
 		put_error("Failed to allocate");
 	if (parse_organize(data))
 		put_error("Failed to allocate");
-	/*print_vars(data);*/
 }
