@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/01 14:21:16 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 12:50:41 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	if (pid_temp == 0)
 	{
 		execve(pathname, cmd->argv, envp);
-		put_error("execve 2");
+		g_signal_exit = -2;
+		put_error("Executable failed to run");
 	}
 	else
 	{
@@ -117,7 +118,7 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	}
 }
 
-void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
+int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 {
 	//TODO Check how bash responds to errno and -1 response
 	//TODO Check if there is a MAX_ARGS
@@ -143,9 +144,10 @@ void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 		if (!pathname)
 		{
 			dprintf(2,"%s: command not found\n", cmd->argv[0]);
-			return ;
+			return (1);
 		}
 	}
 	dprintf(2,"pathname:%s\n", pathname);
 	griffin_try(cmd, pathname, envp, pid);
+	return (0);
 }

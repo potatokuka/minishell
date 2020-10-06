@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 17:46:05 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 12:52:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	cmd_dispatch(t_data *data)
 			ft_export(data->cmd, &data->env, data->envp);
 	}
 	else
-		ft_exec(data->cmd, data->env, data->envp, &data->pid);
+		data->pid.last_status = ft_exec(data->cmd, data->env, data->envp, &data->pid);
 	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
 		close_the_shit(data->cmd);
 }
