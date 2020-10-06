@@ -201,7 +201,11 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	}
 	/*dprintf(2, "134 check : %s,%d\n", input, i);*/
 	arg = ft_strldup(input, i);//Leaks
+	if (!arg)
+		put_error("Allocation Failed");
 	arg = str_env_replace(d, arg, 1);//Leaks
+	if (!arg)
+		put_error("Allocation Failed");
 	return (handle_escape_quotes(arg, 0));//Leaks
 }
 
