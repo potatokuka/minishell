@@ -11,9 +11,9 @@
 9: empty env var (check for segs) <-- CHECKED, none :) but thats with $? still set
 10: Exit status <-- Not implemented for builtins
 11:	no exit on non fatal errors <-- Unclosed quote and trailing pipes implemented, anything else?
-12: set $? in signals aswel (128+signal_int) <-- Done but not tested well
+12: set $? in signals aswel (128+signal_int) <-- DONE!!
 13: check put error conditinons in the main while(data->cmd)
-	cd, bad directory
+14: input ` ""` causes seg fault
 
 ------
 

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 13:49:44 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 14:00:52 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,18 @@ void	wait_for_children(t_pid *pid)
 
 void	fork_next_and_pipe(t_data *data, int is_parent)
 {
-	int		status;
 	int		pid_temp;
 
 	pid_temp = fork();
 	if (pid_temp != 0)
-		ft_add_pid(&data->pid, pid_temp, status);
+		ft_add_pid(&data->pid, pid_temp);
 	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
 	{
 		free_pid(&data->pid);
 		if (data->cmd->next->io_fd[IN] == -1)
-		{
 			data->cmd->next->io_fd[IN] = data->cmd->pipe_read_end;
-		}
 		close_fd(&data->fd, data->cmd->next->io_fd);
 		cmd_dispatch(data);
 		wait_for_children(&data->pid);
