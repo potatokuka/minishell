@@ -25,7 +25,7 @@ int				clear_cmd(t_cmd *cmd, void(*del)(void *))
 		if (delete->tar_file)
 			del(delete->tar_file);
 		if (delete->argv)
-			fre_array(delete->argv);
+			free_array_null(delete->argv);
 	}
 	return (1);
 }
