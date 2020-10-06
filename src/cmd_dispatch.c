@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:02:47 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 14:48:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	cmd_dispatch(t_data *data)
 		else if (ft_strncmp(data->cmd->builtin, "cd", 2) == 0)
 			data->pid.last_status = ft_cd(data->cmd, data->env);
 		else if (ft_strncmp(data->cmd->builtin, "unset", 5) == 0)
-			ft_unset(data->cmd, &data->env);
+			data->pid.last_status = ft_unset(data->cmd, &data->env);
 		else if (ft_strncmp(data->cmd->builtin, "export", 6) == 0)
 			data->pid.last_status = ft_export(data->cmd, &data->env, data->envp);
 	}

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:08:28 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 14:47:33 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ void	env_del(t_var *delete);
 ** UNSET
 */
 
-void	ft_unset(t_cmd *cmd, t_var **env);
-void	unset_env(t_var **env, char *str);
+int		ft_unset(t_cmd *cmd, t_var **env);
+int		unset_env(t_var **env, char *str);
 void	update_env(t_data *data);
 char	**convert_env(t_var *env);
 
