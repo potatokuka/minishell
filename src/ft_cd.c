@@ -28,6 +28,7 @@ int		cd_home(t_var *env)
 		ft_printf_fd(2, "cd: %s: %s\n", strerror(errno), home);
 		return (1);
 	}
+	return (0);
 }
 
 int		ft_cd(t_cmd *cmd, t_var *env)
@@ -36,4 +37,5 @@ int		ft_cd(t_cmd *cmd, t_var *env)
 		return (cd_home(env));
 	if (chdir(cmd->argv[0]) == -1)
 		return (error_builtin(cmd, 1));
+	return (0);
 }
