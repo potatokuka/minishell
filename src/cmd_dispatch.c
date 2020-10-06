@@ -131,7 +131,7 @@ void	cmd_dispatch(t_data *data)
 		else if (ft_strncmp(data->cmd->builtin, "env", 3) == 0)
 			ft_env(data->envp);
 		else if (ft_strncmp(data->cmd->builtin, "pwd", 3) == 0)
-			ft_pwd();
+			data->pid.last_status = ft_pwd();
 		else if (ft_strncmp(data->cmd->builtin, "cd", 2) == 0)
 			data->pid.last_status = ft_cd(data->cmd, data->env);
 		else if (ft_strncmp(data->cmd->builtin, "unset", 5) == 0)
