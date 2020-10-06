@@ -175,7 +175,7 @@ bool	check_escape(char *str, int i);
 
 void	ft_exit();
 void	ft_echo(t_cmd *cmd);
-void	ft_pwd(void);
+int		ft_pwd(void);
 int		ft_cd(t_cmd *cmd, t_var *env);
 void	ft_env(char **envp);
 void	ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid);

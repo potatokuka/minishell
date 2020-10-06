@@ -40,7 +40,7 @@ char	*get_path(void)
 	return (res);
 }
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	*path;
 
@@ -50,7 +50,8 @@ void	ft_pwd(void)
 	{
 		ft_printf("%s\n", path);
 		free(path);
+		return (0);
 	}
 	else
-		put_error("Error inside PWD");
+		return (1);
 }
