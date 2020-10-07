@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 14:25:17 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/07 10:32:25 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,10 @@ static int		cmd_head_init(t_data *data, char **argv)
 {
 	data->cmd = NULL;
 	if (!argv || !argv[0])
-		return (1);
+	{
+		reset_prompt(data, "", 0, 1);
+		return (0);
+	}
 	data->cmd = split_init(data);
 	if (!data->cmd)
 		return (clear_cmd(data->cmd, &free));
