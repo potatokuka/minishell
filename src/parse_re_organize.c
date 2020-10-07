@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/07 10:32:25 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/07 11:30:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,6 @@ int				parse_organize(t_data *data)
 			/*dprintf(2, "arg[%d]_%s\n", i, cmd->next->argv[i]);*/
 			/*i++;*/
 		/*}*/
-
 		if (!cmd->next)
 			return (clear_cmd(data->cmd, &free));
 		cmd = cmd->next;
