@@ -49,7 +49,7 @@ SRCS			=	main.c\
 				reset_prompt.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
-CFLAGS			=	-DNOLIST -g #-fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			=	-DNOLIST -g -fsanitize=address #-Wall -Wextra -Werror
 INCLUDES		=	-I include\
 					-I lib/libft\
 					-I lib/liblist
