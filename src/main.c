@@ -34,6 +34,7 @@ int	main(void)
 				dprintf(2, "syntax error near unexpected token ';'\n");
 				break ;
 			}
+			// The leaks are all seemingly BEFORE this point.
 			if (data.cmd->pipe_read_end != -1)
 				fork_next_and_pipe(&data, 1);
 			else
