@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 14:47:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/07 10:12:57 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parse_init(t_data *data)
 	char	*input_str;
 	int		ret;
 
-	ret = get_next_line(STDIN, &input_str);
+	ret = get_next_line(STDIN, &input_str); // freed - line 65 
 	if (ret <= 0)
 	{
 		if (ret == 0)
@@ -62,7 +62,7 @@ void	parse_init(t_data *data)
 		return ;
 	data->argv = list_to_string_array(data->arg_lst);
 	free(input_str);
-	free_list(data->arg_lst, &free);
+	free_list(data->arg_lst, free);
 	data->arg_lst = NULL;
 	if (!data->argv)
 		put_error("Failed to allocate");
