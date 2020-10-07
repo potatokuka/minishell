@@ -85,6 +85,7 @@ char	*get_env_path_exec(char *exec, t_var *env)
 		}
 		paths++;
 	}
+	closedir(dirp);
 	return (temp);
 }
 
