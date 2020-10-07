@@ -16,9 +16,49 @@
 
 ------
 
-Things to do when we're norming:
-	remove `char *pid->status`
-
 and a bunch of other shit i do not know at the time being.
 check file descriptor leaks at some point :)
 and normal leaks
+
+return 2 is a fatal error
+return 1 is chillin just reset to prompt
+
+▾ put_error
+  ▸ fork_next_and_pipe
+  	has data
+  ▸ close_the_shit
+  	can return an int to cmd_dispatch, put_error_data from there
+  ▸ dup_redir
+  	same as above
+  ▸ env_set_val
+  	called by ft_export and set_exit_env_val, which are always called by functiosn with data, i.e. return an int
+  ▸ get_env_path_exec
+  	called by ft_exec, but currently returns a char *, rewrite to put the string in a passed char **, and return an int
+  ▸ griffin_try
+	return int to ft_exec, through to cmd_dispatch
+  ▸ get_path
+	return int to ft_exec, through to cmd_dispatch
+  • main
+  	no worries fam
+  ▸ handle_escape_quotes
+  	return NULL, put_error_data from parse_arg
+  ▸ parse_arg
+  	can put_error_data from here
+  ▸ parse_args
+	same as above
+  ▸ str_env_replace_index
+	return null through stack to parse_arg, put_error_data from there
+  ▸ parse_init
+  	can put_error_data from here
+  ▸ drop_char
+  	unused
+  • ft_save_string
+  	unused
+  • convert_esc
+  	unused
+  ▸ save_in_flag
+  ▸ redir_append
+  ▸ redir_trunc
+  ▸ redir_std_input
+  ▸ open_pipe
+  ▸ ft_add_pid
