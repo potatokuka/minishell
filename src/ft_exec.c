@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/06 12:50:41 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 14:01:40 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,12 @@ char	*get_env_path_exec(char *exec, t_var *env)
 
 void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 {
-	int		status;
 	t_pid	*new;
 	int		pid_temp;
 
 	pid_temp = fork();
 	if (pid_temp != 0)
-		ft_add_pid(pid, pid_temp, status);
+		ft_add_pid(pid, pid_temp);
 	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)

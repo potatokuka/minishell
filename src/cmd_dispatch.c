@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 12:52:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 14:48:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	wait_for_children(t_pid *pid)
 	{
 		dprintf(2, "waiting pid:%d\n", pid->value[i]);
 		waitpid(pid->value[i], &pid->last_status, 0);
+		pid->last_status = pid->last_status / 256;
 		dprintf(2, "exited with:%d\n", pid->last_status);
 		i++;
 	}
@@ -36,21 +37,18 @@ void	wait_for_children(t_pid *pid)
 
 void	fork_next_and_pipe(t_data *data, int is_parent)
 {
-	int		status;
 	int		pid_temp;
 
 	pid_temp = fork();
 	if (pid_temp != 0)
-		ft_add_pid(&data->pid, pid_temp, status);
+		ft_add_pid(&data->pid, pid_temp);
 	if (pid_temp < 0)
 		put_error("No Redir Exec Fork Error");
 	if (pid_temp == 0)
 	{
 		free_pid(&data->pid);
 		if (data->cmd->next->io_fd[IN] == -1)
-		{
 			data->cmd->next->io_fd[IN] = data->cmd->pipe_read_end;
-		}
 		close_fd(&data->fd, data->cmd->next->io_fd);
 		cmd_dispatch(data);
 		wait_for_children(&data->pid);
@@ -134,9 +132,9 @@ void	cmd_dispatch(t_data *data)
 		else if (ft_strncmp(data->cmd->builtin, "cd", 2) == 0)
 			data->pid.last_status = ft_cd(data->cmd, data->env);
 		else if (ft_strncmp(data->cmd->builtin, "unset", 5) == 0)
-			ft_unset(data->cmd, &data->env);
+			data->pid.last_status = ft_unset(data->cmd, &data->env);
 		else if (ft_strncmp(data->cmd->builtin, "export", 6) == 0)
-			ft_export(data->cmd, &data->env, data->envp);
+			data->pid.last_status = ft_export(data->cmd, &data->env, data->envp);
 	}
 	else
 		data->pid.last_status = ft_exec(data->cmd, data->env, data->envp, &data->pid);

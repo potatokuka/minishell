@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 12:48:22 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/06 14:47:33 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ char	**free_array_null(char **str);
 size_t	ft_strclen(const char *str, int c);
 char	*get_path(void);
 void	ft_reset_pid(t_pid *pid);
-void	ft_add_pid(t_pid *pid, int add_value, int add_status);
+void	ft_add_pid(t_pid *pid, int add_value);
 int		sto_fd(t_fd_sto *fd, int add_fd);
 void	close_fd(t_fd_sto *fd, int io_fd[2]);
 
@@ -156,6 +156,7 @@ char	*trim_spaces(char *res);
 int		is_builtin(char *cmd);
 void	parse_init(t_data *data);
 int		parse_args(t_data *data, char *input);
+bool	ft_env_char(int c, int first);
 void	argv_env_replace(t_data *data);
 char	*str_env_replace(t_data *data, char *str, int all);
 char	*str_env_replace_index(t_data *data, char *str, int envstart);
@@ -193,8 +194,8 @@ void	env_del(t_var *delete);
 ** UNSET
 */
 
-void	ft_unset(t_cmd *cmd, t_var **env);
-void	unset_env(t_var **env, char *str);
+int		ft_unset(t_cmd *cmd, t_var **env);
+int		unset_env(t_var **env, char *str);
 void	update_env(t_data *data);
 char	**convert_env(t_var *env);
 
@@ -202,7 +203,7 @@ char	**convert_env(t_var *env);
 ** EXPORT
 */
 
-void	ft_export(t_cmd *cmd, t_var **env, char **envp);
+int		ft_export(t_cmd *cmd, t_var **env, char **envp);
 void	env_set_val(const char *name, t_var **env, const char *val);
 t_var	*env_add(const char *name, const char *val);
 void	set_exit_env_val(t_var **env, int *last_status);
