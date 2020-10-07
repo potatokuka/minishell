@@ -12,7 +12,7 @@
 10: Exit status <-- DONE!!
 11:	no exit on non fatal errors <-- Unclosed quote and trailing pipes implemented, anything else?
 12: set $? in signals aswel (128+signal_int) <-- DONE!!
-13: input ` ""` causes seg fault
+13: input ` ""` causes seg fault <--- this is fixed
 
 ------
 
