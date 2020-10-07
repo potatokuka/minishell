@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 13:57:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/07 10:19:18 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*handle_escape_quotes(char *arg, int flag)
 	i = 0;
 	x = 0;
 	/* dprintf(2, "Arg= %s\n", arg); */
-	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
+	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));// freed LINE 101
 	while (arg[i])
 	{
 		if (arg[i] == '\\' && arg[i + 1] == '\\')
@@ -180,13 +180,13 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
 		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
-			arg = ft_strldup(input, i);//Leaks
+			arg = ft_strldup(input, i);// freed @ line 162 add_arg
 			dprintf(2, "testing arg %s\n", arg);
 			if (quote == D_QOTE)
 			{
 				arg = str_env_replace(d, arg, 1);//Protection
 				dprintf(2, "ARG after strENV : %s\n", arg);
-				arg = handle_escape_quotes(arg, 1);//Leaks
+				arg = handle_escape_quotes(arg, 1);//freed in Handle Escapes
 			}
 			if (!iscset(input[i + 1], "><|; "))
 			{
