@@ -29,4 +29,5 @@ int		ft_unset(t_cmd *cmd, t_var **env)
 		i++;
 	}
 	cmd->update_env = 1;
+	return (0);
 }
