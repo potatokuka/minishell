@@ -132,6 +132,7 @@ int					g_signal_exit;
 ** FUNCTION PROTOTYPES
 */
 
+void	put_error_data(t_data *data, char *error);
 void	print_prompt();
 void	reset_data(t_data *data);
 void	fork_next_and_pipe(t_data *data, int is_parent);
