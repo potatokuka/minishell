@@ -38,9 +38,9 @@ return 1 is chillin just reset to prompt
 	return int to ft_exec, through to cmd_dispatch
   ▸ get_path -- DONE
 	return int to ft_exec, through to cmd_dispatch
-  • main
+  • main -- DONE
   	no worries fam
-  ▸ handle_escape_quotes
+  ▸ handle_escape_quotes -- DONE
   	return NULL, put_error_data from parse_arg
   ▸ parse_arg
   	can put_error_data from here

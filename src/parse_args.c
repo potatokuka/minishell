@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/07 10:19:18 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/08 12:34:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	*handle_escape_quotes(char *arg, int flag)
 	x = 0;
 	/* dprintf(2, "Arg= %s\n", arg); */
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));// freed LINE 101
+	if (!tmp)
+		return (NULL);
 	while (arg[i])
 	{
 		if (arg[i] == '\\' && arg[i + 1] == '\\')
