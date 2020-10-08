@@ -27,6 +27,8 @@
 *.so
 *.so.*
 *.dylib
+*.clangd
+
 
 # Executables
 *.exe
@@ -83,3 +85,5 @@ minishell
 src/minishell.h
 
 .ccls
+that.txt
+.gitignore
