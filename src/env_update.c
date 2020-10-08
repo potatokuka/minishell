@@ -28,6 +28,7 @@ char	**free_array_null(char **str)
 
 void	update_env(t_data *data)
 {
+	// something isnt been freed here.
 	if (set_exit_env_val(&data->env, &data->pid.last_status))
 		put_error_data(data, "Failed to set $?");
 	if (data->envp)

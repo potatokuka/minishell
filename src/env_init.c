@@ -53,6 +53,7 @@ static t_var	*var_init(char *str)
 	if (!new->name)
 		return (NULL);
 	new->val = ft_strdup(str);
+	// NOT THIS SHIT -- STR --
 	if (!new->val)
 	{
 		free(new->name);

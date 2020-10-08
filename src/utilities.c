@@ -63,6 +63,7 @@ size_t	ft_strclen(const char *str, int c)
 char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3)
 {
+	// PROBABLY HERE!
 	char	*combined;
 
 	if (!str1 || !str2 || !str3)

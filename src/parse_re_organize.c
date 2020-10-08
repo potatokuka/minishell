@@ -41,7 +41,7 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 	dprintf(2, "Arg= %s\n", arg);
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
 	if (!tmp)
-		put_error_data(data, "Allocation Failed");
+		put_error_data(data, "Allocation Failed 2");
 	while (arg[i])
 	{
 		dprintf(2, "testing arg[i] %c\n", arg[i]);
@@ -61,7 +61,7 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 	}
 	ret = ft_strldup(tmp, x);
 	if (!ret)
-		put_error_data(data, "Allocation Failed");
+		put_error_data(data, "Allocation Failed !");
 	free(tmp);
 	dprintf(2, "Test RET_%s\n", ret);
 	if (!lst_new_back(&new->arr_list, ft_strdup(ret)))
