@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/07 10:17:52 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/08 12:09:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	{
 		envvar = get_env_val(envvar, data->env, envend);
 		envvar = ft_strdup((envvar) ? envvar : "");// freed LINE 58
+		if (!envvar)
+			put_error_data(data, "Failed to Allocate Str Env Index");
 		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);//Protection
 		if (!res)
 			put_error_data(data, "Failed to Allocate Str Env Index");
