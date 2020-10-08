@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:29 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/01 15:05:39 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:50:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int		env_set_val(const char *name, t_var **env, const char *val)
 	if (!*env)
 	{
 		*env = env_add(name, val);
-		return (0) ;
+		if (!*env)
+			return (1);
+		return (0);
 	}
 	curr = *env;
 	/*dprintf(2, "curr_%p_%p\nenv_%p\n", curr, curr->next, *env);*/

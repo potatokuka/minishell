@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:47:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:53:08 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ char	**convert_env(t_var *env);
 int		ft_export(t_cmd *cmd, t_var **env, char **envp);
 int		env_set_val(const char *name, t_var **env, const char *val);
 t_var	*env_add(const char *name, const char *val);
-void	set_exit_env_val(t_var **env, int *last_status);
+int		set_exit_env_val(t_var **env, int *last_status);
 
 /*
 ** REDIRECTIONS

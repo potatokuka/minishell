@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 13:50:32 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:55:59 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_var	*env_add(const char *name, const char *val)
 	return (add);
 }
 
-void	set_exit_env_val(t_var **env, int *last_status)
+int		set_exit_env_val(t_var **env, int *last_status)
 {
 	char	*status;
 
@@ -39,7 +39,9 @@ void	set_exit_env_val(t_var **env, int *last_status)
 	else
 		status = ft_itoa(*last_status);
 	if (env_set_val("?", env, status))
+		return (1);
 	free(status);
 	*last_status = 0;
 	g_signal_exit = 0;
+	return (0);
 }

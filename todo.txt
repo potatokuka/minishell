@@ -24,13 +24,13 @@ return 2 is a fatal error
 return 1 is chillin just reset to prompt
 
 ▾ put_error
-  ▸ fork_next_and_pipe
+  ▸ fork_next_and_pipe -- DONE
   	has data
-  ▸ close_the_shit
+  ▸ close_the_shit -- DONE
   	can return an int to cmd_dispatch, put_error_data from there
-  ▸ dup_redir
+  ▸ dup_redir -- DONE
   	same as above
-  ▸ env_set_val
+  ▸ env_set_val -- DONE
   	called by ft_export and set_exit_env_val, which are always called by functiosn with data, i.e. return an int
   ▸ get_env_path_exec
   	called by ft_exec, but currently returns a char *, rewrite to put the string in a passed char **, and return an int

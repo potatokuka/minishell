@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 17:42:09 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:57:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 
 	ft_bzero(&data, sizeof(data));
 	if (env_init(&data))
-		put_error("Failed to parse env");
+		put_error_data(&data, "Failed to parse env");
 	set_signal();
 	while (1)
 	{
