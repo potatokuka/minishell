@@ -65,7 +65,7 @@ void	parse_init(t_data *data)
 	free_list(data->arg_lst, free);
 	data->arg_lst = NULL;
 	if (!data->argv)
-		put_error("Failed to allocate");
+		put_error_data(data, "Failed to allocate");
 	if (parse_organize(data))
-		put_error("Failed to allocate");
+		put_error_data(data, "Failed to allocate");
 }
