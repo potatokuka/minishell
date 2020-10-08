@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:18 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 13:31:48 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:58:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	update_env(t_data *data)
 		free_array_null(data->envp);
 	data->envp = convert_env(data->env);
 	if (!data->envp)
-		return (void)(clear_env(data->env, &free));
+		put_error_data(data, "Failed to convert enviroment");
 }
