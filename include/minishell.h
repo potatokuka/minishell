@@ -221,7 +221,7 @@ void	redir_std_input(t_fd_sto *fd, t_cmd *cmd);
 int		ft_is_redir(char *str);
 void	open_pipe(t_fd_sto *fd, t_cmd *cmd);
 void	set_fork_redir(t_cmd *cmd);
-void	close_the_shit(t_cmd *cmd);
+void	close_the_shit(t_data *data, t_cmd *cmd);
 
 /*
 ** UTILITIES
