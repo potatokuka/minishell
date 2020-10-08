@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 12:34:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 12:39:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,10 +183,14 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
 			arg = ft_strldup(input, i);// freed @ line 162 add_arg
+			if (!arg)
+				put_error_data(d, "Failed to Allocate Quote");
 			dprintf(2, "testing arg %s\n", arg);
 			if (quote == D_QOTE)
 			{
 				arg = str_env_replace(d, arg, 1);//Protection
+				if (!arg)
+					put_error_data(d, "Failed to Allocate Quote");
 				dprintf(2, "ARG after strENV : %s\n", arg);
 				arg = handle_escape_quotes(arg, 1);//freed in Handle Escapes
 				if (!arg)
@@ -230,7 +234,7 @@ int		parse_args(t_data *data, char *input)
 	/*ft_printf_fd(2, "remaining string_%s\n", input);*/
 	if (*input)
 		if (add_arg(data, parse_arg(data, input, "><|; ", 0)))
-			put_error("Failed to parse input");
+			put_error_data(data, "Failed to allocate arg");
 	i = 0;
 	in_quote = 0;
 	/* dprintf(2, "Testing input before first WHILE: %s\n", input); */
@@ -246,7 +250,8 @@ int		parse_args(t_data *data, char *input)
 		return (reset_prompt(data, "Unclosed quotes", 1, 0));
 	if (iscset(input[i], "><|;"))
 	{
-		add_arg(data, ft_strldup(input + i, (input[i + 1] == '>') ? 2 : 1));
+		if (add_arg(data, ft_strldup(input + i, (input[i + 1] == '>') ? 2 : 1)))
+			put_error_data(data, "Failed to allocate arg");
 		i += (input[i + 1] == '>') ? 2 : 1;
 	}
 	if (input[i])
