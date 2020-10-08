@@ -43,7 +43,7 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 	if (pid_temp != 0)
 		ft_add_pid(&data->pid, pid_temp);
 	if (pid_temp < 0)
-		put_error("No Redir Exec Fork Error");
+		put_error_data(data, "Failed to Fork Redirection");
 	if (pid_temp == 0)
 	{
 		free_pid(&data->pid);
@@ -52,7 +52,7 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 		close_fd(&data->fd, data->cmd->next->io_fd);
 		cmd_dispatch(data);
 		wait_for_children(&data->pid);
-		exit (0);
+		put_error_data(data, "");
 	}
 	else if (is_parent)
 	{
@@ -68,19 +68,19 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 	}
 }
 
-void	close_the_shit(t_cmd *cmd)
+void	close_the_shit(t_data *data, t_cmd *cmd)
 {
 	if (cmd->resetfd[IN] != -1)
 	{
 		if (dup2(cmd->resetfd[IN], STDIN_FILENO) == -1)
-			put_error("Failed to reset STDIN");
+			put_error_data(data, "Failed to reset STDIN");
 		close(cmd->resetfd[IN]);
 		cmd->resetfd[IN] = -1;
 	}
 	if (cmd->resetfd[OUT] != -1)
 	{
 		if (dup2(cmd->resetfd[OUT], STDOUT_FILENO) == -1)
-			put_error("Failed to reset STDIN");
+			put_error_data(data, "Failed to reset STDIN");
 		close(cmd->resetfd[OUT]);
 		cmd->resetfd[OUT] = -1;
 
@@ -139,5 +139,5 @@ void	cmd_dispatch(t_data *data)
 	else
 		data->pid.last_status = ft_exec(data->cmd, data->env, data->envp, &data->pid);
 	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
-		close_the_shit(data->cmd);
+		close_the_shit(data, data->cmd);
 }
