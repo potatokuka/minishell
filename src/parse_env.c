@@ -54,7 +54,7 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 		envvar = ft_strdup((envvar) ? envvar : "");// freed LINE 58
 		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);//Protection
 		if (!res)
-			put_error("Allocation error");
+			put_error_data(data, "Failed to Allocate Str Env Index");
 		if (str)
 			free(str);
 		free(envvar);

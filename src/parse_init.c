@@ -53,7 +53,7 @@ void	parse_init(t_data *data)
 			exit(1);
 		}
 		else
-			put_error("Invalid input read");
+			put_error_data(data, "Invalid input read");
 	}
 	input_str = trim_spaces(input_str);
 	if (!*input_str)
