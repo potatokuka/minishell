@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/08 12:19:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 12:25:51 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)//Leaks harder th
 ** relative path, or $PATH identifier.
 */
 
-void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
+int		griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 {
 	t_pid	*new;
 	int		pid_temp;
@@ -111,12 +111,12 @@ void	griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	if (pid_temp != 0)
 		ft_add_pid(pid, pid_temp);
 	if (pid_temp < 0)
-		put_error("No Redir Exec Fork Error");
+		return (1);
 	if (pid_temp == 0)
 	{
 		execve(pathname, cmd->argv, envp);
 		g_signal_exit = -2;
-		put_error("Executable failed to run");
+		return (1);
 	}
 }
 
@@ -153,6 +153,7 @@ int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 		}
 	}
 	dprintf(2,"pathname:%s\n", pathname);
-	griffin_try(cmd, pathname, envp, pid);
+	if (griffin_try(cmd, pathname, envp, pid))
+		return (2);
 	return (0);
 }
