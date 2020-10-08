@@ -91,7 +91,7 @@ void	close_the_shit(t_data *data, t_cmd *cmd)
 		close(cmd->io_fd[OUT]);
 }
 
-void	dup_redir(t_cmd *cmd)
+int		dup_redir(t_cmd *cmd)
 {
 	if (cmd->io_fd[IN] != -1)
 	{
@@ -99,7 +99,7 @@ void	dup_redir(t_cmd *cmd)
 		dprintf(2, "Dup2 FD in : %d\n", cmd->io_fd[IN]);
 		if (cmd->io_fd[IN] != -1 &&
 				dup2(cmd->io_fd[IN], STDIN_FILENO) == -1)
-			put_error("Failed to dup STDIN");
+			return (1);
 		if (cmd->io_fd[IN] != -1)
 			close(cmd->io_fd[IN]);
 	}
@@ -109,16 +109,18 @@ void	dup_redir(t_cmd *cmd)
 		dprintf(2, "Dup2 FD out : %d\n", cmd->io_fd[OUT]);
 		if (cmd->io_fd[OUT] != -1 &&
 					dup2(cmd->io_fd[OUT], STDOUT_FILENO) == -1)
-			put_error("Failed to dup STDOUT");
+			return (1);
 		if (cmd->io_fd[OUT] != -1)
 			close(cmd->io_fd[OUT]);
 	}
+	return (0);
 }
 
 void	cmd_dispatch(t_data *data)
 {
 	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
-		dup_redir(data->cmd);
+		if (dup_redir(data->cmd))
+			put_error_data(data, "Failed to dup Redir");
 	if (data->cmd->builtin)
 	{
 		if (ft_strncmp(data->cmd->builtin, "exit", 4) == 0)
