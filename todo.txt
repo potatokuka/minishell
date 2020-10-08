@@ -55,4 +55,8 @@ return 1 is chillin just reset to prompt
   ▸ redir_trunc
   ▸ redir_std_input
   ▸ open_pipe
-  ▸ ft_add_pid
+  ▸ ft_add_pid -- DONE
+
+Check every alloc/dup has a protection check
+
+new is leaked during put_error_data exit in split_init

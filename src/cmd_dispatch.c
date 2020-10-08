@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 12:06:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 13:00:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 
 	pid_temp = fork();
 	if (pid_temp != 0)
-		ft_add_pid(&data->pid, pid_temp);
+		if (ft_add_pid(&data->pid, pid_temp))
+			put_error_data(data, "Failed to add pid");
 	if (pid_temp < 0)
 		put_error_data(data, "Failed to Fork Redirection");
 	if (pid_temp == 0)

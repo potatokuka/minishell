@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:00:53 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 12:58:18 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** count the len unti it reaches the sent char
 */
 
-void	ft_add_pid(t_pid *pid, int add_value)
+int		ft_add_pid(t_pid *pid, int add_value)
 {
 	int		i;
 	int		*tmp_value;
@@ -25,7 +25,7 @@ void	ft_add_pid(t_pid *pid, int add_value)
 	dprintf(2, "adding child pid:%d\n", add_value);
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
 	if (!tmp_value)
-		put_error("Allocation fail");
+		return (1);
 	i = 0;
 	while (i < pid->count)
 	{
@@ -36,6 +36,7 @@ void	ft_add_pid(t_pid *pid, int add_value)
 	tmp_value[i] = add_value;
 	ft_free((void **)&pid->value);
 	pid->value = tmp_value;
+	return (0);
 }
 
 int		ft_is_redir(char *str)

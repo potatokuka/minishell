@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/08 12:25:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 12:59:52 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ int		griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 
 	pid_temp = fork();
 	if (pid_temp != 0)
-		ft_add_pid(pid, pid_temp);
+		if (ft_add_pid(pid, pid_temp))
+			return (1);
 	if (pid_temp < 0)
 		return (1);
 	if (pid_temp == 0)
@@ -131,7 +132,8 @@ int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 	dprintf(2,"EXEC -------------\n");
 	if (cmd->argc && cmd->argv[0][0] == '.')
 	{
-		path = get_path();
+		if (get_path(&path))
+			return (2);
 		pathname = ft_strjoin(path, cmd->argv[0] + 1);
 		free(path);
 		if (!pathname)
