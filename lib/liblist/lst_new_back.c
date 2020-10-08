@@ -31,6 +31,8 @@ t_list	*lst_new_back(t_list **node, void *content)
 
 	if (!node)
 		return (NULL);
+	if (!content)
+		return (NULL);
 	if (!*node)
 	{
 		*node = lst_new(content);

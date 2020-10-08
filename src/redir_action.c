@@ -73,17 +73,18 @@ void		redir_std_input(t_fd_sto *fd, t_cmd *cmd)
 		put_error("Failed to store FD");
 }
 
-void		open_pipe(t_fd_sto *fd, t_cmd *cmd)
+int		open_pipe(t_fd_sto *fd, t_cmd *cmd)
 {
 	int		pipfd[2];
 
 	if (pipe(pipfd) == -1)
-		put_error("Failed to open pipe");
+		return (1);
 	if (cmd->io_fd[OUT] == -1)
 		cmd->io_fd[OUT] = pipfd[OUT];
 	cmd->pipe_read_end = pipfd[IN];
 	if (sto_fd(fd, pipfd[IN]))
-		put_error("Failed to store FD");
+		return (1);
 	if (sto_fd(fd, pipfd[OUT]))
-		put_error("Failed to store FD");
+		return (1);
+	return (0);
 }

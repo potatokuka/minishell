@@ -64,7 +64,8 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 		put_error_data(data, "Allocation Failed");
 	free(tmp);
 	dprintf(2, "Test RET_%s\n", ret);
-	lst_new_back(&new->arr_list, ft_strdup(ret));
+	if (!lst_new_back(&new->arr_list, ft_strdup(ret)))
+		put_error_data(data, "Failed Allocation in lst back Parse Re");
 	free(tmp);
 	new->argc += 1;
 	data->argc -= 1;
@@ -95,6 +96,8 @@ static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 	/*dprintf(2, "saving semicolon %s \n", data->argv[i]);*/
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
+	if (!new->argv)
+		put_error_data(data, "Failed to Allocate Lst in Split Init");
 	data->argc -= 1;
 	new->next = NULL;
 	data->argv = data->argv + i + 1;
@@ -105,9 +108,12 @@ static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	/*dprintf(2, "saving pipe %s \n", data->argv[i]);*/
 	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
-	open_pipe(&data->fd, new);
+	if (open_pipe(&data->fd, new))
+		put_error_data(data, "Failed to Allocate in Open Pipe");
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
+	if (!new->argv)
+		put_error_data(data, "Failed to Allocate Lst in Split Init");
 	data->argc -= 1;
 	new->next = NULL;
 	data->argv = data->argv + i + 1;
@@ -137,6 +143,8 @@ static t_cmd	*split_init(t_data *data)
 		if (new->argc == 0 && is_builtin(data->argv[0]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
+			if (!new->builtin)
+				put_error_data(data, "Failed to allocate in New Builtin");
 			drop_string(data, i);
 			data->argc -= 1;
 		}
@@ -171,7 +179,8 @@ static t_cmd	*split_init(t_data *data)
 		/* } */
 		else
 		{
-			lst_new_back(&new->arr_list, ft_strdup(data->argv[i]));
+			if (!lst_new_back(&new->arr_list, ft_strdup(data->argv[i])))
+				put_error_data(data, "Failed to Allocate in Lst Back Split init");
 			new->argc += 1;
 			data->argc -= 1;
 			drop_string(data, i);
@@ -180,7 +189,11 @@ static t_cmd	*split_init(t_data *data)
 	}
 	/*if (new->arr_list && (new->io_fd[IN] == -1 && new->io_fd[OUT] == -1))*/
 	if (new->arr_list)
+	{
 		new->argv = list_to_string_array(new->arr_list);
+		if (!new->argv)
+			put_error_data(data, "Failed to Allocate in split init");
+	}
 	new->next = NULL;
 	data->argv = data->argv + i;
 	return (new);
