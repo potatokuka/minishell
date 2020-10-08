@@ -41,20 +41,20 @@ return 1 is chillin just reset to prompt
   • main -- DONE
   	no worries fam
   ▸ handle_escape_quotes -- DONE
-  	return NULL, put_error_data from parse_arg
+  	return NULL, put_error_data from parse_arg -- DONE
   ▸ parse_arg -- DONE
-  	can put_error_data from here
+  	can put_error_data from here -- DONE
   ▸ parse_args -- DONE
-	same as above
+	same as above -- DONE
   ▸ str_env_replace_index -- DONE
 	return null through stack to parse_arg, put_error_data from there
   ▸ parse_init -- DONE
-  	can put_error_data from here
-  ▸ save_in_flag
-  ▸ redir_append
-  ▸ redir_trunc
-  ▸ redir_std_input
-  ▸ open_pipe
+  	can put_error_data from here -- DONE
+  ▸ save_in_flag -- DONE
+  ▸ redir_append -- DONE
+  ▸ redir_trunc -- DONE
+  ▸ redir_std_input -- DONE
+  ▸ open_pipe -- DONE
   ▸ ft_add_pid -- DONE
 
 Check every alloc/dup has a protection check
