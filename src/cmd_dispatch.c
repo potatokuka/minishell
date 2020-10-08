@@ -68,27 +68,27 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 	}
 }
 
-void	close_the_shit(t_data *data, t_cmd *cmd)
+int		close_the_shit(t_cmd *cmd)
 {
 	if (cmd->resetfd[IN] != -1)
 	{
 		if (dup2(cmd->resetfd[IN], STDIN_FILENO) == -1)
-			put_error_data(data, "Failed to reset STDIN");
+			return (1);
 		close(cmd->resetfd[IN]);
 		cmd->resetfd[IN] = -1;
 	}
 	if (cmd->resetfd[OUT] != -1)
 	{
 		if (dup2(cmd->resetfd[OUT], STDOUT_FILENO) == -1)
-			put_error_data(data, "Failed to reset STDIN");
+			return (1);
 		close(cmd->resetfd[OUT]);
 		cmd->resetfd[OUT] = -1;
-
 	}
 	if (cmd->io_fd[IN] != -1)
 		close(cmd->io_fd[IN]);
 	if (cmd->io_fd[OUT] != -1)
 		close(cmd->io_fd[OUT]);
+	return (0);
 }
 
 int		dup_redir(t_cmd *cmd)
@@ -141,5 +141,6 @@ void	cmd_dispatch(t_data *data)
 	else
 		data->pid.last_status = ft_exec(data->cmd, data->env, data->envp, &data->pid);
 	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
-		close_the_shit(data, data->cmd);
+		if (close_the_shit(data->cmd))
+			put_error_data(data, "Failed to reset STDIN, STDOUT");
 }
