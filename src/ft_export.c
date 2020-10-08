@@ -45,8 +45,9 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 			}
 			cmd->argv[i][tmp] = '\0';
 			dprintf(2,"testing argv[%zu]_%s\n%s\n", i, cmd->argv[i], &cmd->argv[i][tmp + 1]);
-			env_set_val(cmd->argv[i], env,
-					&cmd->argv[i][tmp + 1]);
+			if (env_set_val(cmd->argv[i], env,
+					&cmd->argv[i][tmp + 1]))
+				return (1);
 		}
 		i++;
 	}
