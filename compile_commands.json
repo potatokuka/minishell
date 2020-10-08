@@ -1,0 +1,686 @@
+[
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/main.c",
+   "-o",
+   "src/main.o"
+  ],
+  "file": "src/main.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_init.c",
+   "-o",
+   "src/parse_init.o"
+  ],
+  "file": "src/parse_init.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/print_prompt.c",
+   "-o",
+   "src/print_prompt.o"
+  ],
+  "file": "src/print_prompt.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/print_vars.c",
+   "-o",
+   "src/print_vars.o"
+  ],
+  "file": "src/print_vars.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/utilities.c",
+   "-o",
+   "src/utilities.o"
+  ],
+  "file": "src/utilities.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/cmd_dispatch.c",
+   "-o",
+   "src/cmd_dispatch.o"
+  ],
+  "file": "src/cmd_dispatch.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_exit.c",
+   "-o",
+   "src/ft_exit.o"
+  ],
+  "file": "src/ft_exit.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_echo.c",
+   "-o",
+   "src/ft_echo.o"
+  ],
+  "file": "src/ft_echo.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_pwd.c",
+   "-o",
+   "src/ft_pwd.o"
+  ],
+  "file": "src/ft_pwd.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_cd.c",
+   "-o",
+   "src/ft_cd.o"
+  ],
+  "file": "src/ft_cd.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_clear.c",
+   "-o",
+   "src/env_clear.o"
+  ],
+  "file": "src/env_clear.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_init.c",
+   "-o",
+   "src/env_init.o"
+  ],
+  "file": "src/env_init.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_get.c",
+   "-o",
+   "src/env_get.o"
+  ],
+  "file": "src/env_get.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_args.c",
+   "-o",
+   "src/parse_args.o"
+  ],
+  "file": "src/parse_args.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_cmd.c",
+   "-o",
+   "src/parse_cmd.o"
+  ],
+  "file": "src/parse_cmd.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_unset.c",
+   "-o",
+   "src/ft_unset.o"
+  ],
+  "file": "src/ft_unset.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_unset.c",
+   "-o",
+   "src/env_unset.o"
+  ],
+  "file": "src/env_unset.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_convert.c",
+   "-o",
+   "src/env_convert.o"
+  ],
+  "file": "src/env_convert.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_del.c",
+   "-o",
+   "src/env_del.o"
+  ],
+  "file": "src/env_del.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_update.c",
+   "-o",
+   "src/env_update.o"
+  ],
+  "file": "src/env_update.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_export.c",
+   "-o",
+   "src/ft_export.o"
+  ],
+  "file": "src/ft_export.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_add.c",
+   "-o",
+   "src/env_add.o"
+  ],
+  "file": "src/env_add.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/env_set_val.c",
+   "-o",
+   "src/env_set_val.o"
+  ],
+  "file": "src/env_set_val.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_exec.c",
+   "-o",
+   "src/ft_exec.o"
+  ],
+  "file": "src/ft_exec.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/redir_action.c",
+   "-o",
+   "src/redir_action.o"
+  ],
+  "file": "src/redir_action.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/ft_env.c",
+   "-o",
+   "src/ft_env.o"
+  ],
+  "file": "src/ft_env.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_env.c",
+   "-o",
+   "src/parse_env.o"
+  ],
+  "file": "src/parse_env.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_re_organize.c",
+   "-o",
+   "src/parse_re_organize.o"
+  ],
+  "file": "src/parse_re_organize.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_utils.c",
+   "-o",
+   "src/parse_utils.o"
+  ],
+  "file": "src/parse_utils.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/redir_init.c",
+   "-o",
+   "src/redir_init.o"
+  ],
+  "file": "src/redir_init.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/list_to_char_array.c",
+   "-o",
+   "src/list_to_char_array.o"
+  ],
+  "file": "src/list_to_char_array.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/parse_quotes.c",
+   "-o",
+   "src/parse_quotes.o"
+  ],
+  "file": "src/parse_quotes.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/signals.c",
+   "-o",
+   "src/signals.o"
+  ],
+  "file": "src/signals.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/fd_sto_utils.c",
+   "-o",
+   "src/fd_sto_utils.o"
+  ],
+  "file": "src/fd_sto_utils.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/reset_prompt.c",
+   "-o",
+   "src/reset_prompt.o"
+  ],
+  "file": "src/reset_prompt.c"
+ },
+ {
+  "directory": "/Users/greed/Velociraptor/minishell",
+  "arguments": [
+   "gcc",
+   "-DNOLIST",
+   "-g",
+   "-I",
+   "include",
+   "-I",
+   "lib/libft",
+   "-I",
+   "lib/liblist",
+   "-c",
+   "src/put_error_data.c",
+   "-o",
+   "src/put_error_data.o"
+  ],
+  "file": "src/put_error_data.c"
+ }
+]
