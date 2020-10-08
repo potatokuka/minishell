@@ -17,7 +17,7 @@
 ** the val for it, if not make one and set it
 */
 
-void	env_set_val(const char *name, t_var **env, const char *val)
+int		env_set_val(const char *name, t_var **env, const char *val)
 {
 	t_var	*curr;
 	t_var	*last;
@@ -25,7 +25,7 @@ void	env_set_val(const char *name, t_var **env, const char *val)
 	if (!*env)
 	{
 		*env = env_add(name, val);
-		return ;
+		return (0) ;
 	}
 	curr = *env;
 	/*dprintf(2, "curr_%p_%p\nenv_%p\n", curr, curr->next, *env);*/
@@ -37,8 +37,7 @@ void	env_set_val(const char *name, t_var **env, const char *val)
 			free(curr->val);
 			curr->val = ft_strdup_lib(val);
 			if (!curr->val)
-				put_error("Failed to allocate");
-			return ;
+				return (1);
 		}
 		last = curr;
 		curr = curr->next;
@@ -47,6 +46,7 @@ void	env_set_val(const char *name, t_var **env, const char *val)
 	/*dprintf(2,"\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);*/
 	last->next = env_add(name, val);
 	if (!last->next)
-		put_error("Failed to allocate");
+		return (1);
+	return (0);
 	/*dprintf(2,"\n\n ** - TESTING THIS SHIT B4 RETURN - **\n\nname_%s\nval_%s\n\n", name, val);*/
 }
