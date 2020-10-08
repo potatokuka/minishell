@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/07 11:30:30 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/08 12:54:25 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 	x = 0;
 	dprintf(2, "Arg= %s\n", arg);
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
+	if (!tmp)
+		put_error_data(data, "Allocation Failed");
 	while (arg[i])
 	{
 		dprintf(2, "testing arg[i] %c\n", arg[i]);
@@ -73,9 +75,11 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 
 	if (!data->argv[i + 1])
-		put_error("could not find target file");
+		put_error_data(data, "could not find target file");
 	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
 	new->tar_file = ft_strdup(data->argv[i + 1]);
+	if (!new->tar_file)
+		put_error_data(data, "Failed to allocate");//Would leak new?LEAKS
 	redir_dispatch(&data->fd, new, data->argv[i]);
 	drop_string(data, i);
 	i += 1;
