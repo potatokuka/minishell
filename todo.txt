@@ -42,20 +42,14 @@ return 1 is chillin just reset to prompt
   	no worries fam
   ▸ handle_escape_quotes -- DONE
   	return NULL, put_error_data from parse_arg
-  ▸ parse_arg
+  ▸ parse_arg -- DONE
   	can put_error_data from here
-  ▸ parse_args
+  ▸ parse_args -- DONE
 	same as above
-  ▸ str_env_replace_index
+  ▸ str_env_replace_index -- DONE
 	return null through stack to parse_arg, put_error_data from there
-  ▸ parse_init
+  ▸ parse_init -- DONE
   	can put_error_data from here
-  ▸ drop_char
-  	unused
-  • ft_save_string
-  	unused
-  • convert_esc
-  	unused
   ▸ save_in_flag
   ▸ redir_append
   ▸ redir_trunc
