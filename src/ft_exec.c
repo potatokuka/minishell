@@ -119,6 +119,7 @@ int		griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 		g_signal_exit = -2;
 		return (1);
 	}
+	return (0);
 }
 
 int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
