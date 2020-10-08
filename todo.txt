@@ -36,7 +36,7 @@ return 1 is chillin just reset to prompt
   	called by ft_exec, but currently returns a char *, rewrite to put the string in a passed char **, and return an int
   ▸ griffin_try -- DONE
 	return int to ft_exec, through to cmd_dispatch
-  ▸ get_path
+  ▸ get_path -- DONE
 	return int to ft_exec, through to cmd_dispatch
   • main
   	no worries fam

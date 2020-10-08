@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/08 12:32:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,35 @@
 ** Set a larger path size
 */
 
-char	*get_path(void)
+int		get_path(char **res)
 {
-	char	*res;
 	char	*path;
 	size_t	size;
 
 	size = 20;
 	path = ft_calloc(sizeof(char), (size + 1));
 	if (!path)
-		put_error("Error getting path");
-	res = getcwd(path, size + 1);
-	while (!res && errno == ERANGE)
+		return (1);
+	*res = getcwd(path, size + 1);
+	while (!*res && errno == ERANGE)
 	{
 		size += 20;
 		free(path);
 		path = ft_calloc(sizeof(char), (size + 1));
 		if (!path)
-			put_error("Error getting path");
-		res = getcwd(path, size + 1);
+			return (1);
+		*res = getcwd(path, size + 1);
 	}
-	return (res);
+	return (0);
 }
 
-int	ft_pwd(void)
+int		ft_pwd(void)
 {
 	char	*path;
 
 	dprintf(2,"inside pwd\n");
-	path = get_path();
+	if (get_path(&path))
+		return (2);
 	if (path)
 	{
 		ft_printf("%s\n", path);
