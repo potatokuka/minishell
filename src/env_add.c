@@ -38,7 +38,7 @@ void	set_exit_env_val(t_var **env, int *last_status)
 		status = ft_itoa(g_signal_exit + 128);
 	else
 		status = ft_itoa(*last_status);
-	env_set_val("?", env, status);
+	if (env_set_val("?", env, status))
 	free(status);
 	*last_status = 0;
 	g_signal_exit = 0;
