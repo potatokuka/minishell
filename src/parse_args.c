@@ -97,7 +97,7 @@ char	*handle_escape_quotes(char *arg, int flag)
 	}
 	ret = ft_strldup(tmp, x);
 	if (!ret)
-		put_error("Allocation Failed");
+		return (NULL);
 	free(tmp);
 	free(arg);
 	/* dprintf(2, "Test RET_%s\n", ret); */
@@ -187,6 +187,8 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 				arg = str_env_replace(d, arg, 1);//Protection
 				dprintf(2, "ARG after strENV : %s\n", arg);
 				arg = handle_escape_quotes(arg, 1);//freed in Handle Escapes
+				if (!arg)
+					put_error_data(d, "Failed to Allocate Quote");
 			}
 			if (!iscset(input[i + 1], "><|; "))
 			{
@@ -205,11 +207,14 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	/*dprintf(2, "134 check : %s,%d\n", input, i);*/
 	arg = ft_strldup(input, i);//Leaks
 	if (!arg)
-		put_error("Allocation Failed");
+		put_error_data(d, "Allocation Failed Quotes");
 	arg = str_env_replace(d, arg, 1);//Leaks
 	if (!arg)
-		put_error("Allocation Failed");
-	return (handle_escape_quotes(arg, 0));//Leaks
+		put_error_data(d, "Allocation Failed Quotes");
+	arg = handle_escape_quotes(arg, 0);
+	if (!arg)
+		put_error_data(d, "Allocation Failed Quotes");
+	return (arg);
 }
 
 int		parse_args(t_data *data, char *input)
