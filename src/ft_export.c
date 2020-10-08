@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:37:12 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:54:42 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 			dprintf(2,"testing argv[%zu]_%s\n%s\n", i, cmd->argv[i], &cmd->argv[i][tmp + 1]);
 			if (env_set_val(cmd->argv[i], env,
 					&cmd->argv[i][tmp + 1]))
-				return (1);
+				return (2);
 		}
 		i++;
 	}

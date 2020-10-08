@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:48:35 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/08 11:55:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 		close_fd(&data->fd, data->cmd->next->io_fd);
 		cmd_dispatch(data);
 		wait_for_children(&data->pid);
-		put_error_data(data, "");
+		reset_data_struct(data, 1);
+		exit(0);
 	}
 	else if (is_parent)
 	{
@@ -137,6 +138,9 @@ void	cmd_dispatch(t_data *data)
 			data->pid.last_status = ft_unset(data->cmd, &data->env);
 		else if (ft_strncmp(data->cmd->builtin, "export", 6) == 0)
 			data->pid.last_status = ft_export(data->cmd, &data->env, data->envp);
+
+		if (data->pid.last_status == 2)
+			put_error_data(data, "Builtin fatal error");
 	}
 	else
 		data->pid.last_status = ft_exec(data->cmd, data->env, data->envp, &data->pid);
