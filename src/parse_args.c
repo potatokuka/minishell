@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 16:46:01 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/09 12:05:39 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int		add_arg(t_data *data, char *arg)
 		return (0);
 	}
 	data->argc += 1;
-	if (lst_new_back(&data->arg_lst, arg))
+	if (!lst_new_back(&data->arg_lst, arg))
 		put_error_data(data, "Failed to add to back of list");
 	return (0);
 }
