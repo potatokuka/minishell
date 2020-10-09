@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/08 12:59:52 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/09 12:53:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		search_dir(DIR *dirp, char *exec)
 				/*printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));*/
 				return (1);
 			}
-			free(file);
+			/*free(file);*/
 		}
 	}
 	return (0);
