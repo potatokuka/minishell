@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 11:57:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/09 12:33:27 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	main(void)
 			}
 			// The leaks are all seemingly BEFORE this point.
 			if (data.cmd->pipe_read_end != -1)
-				fork_next_and_pipe(&data, 1);
+				fork_next_and_pipe(&data, data.cmd, 1);
 			else
-				cmd_dispatch(&data);
+				cmd_dispatch(&data, data.cmd, 0);
 			wait_for_children(&data.pid);
 			if (data.cmd->next)
 				update_env(&data);

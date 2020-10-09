@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 13:00:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/09 12:45:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	wait_for_children(t_pid *pid)
 	pid->count = 0;
 }
 
-void	fork_next_and_pipe(t_data *data, int is_parent)
+void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 {
 	int		pid_temp;
 
@@ -48,25 +48,28 @@ void	fork_next_and_pipe(t_data *data, int is_parent)
 	if (pid_temp == 0)
 	{
 		free_pid(&data->pid);
-		if (data->cmd->next->io_fd[IN] == -1)
-			data->cmd->next->io_fd[IN] = data->cmd->pipe_read_end;
-		close_fd(&data->fd, data->cmd->next->io_fd);
-		cmd_dispatch(data);
+		if (cmd->next->io_fd[IN] == -1)
+		{
+			cmd->next->io_fd[IN] = cmd->pipe_read_end;
+			dprintf(2, "Read end set %d_%d\n", cmd->next->io_fd[IN], cmd->pipe_read_end);
+		}
+		close_fd(&data->fd, cmd->next->io_fd);
+		cmd_dispatch(data, cmd->next, 1);
 		wait_for_children(&data->pid);
 		reset_data_struct(data, 1);
 		exit(0);
 	}
 	else if (is_parent)
 	{
-		while (data->cmd->next && data->cmd->next->pipe_read_end != -1)
+		while (cmd->next && cmd->next->pipe_read_end != -1)
 		{
-			fork_next_and_pipe(data, 0);
-			data->cmd->next = data->cmd->next->next;
+			fork_next_and_pipe(data, cmd->next, 0);
+			cmd->next = cmd->next->next;
 		}
-		if (data->cmd->next)
-			data->cmd->next = data->cmd->next->next;
-		close_fd(&data->fd, data->cmd->io_fd);
-		cmd_dispatch(data);
+		if (cmd->next)
+			cmd->next = cmd->next->next;
+		close_fd(&data->fd, cmd->io_fd);
+		cmd_dispatch(data, cmd, 0);
 	}
 }
 
@@ -93,58 +96,61 @@ int		close_the_shit(t_cmd *cmd)
 	return (0);
 }
 
-int		dup_redir(t_cmd *cmd)
+int		dup_redir(t_cmd *cmd, int is_child)
 {
+	dprintf(2, "I am %s\n", cmd->argv[0]);
 	if (cmd->io_fd[IN] != -1)
 	{
-		cmd->resetfd[IN] = dup(STDIN);
+		if (!is_child)
+			cmd->resetfd[IN] = dup(STDIN);
 		dprintf(2, "Dup2 FD in : %d\n", cmd->io_fd[IN]);
-		if (cmd->io_fd[IN] != -1 &&
-				dup2(cmd->io_fd[IN], STDIN_FILENO) == -1)
-			return (1);
+		if (cmd->io_fd[IN] != -1)
+			if (dup2(cmd->io_fd[IN], STDIN_FILENO) == -1)
+				return (1);
 		if (cmd->io_fd[IN] != -1)
 			close(cmd->io_fd[IN]);
 	}
 	if (cmd->io_fd[OUT] != -1)
 	{
-		cmd->resetfd[OUT] = dup(STDOUT);
+		if (!is_child)
+			cmd->resetfd[OUT] = dup(STDOUT);
 		dprintf(2, "Dup2 FD out : %d\n", cmd->io_fd[OUT]);
-		if (cmd->io_fd[OUT] != -1 &&
-					dup2(cmd->io_fd[OUT], STDOUT_FILENO) == -1)
-			return (1);
+		if (cmd->io_fd[OUT] != -1)
+			if (dup2(cmd->io_fd[OUT], STDOUT_FILENO) == -1)
+				return (1);
 		if (cmd->io_fd[OUT] != -1)
 			close(cmd->io_fd[OUT]);
 	}
 	return (0);
 }
 
-void	cmd_dispatch(t_data *data)
+void	cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 {
-	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
-		if (dup_redir(data->cmd))
+	if (cmd->io_fd[IN] != -1 || cmd->io_fd[OUT] != -1)
+		if (dup_redir(cmd, is_child))
 			put_error_data(data, "Failed to dup Redir");
-	if (data->cmd->builtin)
+	if (cmd->builtin)
 	{
-		if (ft_strncmp(data->cmd->builtin, "exit", 4) == 0)
+		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
 			ft_exit();
-		else if (ft_strncmp(data->cmd->builtin, "echo", 4) == 0)
-			ft_echo(data->cmd);
-		else if (ft_strncmp(data->cmd->builtin, "env", 3) == 0)
+		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
+			ft_echo(cmd);
+		else if (ft_strncmp(cmd->builtin, "env", 3) == 0)
 			ft_env(data->envp);
-		else if (ft_strncmp(data->cmd->builtin, "pwd", 3) == 0)
+		else if (ft_strncmp(cmd->builtin, "pwd", 3) == 0)
 			data->pid.last_status = ft_pwd();
-		else if (ft_strncmp(data->cmd->builtin, "cd", 2) == 0)
-			data->pid.last_status = ft_cd(data->cmd, data->env);
-		else if (ft_strncmp(data->cmd->builtin, "unset", 5) == 0)
-			data->pid.last_status = ft_unset(data->cmd, &data->env);
-		else if (ft_strncmp(data->cmd->builtin, "export", 6) == 0)
-			data->pid.last_status = ft_export(data->cmd, &data->env, data->envp);
+		else if (ft_strncmp(cmd->builtin, "cd", 2) == 0)
+			data->pid.last_status = ft_cd(cmd, data->env);
+		else if (ft_strncmp(cmd->builtin, "unset", 5) == 0)
+			data->pid.last_status = ft_unset(cmd, &data->env);
+		else if (ft_strncmp(cmd->builtin, "export", 6) == 0)
+			data->pid.last_status = ft_export(cmd, &data->env, data->envp);
 		if (data->pid.last_status == 2)
 			put_error_data(data, "Builtin fatal error");
 	}
 	else
-		data->pid.last_status = ft_exec(data->cmd, data->env, data->envp, &data->pid);
-	if (data->cmd->io_fd[IN] != -1 || data->cmd->io_fd[OUT] != -1)
-		if (close_the_shit(data->cmd))
+		data->pid.last_status = ft_exec(cmd, data->env, data->envp, &data->pid);
+	if (cmd->io_fd[IN] != -1 || cmd->io_fd[OUT] != -1)
+		if (close_the_shit(cmd))
 			put_error_data(data, "Failed to reset STDIN, STDOUT");
 }
