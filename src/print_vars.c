@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:54 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/23 13:40:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 14:42:49 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_env(t_var *env)
 {
 	while (env)
 	{
-		dprintf(2,"env:%p|%s=%s\n", env, (char*)env->name, env->val);
+		dprintf(2,"env:%p|%s=%s\n", env->val, (char*)env->name, env->val);
 		env = env->next;
 	}
 }
