@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/09 12:31:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 12:55:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ typedef struct		s_data
 	t_pid			pid;
 	t_fd_sto		fd;
 	char			**envp;
-	int				redir_count;
 	t_var			*env;
 	t_cmd			*cmd;
 }					t_data;
