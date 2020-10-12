@@ -6,11 +6,33 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 12:58:18 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 15:32:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_forked_cmd(t_data *data, t_cmd *cmd)
+{
+	t_cmd	*i;
+
+	cmd->next = NULL;
+	if (!data->forked)
+		data->forked = cmd;
+	else
+	{
+		i = data->forked;
+		while (i->next)
+			i = i->next;
+		i->next = cmd;
+	}
+	i = data->forked;
+	while (i)
+	{
+		dprintf(2, "its me:%p\n", i);
+		i = i->next;
+	}
+}
 
 /*
 ** count the len unti it reaches the sent char
