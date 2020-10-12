@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/09 12:45:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 15:05:05 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 		if (cmd->next->io_fd[IN] == -1)
 		{
 			cmd->next->io_fd[IN] = cmd->pipe_read_end;
-			dprintf(2, "Read end set %d_%d\n", cmd->next->io_fd[IN], cmd->pipe_read_end);
+			/*dprintf(2, "Read end set %d_%d\n", cmd->next->io_fd[IN], cmd->pipe_read_end);*/
 		}
 		close_fd(&data->fd, cmd->next->io_fd);
 		cmd_dispatch(data, cmd->next, 1);
 		wait_for_children(&data->pid);
-		reset_data_struct(data, 1);
+		/*reset_data_struct(data, 1);*/
 		exit(0);
 	}
 	else if (is_parent)
@@ -98,7 +98,6 @@ int		close_the_shit(t_cmd *cmd)
 
 int		dup_redir(t_cmd *cmd, int is_child)
 {
-	dprintf(2, "I am %s\n", cmd->argv[0]);
 	if (cmd->io_fd[IN] != -1)
 	{
 		if (!is_child)
