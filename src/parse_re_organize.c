@@ -168,15 +168,6 @@ static t_cmd	*split_init(t_data *data)
 			new = save_in_flag(data, new, i);
 			i++;
 		}
-		/* else if (data->argv[i] && has_escape(data->argv[i])) */
-		/* { */
-		/* 	dprintf(2, "argv[i] = %s\n", data->argv[i]); */
-		/* 	convert_esc(data, new, data->argv[i], i); */
-		/* 	dprintf(2, "ARGC %d\n", data->argc); */
-		/* 	if (data->argc < 1) */
-		/* 		break; */
-		/* 		/1* return (new); *1/ */
-		/* } */
 		else
 		{
 			if (!lst_new_back(&new->arr_list, ft_strdup(data->argv[i])))
@@ -187,7 +178,6 @@ static t_cmd	*split_init(t_data *data)
 		}
 		i++;
 	}
-	/*if (new->arr_list && (new->io_fd[IN] == -1 && new->io_fd[OUT] == -1))*/
 	if (new->arr_list)
 	{
 		new->argv = list_to_string_array(new->arr_list);
