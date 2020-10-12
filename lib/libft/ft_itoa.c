@@ -82,11 +82,11 @@ char			*ft_itoa(int n)
 
 	sign = n < 0;
 	nbr_len = ft_numlen(n);
+	if (n == -2147483648 || n == 0)
+		return (ft_exceptions(n));
 	res = ft_memorysize(nbr_len + 1);
 	if (res == NULL)
 		return (NULL);
-	if (n == -2147483648 || n == 0)
-		return (ft_exceptions(n));
 	if (sign)
 	{
 		*res = '-';
