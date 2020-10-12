@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/12 13:04:49 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 15:39:18 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)//Leaks harder th
 		put_error(strerror(errno));
 	*pathname = (void *)0;
 	i = 0;
-	while (!*pathname && *paths[i])
+	while (pathname && !*pathname && paths[i])
 	{
 		/*printf("path:%s\n", *paths);*/
 		dirp = opendir(paths[i]);
