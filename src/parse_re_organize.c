@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/08 12:54:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 15:13:50 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,12 +214,14 @@ static int		cmd_head_init(t_data *data, char **argv)
 int				parse_organize(t_data *data)
 {
 	t_cmd	*cmd;
+	char	**argvhead;
 	int		i;
 	int		n;
 
-	n = 0;
+	argvhead = data->argv;
 	if (cmd_head_init(data, data->argv))
 		return (1);
+	n = 0;
 	i = 1;
 	cmd = data->cmd;
 	while (data->argc > 0)
@@ -238,6 +240,8 @@ int				parse_organize(t_data *data)
 			return (clear_cmd(data->cmd, &free));
 		cmd = cmd->next;
 	}
+	if (argvhead)
+		free(argvhead);
 	print_cmd_full(data);
 	return (0);
 }
