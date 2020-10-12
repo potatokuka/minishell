@@ -53,6 +53,7 @@ int	main(void)
 			data.cmd = data.cmd->next;
 		}
 		data.cmd = head;
+		i = 1;
 		reset_data_struct(&data, 0);//TODO actually make this comprehensive reset
 		update_env(&data);
 	}
