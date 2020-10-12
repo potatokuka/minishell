@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/09 12:33:27 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/12 15:01:52 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 {
 	t_data 	data;
 	t_cmd	*head;
-	int		i = 1;
+
 	ft_bzero(&data, sizeof(data));
 	if (env_init(&data))
 		put_error_data(&data, "Failed to parse env");
@@ -28,13 +28,9 @@ int	main(void)
 	{
 		print_prompt();
 		parse_init(&data);
+		head = data.cmd;
 		while (data.cmd)
 		{
-			if (i == 1)
-			{
-				head = data.cmd;
-				i += 1;
-			}
 			if (data.cmd->argc < 1 && !data.cmd->builtin)
 			{
 				dprintf(2, "syntax error near unexpected token ';'\n");
@@ -53,7 +49,6 @@ int	main(void)
 			data.cmd = data.cmd->next;
 		}
 		data.cmd = head;
-		i = 1;
 		reset_data_struct(&data, 0);//TODO actually make this comprehensive reset
 		update_env(&data);
 	}
