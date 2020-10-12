@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/07 12:44:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/07 12:44:29 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/12 12:54:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		reset_data_struct(t_data *data, int all)
 {
 	if (!data)
 		return ;
+	data->argc = 0;
 	if (data->cmd)
 	{
 		free_cmd(data->cmd);
