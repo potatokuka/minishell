@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/12 15:39:18 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:30:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Return 1 if a char array string matches the str ptr string
 */
 
-int		file_match(char file[], char *file2)
+int			file_match(char file[], char *file2)
 {
 	int		i;
 
@@ -38,7 +38,7 @@ int		file_match(char file[], char *file2)
 ** matching string exec
 */
 
-int		search_dir(DIR *dirp, char *exec)
+int			search_dir(DIR *dirp, char *exec)
 {
 	struct dirent	*file;
 
@@ -57,14 +57,13 @@ int		search_dir(DIR *dirp, char *exec)
 	return (0);
 }
 
-int		get_env_path_exec(char **pathname, char *exec, t_var *env)
+int			get_env_path_exec(char **pathname, char *exec, t_var *env)
 {
 	char			**paths;
 	DIR				*dirp;
 	int				i;
 
 	*pathname = get_env_val("PATH", env, 4);
-	dprintf(2,"exec:%s\n", exec);
 	paths = ft_split(*pathname, ':');
 	if (!paths)
 		put_error(strerror(errno));
@@ -73,18 +72,12 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)
 	while (pathname && !*pathname && paths[i])
 	{
 		dirp = opendir(paths[i]);
-		if (dirp)
+		if (dirp && search_dir(dirp, exec))
 		{
-			if (search_dir(dirp, exec))
-			{
-				*pathname = ft_3strjoin(paths[i], "/", exec);
-				if (!*pathname)
-				{
-					closedir(dirp);
-					return (1);
-				}
-			}
 			closedir(dirp);
+			*pathname = ft_3strjoin(paths[i], "/", exec);
+			if (!*pathname)
+				return (1);
 		}
 		i++;
 	}
@@ -97,7 +90,7 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)
 ** relative path, or $PATH identifier.
 */
 
-int		griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
+int			griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 {
 	t_pid	*new;
 	int		pid_temp;
@@ -105,33 +98,39 @@ int		griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 	pid_temp = fork();
 	if (pid_temp != 0)
 		if (ft_add_pid(pid, pid_temp))
-			return (1);
+			return (2);
 	if (pid_temp < 0)
 		return (1);
 	if (pid_temp == 0)
 	{
 		execve(pathname, cmd->argv, envp);
 		g_signal_exit = -2;
-		return (1);
+		return (2);
 	}
 	free(pathname);
 	return (0);
 }
 
-int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
+static int	get_relative_pathname(t_cmd *cmd, char **pathname)
+{
+	char	*path;
+
+	if (get_path(&path))
+		return (2);
+	*pathname = ft_strjoin(path, cmd->argv[0] + 1);
+	free(path);
+	if (!pathname)
+		return (2);
+}
+
+int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 {
 	char	*path;
 	char	*pathname;
-	int		status;
 
-	dprintf(2, "EXEC -------------\n");
 	if (cmd->argc && cmd->argv[0][0] == '.')
 	{
-		if (get_path(&path))
-			return (2);
-		pathname = ft_strjoin(path, cmd->argv[0] + 1);
-		free(path);
-		if (!pathname)
+		if (get_relative_pathname(cmd, &pathname))
 			return (2);
 	}
 	else if (cmd->argc && cmd->argv[0][0] == '/')
@@ -149,8 +148,5 @@ int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 			return (1);
 		}
 	}
-	dprintf(2, "pathname:%s\n", pathname);
-	if (griffin_try(cmd, pathname, envp, pid))
-		return (2);
-	return (0);
+	return (griffin_try(cmd, pathname, envp, pid));
 }
