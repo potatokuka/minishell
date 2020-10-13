@@ -30,7 +30,6 @@ void	ft_echo(t_cmd *cmd)
 		flag += 1;
 		i++;
 	}
-	dprintf(2,"ECHO -------------\n");
 	while (i < cmd->argc)
 	{
 		ft_printf_fd(1, "%s", cmd->argv[i]);
