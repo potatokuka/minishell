@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:31:08 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:35:34 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,9 @@ t_cmd	*split_init(t_data *da);
 void	convert_esc(t_data *data, t_cmd *new, char *arg, int index);
 int		has_escape(char *str);
 char	*convert_esc2(char *arg, char *tmp, int i, int x);
+t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i);
+t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i);
+t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i);
 
 /*
 ** BUILT-INS

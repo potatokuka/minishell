@@ -49,7 +49,7 @@ SRCS			=	main.c\
 				put_error_data.c\
 				ultilities2.c\
 				ultilities3.c\
-				parse_re_organize2.c\
+				parse_re_orginize2.c\
 				parse_utils2.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
