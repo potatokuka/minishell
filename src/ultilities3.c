@@ -6,11 +6,17 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 13:53:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:53:41 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:28:51 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		put_error_data_cmd(t_data *data, t_cmd *cmd, char *error)
+{
+	free(cmd);
+	put_error_data(data, error);
+}
 
 void		free_var(t_var *env)
 {

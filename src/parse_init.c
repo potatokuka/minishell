@@ -38,7 +38,6 @@ void	parse_init(t_data *data)
 	if (parse_args(data, input_str))
 		return ;
 	data->argv = list_to_string_array(data->arg_lst);
-	/*print_vars(data);*/
 	free(input_str);
 	free_list(data->arg_lst, free);
 	data->arg_lst = NULL;
