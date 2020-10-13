@@ -86,6 +86,7 @@ ft_unset.c
 list_to_char_array.c
 main.c
 parse_args.c
+	10 functions
 parse_cmd.c
 parse_env.c
 parse_init.c
