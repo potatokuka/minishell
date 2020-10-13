@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:46:55 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:59:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,33 +151,33 @@ static char	*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 	return (arg);
 }
 
-char		*parse_arg(t_data *d, char *s, char *break_chars, int quote)
+char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 {
 	int		i;
-	char	*a;
+	char	*rt;
 
 	i = 0;
-	while (s[i] && !escset(s, break_chars, i))
+	while (in[i] && !escset(in, break_chars, i))
 	{
-		if (!quote && (s[i] == D_QOTE || s[i] == S_QOTE) && check_escape(s, i))
-			return (ft_strljoin(s, i, parse_arg(d, s + i + 1, "", s[i]), -1));
-		else if ((quote && s[i] == quote) && check_escape(s, i))
+		if (!quote && (in[i] == D_QOTE || in[i] == S_QOTE)
+				&& check_escape(in, i))
+			return (ft_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), -1));
+		else if ((quote && in[i] == quote) && check_escape(in, i))
 		{
-			a = handle_escapes_envs(d, ft_strldup(s, i), quote, 1);
-			if (!iscset(s[i + 1], "><|; "))
+			rt = handle_escapes_envs(dt, ft_strldup(in, i), quote, 1);
+			if (!iscset(in[i + 1], "><|; "))
 			{
-				if (s[i + 1] == D_QOTE || s[i] == S_QOTE)
-					return (ft_strjoin(a,
-								parse_arg(d, s + i + 2, "", s[i + 1])));
+				if (in[i + 1] == D_QOTE || in[i] == S_QOTE)
+					return (ft_strjoin(rt, arg(dt, in + i + 2, "", in[i + 1])));
 				else
-					return (ft_strjoin(a, parse_arg(d, s + i + 1, "><|; ", 0)));
+					return (ft_strjoin(rt, arg(dt, in + i + 1, "><|; ", 0)));
 			}
-			return (a);
+			return (rt);
 		}
 		i++;
 	}
-	a = handle_escapes_envs(d, ft_strldup(s, i), 0, 0);
-	return (a);
+	rt = handle_escapes_envs(dt, ft_strldup(in, i), 0, 0);
+	return (rt);
 }
 
 static int	check_quotes_closed(char *input)
@@ -206,7 +206,7 @@ int			parse_args(t_data *data, char *input)
 		return (1);
 	input = trim_spaces(input);
 	if (*input)
-		if (add_arg(data, parse_arg(data, input, "><|; ", 0)))
+		if (add_arg(data, arg(data, input, "><|; ", 0)))
 			put_error_data(data, "Failed to allocate arg");
 	if (check_quotes_closed(input))
 		return (reset_prompt(data, "Unclosed quotes", 1, 0));
