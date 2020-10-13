@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-void	ft_exit()
+void	ft_exit(void)
 {
-	dprintf(2,"exiting from exit\n");
+	dprintf(2, "exiting from exit\n");
 	exit(0);
 }

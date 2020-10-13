@@ -13,7 +13,8 @@
 #include "minishell.h"
 
 /*
-** move through the list of env's searching for if the EXPORT is existing, if it is, update
+** move through the list of env's searching for if the EXPORT is existing,
+** if it is, update
 ** the val for it, if not make one and set it
 */
 

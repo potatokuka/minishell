@@ -15,7 +15,7 @@
 /*
 ** reads through the output of environ until it matches with what's
 ** sent as NAME
-*/ 
+*/
 
 char	*get_env_val(const char *name, t_var *env, size_t len)
 {

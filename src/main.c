@@ -12,12 +12,9 @@
 
 #include "minishell.h"
 
-/* first step, print out PROMPT and allow for exit */
-
-
 int	main(void)
 {
-	t_data 	data;
+	t_data	data;
 	t_cmd	*head;
 
 	ft_bzero(&data, sizeof(data));
