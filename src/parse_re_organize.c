@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/12 15:13:50 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 11:58:57 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,35 +213,27 @@ static int		cmd_head_init(t_data *data, char **argv)
 
 int				parse_organize(t_data *data)
 {
+	t_cmd	*tmp;
 	t_cmd	*cmd;
 	char	**argvhead;
-	int		i;
-	int		n;
 
 	argvhead = data->argv;
 	if (cmd_head_init(data, data->argv))
 		return (1);
-	n = 0;
-	i = 1;
 	cmd = data->cmd;
 	while (data->argc > 0)
 	{
-		n++;
-		cmd->next = split_init(data);
-
-		/*i = 0;*/
-		/*dprintf(2, "argc%d\n", cmd->next->argc);*/
-		/*while (i < cmd->next->argc)*/
-		/*{*/
-			/*dprintf(2, "arg[%d]_%s\n", i, cmd->next->argv[i]);*/
-			/*i++;*/
-		/*}*/
-		if (!cmd->next)
+		tmp = split_init(data);
+		if (!tmp)
 			return (clear_cmd(data->cmd, &free));
+		cmd->next = tmp;
 		cmd = cmd->next;
 	}
 	if (argvhead)
+	{
 		free(argvhead);
+		data->argv = NULL;
+	}
 	print_cmd_full(data);
 	return (0);
 }
