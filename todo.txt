@@ -63,3 +63,39 @@ Check every alloc/dup has a protection check
 		Function calles another function as data->something = function(), function errors and clears data, causing freed access on retunr
 		Struct is allocated, and then before protection check, struct->potato values are set
 
+cmd_dispatch.c
+	6 functions
+env_add.c
+env_clear.c
+env_convert.c
+env_del.c
+env_get.c
+env_init.c
+env_set_val.c
+env_unset.c
+env_update.c
+fd_sto_utils.c
+ft_cd.c
+ft_echo.c
+ft_env.c
+ft_exec.c
+ft_exit.c
+ft_export.c
+ft_pwd.c
+ft_unset.c
+list_to_char_array.c
+main.c
+parse_args.c
+parse_cmd.c
+parse_env.c
+parse_init.c
+parse_re_organize.c
+parse_utils.c
+print_prompt.c
+print_vars.c
+put_error_data.c
+redir_action.c
+redir_init.c
+reset_prompt.c
+signals.c
+utilities.c
