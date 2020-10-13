@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:25:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:32:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ bool	check_escape(char *str, int i)
 	return (true);
 }
 
-char	*handle_escape_quotes(char *arg, int flag)
+char		*handle_escape_quotes(char *arg, int flag)
 {
-	char	*ret;
 	char	*tmp;
 	int		i;
 	int		x;
@@ -57,37 +56,20 @@ char	*handle_escape_quotes(char *arg, int flag)
 		return (NULL);
 	while (arg[i])
 	{
-		if (arg[i] == '\\' && arg[i + 1] == '\\')
+		if ((arg[i] == '\\' && arg[i + 1] == '\\')
+		 || (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
+		 || (arg[i] == '\\'))
 		{
 			tmp[x] = arg[i + 1];
-			i += 2;
-			x++;
-		}
-		else if (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
-		{
-			tmp[x] = arg[i + 1];
-			i += 2;
-			x++;
-		}
-		else if (arg[i] == '\\')
-		{
-			tmp[x] = arg[i + 1];
-			i += 2;
-			x++;
-		}
-		else
-		{
-			tmp[x] = arg[i];
-			x++;
 			i++;
 		}
+		else
+			tmp[x] = arg[i];
+		i++;
+		x++;
 	}
-	ret = ft_strldup(tmp, x);
-	if (!ret)
-		return (NULL);
-	free(tmp);
 	free(arg);
-	return (ret);
+	return (tmp);
 }
 
 int		escset(char *input, char *set, int i)
