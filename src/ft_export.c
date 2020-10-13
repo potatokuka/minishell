@@ -18,7 +18,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 	size_t	tmp;
 	int		a;
 
-	dprintf(2,"argc = %d\n", cmd->argc);
+	dprintf(2, "argc = %d\n", cmd->argc);
 	if (cmd->argc == 0)
 	{
 		ft_env(envp);
@@ -29,22 +29,25 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 	{
 		dprintf(2,"\t-- Export --\nargv[%zu]_%s\n", i, cmd->argv[i]);
 		tmp = ft_strclen(cmd->argv[i], '=');
-		dprintf(2,"\n\ntmp =_%zu\n", tmp);
+		dprintf(2, "\n\ntmp =_%zu\n", tmp);
 		if (tmp < ft_strlen_lib(cmd->argv[i]))
 		{
 			a = 0;
 			while (a < tmp)
 			{
-				dprintf(2, "testing char %c_%d_%d_%d\n", cmd->argv[i][a], a, a, ft_env_char(cmd->argv[i][a], !a));
+				dprintf(2, "testing char %c_%d_%d_%d\n", cmd->argv[i][a], a, a,
+						ft_env_char(cmd->argv[i][a], !a));
 				if (!ft_env_char(cmd->argv[i][a], !a))
 				{
-					ft_printf_fd(2, "Export: %s: not a valid identifier\n", cmd->argv[i]);
+					ft_printf_fd(2,
+						"Export: %s: not a valid identifier\n", cmd->argv[i]);
 					return (1);
 				}
 				a++;
 			}
 			cmd->argv[i][tmp] = '\0';
-			dprintf(2,"testing argv[%zu]_%s\n%s\n", i, cmd->argv[i], &cmd->argv[i][tmp + 1]);
+			dprintf(2,
+				"testing argv[%zu]_%s\n%s\n", i, cmd->argv[i], &cmd->argv[i][tmp + 1]);
 			if (env_set_val(cmd->argv[i], env,
 					&cmd->argv[i][tmp + 1]))
 				return (2);

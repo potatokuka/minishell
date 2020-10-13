@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		clear_env(t_var *env, void(*del)(void *))
+int		clear_env(t_var *env, void (*del)(void *))
 {
 	t_var	*delete;
 

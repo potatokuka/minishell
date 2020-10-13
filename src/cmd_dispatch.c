@@ -56,7 +56,6 @@ void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 		close_fd(&data->fd, cmd->next->io_fd);
 		cmd_dispatch(data, cmd->next, 1);
 		wait_for_children(&data->pid);
-		/*reset_data_struct(data, 1);*/
 		exit(0);
 	}
 	else if (is_parent)

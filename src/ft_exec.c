@@ -93,7 +93,7 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)
 }
 
 /*
-** Attempt to find and execute an executable based on a given absolute or 
+** Attempt to find and execute an executable based on a given absolute or
 ** relative path, or $PATH identifier.
 */
 
@@ -124,7 +124,7 @@ int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 	char	*pathname;
 	int		status;
 
-	dprintf(2,"EXEC -------------\n");
+	dprintf(2, "EXEC -------------\n");
 	if (cmd->argc && cmd->argv[0][0] == '.')
 	{
 		if (get_path(&path))
@@ -145,11 +145,11 @@ int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 			return (2);
 		if (!pathname)
 		{
-			dprintf(2,"%s: command not found\n", cmd->argv[0]);
+			dprintf(2, "%s: command not found\n", cmd->argv[0]);
 			return (1);
 		}
 	}
-	dprintf(2,"pathname:%s\n", pathname);
+	dprintf(2, "pathname:%s\n", pathname);
 	if (griffin_try(cmd, pathname, envp, pid))
 		return (2);
 	return (0);

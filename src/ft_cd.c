@@ -17,7 +17,6 @@ int		cd_home(t_var *env)
 	char	*home;
 
 	home = get_env_val("HOME", env, 4);
-	dprintf(2,"CD HOME CHECK %s\n", home);
 	if (!home)
 	{
 		ft_printf_fd(2, "cd: HOME not set\n");
