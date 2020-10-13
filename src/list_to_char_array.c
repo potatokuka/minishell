@@ -28,9 +28,8 @@ char	**list_to_string_array(t_list *to_copy)
 	lst = to_copy;
 	while (x < size_len)
 	{
-		/*tmp[x] = lst->content;*/ //TODO why not just give lst->content address to tmp[i], and set lst->content to null, then dont need str, tried just now but I got errors and im too lazy to see why
 		str = lst->content;
-		tmp[x] = ft_strdup_lib(str);//Leaks
+		tmp[x] = ft_strdup_lib(str);
 		lst = lst->next;
 		x++;
 	}
