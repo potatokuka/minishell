@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:09:48 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 17:31:08 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ t_cmd	*add_forked_cmd(t_data *data, t_cmd *cmd);
 void	free_fd(t_fd_sto *fd);
 void	free_var(t_var *env);
 int		dup_redir(t_cmd *cmd, int is_child);
+void	put_error_data_cmd(t_data *data, t_cmd *cmd, char *error);
 
 /*
 ** PARSING
@@ -173,6 +174,10 @@ void	print_cmd_full(t_data *data);
 void	print_cur_cmd(t_cmd *cmd);
 void	set_signal(void);
 bool	check_escape(char *str, int i);
+t_cmd	*split_init(t_data *da);
+void	convert_esc(t_data *data, t_cmd *new, char *arg, int index);
+int		has_escape(char *str);
+char	*convert_esc2(char *arg, char *tmp, int i, int x);
 
 /*
 ** BUILT-INS
