@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:40:34 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:46:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ int			add_arg(t_data *data, char *arg)
 	return (0);
 }
 
-static char	*handle_escapes_envs(t_data *d, char *arg, int quote_type, int quote_flag)
+static char	*handle_escapes_envs(t_data *d, char *arg, int quote_type,
+		int quote_flag)
 {
 	if (!arg)
 		put_error_data(d, "Allocation Failed Quotes");
@@ -150,38 +151,56 @@ static char	*handle_escapes_envs(t_data *d, char *arg, int quote_type, int quote
 	return (arg);
 }
 
-char		*parse_arg(t_data *d, char *input, char *break_chars, int quote)
+char		*parse_arg(t_data *d, char *s, char *break_chars, int quote)
 {
 	int		i;
-	char	*arg;
+	char	*a;
 
 	i = 0;
-	while (input[i] && !escset(input, break_chars, i))
+	while (s[i] && !escset(s, break_chars, i))
 	{
-		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
-			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));
-		else if ((quote && input[i] == quote) && check_escape(input, i))
+		if (!quote && (s[i] == D_QOTE || s[i] == S_QOTE) && check_escape(s, i))
+			return (ft_strljoin(s, i, parse_arg(d, s + i + 1, "", s[i]), -1));
+		else if ((quote && s[i] == quote) && check_escape(s, i))
 		{
-			arg = handle_escapes_envs(d, ft_strldup(input, i), quote, 1);
-			if (!iscset(input[i + 1], "><|; "))
+			a = handle_escapes_envs(d, ft_strldup(s, i), quote, 1);
+			if (!iscset(s[i + 1], "><|; "))
 			{
-				if (input[i + 1] == D_QOTE || input[i] == S_QOTE)
-					return (ft_strjoin(arg, parse_arg(d, input + i + 2, "", input[i + 1])));
+				if (s[i + 1] == D_QOTE || s[i] == S_QOTE)
+					return (ft_strjoin(a,
+								parse_arg(d, s + i + 2, "", s[i + 1])));
 				else
-					return (ft_strjoin(arg, parse_arg(d, input + i + 1, "><|; ", 0)));
+					return (ft_strjoin(a, parse_arg(d, s + i + 1, "><|; ", 0)));
 			}
-			return (arg);
+			return (a);
 		}
 		i++;
 	}
-	arg = handle_escapes_envs(d, ft_strldup(input, i), 0, 0);
-	return (arg);
+	a = handle_escapes_envs(d, ft_strldup(s, i), 0, 0);
+	return (a);
+}
+
+static int	check_quotes_closed(char *input)
+{
+	int		in_quote;
+	int		i;
+
+	in_quote = 0;
+	i = 0;
+	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
+	{
+		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE)
+				&& check_escape(input, i))
+			in_quote = input[i];
+		else if (in_quote && input[i] == in_quote && check_escape(input, i))
+			in_quote = 0;
+		i++;
+	}
 }
 
 int			parse_args(t_data *data, char *input)
 {
 	int		i;
-	int		in_quote;
 
 	if (!input)
 		return (1);
@@ -189,17 +208,7 @@ int			parse_args(t_data *data, char *input)
 	if (*input)
 		if (add_arg(data, parse_arg(data, input, "><|; ", 0)))
 			put_error_data(data, "Failed to allocate arg");
-	i = 0;
-	in_quote = 0;
-	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
-	{
-		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
-			in_quote = input[i];
-		else if (in_quote && input[i] == in_quote && check_escape(input, i))
-			in_quote = 0;
-		i++;
-	}
-	if (in_quote)
+	if (check_quotes_closed(input))
 		return (reset_prompt(data, "Unclosed quotes", 1, 0));
 	if (iscset(input[i], "><|;"))
 	{
