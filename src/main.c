@@ -36,7 +36,6 @@ int	main(void)
 				dprintf(2, "syntax error near unexpected token ';'\n");
 				break ;
 			}
-			// The leaks are all seemingly BEFORE this point.
 			if (data.cmd->pipe_read_end != -1)
 				fork_next_and_pipe(&data, data.cmd, 1);
 			else
@@ -49,7 +48,7 @@ int	main(void)
 			data.cmd = data.cmd->next;
 		}
 		data.cmd = head;
-		reset_data_struct(&data, 0);//TODO actually make this comprehensive reset
+		reset_data_struct(&data, 0);
 		update_env(&data);
 	}
 	return (0);
