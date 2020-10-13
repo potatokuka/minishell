@@ -6,13 +6,13 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:10:44 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:14:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	wait_for_children(t_pid *pid)
+void			wait_for_children(t_pid *pid)
 {
 	int i;
 
@@ -73,7 +73,7 @@ void			fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 	}
 }
 
-int		close_the_shit(t_cmd *cmd)
+int				close_the_shit(t_cmd *cmd)
 {
 	if (cmd->resetfd[IN] != -1)
 	{
@@ -96,7 +96,7 @@ int		close_the_shit(t_cmd *cmd)
 	return (0);
 }
 
-int		dup_redir(t_cmd *cmd, int is_child)
+int				dup_redir(t_cmd *cmd, int is_child)
 {
 	if (cmd->io_fd[IN] != -1)
 	{
@@ -123,11 +123,10 @@ int		dup_redir(t_cmd *cmd, int is_child)
 	return (0);
 }
 
-void	cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
+void			cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 {
-	if (cmd->io_fd[IN] != -1 || cmd->io_fd[OUT] != -1)
-		if (dup_redir(cmd, is_child))
-			put_error_data(data, "Failed to dup Redir");
+	if (dup_redir(cmd, is_child))
+		put_error_data(data, "Failed to dup Redir");
 	if (cmd->builtin)
 	{
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
@@ -149,7 +148,6 @@ void	cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 	}
 	else
 		data->pid.last_status = ft_exec(cmd, data->env, data->envp, &data->pid);
-	if (cmd->io_fd[IN] != -1 || cmd->io_fd[OUT] != -1)
-		if (close_the_shit(cmd))
-			put_error_data(data, "Failed to reset STDIN, STDOUT");
+	if (close_the_shit(cmd))
+		put_error_data(data, "Failed to reset STDIN, STDOUT");
 }
