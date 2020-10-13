@@ -6,13 +6,13 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 20:45:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 14:04:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:31:25 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				clear_cmd(t_cmd *cmd, void(*del)(void *))
+int		clear_cmd(t_cmd *cmd, void (*del)(void *))
 {
 	t_cmd	*delete;
 
