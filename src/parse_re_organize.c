@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 11:58:57 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 12:02:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,10 @@ static t_cmd	*split_init(t_data *data)
 		{
 			new->builtin = ft_strdup(data->argv[i]);
 			if (!new->builtin)
+			{
+				free(new);
 				put_error_data(data, "Failed to allocate in New Builtin");
+			}
 			drop_string(data, i);
 			data->argc -= 1;
 		}
@@ -152,6 +155,7 @@ static t_cmd	*split_init(t_data *data)
 		{
 			if (data->argc == 1)
 			{
+				free(new);
 				reset_prompt(data, "Trailing pipe", 1, 0);
 				return (NULL);
 			}
@@ -171,7 +175,10 @@ static t_cmd	*split_init(t_data *data)
 		else
 		{
 			if (!lst_new_back(&new->arr_list, ft_strdup(data->argv[i])))
+			{
+				free(new);
 				put_error_data(data, "Failed to Allocate in Lst Back Split init");
+			}
 			new->argc += 1;
 			data->argc -= 1;
 			drop_string(data, i);
@@ -182,7 +189,10 @@ static t_cmd	*split_init(t_data *data)
 	{
 		new->argv = list_to_string_array(new->arr_list);
 		if (!new->argv)
+		{
+			free(new);
 			put_error_data(data, "Failed to Allocate in split init");
+		}
 	}
 	new->next = NULL;
 	data->argv = data->argv + i;

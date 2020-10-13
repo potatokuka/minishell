@@ -13,6 +13,7 @@
 11:	no exit on non fatal errors <-- Unclosed quote and trailing pipes implemented, anything else?
 12: set $? in signals aswel (128+signal_int) <-- DONE!!
 13: input ` ""` causes seg fault <--- this is fixed
+14: new is leaked during put_error_data exit in split_init <-- Fixed
 
 ------
 
@@ -20,10 +21,9 @@ and a bunch of other shit i do not know at the time being.
 check file descriptor leaks at some point :)
 and normal leaks
 
-return 2 is a fatal error
+▾ put_error <-- DONE!!
 return 1 is chillin just reset to prompt
-
-▾ put_error
+return 2 is a fatal error
   ▸ fork_next_and_pipe -- DONE
   	has data
   ▸ close_the_shit -- DONE
@@ -58,5 +58,8 @@ return 1 is chillin just reset to prompt
   ▸ ft_add_pid -- DONE
 
 Check every alloc/dup has a protection check
+	Check we aren't accessing structs where theyve been freed
+		i.e.
+		Function calles another function as data->something = function(), function errors and clears data, causing freed access on retunr
+		Struct is allocated, and then before protection check, struct->potato values are set
 
-new is leaked during put_error_data exit in split_init
