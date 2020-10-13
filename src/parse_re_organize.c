@@ -127,14 +127,14 @@ static t_cmd	*split_init(t_data *data)
 	int		x;
 
 	new = ft_calloc(sizeof(t_cmd), 1);
+	if (!new)
+		put_error_data(data, "Failed to allocate in new cmd struct");
 	new->resetfd[IN] = -1;
 	new->resetfd[OUT] = -1;
 	new->io_fd[IN] = -1;
 	new->io_fd[OUT] = -1;
 	new->pipe_read_end = -1;
 	i = 0;
-	if (!new)
-		return (NULL);
 	dprintf(2, "Split init Arg Structure:\n");
 	while (data->argc > 0)
 	{
