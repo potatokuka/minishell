@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/13 14:30:09 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:49:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ static int	get_relative_pathname(t_cmd *cmd, char **pathname)
 	free(path);
 	if (!pathname)
 		return (2);
+	return (0);
 }
 
 int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
