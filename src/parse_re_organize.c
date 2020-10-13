@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:35:01 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:45:01 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
+t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
 		put_error_data(data, "could not find target file");
@@ -30,7 +30,7 @@ t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	return (new);
 }
 
-t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
+t_cmd			*save_in_semi(t_data *data, t_cmd *new, int i)
 {
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
@@ -42,7 +42,7 @@ t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 	return (new);
 }
 
-t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
+t_cmd			*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	if (data->argc == 1)
 	{

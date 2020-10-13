@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:26:46 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:28:33 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:45:11 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_cmd	*split_new(t_data *data, t_cmd *new)
 	return (new);
 }
 
-t_cmd	*split_init(t_data *da)
+t_cmd			*split_init(t_data *da)
 {
 	t_cmd	*new;
 	int		i;
