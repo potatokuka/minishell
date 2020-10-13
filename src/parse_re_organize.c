@@ -185,7 +185,7 @@ static t_cmd	*split_init(t_data *da)
 	while (da->argc > 0)
 	{
 		if (new->argc == 0 && is_builtin(da->argv[0]))
-			split_init2(da, new, i);
+			split_builtin(da, new, i);
 		else if (da->argv[i] && (da->argv[i][0] == '|'))
 			return (save_in_pipe(da, new, i));
 		else if (da->argv[i][0] == ';')
