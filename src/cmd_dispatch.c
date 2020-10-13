@@ -96,33 +96,6 @@ int				close_the_shit(t_cmd *cmd)
 	return (0);
 }
 
-int				dup_redir(t_cmd *cmd, int is_child)
-{
-	if (cmd->io_fd[IN] != -1)
-	{
-		if (!is_child)
-			cmd->resetfd[IN] = dup(STDIN);
-		dprintf(2, "Dup2 FD in : %d\n", cmd->io_fd[IN]);
-		if (cmd->io_fd[IN] != -1)
-			if (dup2(cmd->io_fd[IN], STDIN_FILENO) == -1)
-				return (1);
-		if (cmd->io_fd[IN] != -1)
-			close(cmd->io_fd[IN]);
-	}
-	if (cmd->io_fd[OUT] != -1)
-	{
-		if (!is_child)
-			cmd->resetfd[OUT] = dup(STDOUT);
-		dprintf(2, "Dup2 FD out : %d\n", cmd->io_fd[OUT]);
-		if (cmd->io_fd[OUT] != -1)
-			if (dup2(cmd->io_fd[OUT], STDOUT_FILENO) == -1)
-				return (1);
-		if (cmd->io_fd[OUT] != -1)
-			close(cmd->io_fd[OUT]);
-	}
-	return (0);
-}
-
 void			cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 {
 	if (dup_redir(cmd, is_child))

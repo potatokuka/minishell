@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void			print_environ(char **environ)
+void	print_environ(char **environ)
 {
 	int		height;
 	int		i;
