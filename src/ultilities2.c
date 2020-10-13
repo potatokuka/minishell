@@ -56,7 +56,7 @@ void	ft_free(void **free_me)
 	}
 }
 
-void		free_fd(t_fd_sto *fd)
+void	free_fd(t_fd_sto *fd)
 {
 	if (fd->arr)
 		ft_free((void **)&fd->arr);

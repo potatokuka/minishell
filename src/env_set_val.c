@@ -18,11 +18,8 @@
 ** the val for it, if not make one and set it
 */
 
-int		env_set_val(const char *name, t_var **env, const char *val)
+int		pre_env_set(t_var **env, const char *name, const char *val)
 {
-	t_var	*curr;
-	t_var	*last;
-
 	if (!*env)
 	{
 		*env = env_add(name, val);
@@ -30,6 +27,16 @@ int		env_set_val(const char *name, t_var **env, const char *val)
 			return (1);
 		return (0);
 	}
+	return (0);
+}
+
+int		env_set_val(const char *name, t_var **env, const char *val)
+{
+	t_var	*curr;
+	t_var	*last;
+
+	if (pre_env_set(env, name, val))
+		return (1);
 	curr = *env;
 	last = curr;
 	while (curr)
