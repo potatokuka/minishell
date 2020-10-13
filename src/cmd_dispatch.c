@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/12 15:34:10 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:10:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,21 @@ void	wait_for_children(t_pid *pid)
 	pid->count = 0;
 }
 
-void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
+static void		child_process(t_data *data, t_cmd *cmd)
+{
+	free_pid(&data->pid);
+	if (cmd->next->io_fd[IN] == -1)
+		cmd->next->io_fd[IN] = cmd->pipe_read_end;
+	close_fd(&data->fd, cmd->next->io_fd);
+	cmd_dispatch(data, cmd->next, 1);
+	wait_for_children(&data->pid);
+	reset_data_struct(data, 1);
+	exit(0);
+}
+
+void			fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 {
 	int		pid_temp;
-	t_cmd	*temp;
 
 	pid_temp = fork();
 	if (pid_temp != 0)
@@ -47,33 +58,16 @@ void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 	if (pid_temp < 0)
 		put_error_data(data, "Failed to Fork Redirection");
 	if (pid_temp == 0)
-	{
-		free_pid(&data->pid);
-		if (cmd->next->io_fd[IN] == -1)
-		{
-			cmd->next->io_fd[IN] = cmd->pipe_read_end;
-		}
-		close_fd(&data->fd, cmd->next->io_fd);
-		cmd_dispatch(data, cmd->next, 1);
-		wait_for_children(&data->pid);
-		/*reset_data_struct(data, 1);*/
-		exit(0);
-	}
+		child_process(data, cmd);
 	else if (is_parent)
 	{
 		while (cmd->next && cmd->next->pipe_read_end != -1)
 		{
 			fork_next_and_pipe(data, cmd->next, 0);
-			temp = cmd->next->next;
-			add_forked_cmd(data, cmd->next);
-			cmd->next = temp;
+			cmd->next = add_forked_cmd(data, cmd->next);
 		}
 		if (cmd->next)
-		{
-			temp = cmd->next->next;
-			add_forked_cmd(data, cmd->next);
-			cmd->next = temp;
-		}
+			cmd->next = add_forked_cmd(data, cmd->next);
 		close_fd(&data->fd, cmd->io_fd);
 		cmd_dispatch(data, cmd, 0);
 	}
