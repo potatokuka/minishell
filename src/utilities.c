@@ -29,10 +29,6 @@ void	add_forked_cmd(t_data *data, t_cmd *cmd)
 	i = data->forked;
 }
 
-/*
-** count the len unti it reaches the sent char
-*/
-
 int		ft_add_pid(t_pid *pid, int add_value)
 {
 	int		i;
@@ -80,7 +76,6 @@ size_t	ft_strclen(const char *str, int c)
 char	*ft_3strjoin(const char *str1, const char *str2,
 			const char *str3)
 {
-	// PROBABLY HERE!
 	char	*combined;
 
 	if (!str1 || !str2 || !str3)
@@ -101,10 +96,7 @@ void	reset_data(t_data *data)
 {
 	if (data->argv)
 		data->argv = (void *)0;
-		/*free_array_null(data->argv);*/
 	data->argc = 0;
-	/*if (data->redirs)*/
-		/*free_array_null(data->redirs);*/
 	data->arg_lst = (void *)0;
 	data->cmd = (void *)0;
 	return ;
