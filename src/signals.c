@@ -16,7 +16,6 @@ void	sig_handler_quit(int i)
 {
 	g_signal_exit = i;
 	ft_printf_fd(2, "\n");
-	/*print_prompt();*/
 	return ;
 }
 void	sig_handler_int(int i)
@@ -30,6 +29,5 @@ void	set_signal(void)
 {
 	signal(SIGQUIT, sig_handler_quit);
 	signal(SIGINT, sig_handler_int);
-	/*signal(SIGSTOP, sig_handler_inp);*/
 	g_signal_exit = 0;
 }
