@@ -17,7 +17,7 @@ void	parse_init(t_data *data)
 	char	*input_str;
 	int		ret;
 
-	ret = get_next_line(STDIN, &input_str); // freed - line 65 
+	ret = get_next_line(STDIN, &input_str);
 	if (ret <= 0)
 	{
 		if (ret == 0)
@@ -42,5 +42,4 @@ void	parse_init(t_data *data)
 		put_error_data(data, "Failed to allocate 1");
 	if (parse_organize(data))
 		reset_data_struct(data, 0);
-		/* put_error_data(data, "Failed to allocate 2"); */
 }
