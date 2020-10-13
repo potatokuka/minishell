@@ -43,7 +43,6 @@ SRCS			=	main.c\
 				parse_utils.c\
 				redir_init.c\
 				list_to_char_array.c\
-				parse_quotes.c\
 				signals.c\
 				fd_sto_utils.c\
 				reset_prompt.c\
