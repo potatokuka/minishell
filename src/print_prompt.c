@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-void	print_prompt()
+void	print_prompt(void)
 {
-  ft_printf_fd(2, "\e[1;34m%s\e[0m", PROMPT);
+	ft_printf_fd(2, "\e[1;34m%s\e[0m", PROMPT);
 }
