@@ -6,35 +6,16 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/13 17:44:49 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 18:03:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <dirent.h>
 
-/*
-** Search the $PATH variable directories a file matching with name
-** matching string exec
-*/
-
-int			search_dir(DIR *dirp, char *exec)
+static int	close_ass_dir(DIR *dirp)
 {
-	struct dirent	*file;
-
-	file = (void *)1;
-	while (file)
-	{
-		file = readdir(dirp);
-		if (file)
-		{
-			if (file_match(file->d_name, exec))
-			{
-				return (1);
-			}
-		}
-	}
-	return (0);
+	closedir(dirp);
+	return (1);
 }
 
 int			get_env_path_exec(char **pathname, char *exec, t_var *env)
@@ -54,11 +35,11 @@ int			get_env_path_exec(char **pathname, char *exec, t_var *env)
 		dirp = opendir(paths[i]);
 		if (dirp && search_dir(dirp, exec))
 		{
-			closedir(dirp);
 			*pathname = ft_3strjoin(paths[i], "/", exec);
 			if (!*pathname)
-				return (1);
+				return (close_ass_dir(dirp));
 		}
+		closedir(dirp);
 		i++;
 	}
 	free_array_null(paths);

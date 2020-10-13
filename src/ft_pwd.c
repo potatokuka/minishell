@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 14:33:09 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 17:52:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int		get_path(char **res)
 			return (1);
 		*res = getcwd(path, size + 1);
 	}
-	if (path)
-		free(path);
 	return (0);
 }
 
