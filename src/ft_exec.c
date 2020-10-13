@@ -6,32 +6,12 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/13 14:49:55 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 17:44:49 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <dirent.h>
-
-/*
-** Return 1 if a char array string matches the str ptr string
-*/
-
-int			file_match(char file[], char *file2)
-{
-	int		i;
-
-	i = 0;
-	while ((file[i] || file2[i]) && i < 256)
-	{
-		if (file[i] != file2[i])
-			return (0);
-		i++;
-	}
-	if (i == 256 && file2[i])
-		return (0);
-	return (1);
-}
 
 /*
 ** Search the $PATH variable directories a file matching with name

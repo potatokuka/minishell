@@ -6,11 +6,32 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 13:53:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:28:51 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:44:56 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Return 1 if a char array string matches the str ptr string
+*/
+
+int			file_match(char file[], char *file2)
+{
+	int		i;
+
+	i = 0;
+	while ((file[i] || file2[i]) && i < 256)
+	{
+		if (file[i] != file2[i])
+			return (0);
+		i++;
+	}
+	if (i == 256 && file2[i])
+		return (0);
+	return (1);
+}
+
 
 void		put_error_data_cmd(t_data *data, t_cmd *cmd, char *error)
 {
