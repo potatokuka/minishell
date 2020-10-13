@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+void	parse_init2(t_data *data, int ret)
+{
+	if (ret == 0)
+	{
+		ft_printf("exit\n");
+		reset_data_struct(data, 1);
+		exit(0);
+	}
+	else
+		put_error_data(data, "Invalid input read");
+}
+
 void	parse_init(t_data *data)
 {
 	char	*input_str;
@@ -19,16 +31,7 @@ void	parse_init(t_data *data)
 
 	ret = get_next_line(STDIN, &input_str);
 	if (ret <= 0)
-	{
-		if (ret == 0)
-		{
-			ft_printf("exit\n");
-			reset_data_struct(data, 1);
-			exit(0);
-		}
-		else
-			put_error_data(data, "Invalid input read");
-	}
+		parse_init2(data, ret);
 	input_str = trim_spaces(input_str);
 	if (!*input_str)
 		return ;
