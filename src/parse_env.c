@@ -24,7 +24,8 @@ bool	ft_env_char(int c, int first)
 	yes_question_mark = 0;
 	if (first && ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'))
 		yes_question_mark = 1;
-	else if (!first && ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9')))
+	else if (!first && ((c >= 'A' && c <= 'Z') ||
+			(c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9')))
 		yes_question_mark = 1;
 	return (yes_question_mark);
 }
