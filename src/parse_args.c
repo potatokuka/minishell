@@ -22,17 +22,10 @@
 ** after it's fully finished
 */
 
-	// TRUE, BREAK STRING HERE EVEN == GTFO
-	// FALSE, ESCAPE IT. ODD == ESCAPE
-	// go from this point, backwards while i > 0
-	// count consecutive '\\' in a row
-	// while ('\\')
-
 bool	check_escape(char *str, int i)
 {
 	int		count;
 
-	/* dprintf(2, "check escape_%s,%d\n", str, i); */
 	count = 0;
 	if (i > 0)
 	{
@@ -64,7 +57,6 @@ char	*handle_escape_quotes(char *arg, int flag)
 
 	i = 0;
 	x = 0;
-	/* dprintf(2, "Arg= %s\n", arg); */
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));// freed LINE 101
 	if (!tmp)
 		return (NULL);
@@ -72,14 +64,12 @@ char	*handle_escape_quotes(char *arg, int flag)
 	{
 		if (arg[i] == '\\' && arg[i + 1] == '\\')
 		{
-			/* dprintf(2, "arg check again %s char %c\n", arg, arg[i]); */
 			tmp[x] = arg[i + 1];
 			i += 2;
 			x++;
 		}
 		else if (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
 		{
-			/* dprintf(2, "arg check again %s char %c\n", arg, arg[i]); */
 			tmp[x] = arg[i + 1];
 			i += 2;
 			x++;
@@ -102,7 +92,6 @@ char	*handle_escape_quotes(char *arg, int flag)
 		return (NULL);
 	free(tmp);
 	free(arg);
-	/* dprintf(2, "Test RET_%s\n", ret); */
 	return (ret);
 }
 
@@ -156,7 +145,6 @@ char	*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 
 int		add_arg(t_data *data, char *arg)
 {
-	/*dprintf(2, "%s\n", arg);*/
 	if (!arg)
 		return (1);
 	if (*arg == '\0')
@@ -180,20 +168,20 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	while (input[i] && !escset(input, break_chars, i))
 	{
 		if (!quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
-			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));//Leaks
+			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));
 		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
-			arg = ft_strldup(input, i);// freed @ line 162 add_arg
+			arg = ft_strldup(input, i);
 			if (!arg)
 				put_error_data(d, "Failed to Allocate Quote");
 			dprintf(2, "testing arg %s\n", arg);
 			if (quote == D_QOTE)
 			{
-				arg = str_env_replace(d, arg, 1);//Protection
+				arg = str_env_replace(d, arg, 1);
 				if (!arg)
 					put_error_data(d, "Failed to Allocate Quote");
 				dprintf(2, "ARG after strENV : %s\n", arg);
-				arg = handle_escape_quotes(arg, 1);//freed in Handle Escapes
+				arg = handle_escape_quotes(arg, 1);
 				if (!arg)
 					put_error_data(d, "Failed to Allocate Quote");
 			}
@@ -202,20 +190,19 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 
 				dprintf(2, "iscest being returned : %s\n", arg);
 				if (input[i + 1] == D_QOTE || input[i] == S_QOTE)
-					return (ft_strjoin(arg, parse_arg(d, input + i + 2, "", input[i + 1])));//Leaks
+					return (ft_strjoin(arg, parse_arg(d, input + i + 2, "", input[i + 1])));
 				else
-					return (ft_strjoin(arg, parse_arg(d, input + i + 1, "><|; ", 0)));//Leaks
+					return (ft_strjoin(arg, parse_arg(d, input + i + 1, "><|; ", 0)));
 			}
 			dprintf(2, "Arg being returned : %s\n", arg);
 			return (arg);
 		}
 		i++;
 	}
-	/*dprintf(2, "134 check : %s,%d\n", input, i);*/
-	arg = ft_strldup(input, i);//Leaks
+	arg = ft_strldup(input, i);
 	if (!arg)
 		put_error_data(d, "Allocation Failed Quotes");
-	arg = str_env_replace(d, arg, 1);//Leaks
+	arg = str_env_replace(d, arg, 1);
 	if (!arg)
 		put_error_data(d, "Allocation Failed Quotes");
 	arg = handle_escape_quotes(arg, 0);
@@ -232,13 +219,11 @@ int		parse_args(t_data *data, char *input)
 	if (!input)
 		return (1);
 	input = trim_spaces(input);
-	/*ft_printf_fd(2, "remaining string_%s\n", input);*/
 	if (*input)
 		if (add_arg(data, parse_arg(data, input, "><|; ", 0)))
 			put_error_data(data, "Failed to allocate arg");
 	i = 0;
 	in_quote = 0;
-	/* dprintf(2, "Testing input before first WHILE: %s\n", input); */
 	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
 	{
 		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE) && check_escape(input, i))
