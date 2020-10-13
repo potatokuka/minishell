@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 13:53:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:44:56 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:46:04 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int			file_match(char file[], char *file2)
 		return (0);
 	return (1);
 }
-
 
 void		put_error_data_cmd(t_data *data, t_cmd *cmd, char *error)
 {
