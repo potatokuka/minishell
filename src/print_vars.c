@@ -74,6 +74,5 @@ void	test_args(char **argv, int argc)
 
 void	print_vars(t_data *data)
 {
-	/* ft_printf("CMD = %s\n", data->cmd); */
 	print_args(data);
 }
