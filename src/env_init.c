@@ -53,7 +53,6 @@ static t_var	*var_init(char *str)
 	if (!new->name)
 		return (NULL);
 	new->val = ft_strdup(str);
-	// NOT THIS SHIT -- STR --
 	if (!new->val)
 	{
 		free(new->name);
@@ -67,6 +66,7 @@ static t_var	*var_init(char *str)
 ** sets the had of the env, stores for later and sets to -1 to make
 ** sure you only run this portion 1 time
 */
+
 static int		env_head_init(t_data *data, char **environ)
 {
 	data->env = NULL;
