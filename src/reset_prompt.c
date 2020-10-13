@@ -12,15 +12,6 @@
 
 #include "minishell.h"
 
-
-// -DATA-
-// argv - arg_lst - pid - fd - envp
-// env - cmd - redirs
-//
-// free the arrays if its a struct free the struct
-// free the shit that's malloc, (*) then free the fucking
-// struct
-
 void		free_fd(t_fd_sto *fd)
 {
 	if (fd->arr)
@@ -103,7 +94,6 @@ int		reset_prompt(t_data *data, char *error, int error_status, int all)
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
-	// PUT THE FUCKING ERROR CODE HERE BITCHES
 	data->pid.last_status = error_status;
 	reset_data_struct(data, all);
 	return (error_status);
