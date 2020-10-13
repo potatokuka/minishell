@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 14:49:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 15:16:27 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 	i = 0;
 	while (in[i] && !escset(in, break_chars, i))
 	{
+		/*dprintf(2, "%d_%c_%s\n", i, in[i], in);*/
 		if (!quote && (in[i] == D_QOTE || in[i] == S_QOTE)
 				&& check_escape(in, i))
 			return (ft_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), -1));
@@ -180,21 +181,20 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 	return (rt);
 }
 
-static int	check_quotes_closed(char *input)
+static int	check_quotes_closed(char *input, int *i)
 {
 	int		in_quote;
-	int		i;
 
 	in_quote = 0;
-	i = 0;
-	while (input[i] && (in_quote || !escset(input, "><|; ", i)))
+	*i = 0;
+	while (input[*i] && (in_quote || !escset(input, "><|; ", *i)))
 	{
-		if (!in_quote && (input[i] == D_QOTE || input[i] == S_QOTE)
-				&& check_escape(input, i))
-			in_quote = input[i];
-		else if (in_quote && input[i] == in_quote && check_escape(input, i))
+		if (!in_quote && (input[*i] == D_QOTE || input[*i] == S_QOTE)
+				&& check_escape(input, *i))
+			in_quote = input[*i];
+		else if (in_quote && input[*i] == in_quote && check_escape(input, *i))
 			in_quote = 0;
-		i++;
+		(*i)++;
 	}
 	return (in_quote);
 }
@@ -209,14 +209,16 @@ int			parse_args(t_data *data, char *input)
 	if (*input)
 		if (add_arg(data, arg(data, input, "><|; ", 0)))
 			put_error_data(data, "Failed to allocate arg");
-	if (check_quotes_closed(input))
+	if (check_quotes_closed(input, &i))
 		return (reset_prompt(data, "Unclosed quotes", 1, 0));
+	/*dprintf(2, "before recall %s\n", input + i);*/
 	if (iscset(input[i], "><|;"))
 	{
 		if (add_arg(data, ft_strldup(input + i, (input[i + 1] == '>') ? 2 : 1)))
 			put_error_data(data, "Failed to allocate arg");
 		i += (input[i + 1] == '>') ? 2 : 1;
 	}
+	/*dprintf(2, "before recall %s\n", input + i);*/
 	if (input[i])
 		return (parse_args(data, input + i));
 	return (0);
