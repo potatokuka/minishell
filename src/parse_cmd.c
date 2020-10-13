@@ -61,10 +61,3 @@ int		is_builtin(char *cmd)
 	else
 		return (0);
 }
-
-/*
-** Saves from start of string to the first occurence of a non alpha 
-** Null terminating the string
-** Prepares trimmed for use in ARG
-*/
-
