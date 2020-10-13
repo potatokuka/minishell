@@ -22,7 +22,7 @@
 ** after it's fully finished
 */
 
-bool	check_escape(char *str, int i)
+bool		check_escape(char *str, int i)
 {
 	int		count;
 
@@ -57,8 +57,8 @@ char		*handle_escape_quotes(char *arg, int flag)
 	while (arg[i])
 	{
 		if ((arg[i] == '\\' && arg[i + 1] == '\\')
-		 || (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
-		 || (arg[i] == '\\'))
+		|| (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
+		|| (arg[i] == '\\'))
 		{
 			tmp[x] = arg[i + 1];
 			i++;
@@ -72,7 +72,7 @@ char		*handle_escape_quotes(char *arg, int flag)
 	return (tmp);
 }
 
-int		escset(char *input, char *set, int i)
+int			escset(char *input, char *set, int i)
 {
 	while (*set)
 	{
@@ -83,7 +83,7 @@ int		escset(char *input, char *set, int i)
 	return (0);
 }
 
-int		iscset(char c, char *set)
+int			iscset(char c, char *set)
 {
 	while (*set)
 	{
@@ -94,7 +94,7 @@ int		iscset(char c, char *set)
 	return (0);
 }
 
-char	*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
+char		*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 {
 	char	*res;
 	size_t	i;
@@ -120,13 +120,13 @@ char	*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 }
 
 
-int		add_arg(t_data *data, char *arg)
+int			add_arg(t_data *data, char *arg)
 {
 	if (!arg)
 		return (1);
 	if (*arg == '\0')
 	{
-		free (arg);
+		free(arg);
 		return (0);
 	}
 	data->argc += 1;
@@ -188,7 +188,7 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 	return (arg);
 }
 
-int		parse_args(t_data *data, char *input)
+int			parse_args(t_data *data, char *input)
 {
 	int		i;
 	int		in_quote;
