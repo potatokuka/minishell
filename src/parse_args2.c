@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:39:38 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/13 17:43:11 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int			iscset(char c, char *set)
 	}
 	return (0);
 }
-
 
 char		*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 {
@@ -83,7 +82,6 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 	i = 0;
 	while (in[i] && !escset(in, break_chars, i))
 	{
-		/*dprintf(2, "%d_%c_%s\n", i, in[i], in);*/
 		if (!quote && (in[i] == D_QOTE || in[i] == S_QOTE)
 				&& check_escape(in, i))
 			return (ft_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), -1));
