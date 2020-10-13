@@ -52,7 +52,6 @@ void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
 		if (cmd->next->io_fd[IN] == -1)
 		{
 			cmd->next->io_fd[IN] = cmd->pipe_read_end;
-			/*dprintf(2, "Read end set %d_%d\n", cmd->next->io_fd[IN], cmd->pipe_read_end);*/
 		}
 		close_fd(&data->fd, cmd->next->io_fd);
 		cmd_dispatch(data, cmd->next, 1);
