@@ -30,7 +30,6 @@ int		env_set_val(const char *name, t_var **env, const char *val)
 		return (0);
 	}
 	curr = *env;
-	/*dprintf(2, "curr_%p_%p\nenv_%p\n", curr, curr->next, *env);*/
 	last = curr;
 	while (curr)
 	{
@@ -44,11 +43,8 @@ int		env_set_val(const char *name, t_var **env, const char *val)
 		last = curr;
 		curr = curr->next;
 	}
-	/*dprintf(2, "curr_%p\nenv_%p\n", curr, *env);*/
-	/*dprintf(2,"\n\n ** - TESTING THIS SHIT - **\n\nname_%s\nval_%s\n\n", name, val);*/
 	last->next = env_add(name, val);
 	if (!last->next)
 		return (1);
 	return (0);
-	/*dprintf(2,"\n\n ** - TESTING THIS SHIT B4 RETURN - **\n\nname_%s\nval_%s\n\n", name, val);*/
 }
