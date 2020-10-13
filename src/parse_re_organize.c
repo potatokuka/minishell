@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 12:02:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 12:13:39 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 
 static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
+	if (data->argc == 1)
+	{
+		free(new);
+		reset_prompt(data, "Trailing pipe", 1, 0);
+		return (NULL);
+	}
 	/*dprintf(2, "saving pipe %s \n", data->argv[i]);*/
 	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
 	if (open_pipe(&data->fd, new))
@@ -120,11 +126,16 @@ static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 	return (new);
 }
 
+static void			put_error_data_cmd(t_data *data, t_cmd *cmd, char *error)
+{
+	free(cmd);
+	put_error_data(data, error);
+}
+
 static t_cmd	*split_init(t_data *data)
 {
 	t_cmd	*new;
 	int		i;
-	int		x;
 
 	new = ft_calloc(sizeof(t_cmd), 1);
 	if (!new)
@@ -138,35 +149,19 @@ static t_cmd	*split_init(t_data *data)
 	dprintf(2, "Split init Arg Structure:\n");
 	while (data->argc > 0)
 	{
-		x = 0;
 		dprintf(2, "%s\n", data->argv[i]);
 		if (new->argc == 0 && is_builtin(data->argv[0]))
 		{
 			new->builtin = ft_strdup(data->argv[i]);
 			if (!new->builtin)
-			{
-				free(new);
-				put_error_data(data, "Failed to allocate in New Builtin");
-			}
+				put_error_data_cmd(data, new, "Failed to allocate in New Builtin");
 			drop_string(data, i);
 			data->argc -= 1;
 		}
 		else if (data->argv[i] && (data->argv[i][0] == '|'))
-		{
-			if (data->argc == 1)
-			{
-				free(new);
-				reset_prompt(data, "Trailing pipe", 1, 0);
-				return (NULL);
-			}
-			new = save_in_pipe(data, new, i);
-			return (new);
-		}
+			return (save_in_pipe(data, new, i));
 		else if (data->argv[i][0] == ';')
-		{
-			new = save_in_semi(data, new, i);
-			return (new);
-		}
+			return (save_in_semi(data, new, i));
 		else if (data->argv[i] && (data->argv[i][0] == '<' || data->argv[i][0] == '>'))
 		{
 			new = save_in_flag(data, new, i);
@@ -175,10 +170,7 @@ static t_cmd	*split_init(t_data *data)
 		else
 		{
 			if (!lst_new_back(&new->arr_list, ft_strdup(data->argv[i])))
-			{
-				free(new);
-				put_error_data(data, "Failed to Allocate in Lst Back Split init");
-			}
+				put_error_data_cmd(data, new, "Failed to Allocate in Lst Back Split init");
 			new->argc += 1;
 			data->argc -= 1;
 			drop_string(data, i);
@@ -189,10 +181,7 @@ static t_cmd	*split_init(t_data *data)
 	{
 		new->argv = list_to_string_array(new->arr_list);
 		if (!new->argv)
-		{
-			free(new);
-			put_error_data(data, "Failed to Allocate in split init");
-		}
+			put_error_data_cmd(data, new, "Failed to Allocate in split init");
 	}
 	new->next = NULL;
 	data->argv = data->argv + i;
