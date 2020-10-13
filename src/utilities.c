@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/12 15:32:46 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 12:26:41 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void	add_forked_cmd(t_data *data, t_cmd *cmd)
 		i->next = cmd;
 	}
 	i = data->forked;
-	while (i)
-	{
-		dprintf(2, "its me:%p\n", i);
-		i = i->next;
-	}
 }
 
 /*
