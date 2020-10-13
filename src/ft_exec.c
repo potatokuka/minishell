@@ -22,7 +22,6 @@ int		file_match(char file[], char *file2)
 	int		i;
 
 	i = 0;
-	/*dprintf(2, "file: %s file2: %s\n", file, file2);*/
 	while ((file[i] || file2[i]) && i < 256)
 	{
 		if (file[i] != file2[i])
@@ -47,20 +46,18 @@ int		search_dir(DIR *dirp, char *exec)
 	while (file)
 	{
 		file = readdir(dirp);
-		if (file)//Also returns NULL on error, so do we need checks in here?
+		if (file)
 		{
-			if (file_match(file->d_name, exec))//Might need to check file type DT_REG || DT_LNK
+			if (file_match(file->d_name, exec))
 			{
-				/*printf("\tf:%s %d %d %d\n", file->d_name, file->d_type, DT_REG, file_match(file->d_name, exec));*/
 				return (1);
 			}
-			/*free(file);*/
 		}
 	}
 	return (0);
 }
 
-int		get_env_path_exec(char **pathname, char *exec, t_var *env)//Leaks harder than your mom during superbowl
+int		get_env_path_exec(char **pathname, char *exec, t_var *env)
 {
 	char			**paths;
 	DIR				*dirp;
@@ -68,7 +65,6 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)//Leaks harder th
 
 	*pathname = get_env_val("PATH", env, 4);
 	dprintf(2,"exec:%s\n", exec);
-	/*printf("$PATH:%s\n", temp);*/
 	paths = ft_split(*pathname, ':');
 	if (!paths)
 		put_error(strerror(errno));
@@ -76,9 +72,8 @@ int		get_env_path_exec(char **pathname, char *exec, t_var *env)//Leaks harder th
 	i = 0;
 	while (pathname && !*pathname && paths[i])
 	{
-		/*printf("path:%s\n", *paths);*/
 		dirp = opendir(paths[i]);
-		if (dirp)//NULL on error, but do we care? maybe theres shit values in PATH, do we really want to throw then?
+		if (dirp)
 		{
 			if (search_dir(dirp, exec))
 			{
@@ -125,8 +120,6 @@ int		griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 
 int		ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 {
-	//TODO Check how bash responds to errno and -1 response
-	//TODO Check if there is a MAX_ARGS
 	char	*path;
 	char	*pathname;
 	int		status;
