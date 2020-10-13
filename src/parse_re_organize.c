@@ -36,7 +36,7 @@ char			*convert_esc2(char *arg, char *tmp, int i, int x)
 			i++;
 		}
 	}
-	ret = ft_strldup(tmp, x);
+	res = ft_strldup(tmp, x);
 	free(tmp);
 	return (res);
 }
