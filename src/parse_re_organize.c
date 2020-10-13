@@ -15,6 +15,32 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+char			*convert_esc2(char *arg, char *tmp, int i, int x)
+{
+	char	*res;
+
+	while (arg[i])
+	{
+		dprintf(2, "testing arg[i] %c\n", arg[i]);
+		if (arg[i] == '\\')
+		{
+			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
+			tmp[x] = arg[i + 1];
+			i += 2;
+			x++;
+		}
+		else
+		{
+			tmp[x] = arg[i];
+			x++;
+			i++;
+		}
+	}
+	ret = ft_strldup(tmp, x);
+	free(tmp);
+	return (res);
+}
+
 int				has_escape(char *str)
 {
 	int i;
@@ -42,27 +68,9 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
 	if (!tmp)
 		put_error_data(data, "Allocation Failed 2");
-	while (arg[i])
-	{
-		dprintf(2, "testing arg[i] %c\n", arg[i]);
-		if (arg[i] == '\\')
-		{
-			dprintf(2, "arg check again %s char %c\n", arg, arg[i]);
-			tmp[x] = arg[i + 1];
-			i += 2;
-			x++;
-		}
-		else
-		{
-			tmp[x] = arg[i];
-			x++;
-			i++;
-		}
-	}
-	ret = ft_strldup(tmp, x);
+	ret = convert_esc2(arg, tmp, i, x);
 	if (!ret)
 		put_error_data(data, "Allocation Failed !");
-	free(tmp);
 	dprintf(2, "Test RET_%s\n", ret);
 	if (!lst_new_back(&new->arr_list, ft_strdup(ret)))
 		put_error_data(data, "Failed Allocation in lst back Parse Re");
@@ -74,7 +82,6 @@ void			convert_esc(t_data *data, t_cmd *new, char *arg, int index)
 
 static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
-
 	if (!data->argv[i + 1])
 		put_error_data(data, "could not find target file");
 	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
