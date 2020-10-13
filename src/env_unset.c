@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:24 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/06 14:47:36 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 14:06:07 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int			unset_env(t_var **env, char *str)
 	t_var	*prev;
 
 	curr = *env;
-	prev = curr;
 	if (!*env)
 		return (1);
 	if (ft_strcmp(str, (*env)->name) == 0)
