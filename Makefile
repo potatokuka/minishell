@@ -47,7 +47,8 @@ SRCS			=	main.c\
 				fd_sto_utils.c\
 				reset_prompt.c\
 				put_error_data.c\
-				ultilities2.c
+				ultilities2.c\
+				ultilities3.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-DNOLIST -g #-fsanitize=address #-Wall -Wextra -Werror
