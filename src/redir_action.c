@@ -63,7 +63,6 @@ void		redir_trunc(t_fd_sto *fd, t_cmd *cmd)
 
 void		redir_std_input(t_fd_sto *fd, t_cmd *cmd)
 {
-// MAYBE CHECK FIRST FOR BUILTINS THAT REQUIRE MAIN PROCESS, CD
 	int file = open(cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
 			put_error("Error with File in Redir input");
