@@ -150,6 +150,7 @@ void	close_fd(t_fd_sto *fd, int io_fd[2]);
 t_cmd	*add_forked_cmd(t_data *data, t_cmd *cmd);
 void	free_fd(t_fd_sto *fd);
 void	free_var(t_var *env);
+int		dup_redir(t_cmd *cmd, int is_child);
 
 /*
 ** PARSING
