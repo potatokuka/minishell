@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/12 15:24:55 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:09:48 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	ft_reset_pid(t_pid *pid);
 int		ft_add_pid(t_pid *pid, int add_value);
 int		sto_fd(t_fd_sto *fd, int add_fd);
 void	close_fd(t_fd_sto *fd, int io_fd[2]);
-void	add_forked_cmd(t_data *data, t_cmd *cmd);
+t_cmd	*add_forked_cmd(t_data *data, t_cmd *cmd);
 
 /*
 ** PARSING

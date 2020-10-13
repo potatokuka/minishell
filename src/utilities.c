@@ -6,16 +6,18 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 12:26:41 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:10:10 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_forked_cmd(t_data *data, t_cmd *cmd)
+t_cmd	*add_forked_cmd(t_data *data, t_cmd *cmd)
 {
 	t_cmd	*i;
+	t_cmd	*temp;
 
+	temp = cmd->next;
 	cmd->next = NULL;
 	if (!data->forked)
 		data->forked = cmd;
@@ -27,6 +29,7 @@ void	add_forked_cmd(t_data *data, t_cmd *cmd)
 		i->next = cmd;
 	}
 	i = data->forked;
+	return (temp);
 }
 
 int		ft_add_pid(t_pid *pid, int add_value)
