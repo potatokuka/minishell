@@ -12,23 +12,17 @@
 
 #include "minishell.h"
 
-void		free_fd(t_fd_sto *fd)
+void		free_data2(t_data *data, int all)
 {
-	if (fd->arr)
-		ft_free((void **)&fd->arr);
-}
-
-void		free_var(t_var *env)
-{
-	if (!env)
-		return ;
-	if (env->name)
-		ft_free((void **)&env->name);
-	if (env->val)
-		ft_free((void **)&env->val);
-	if (env->next && env->next != NULL)
-		free_var(env->next);
-	free(env);
+	free_pid(&data->pid);
+	if (all == 1 && data->env)
+	{
+		free_var(data->env);
+		data->env = NULL;
+	}
+	free_fd(&data->fd);
+	if (data->envp)
+		data->envp = free_array_null(data->envp);
 }
 
 void		free_pid(t_pid *pid)
@@ -78,18 +72,9 @@ void		reset_data_struct(t_data *data, int all)
 		free_list(data->arg_lst, free);
 		data->arg_lst = NULL;
 	}
-	free_pid(&data->pid);
-	if (all == 1 && data->env)
-	{
-		free_var(data->env);
-		data->env = NULL;
-	}
-	free_fd(&data->fd);
-	if (data->envp)
-		data->envp = free_array_null(data->envp);
 }
 
-int		reset_prompt(t_data *data, char *error, int error_status, int all)
+int			reset_prompt(t_data *data, char *error, int error_status, int all)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(error, 2);

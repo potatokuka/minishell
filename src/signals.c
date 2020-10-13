@@ -18,6 +18,7 @@ void	sig_handler_quit(int i)
 	ft_printf_fd(2, "\n");
 	return ;
 }
+
 void	sig_handler_int(int i)
 {
 	g_signal_exit = i;
