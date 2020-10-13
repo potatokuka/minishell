@@ -36,7 +36,7 @@ char			*convert_esc2(char *arg, char *tmp, int i, int x)
 			i++;
 		}
 	}
-	ret = ft_strldup(tmp, x);
+	res = ft_strldup(tmp, x);
 	free(tmp);
 	return (res);
 }
@@ -84,7 +84,6 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
 		put_error_data(data, "could not find target file");
-	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
 		put_error_data(data, "Failed to allocate");
@@ -128,17 +127,43 @@ static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 	return (new);
 }
 
-static void			put_error_data_cmd(t_data *data, t_cmd *cmd, char *error)
+static void		put_error_data_cmd(t_data *data, t_cmd *cmd, char *error)
 {
 	free(cmd);
 	put_error_data(data, error);
 }
 
-static t_cmd	*split_init(t_data *data)
+static void		split_builtin(t_data *data, t_cmd *new, int i)
 {
-	t_cmd	*new;
-	int		i;
+	new->builtin = ft_strdup(data->argv[i]);
+	if (!new->builtin)
+		put_error_data_cmd(data, new, "Failed to allocate in New Builtin");
+	drop_string(data, i);
+	data->argc -= 1;
+}
 
+static void		split_init2(t_data *data, t_cmd *new, int i)
+{
+	if (!lst_new_back(&new->arr_list, ft_strdup(data->argv[i])))
+		put_error_data_cmd(data, new, "Failed to Allocate Lst Back");
+	new->argc += 1;
+	data->argc -= 1;
+	drop_string(data, i);
+}
+
+static void		new_arr_list(t_data *data, t_cmd *new)
+{
+	if (new->arr_list)
+	{
+		new->argv = list_to_string_array(new->arr_list);
+		if (!new->argv)
+			put_error_data_cmd(data, new, "Failed to Allocate split init");
+	}
+	new->next = NULL;
+}
+
+static t_cmd	*split_new(t_data *data, t_cmd *new)
+{
 	new = ft_calloc(sizeof(t_cmd), 1);
 	if (!new)
 		put_error_data(data, "Failed to allocate in new cmd struct");
@@ -147,46 +172,35 @@ static t_cmd	*split_init(t_data *data)
 	new->io_fd[IN] = -1;
 	new->io_fd[OUT] = -1;
 	new->pipe_read_end = -1;
+	return (new);
+}
+
+static t_cmd	*split_init(t_data *da)
+{
+	t_cmd	*new;
+	int		i;
+
+	new = split_new(da, new);
 	i = 0;
-	dprintf(2, "Split init Arg Structure:\n");
-	while (data->argc > 0)
+	while (da->argc > 0)
 	{
-		dprintf(2, "%s\n", data->argv[i]);
-		if (new->argc == 0 && is_builtin(data->argv[0]))
+		if (new->argc == 0 && is_builtin(da->argv[0]))
+			split_init2(da, new, i);
+		else if (da->argv[i] && (da->argv[i][0] == '|'))
+			return (save_in_pipe(da, new, i));
+		else if (da->argv[i][0] == ';')
+			return (save_in_semi(da, new, i));
+		else if (da->argv[i] && (da->argv[i][0] == 60 || da->argv[i][0] == 62))
 		{
-			new->builtin = ft_strdup(data->argv[i]);
-			if (!new->builtin)
-				put_error_data_cmd(data, new, "Failed to allocate in New Builtin");
-			drop_string(data, i);
-			data->argc -= 1;
-		}
-		else if (data->argv[i] && (data->argv[i][0] == '|'))
-			return (save_in_pipe(data, new, i));
-		else if (data->argv[i][0] == ';')
-			return (save_in_semi(data, new, i));
-		else if (data->argv[i] && (data->argv[i][0] == '<' || data->argv[i][0] == '>'))
-		{
-			new = save_in_flag(data, new, i);
+			new = save_in_flag(da, new, i);
 			i++;
 		}
 		else
-		{
-			if (!lst_new_back(&new->arr_list, ft_strdup(data->argv[i])))
-				put_error_data_cmd(data, new, "Failed to Allocate in Lst Back Split init");
-			new->argc += 1;
-			data->argc -= 1;
-			drop_string(data, i);
-		}
+			split_init2(da, new, i);
 		i++;
 	}
-	if (new->arr_list)
-	{
-		new->argv = list_to_string_array(new->arr_list);
-		if (!new->argv)
-			put_error_data_cmd(data, new, "Failed to Allocate in split init");
-	}
-	new->next = NULL;
-	data->argv = data->argv + i;
+	new_arr_list(da, new);
+	da->argv = da->argv + i;
 	return (new);
 }
 
