@@ -70,7 +70,7 @@ char	*str_env_replace(t_data *data, char *str, int all)
 		{
 			str = str_env_replace_index(data, str, i);
 			if (!all)
-				break;
+				break ;
 		}
 		i++;
 	}
