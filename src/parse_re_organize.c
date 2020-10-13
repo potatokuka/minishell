@@ -80,20 +80,17 @@ static t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i)
 	dprintf(2, "saving redirect %s %s\n", data->argv[i], data->argv[i+1]);
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
-		put_error_data(data, "Failed to allocate");//Would leak new?LEAKS
+		put_error_data(data, "Failed to allocate");
 	redir_dispatch(&data->fd, new, data->argv[i]);
 	drop_string(data, i);
 	i += 1;
 	drop_string(data, i);
 	data->argc -= 2;
-	/* new->argv = list_to_string_array(new->arr_list); */
-	/* new->next = NULL; */
 	return (new);
 }
 
 static t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i)
 {
-	/*dprintf(2, "saving semicolon %s \n", data->argv[i]);*/
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
 	if (!new->argv)
@@ -112,8 +109,6 @@ static t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i)
 		reset_prompt(data, "Trailing pipe", 1, 0);
 		return (NULL);
 	}
-	/*dprintf(2, "saving pipe %s \n", data->argv[i]);*/
-	//Check if there is already a redir of STDOUT or STDIN open if so, create pipe but don't assign the already used end
 	if (open_pipe(&data->fd, new))
 		put_error_data(data, "Failed to Allocate in Open Pipe");
 	drop_string(data, i);

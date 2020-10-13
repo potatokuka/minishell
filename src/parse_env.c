@@ -17,12 +17,6 @@
 ** their value
 */
 
-//Search through string till $, this is pre-env-string
-//continue until end of arg or invalid char (check with ft_env_char), this is env var
-//anything afterward is post-env-string
-//	try to get env val based on var
-//	3strjoin pre, env-val, post
-
 bool	ft_env_char(int c, int first)
 {
 	bool	yes_question_mark;
@@ -51,10 +45,10 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	if (envend >= 1)
 	{
 		envvar = get_env_val(envvar, data->env, envend);
-		envvar = ft_strdup((envvar) ? envvar : "");// freed LINE 58
+		envvar = ft_strdup((envvar) ? envvar : "");
 		if (!envvar)
 			put_error_data(data, "Failed to Allocate Str Env Index");
-		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);//Protection
+		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);
 		if (!res)
 			put_error_data(data, "Failed to Allocate Str Env Index");
 		if (str)

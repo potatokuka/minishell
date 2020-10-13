@@ -57,7 +57,7 @@ char	*handle_escape_quotes(char *arg, int flag)
 
 	i = 0;
 	x = 0;
-	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));// freed LINE 101
+	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
 	if (!tmp)
 		return (NULL);
 	while (arg[i])
