@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 /*
-** send each argv to get removed from ENV if they exist 
+** send each argv to get removed from ENV if they exist
 */
 
 int		ft_unset(t_cmd *cmd, t_var **env)
