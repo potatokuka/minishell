@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 13:32:13 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/13 13:40:34 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ char		*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2)
 	return (res);
 }
 
-
 int			add_arg(t_data *data, char *arg)
 {
 	if (!arg)
@@ -135,11 +134,26 @@ int			add_arg(t_data *data, char *arg)
 	return (0);
 }
 
-char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
+static char	*handle_escapes_envs(t_data *d, char *arg, int quote_type, int quote_flag)
+{
+	if (!arg)
+		put_error_data(d, "Allocation Failed Quotes");
+	arg = str_env_replace(d, arg, 1);
+	if (!arg)
+		put_error_data(d, "Failed to Allocate Quote");
+	if (quote_type == D_QOTE)
+	{
+		arg = handle_escape_quotes(arg, quote_flag);
+		if (!arg)
+			put_error_data(d, "Failed to Allocate Quote");
+	}
+	return (arg);
+}
+
+char		*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 {
 	int		i;
 	char	*arg;
-	char	*tmp;
 
 	i = 0;
 	while (input[i] && !escset(input, break_chars, i))
@@ -148,43 +162,19 @@ char	*parse_arg(t_data *d, char *input, char *break_chars, int quote)
 			return (ft_strljoin(input, i, parse_arg(d, input + i + 1, "", input[i]), -1));
 		else if ((quote && input[i] == quote) && check_escape(input, i))
 		{
-			arg = ft_strldup(input, i);
-			if (!arg)
-				put_error_data(d, "Failed to Allocate Quote");
-			dprintf(2, "testing arg %s\n", arg);
-			if (quote == D_QOTE)
-			{
-				arg = str_env_replace(d, arg, 1);
-				if (!arg)
-					put_error_data(d, "Failed to Allocate Quote");
-				dprintf(2, "ARG after strENV : %s\n", arg);
-				arg = handle_escape_quotes(arg, 1);
-				if (!arg)
-					put_error_data(d, "Failed to Allocate Quote");
-			}
+			arg = handle_escapes_envs(d, ft_strldup(input, i), quote, 1);
 			if (!iscset(input[i + 1], "><|; "))
 			{
-
-				dprintf(2, "iscest being returned : %s\n", arg);
 				if (input[i + 1] == D_QOTE || input[i] == S_QOTE)
 					return (ft_strjoin(arg, parse_arg(d, input + i + 2, "", input[i + 1])));
 				else
 					return (ft_strjoin(arg, parse_arg(d, input + i + 1, "><|; ", 0)));
 			}
-			dprintf(2, "Arg being returned : %s\n", arg);
 			return (arg);
 		}
 		i++;
 	}
-	arg = ft_strldup(input, i);
-	if (!arg)
-		put_error_data(d, "Allocation Failed Quotes");
-	arg = str_env_replace(d, arg, 1);
-	if (!arg)
-		put_error_data(d, "Allocation Failed Quotes");
-	arg = handle_escape_quotes(arg, 0);
-	if (!arg)
-		put_error_data(d, "Allocation Failed Quotes");
+	arg = handle_escapes_envs(d, ft_strldup(input, i), 0, 0);
 	return (arg);
 }
 
