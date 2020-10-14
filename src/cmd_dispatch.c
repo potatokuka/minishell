@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 11:46:19 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 11:52:11 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			wait_for_children(t_pid *pid)
 
 static void		child_process(t_data *data, t_cmd *cmd)
 {
+	g_is_parent = 0;
 	free_pid(&data->pid);
 	if (cmd->next->io_fd[IN] == -1)
 		cmd->next->io_fd[IN] = cmd->pipe_read_end;
