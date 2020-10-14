@@ -50,6 +50,12 @@ t_cmd			*save_in_pipe(t_data *data, t_cmd *new, int i)
 		reset_prompt(data, "Trailing pipe", 1, 0);
 		return (NULL);
 	}
+	if (new->builtin == NULL && !new->arr_list)
+	{
+		free_cmd(new);
+		reset_prompt(data, "Syntax error", 1, 0);
+		return (NULL);
+	}
 	if (open_pipe(&data->fd, new))
 		put_error_data(data, "Failed to Allocate in Open Pipe");
 	drop_string(data, i);
