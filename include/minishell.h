@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 12:53:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 12:56:08 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int		file_match(char file[], char *file2);
 int		search_dir(DIR *dirp, char *exec);
 
 int		parse_organize(t_data *data);
-int		clear_cmd(t_cmd *cmd, void(*del)(void *));
+int		clear_cmd(t_cmd **cmd);
 int		drop_string(t_data *data, int i);
 void	print_cmd_full(t_data *data);
 void	print_cur_cmd(t_cmd *cmd);

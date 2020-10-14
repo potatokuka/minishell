@@ -6,27 +6,16 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/03 20:45:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 14:31:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 12:56:10 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		clear_cmd(t_cmd *cmd, void (*del)(void *))
+int		clear_cmd(t_cmd **cmd)
 {
-	t_cmd	*delete;
-
-	while (cmd)
-	{
-		delete = cmd;
-		cmd = cmd->next;
-		if (delete->builtin)
-			del(delete->builtin);
-		if (delete->tar_file)
-			del(delete->tar_file);
-		if (delete->argv)
-			free_array_null(delete->argv);
-	}
+	free_cmd(*cmd);
+	*cmd = NULL;
 	return (1);
 }
 

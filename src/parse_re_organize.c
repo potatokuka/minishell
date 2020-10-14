@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 12:52:57 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 12:57:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_cmd			*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	if (data->argc == 1)
 	{
-		free(new);
+		free_cmd(new);
 		reset_prompt(data, "Trailing pipe", 1, 0);
 		return (NULL);
 	}
@@ -78,7 +78,7 @@ static int		cmd_head_init(t_data *data, char **argv)
 	}
 	data->cmd = split_init(data);
 	if (!data->cmd)
-		return (clear_cmd(data->cmd, &free));
+		return (clear_cmd(&data->cmd));
 	return (0);
 }
 
@@ -104,7 +104,7 @@ int				parse_organize(t_data *data)
 	{
 		tmp = split_init(data);
 		if (!tmp)
-			return (clear_cmd(data->cmd, &free));
+			return (clear_cmd(&data->cmd));
 		cmd->next = tmp;
 		cmd = cmd->next;
 	}
