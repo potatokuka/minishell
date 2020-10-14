@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,6 +20,9 @@ t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
 		put_error_data(data, "could not find target file");
+	if ((ft_strncmp(data->argv[i + 1], "<", 1) == 0) ||
+			(ft_strncmp(data->argv[i + 1], ">", 1) == 0))
+		put_error_data(data, "Invalid Syntax");
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
 		put_error_data(data, "Failed to allocate");
