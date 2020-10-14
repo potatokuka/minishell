@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/15 14:22:33 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 13:33:26 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 11:42:24 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void	print_prompt(void)
 {
-	ft_printf_fd(2, "\e[1;34m%s\e[0m", PROMPT);
+	if (g_prompt_printed == 0)
+		ft_printf_fd(2, "\e[1;34m%s\e[0m", PROMPT);
+	g_prompt_printed = 1;
 }

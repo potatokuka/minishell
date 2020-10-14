@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 14:41:45 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 11:44:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void		shell(t_data *data, t_cmd *head)
 {
 	print_prompt();
+	g_prompt_printed = 0;
 	parse_init(data);
 	head = data->cmd;
 	while (data->cmd)

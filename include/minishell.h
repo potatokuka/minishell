@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 18:02:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 11:41:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct		s_data
 }					t_data;
 
 int					g_signal_exit;
+int					g_prompt_printed;
 
 /*
 ** FUNCTION PROTOTYPES

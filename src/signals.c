@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/18 13:39:53 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/02 14:58:20 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/14 11:45:19 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	sig_handler_quit(int i)
 
 void	sig_handler_int(int i)
 {
+	g_prompt_printed = 0;
 	g_signal_exit = i;
 	ft_printf_fd(2, "\n");
+	print_prompt();
 	return ;
 }
 
