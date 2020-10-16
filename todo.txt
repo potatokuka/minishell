@@ -79,6 +79,6 @@ kanker kommands
 			check filename isnt a reserved char
 	echo \"""
 		same error as before, "" parses badly
-	echo ><
+	echo ><					fixed
 		filename not reserved char
 	
