@@ -68,11 +68,11 @@ kanker kommands
 		leaks
 	pwd||yeet				fixed
 		null read, should throw syntax error
-	echo <invalidfile
+	echo <invalidfile		seems to be fixed
 		leaks
-	echo "a"""'b'c;echo d
+	echo "a"""'b'c;echo d	fixed
 		weird parse
-	 ''''a
+	 ''''a					fixed
 		Error:
 	echo >>>test
 		not sure what, parse error
@@ -81,4 +81,5 @@ kanker kommands
 		same error as before, "" parses badly
 	echo ><
 		filename not reserved char
-	
+	" echo hello"			fixed
+		space before command causes potato
