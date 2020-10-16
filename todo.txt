@@ -77,7 +77,7 @@ kanker kommands
 	echo >>>test			fixed
 		not sure what, parse error
 			check filename isnt a reserved char
-	echo \"""
+	echo \"""				fixed
 		same error as before, "" parses badly
 	echo ><					fixed
 		filename not reserved char
