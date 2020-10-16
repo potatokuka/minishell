@@ -68,13 +68,13 @@ kanker kommands
 		leaks
 	pwd||yeet				fixed
 		null read, should throw syntax error
-	echo <invalidfile
+	echo <invalidfile		fixed
 		leaks
 	echo "a"""'b'c;echo d
 		weird parse
 	 ''''a
 		Error:
-	echo >>>test
+	echo >>>test			fixed
 		not sure what, parse error
 			check filename isnt a reserved char
 	echo \"""
