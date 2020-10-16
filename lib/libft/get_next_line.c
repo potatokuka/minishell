@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/29 20:39:13 by greed         #+#    #+#                 */
-/*   Updated: 2019/12/07 13:09:35 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/16 13:56:08 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	{
 		return (NULL);
 	}
+	dprintf(2, "join_\t_%s\t_%s\n", s1, s2);
 	l1 = ft_strchr(s1, '\0');
+	/*l1 = ft_strlen_lib(s1);*/
 	l2 = ft_strchr(s2, '\0');
+	/*l2 = ft_strlen_lib(s2);*/
 	res = (char*)malloc(sizeof(char) * (l1 + l2 + 1));
 	if (!res)
 		return (NULL);

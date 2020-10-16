@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 12:56:08 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/16 13:37:32 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ char	*arg(t_data *dt, char *in, char *break_chars, int quote);
 int		add_arg(t_data *data, char *arg);
 int		escset(char *input, char *set, int i);
 int		iscset(char c, char *set);
-char	*ft_strljoin(char const *s1, size_t l1, char const *s2, size_t l2);
+char	*ft_strljoin(char const *s1, ssize_t l1, char const *s2, ssize_t l2);
 int		check_quotes_closed(char *input, int *i);
 char	*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 			int quote_flag);

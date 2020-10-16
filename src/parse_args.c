@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:42:42 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/16 14:18:11 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*handle_escape_quotes(char *arg, int flag)
 
 	i = 0;
 	x = 0;
-	tmp = ft_calloc(ft_strlen_lib(arg), sizeof(char));
+	tmp = ft_calloc(ft_strlen_lib(arg) + 1, sizeof(char));
 	if (!tmp)
 		return (NULL);
 	while (arg[i])
@@ -78,6 +78,15 @@ char		*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 	if (!arg)
 		put_error_data(d, "Allocation Failed Quotes");
 	arg = str_env_replace(d, arg, 1);
+
+	perror("luaga");
+	int i = 0;
+	while (arg[i])
+	{
+		dprintf(2, "%c_", arg[i]);
+		i++;
+	}
+	dprintf(2, "\n");
 	if (!arg)
 		put_error_data(d, "Failed to Allocate Quote");
 	if (quote_type == D_QOTE)
@@ -85,6 +94,15 @@ char		*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 		arg = handle_escape_quotes(arg, quote_flag);
 		if (!arg)
 			put_error_data(d, "Failed to Allocate Quote");
+
+		perror("wwwwwaaario");
+		i = 0;
+		while (arg[i])
+		{
+			dprintf(2, "%c_", arg[i]);
+			i++;
+		}
+		dprintf(2, "\n");
 	}
 	return (arg);
 }
@@ -114,6 +132,7 @@ int			parse_args(t_data *data, char *input)
 	if (!input)
 		return (1);
 	input = trim_spaces(input);
+	dprintf(2, "before parse_%s\n", input);
 	if (*input)
 		if (add_arg(data, arg(data, input, "><|; ", 0)))
 			put_error_data(data, "Failed to allocate arg");
