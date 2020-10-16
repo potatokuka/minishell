@@ -83,3 +83,4 @@ kanker kommands
 		filename not reserved char
 	" echo hello"			fixed
 		space before command causes potato
+	echo >|					fixed
