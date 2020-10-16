@@ -241,10 +241,10 @@ int		set_exit_env_val(t_var **env, int *last_status);
 */
 
 void	redir_init(t_data *data);
-void	redir_dispatch(t_fd_sto *fd, t_cmd *cmd, char *pipe);
-void	redir_append(t_fd_sto *fd, t_cmd *cmd);
-void	redir_trunc(t_fd_sto *fd, t_cmd *cmd);
-void	redir_std_input(t_fd_sto *fd, t_cmd *cmd);
+void	redir_dispatch(t_data *data, t_fd_sto *fd, t_cmd *cmd, char *pipe);
+void	redir_append(t_data *data, t_fd_sto *fd, t_cmd *cmd);
+void	redir_trunc(t_data *data, t_fd_sto *fd, t_cmd *cmd);
+void	redir_std_input(t_data *data, t_fd_sto *fd, t_cmd *cmd);
 int		ft_is_redir(char *str);
 int		open_pipe(t_fd_sto *fd, t_cmd *cmd);
 void	set_fork_redir(t_cmd *cmd);

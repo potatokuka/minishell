@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-void	redir_dispatch(t_fd_sto *fd, t_cmd *cmd, char *pipe)
+void	redir_dispatch(t_data *data, t_fd_sto *fd, t_cmd *cmd, char *pipe)
 {
 	if (cmd && pipe)
 	{
 		dprintf(2, "pipe =%s\n", pipe);
 		if (ft_strcmp(pipe, ">>") == 0)
-			redir_append(fd, cmd);
+			redir_append(data, fd, cmd);
 		else if (ft_strcmp(pipe, "<") == 0)
-			redir_std_input(fd, cmd);
+			redir_std_input(data, fd, cmd);
 		else if (ft_strcmp(pipe, ">") == 0)
-			redir_trunc(fd, cmd);
+			redir_trunc(data, fd, cmd);
 	}
 	return ;
 }

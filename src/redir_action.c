@@ -41,37 +41,37 @@
 ** target to the right
 */
 
-void	redir_append(t_fd_sto *fd, t_cmd *cmd)
+void	redir_append(t_data *data, t_fd_sto *fd, t_cmd *cmd)
 {
 	int file;
 
 	file = open(cmd->tar_file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (file < 0)
-		put_error("Error with File in Redir Append");
+		reset_prompt(data, "Error with File in Redir Append", 1, 0);
 	cmd->io_fd[OUT] = file;
 	if (sto_fd(fd, file))
 		put_error("Failed to store FD");
 }
 
-void	redir_trunc(t_fd_sto *fd, t_cmd *cmd)
+void	redir_trunc(t_data *data, t_fd_sto *fd, t_cmd *cmd)
 {
 	int file;
 
 	file = open(cmd->tar_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file < 0)
-		put_error("Error with File in Redir trunc");
+		reset_prompt(data, "Error with File in Redir Trunc", 1, 0);
 	cmd->io_fd[OUT] = file;
 	if (sto_fd(fd, file))
 		put_error("Failed to store FD");
 }
 
-void	redir_std_input(t_fd_sto *fd, t_cmd *cmd)
+void	redir_std_input(t_data *data, t_fd_sto *fd, t_cmd *cmd)
 {
 	int file;
 
 	file = open(cmd->tar_file, O_RDONLY, 0644);
 	if (file < 0)
-		put_error("Error with File in Redir input");
+		reset_prompt(data, "Error with File in Redir Input", 1, 0);
 	dprintf(2, "Input Redir FD : %d\n", file);
 	cmd->io_fd[IN] = file;
 	if (sto_fd(fd, file))

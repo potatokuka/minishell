@@ -26,7 +26,7 @@ t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
 		put_error_data(data, "Failed to allocate");
-	redir_dispatch(&data->fd, new, data->argv[i]);
+	redir_dispatch(data, &data->fd, new, data->argv[i]);
 	drop_string(data, i);
 	i += 1;
 	drop_string(data, i);
