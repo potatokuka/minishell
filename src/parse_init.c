@@ -26,21 +26,22 @@ void	parse_init2(t_data *data, int ret)
 
 void	parse_init(t_data *data)
 {
-	char	*input_str;
+	char	*input_trimmed;
 	int		ret;
+	char	*input_head;
 
-	ret = get_next_line(STDIN, &input_str);
+	ret = get_next_line(STDIN, &input_head);
 	if (ret <= 0)
 		parse_init2(data, ret);
-	input_str = trim_spaces(input_str);
-	if (!*input_str)
+	input_trimmed = trim_spaces(input_head);
+	if (!*input_trimmed)
 	{
-		free(input_str);
+		free(input_trimmed);
 		return ;
 	}
-	if (parse_args(data, input_str))
+	if (parse_args(data, input_trimmed))
 		return ;
-	free(input_str);
+	free(input_head);
 	data->argv = list_to_string_array(data->arg_lst);
 	free_list(data->arg_lst, free);
 	data->arg_lst = NULL;
