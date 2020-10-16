@@ -74,6 +74,28 @@ int			add_arg(t_data *data, char *arg)
 	return (0);
 }
 
+char		*safe_strljoin(char *s1, ssize_t l1, char *s2, ssize_t l2)
+{
+	char	*res;
+
+	res = ft_strljoin(s1, l1, s2, l2);
+	if (l1 == -1)
+		free(s1);
+	if (l2 == -1)
+		free(s2);
+	return (res);
+}
+
+char		*safe_strjoin(char *s1, char *s2)
+{
+	char	*res;
+
+	res = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (res);
+}
+
 char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 {
 	int		i;
@@ -85,6 +107,7 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 		if (!quote && (in[i] == D_QOTE || in[i] == S_QOTE)
 				&& check_escape(in, i))
 			return (ft_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), -1));
+			return (safe_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), -1));
 		else if ((quote && in[i] == quote) && check_escape(in, i))
 		{
 			rt = handle_escapes_envs(dt, ft_strldup(in, i), quote, 1);
@@ -92,8 +115,10 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 			{
 				if (in[i + 1] == D_QOTE || in[i] == S_QOTE)
 					return (ft_strjoin(rt, arg(dt, in + i + 2, "", in[i + 1])));
+					return (safe_strjoin(rt, arg(dt, in + i + 2, "", in[i + 1])));
 				else
 					return (ft_strjoin(rt, arg(dt, in + i + 1, "><|; ", 0)));
+					return (safe_strjoin(rt, arg(dt, in + i + 1, "><|; ", 0)));
 			}
 			return (rt);
 		}
