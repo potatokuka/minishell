@@ -115,6 +115,7 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 			{
 				if (in[i + 1] == D_QOTE || in[i] == S_QOTE)
 					return (ft_strjoin(rt, arg(dt, in + i + 2, "", in[i + 1])));
+				if (in[i + 1] == D_QOTE || in[i + 1] == S_QOTE)
 					return (safe_strjoin(rt, arg(dt, in + i + 2, "", in[i + 1])));
 				else
 					return (ft_strjoin(rt, arg(dt, in + i + 1, "><|; ", 0)));
