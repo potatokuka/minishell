@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 13:01:10 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:19:27 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,9 @@ void	parse_init(t_data *data)
 		parse_init2(data, ret);
 	input_trimmed = trim_spaces(input_head);
 	if (!*input_trimmed)
-	{
-		free(input_trimmed);
-		return ;
-	}
+		return (free(input_head));
 	if (parse_args(data, input_trimmed))
-		return ;
+		return (free(input_head));
 	free(input_head);
 	data->argv = list_to_string_array(data->arg_lst);
 	free_list(data->arg_lst, free);
