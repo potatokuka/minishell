@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/13 14:54:21 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:37:41 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,26 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 char	*str_env_replace(t_data *data, char *str, int all)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && check_escape(str, i))
+		if (str[i] == '$')
 		{
-			str = str_env_replace_index(data, str, i);
-			if (!all)
-				break ;
+			if (!check_escape(str, i))
+			{
+				tmp = safestrjn(ft_strldup(str, i - 1), ft_strdup(str + i));
+				dprintf(2, "Hi \t_%s\t_%s\n", ft_strldup(str, i), ft_strdup(str + i));
+				free(str);
+				str = tmp;
+			}
+			else
+			{
+				str = str_env_replace_index(data, str, i);
+				if (!all)
+					break ;
+			}
 		}
 		i++;
 	}
