@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 13:53:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:46:04 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/19 13:27:24 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,16 @@ int			dup_redir(t_cmd *cmd, int is_child)
 			close(cmd->io_fd[OUT]);
 	}
 	return (0);
+}
+
+char		*safe_strljoin(char *s1, ssize_t l1, char *s2, ssize_t l2)
+{
+	char	*res;
+
+	res = ft_strljoin(s1, l1, s2, l2);
+	if (l1 == -1)
+		free(s1);
+	if (l2 == -1)
+		free(s2);
+	return (res);
 }

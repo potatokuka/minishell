@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/10/16 13:40:40 by averheij      ########   odam.nl          #
+#    Updated: 2020/10/19 13:30:05 by averheij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS			=	main.c\
 				ultilities3.c\
 				parse_re_orginize2.c\
 				parse_utils2.c\
-				parse_args2.c
+				parse_args2.c\
+				ultilities4.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
 CFLAGS			=	-DNOLIST -g #-fsanitize=address #-Wall -Wextra -Werror

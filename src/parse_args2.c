@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/16 14:20:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 13:26:24 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,6 @@ int			add_arg(t_data *data, char *arg)
 	return (0);
 }
 
-char		*safe_strljoin(char *s1, ssize_t l1, char *s2, ssize_t l2)
-{
-	char	*res;
-
-	res = ft_strljoin(s1, l1, s2, l2);
-	if (l1 == -1)
-		free(s1);
-	if (l2 == -1)
-		free(s2);
-	return (res);
-}
-
-char		*safe_strjoin(char *s1, char *s2)
-{
-	char	*res;
-
-	res = ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
-	return (res);
-}
-
 char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 {
 	int		i;
@@ -113,9 +91,9 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 			if (!iscset(in[i + 1], "><|; "))
 			{
 				if (in[i + 1] == D_QOTE || in[i + 1] == S_QOTE)
-					return (safe_strjoin(rt, arg(dt, in + i + 2, "", in[i + 1])));
+					return (safestrjn(rt, arg(dt, in + i + 2, "", in[i + 1])));
 				else
-					return (safe_strjoin(rt, arg(dt, in + i + 1, "><|; ", 0)));
+					return (safestrjn(rt, arg(dt, in + i + 1, "><|; ", 0)));
 			}
 			return (rt);
 		}
