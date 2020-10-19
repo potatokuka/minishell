@@ -84,3 +84,9 @@ kanker kommands
 	" echo hello"			fixed
 		space before command causes potato
 	echo >|					fixed
+
+syntax errors with pipes or other may leave file descriptors open due to unclean exit
+	file descriptors get opened when syntax error gets trhown which shoudln'tr eally happen but annoying to avoid
+
+cat < naaah
+	errors but runs cat still
