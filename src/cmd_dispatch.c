@@ -16,19 +16,11 @@ void			wait_for_children(t_pid *pid)
 {
 	int i;
 
-	/*i = 0;*/
-	/*while (i < pid->count)*/
-	/*{*/
-		/*dprintf(2, "[%d]_%d\n", i, pid->value[i]);*/
-		/*i++;*/
-	/*}*/
 	i = 0;
 	while (i < pid->count)
 	{
-		/*dprintf(2, "waiting pid:%d\n", pid->value[i]);*/
 		waitpid(pid->value[i], &pid->last_status, 0);
 		pid->last_status = pid->last_status / 256;
-		/*dprintf(2, "exited with:%d\n", pid->last_status);*/
 		i++;
 	}
 	ft_free((void **)&pid->value);
