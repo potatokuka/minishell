@@ -20,8 +20,7 @@ t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
 		put_error_data(data, "could not find target file");
-	if ((ft_strncmp(data->argv[i + 1], "<", 1) == 0) ||
-			(ft_strncmp(data->argv[i + 1], ">", 1) == 0))
+	if (iscset(data->argv[i + 1][0], "<>|;."))
 		put_error_data(data, "Invalid Syntax");
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
