@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 14:42:26 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:04:39 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char		*handle_escape_quotes(char *arg, char *escapeme)
 char		*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 		int quote_flag)
 {
-	dprintf(2, "potato%c\n", quote_type);
 	if (!arg)
 		put_error_data(d, "Allocation Failed Quotes");
 	arg = str_env_replace(d, arg, 1);
@@ -100,7 +99,7 @@ int			check_quotes_closed(char *input, int *i)
 		if (!in_quote && (input[*i] == D_QOTE || input[*i] == S_QOTE)
 				&& check_escape(input, *i))
 			in_quote = input[*i];
-		else if (in_quote && input[*i] == in_quote && check_escape(input, *i))
+		else if (in_quote && input[*i] == in_quote && (in_quote = S_QOTE || check_escape(input, *i)))
 			in_quote = 0;
 		(*i)++;
 	}

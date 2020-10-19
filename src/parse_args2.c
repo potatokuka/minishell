@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 14:30:27 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:00:11 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char		*arg(t_data *dt, char *in, char *break_chars, int quote)
 		if (!quote && (in[i] == D_QOTE || in[i] == S_QOTE)
 				&& check_escape(in, i))
 			return (safe_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), dt));
-		else if ((quote && in[i] == quote) && check_escape(in, i))
+		else if ((quote && in[i] == quote) && (quote == S_QOTE || check_escape(in, i)))
 		{
 			rt = handle_escapes_envs(dt, ft_strldup(in, i), quote, 1);
 			if (!iscset(in[i + 1], "><|; "))
