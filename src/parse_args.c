@@ -58,8 +58,6 @@ char		*handle_escape_quotes(char *arg, char *escapeme)
 	{
 		if ((arg[i] == '\\' && arg[i + 1] == '\\')
 		|| (arg[i] == '\\' && iscset(arg[i + 1], "\"\'")))
-		/*|| (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1))*/
-		/*|| (arg[i] == '\\'))*/
 		{
 			tmp[x] = arg[i + 1];
 			i++;
