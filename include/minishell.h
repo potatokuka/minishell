@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 13:25:46 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:43:34 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i);
 char	*arg(t_data *dt, char *in, char *break_chars, int quote);
 int		add_arg(t_data *data, char *arg);
 
-char	*safe_strljoin(char *s1, ssize_t l1, char *s2, ssize_t l2);
+char	*safe_strljoin(char *s1, ssize_t l1, char *s2, t_data *data);
 char	*safestrjn(char *s1, char *s2);
 int		escset(char *input, char *set, int i);
 int		iscset(char c, char *set);
@@ -197,7 +197,7 @@ char	*ft_strljoin(char const *s1, ssize_t l1, char const *s2, ssize_t l2);
 int		check_quotes_closed(char *input, int *i);
 char	*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 			int quote_flag);
-char	*handle_escape_quotes(char *arg, int flag);
+char	*handle_escape_quotes(char *arg, char *escapeme);
 bool	check_escape(char *str, int i);
 
 /*

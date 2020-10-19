@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 14:00:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/19 14:42:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool		check_escape(char *str, int i)
 	return (true);
 }
 
-char		*handle_escape_quotes(char *arg, int flag)
+char		*handle_escape_quotes(char *arg, char *escapeme)
 {
 	char	*tmp;
 	int		i;
@@ -57,8 +57,9 @@ char		*handle_escape_quotes(char *arg, int flag)
 	while (arg[i])
 	{
 		if ((arg[i] == '\\' && arg[i + 1] == '\\')
-		|| (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1)
-		|| (arg[i] == '\\'))
+		|| (arg[i] == '\\' && iscset(arg[i + 1], "\"\'")))
+		/*|| (arg[i] == '\\' && arg[i + 1] == '\"' && flag == 1))*/
+		/*|| (arg[i] == '\\'))*/
 		{
 			tmp[x] = arg[i + 1];
 			i++;
@@ -83,7 +84,7 @@ char		*handle_escapes_envs(t_data *d, char *arg, int quote_type,
 		put_error_data(d, "Failed to Allocate Quote");
 	if (quote_type == D_QOTE)
 	{
-		arg = handle_escape_quotes(arg, quote_flag);
+		arg = handle_escape_quotes(arg, "\"\'");
 		if (!arg)
 			put_error_data(d, "Failed to Allocate Quote");
 	}
