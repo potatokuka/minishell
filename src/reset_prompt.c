@@ -14,11 +14,19 @@
 
 void		free_data2(t_data *data, int all)
 {
+	int	i;
+
+	i = 0;
 	free_pid(&data->pid);
 	if (all == 1 && data->env)
 	{
 		free_var(data->env);
 		data->env = NULL;
+	}
+	while (i < data->fd.used)
+	{
+		close(data->fd.arr[i]);
+		i++;
 	}
 	free_fd(&data->fd);
 	if (data->envp)
