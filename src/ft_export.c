@@ -26,6 +26,7 @@ int		validate_env_name(char *str)
 		}
 		a++;
 	}
+	return (0);
 }
 
 int		ft_export(t_cmd *cmd, t_var **env, char **envp)
