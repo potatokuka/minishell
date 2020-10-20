@@ -47,6 +47,7 @@ int		env_set_val(const char *name, t_var **env, const char *val)
 			curr->val = ft_strdup_lib(val);
 			if (!curr->val)
 				return (1);
+			return (0);
 		}
 		last = curr;
 		curr = curr->next;
