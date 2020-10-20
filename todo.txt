@@ -90,3 +90,14 @@ syntax errors with pipes or other may leave file descriptors open due to unclean
 
 cat < naaah
 	errors but runs cat still
+
+echo test "" test
+	output:test  test
+	shoudl save "" as empty arg
+
+check everywhere where strdup/strjoin/malloc/calloc happens and make sure there are reasonable null checks
+
+export += stuff 		done but not norm
+
+echo $invalid env var
+	causes heap buffer overflow thingy
