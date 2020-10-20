@@ -99,5 +99,9 @@ check everywhere where strdup/strjoin/malloc/calloc happens and make sure there 
 
 export += stuff 		done but not norm
 
-echo $invalid env var
+echo $invalid env var 
 	causes heap buffer overflow thingy
+
+$? -> FIXED
+
+ESCAPE CHARACTERS ARE BROKEN AGAIN
