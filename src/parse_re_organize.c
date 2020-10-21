@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 12:57:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:12:34 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
 		put_error_data(data, "Failed to allocate");
-	redir_dispatch(data, &data->fd, new, data->argv[i]);
+	if (redir_dispatch(data, &data->fd, new, data->argv[i]))
+		return (NULL);
 	drop_string(data, i);
 	i += 1;
 	drop_string(data, i);

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:26:46 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:45:11 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:10:53 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ static void		split_init2(t_data *data, t_cmd *new, int i)
 	drop_string(data, i);
 }
 
-static void		new_arr_list(t_data *data, t_cmd *new)
+static void		new_arr_list(t_data *data, t_cmd *new, int i)
 {
-	if (new->arr_list)
+	if (new)
 	{
-		new->argv = list_to_string_array(new->arr_list);
-		if (!new->argv)
-			put_error_data_cmd(data, new, "Failed to Allocate split init");
+		if (new->arr_list)
+		{
+			new->argv = list_to_string_array(new->arr_list);
+			if (!new->argv)
+				put_error_data_cmd(data, new, "Failed to Allocate split init");
+		}
+		new->next = NULL;
+		data->argv = data->argv + i;
 	}
-	new->next = NULL;
 }
 
 static t_cmd	*split_new(t_data *data, t_cmd *new)
@@ -78,7 +82,6 @@ t_cmd			*split_init(t_data *da)
 			split_init2(da, new, i);
 		i++;
 	}
-	new_arr_list(da, new);
-	da->argv = da->argv + i;
+	new_arr_list(da, new, i);
 	return (new);
 }

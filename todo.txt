@@ -88,10 +88,10 @@ kanker kommands
 syntax errors with pipes or other may leave file descriptors open due to unclean exit
 	file descriptors get opened when syntax error gets trhown which shoudln'tr eally happen but annoying to avoid
 
-cat < naaah
+cat < naaah				fixed
 	errors but runs cat still
 
-echo test "" test
+echo test "" test		fixed
 	output:test  test
 	shoudl save "" as empty arg
 
@@ -99,7 +99,7 @@ check everywhere where strdup/strjoin/malloc/calloc happens and make sure there 
 
 export += stuff 		done but not norm
 
-echo $invalid env var 
+echo $invalid env var
 	causes heap buffer overflow thingy
 
 $? -> FIXED

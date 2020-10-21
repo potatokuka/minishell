@@ -6,23 +6,30 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 10:57:24 by averheij      #+#    #+#                 */
-/*   Updated: 2020/09/30 11:52:32 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:08:36 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redir_dispatch(t_data *data, t_fd_sto *fd, t_cmd *cmd, char *pipe)
+int		redir_dispatch(t_data *data, t_fd_sto *fd, t_cmd *cmd, char *pipe)
 {
 	if (cmd && pipe)
 	{
 		dprintf(2, "pipe =%s\n", pipe);
 		if (ft_strcmp(pipe, ">>") == 0)
-			redir_append(data, fd, cmd);
+		{
+			if (redir_append(data, fd, cmd))
+				return (1);
+		}
 		else if (ft_strcmp(pipe, "<") == 0)
-			redir_std_input(data, fd, cmd);
+		{
+			if (redir_std_input(data, fd, cmd))
+				return (1);
+		}
 		else if (ft_strcmp(pipe, ">") == 0)
-			redir_trunc(data, fd, cmd);
+			if (redir_trunc(data, fd, cmd))
+				return (1);
 	}
-	return ;
+	return (0);
 }
