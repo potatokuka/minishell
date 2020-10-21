@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 15:11:34 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:38:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,25 +107,25 @@ int			check_quotes_closed(char *input, int *i)
 	return (in_quote);
 }
 
-int			parse_args(t_data *data, char *input)
+int			parse_args(t_data *data, char *in)
 {
 	int		i;
 
-	if (!input)
+	if (!in)
 		return (1);
-	input = trim_spaces(input);
-	if (*input)
-		if (add_arg(data, arg(data, input, "><|; ", 0)))
+	in = trim_spaces(in);
+	if (*in)
+		if (add_arg(data, arg(data, in, "><|; ", 0), in))
 			put_error_data(data, "Failed to allocate arg");
-	if (check_quotes_closed(input, &i))
+	if (check_quotes_closed(in, &i))
 		return (reset_prompt(data, "Unclosed quotes", 1, 0));
-	if (iscset(input[i], "><|;"))
+	if (iscset(in[i], "><|;"))
 	{
-		if (add_arg(data, ft_strldup(input + i, (input[i + 1] == '>') ? 2 : 1)))
+		if (add_arg(data, ft_strldup(in + i, (in[i + 1] == '>') ? 2 : 1), in))
 			put_error_data(data, "Failed to allocate arg");
-		i += (input[i + 1] == '>') ? 2 : 1;
+		i += (in[i + 1] == '>') ? 2 : 1;
 	}
-	if (input[i])
-		return (parse_args(data, input + i));
+	if (in[i])
+		return (parse_args(data, in + i));
 	return (0);
 }

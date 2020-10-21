@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:20:21 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:37:47 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ t_cmd	*save_in_pipe(t_data *data, t_cmd *new, int i);
 t_cmd	*save_in_semi(t_data *data, t_cmd *new, int i);
 t_cmd	*save_in_flag(t_data *data, t_cmd *new, int i);
 char	*arg(t_data *dt, char *in, char *break_chars, int quote);
-int		add_arg(t_data *data, char *arg);
+int		add_arg(t_data *data, char *arg, char *input);
 
 char	*safe_strljoin(char *s1, ssize_t l1, char *s2, t_data *data);
 char	*safestrjn(char *s1, char *s2);
