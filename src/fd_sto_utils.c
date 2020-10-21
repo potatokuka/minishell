@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/30 11:15:20 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/02 12:39:02 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:27:30 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	close_fd(t_fd_sto *fd, int io_fd[2])
 	while (i < fd->used)
 	{
 		cur = fd->arr[i];
-		if (cur != io_fd[0] && cur != io_fd[1])
+		if (io_fd && cur != io_fd[0] && cur != io_fd[1])
 			close(cur);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:07:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:20:21 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,6 @@ int		set_exit_env_val(t_var **env, int *last_status);
 ** REDIRECTIONS
 */
 
-//void	redir_init(t_data *data);
 int		redir_dispatch(t_data *data, t_fd_sto *fd, t_cmd *cmd, char *pipe);
 int		redir_append(t_data *data, t_fd_sto *fd, t_cmd *cmd);
 int		redir_trunc(t_data *data, t_fd_sto *fd, t_cmd *cmd);

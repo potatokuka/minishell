@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/07 12:44:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 12:56:20 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:25:47 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		reset_data_struct(t_data *data, int all)
 		free_list(data->arg_lst, free);
 		data->arg_lst = NULL;
 	}
+	close_fd(&data->fd, NULL);
 }
 
 int			reset_prompt(t_data *data, char *error, int error_status, int all)
