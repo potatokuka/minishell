@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 14:43:34 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 16:48:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,5 +272,6 @@ void	print_list(t_list *list);
 void	test_args(char  **argv, int argc);
 void	print_environ(char **environ);
 void	print_env(t_var *env);
+void	print_args(t_data *data);
 
 #endif
