@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 16:49:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/21 16:51:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,6 @@ int			add_arg(t_data *data, char *arg)
 {
 	if (!arg)
 		return (1);
-	/*if (*arg == '\0')*/
-	/*{*/
-		/*free(arg);*/
-		/*return (0);*/
-	/*}*/
 	data->argc += 1;
 	if (!lst_new_back(&data->arg_lst, arg))
 		put_error_data(data, "Failed to add to back of list");
