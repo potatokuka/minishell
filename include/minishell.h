@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:37:47 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/22 16:20:05 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ int		reset_prompt(t_data *data, char *error, int error_status, int all);
 void	free_pid(t_pid *pid);
 void	free_cmd(t_cmd *cmd);
 void	reset_data_struct(t_data *data, int all);
+char	**free_data_argv(t_data *data);
 
 /*
 ** DEBUGGING

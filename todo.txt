@@ -106,6 +106,6 @@ $? -> FIXED
 
 ESCAPE CHARACTERS ARE BROKEN AGAIN		fixed
 
-cat > potato < naah (a non existent file)
+cat > potato < naah (a non existent file)		fixed
 followed by: echo hi
 	causes leaks
