@@ -109,3 +109,6 @@ ESCAPE CHARACTERS ARE BROKEN AGAIN		fixed
 cat > potato < naah (a non existent file)		fixed
 followed by: echo hi
 	causes leaks
+
+
+	REMOVE PRINT_VARS.c
