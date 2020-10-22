@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/19 14:37:41 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/22 16:39:00 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	return (str);
 }
 
-char	*str_env_replace(t_data *data, char *str, int all)
+char	*str_env_replace(t_data *data, char *str)
 {
 	int		i;
 	char	*tmp;
@@ -78,7 +78,7 @@ char	*str_env_replace(t_data *data, char *str, int all)
 			else
 			{
 				str = str_env_replace_index(data, str, i);
-				if (!all)
+				if (!*str)
 					break ;
 			}
 		}
@@ -96,7 +96,7 @@ void	argv_env_replace(t_data *data)
 	i = 0;
 	while (i < data->argc)
 	{
-		str_env_replace(data, data->argv[i], 1);
+		str_env_replace(data, data->argv[i]);
 		i++;
 	}
 }

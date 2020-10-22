@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/22 16:20:05 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/22 16:38:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	parse_init(t_data *data);
 int		parse_args(t_data *data, char *input);
 bool	ft_env_char(int c, int first);
 void	argv_env_replace(t_data *data);
-char	*str_env_replace(t_data *data, char *str, int all);
+char	*str_env_replace(t_data *data, char *str);
 char	*str_env_replace_index(t_data *data, char *str, int envstart);
 int		file_match(char file[], char *file2);
 int		search_dir(DIR *dirp, char *exec);
