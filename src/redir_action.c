@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/28 13:36:22 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:07:37 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:26:25 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		redir_std_input(t_data *data, t_fd_sto *fd, t_cmd *cmd)
 		reset_prompt(data, "Error with File in Redir Input", 1, 0);
 		return (1);
 	}
-	dprintf(2, "Input Redir FD : %d\n", file);
 	cmd->io_fd[IN] = file;
 	if (sto_fd(fd, file))
 		put_error("Failed to store FD");
