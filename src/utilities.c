@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 18:03:28 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:26:39 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int		ft_add_pid(t_pid *pid, int add_value)
 	int		*tmp_value;
 	t_pid	tmp;
 
-	dprintf(2, "adding child pid:%d\n", add_value);
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
 	if (!tmp_value)
 		return (1);
