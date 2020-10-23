@@ -43,12 +43,11 @@ int		ft_pwd(void)
 {
 	char	*path;
 
-	dprintf(2, "inside pwd\n");
 	if (get_path(&path))
 		return (2);
 	if (path)
 	{
-		ft_printf("%s\n", path);
+		ft_printf_fd(2, "%s\n", path);
 		free(path);
 		return (0);
 	}
