@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:18 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/22 16:20:49 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 14:06:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ char	**free_data_argv(t_data *data)
 	int		i;
 
 	i = 0;
-	while (data->argv && (data->argc > 0 || data->argv[i]))
+	while (data->argv && (data->argc > 1 || data->argv[i]))
 	{
+		dprintf(2, "argc_%d\ti_%d_str_%s\n", data->argc, i, data->argv[i]);
 		if (data->argv[i])
 		{
 			free(data->argv[i]);
@@ -41,7 +42,11 @@ char	**free_data_argv(t_data *data)
 		}
 		i++;
 	}
-	free(data->argv);
+	if (data->argv_head)
+		free(data->argv_head);
+	data->argv = NULL;
+	data->argv_head = NULL;
+	data->argc = 0;
 	return (NULL);
 }
 

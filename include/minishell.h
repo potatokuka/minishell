@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/22 16:38:03 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 14:04:50 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct		s_var
 typedef struct		s_data
 {
 	char			**argv;
+	char			**argv_head;
 	int				argc;
 	t_list			*arg_lst;
 	t_pid			pid;
