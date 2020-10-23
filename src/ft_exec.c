@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/13 18:03:22 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:24:20 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 			return (2);
 		if (!pathname)
 		{
-			dprintf(2, "%s: command not found\n", cmd->argv[0]);
+			ft_printf_fd(2, "%s: command not found\n", cmd->argv[0]);
 			return (1);
 		}
 	}
