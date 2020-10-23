@@ -55,9 +55,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 				val = get_env_val(cmd->argv[i], *env, ft_strlen(cmd->argv[i]));
 				if (!val)
 					val = "";
-				dprintf(2, "%s\t%s\n", val, &cmd->argv[i][tmp + 1]);
 				val = ft_strjoin(val, &cmd->argv[i][tmp + 1]);
-				dprintf(2, "%s\n", val);
 				if (!val)
 					return (2);
 				if (env_set_val(cmd->argv[i], env, val))
