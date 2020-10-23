@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/13 17:52:55 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:42:02 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_pwd(void)
 		return (2);
 	if (path)
 	{
-		ft_printf_fd(2, "%s\n", path);
+		ft_printf_fd(1, "%s\n", path);
 		free(path);
 		return (0);
 	}
