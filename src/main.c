@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/14 11:51:59 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:24:42 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		shell(t_data *data, t_cmd *head)
 	{
 		if (data->cmd->argc < 1 && !data->cmd->builtin)
 		{
-			dprintf(2, "syntax error near unexpected token ';'\n");
+			ft_printf_fd(2, "syntax error near unexpected token ';'\n");
 			break ;
 		}
 		if (data->cmd->pipe_read_end != -1)
@@ -32,8 +32,6 @@ static void		shell(t_data *data, t_cmd *head)
 		wait_for_children(&data->pid);
 		if (data->cmd->next)
 			update_env(data);
-		if (data->cmd->next)
-			dprintf(2, "-- NEXT CMD --\n");
 		data->cmd = data->cmd->next;
 	}
 	data->cmd = head;
