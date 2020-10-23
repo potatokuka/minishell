@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:11:09 by greed         #+#    #+#                 */
-/*   Updated: 2020/09/18 18:11:21 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/23 12:24:30 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	ft_exit(void)
 {
-	dprintf(2, "exiting from exit\n");
 	exit(0);
 }
