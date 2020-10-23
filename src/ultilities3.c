@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 13:53:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/19 14:30:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:26:35 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int			dup_redir(t_cmd *cmd, int is_child)
 	{
 		if (!is_child)
 			cmd->resetfd[IN] = dup(STDIN);
-		dprintf(2, "Dup2 FD in : %d\n", cmd->io_fd[IN]);
 		if (cmd->io_fd[IN] != -1)
 			if (dup2(cmd->io_fd[IN], STDIN_FILENO) == -1)
 				return (1);
@@ -68,7 +67,6 @@ int			dup_redir(t_cmd *cmd, int is_child)
 	{
 		if (!is_child)
 			cmd->resetfd[OUT] = dup(STDOUT);
-		dprintf(2, "Dup2 FD out : %d\n", cmd->io_fd[OUT]);
 		if (cmd->io_fd[OUT] != -1)
 			if (dup2(cmd->io_fd[OUT], STDOUT_FILENO) == -1)
 				return (1);
