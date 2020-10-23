@@ -15,7 +15,6 @@ NAME			=	minishell
 SRCS			=	main.c\
 				parse_init.c\
 				print_prompt.c\
-				print_vars.c\
 				utilities.c\
 				cmd_dispatch.c\
 				ft_exit.c\

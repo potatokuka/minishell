@@ -119,6 +119,5 @@ int				parse_organize(t_data *data)
 		free(argvhead);
 		data->argv = NULL;
 	}
-	print_cmd_full(data);
 	return (0);
 }
