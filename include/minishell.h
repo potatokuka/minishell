@@ -175,8 +175,6 @@ int		search_dir(DIR *dirp, char *exec);
 int		parse_organize(t_data *data);
 int		clear_cmd(t_cmd **cmd);
 int		drop_string(t_data *data, int i);
-void	print_cmd_full(t_data *data);
-void	print_cur_cmd(t_cmd *cmd);
 void	set_signal(void);
 bool	check_escape(char *str, int i);
 t_cmd	*split_init(t_data *da);
@@ -266,12 +264,5 @@ char	**free_data_argv(t_data *data);
 /*
 ** DEBUGGING
 */
-
-void	print_vars(t_data *data);
-void	print_list(t_list *list);
-void	test_args(char  **argv, int argc);
-void	print_environ(char **environ);
-void	print_env(t_var *env);
-void	print_args(t_data *data);
 
 #endif
