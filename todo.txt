@@ -108,6 +108,16 @@ cat > potato < naah (a non existent file)		fixed
 followed by: echo hi
 	causes leaks
 
-check everywhere where strdup/strjoin/malloc/calloc happens and make sure there are reasonable null checks
 
-	REMOVE PRINT_VARS.c
+REMOVE PRINT_VARS.c
+
+export POTA="la     -l      - a"; echo $POTA
+	env doesnt show becuase we already substitute env vars while parsing
+
+export ""="" ;
+ 	heap buffer overflow
+
+echo "$"					fixed
+	doesnt show naything
+
+check everywhere where strdup/strjoin/malloc/calloc happens and make sure there are reasonable null checks
