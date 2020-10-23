@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:40:52 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:24:48 by greed         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int			add_arg(t_data *data, char *arg, char *input)
 {
 	if (!arg)
 		return (1);
-	dprintf(2, "%s\n", input);
 	if (iscset(*input, "><|;") && *arg == '\0')
 	{
 		free(arg);
