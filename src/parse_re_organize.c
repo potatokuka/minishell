@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:30:17 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 14:06:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int		cmd_head_init(t_data *data, char **argv)
 	data->cmd = NULL;
 	if (!argv || !argv[0])
 	{
-		reset_prompt(data, "", 0, 1);
+		reset_data_struct(data, 0);
 		return (0);
 	}
 	data->cmd = split_init(data);
@@ -100,9 +100,7 @@ int				parse_organize(t_data *data)
 {
 	t_cmd	*tmp;
 	t_cmd	*cmd;
-	char	**argvhead;
 
-	argvhead = data->argv;
 	if (cmd_head_init(data, data->argv))
 		return (1);
 	cmd = data->cmd;
@@ -114,10 +112,11 @@ int				parse_organize(t_data *data)
 		cmd->next = tmp;
 		cmd = cmd->next;
 	}
-	if (argvhead)
+	if (data->argv_head)
 	{
-		free(argvhead);
+		free(data->argv_head);
 		data->argv = NULL;
+		data->argv_head = NULL;
 	}
 	return (0);
 }
