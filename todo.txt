@@ -144,4 +144,16 @@ echo HOI					fixed
 exit [n]
 	our exit, it too simple
 
+	our exit status's are different than would be expected, bash has 1 for error, 2 for misuse (of simple commands)
+		we have 1 for misuse, 2 for fatal error currently as I think, but I dont think its consistent (havn't tested)
+
+echo $TEST$TEST$TEST
+echo $TEST$TEST=lol$TEST""lol
+	heap overflow
+
+>>: echo $USER$TEST$TEST
+dries$TEST
+
+mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd .. ; pwd
+
 norm .h
