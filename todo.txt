@@ -134,3 +134,12 @@ check everywhere where strdup/strjoin/malloc/calloc happens and make sure there 
 '
 echo HOI					fixed
 	siggy seg fault, cause by bad reset from unclosed quotes
+
+1:`' `						fixed
+2:`ls`
+
+1:echo '					fixed
+2:anything
+
+exit [n]
+	our exit, it too simple
