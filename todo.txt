@@ -124,7 +124,7 @@ export POTA="la     -l      - a"; echo $POTA
 			assign the remainder of the string to a char *
 			and check before taking input from gnl
 
-export ""="" ;
+export ""="" ;				fixed
  	heap buffer overflow
 
 echo "$"					fixed

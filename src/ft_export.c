@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/20 14:53:21 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 12:38:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 	while (cmd->argv[i])
 	{
 		tmp = ft_strclen(cmd->argv[i], '=');
-		if (tmp < ft_strlen_lib(cmd->argv[i]))
+		if (tmp < ft_strlen_lib(cmd->argv[i]) && !iscset(cmd->argv[i][0], "=+\0"))
 		{
 			char	*val;
 
@@ -74,6 +74,8 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 					return (2);
 			}
 		}
+		else
+			ft_printf_fd(2, "export: '%s' is not a valid input\n", cmd->argv[i]);
 		i++;
 	}
 	cmd->update_env = 1;
