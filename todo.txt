@@ -130,3 +130,7 @@ echo "$"					fixed
 	doesnt show naything
 
 check everywhere where strdup/strjoin/malloc/calloc happens and make sure there are reasonable null checks
+
+'
+echo HOI					fixed
+	siggy seg fault, cause by bad reset from unclosed quotes
