@@ -143,3 +143,5 @@ echo HOI					fixed
 
 exit [n]
 	our exit, it too simple
+
+norm .h
