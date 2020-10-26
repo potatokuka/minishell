@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 12:42:18 by averheij      #+#    #+#                 */
-/*   Updated: 2020/07/06 13:13:30 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 13:49:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_env(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		ft_printf_fd(1, "%s\n", envp[i]);
+		if (envp[i][0] != '?')
+			ft_printf_fd(1, "%s\n", envp[i]);
 		i++;
 	}
 }
