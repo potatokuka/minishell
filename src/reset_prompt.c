@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/07 12:44:28 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/23 16:06:28 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 13:10:18 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int			reset_prompt(t_data *data, char *error, int error_status, int all)
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
 	data->pid.last_status = error_status;
+	if (data->input_leftovers)
+		free(data->input_head);
 	reset_data_struct(data, all);
 	return (error_status);
 }
