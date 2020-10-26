@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 12:51:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 14:28:41 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int					g_is_parent;
 */
 
 void	put_error_data(t_data *data, char *error);
+void	*reset_prompt_cmd(t_data *data, t_cmd *cmd, char *fterror, int error_val);
 void	print_prompt();
 void	reset_data(t_data *data);
 void	fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent);
