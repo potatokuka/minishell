@@ -108,10 +108,9 @@ cat > potato < naah (a non existent file)		fixed
 followed by: echo hi
 	causes leaks
 
+REMOVE PRINT_VARS.c									fixed
 
-REMOVE PRINT_VARS.c
-
-export POTA="la     -l      - a"; echo $POTA
+export POTA="la     -l      - a"; echo $POTA		fixed
 	env doesnt show becuase we already substitute env vars while parsing
 
 	potential fixes
