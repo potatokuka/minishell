@@ -114,6 +114,16 @@ REMOVE PRINT_VARS.c
 export POTA="la     -l      - a"; echo $POTA
 	env doesnt show becuase we already substitute env vars while parsing
 
+	potential fixes
+		split each string arg into a linked list struct of strings including an enum for what type literal/singlequote/doublequote
+		and then do env substitution and concatanation directly before running the cmd
+
+		pause parse_args everytime you hit a semicolon
+		run the cmd, and then continue parsing
+			just put a bool flag "hasinput" in data
+			assign the remainder of the string to a char *
+			and check before taking input from gnl
+
 export ""="" ;
  	heap buffer overflow
 
