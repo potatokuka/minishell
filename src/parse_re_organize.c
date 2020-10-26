@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/02 16:52:43 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 14:06:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 14:31:15 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@
 t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 {
 	if (!data->argv[i + 1])
-		put_error_data(data, "could not find target file");
+		return (reset_prompt_cmd(data, new, "Could not find target file", 1));
 	if (iscset(data->argv[i + 1][0], "<>|;."))
-		put_error_data(data, "Invalid Syntax");
+		return (reset_prompt_cmd(data, new, "Invalid Syntax", 1));
 	new->tar_file = ft_strdup(data->argv[i + 1]);
 	if (!new->tar_file)
+	{
+		free_cmd(new);
 		put_error_data(data, "Failed to allocate");
+	}
 	if (redir_dispatch(data, &data->fd, new, data->argv[i]))
 		return (NULL);
 	free(new->tar_file);
@@ -41,7 +44,10 @@ t_cmd			*save_in_semi(t_data *data, t_cmd *new, int i)
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
 	if (!new->argv)
+	{
+		free_cmd(new);
 		put_error_data(data, "Failed to Allocate Lst in Split Init");
+	}
 	data->argc -= 1;
 	new->next = NULL;
 	data->argv = data->argv + i + 1;
@@ -51,23 +57,18 @@ t_cmd			*save_in_semi(t_data *data, t_cmd *new, int i)
 t_cmd			*save_in_pipe(t_data *data, t_cmd *new, int i)
 {
 	if (data->argc == 1)
-	{
-		free_cmd(new);
-		reset_prompt(data, "Trailing pipe", 1, 0);
-		return (NULL);
-	}
+		return (reset_prompt_cmd(data, new, "Trailing Pipe", 1));
 	if (new->builtin == NULL && !new->arr_list)
-	{
-		free_cmd(new);
-		reset_prompt(data, "Syntax error", 1, 0);
-		return (NULL);
-	}
+		return (reset_prompt_cmd(data, new, "Syntax Error", 1));
 	if (open_pipe(&data->fd, new))
 		put_error_data(data, "Failed to Allocate in Open Pipe");
 	drop_string(data, i);
 	new->argv = list_to_string_array(new->arr_list);
 	if (!new->argv)
+	{
+		free_cmd(new);
 		put_error_data(data, "Failed to Allocate Lst in Split Init");
+	}
 	data->argc -= 1;
 	new->next = NULL;
 	data->argv = data->argv + i + 1;
