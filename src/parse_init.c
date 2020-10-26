@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 13:12:48 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 13:16:00 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,12 @@ void	parse_init2(t_data *data, int ret)
 
 void	parse_init(t_data *data)
 {
-	char	*input_trimmed;
 	int		ret;
 
 	if (!data->input_leftovers)
 	{
 		ret = get_next_line(STDIN, &data->input_head);
-		/*if (ret <= 0)*/
 			parse_init2(data, ret);
-		/*input_trimmed = trim_spaces(data->input_head);*/
-		/*if (!*input_trimmed)*/
-			/*return (free(data->input_head));*/
 		if (parse_args(data, data->input_head))
 			return (free(data->input_head));
 	}
