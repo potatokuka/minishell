@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:48:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/26 17:33:57 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*str_env_replace(t_data *data, char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i + 1] && !iscset(str[i + 1], " $"))
+		if (str[i] == '$' && str[i + 1] && ft_env_char(str[i + 1], 1))
 		{
 			if (!check_escape(str, i))
 			{
