@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:10:18 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 14:21:04 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:09:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ char	**free_data_argv(t_data *data)
 	int		i;
 
 	i = 0;
-	/*dprintf(2, "_%p_%d\n", data->argv, data->argc);*/
 	while (data->argv && (data->argc > 0 || data->argv[i]))
 	{
-		/*dprintf(2, "_%s_%d\n", data->argv[i], data->argc);*/
 		if (data->argv[i])
 		{
 			free(data->argv[i]);

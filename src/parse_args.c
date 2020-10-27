@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 17:24:30 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:10:03 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			parse_args(t_data *data, char *in)
 		return (1);
 	in = trim_spaces(in);
 	if (*in && add_arg(data, arg(data, in, "><|; ", 0), in))
-			put_error_data(data, "Failed to allocate arg");
+		put_error_data(data, "Failed to allocate arg");
 	if (check_quotes_closed(in, &i))
 		return (reset_prompt(data, "Unclosed quotes", 1, 0));
 	if (iscset(in[i], "><|"))

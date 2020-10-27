@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/27 11:28:00 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:10:25 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	envend = 0;
 	while (envvar[envend] && ft_env_char(envvar[envend], (envend == 0) ? 1 : 0))
 		envend++;
-	/*dprintf(2, "repl\t_%d\t_%s\t_%s\n", envend, envvar, str);*/
 	if (*envvar == '?' || ft_isdigit(*envvar))
 		envend = 1;
 	if (envend >= 1)
@@ -55,7 +54,6 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 		envvar = ft_strdup((envvar) ? envvar : "");
 		if (!envvar)
 			put_error_data(data, "Failed to Allocate Str Env Index");
-		/*dprintf(2, "\t_%s\t_%s\t_%s\n", str, envvar, str + envstart + 1 + envend);*/
 		res = ft_3strjoin(str, envvar, str + envstart + 1 + envend);
 		if (!res)
 			put_error_data(data, "Failed to Allocate Str Env Index");
@@ -74,7 +72,6 @@ char	*str_env_replace(t_data *data, char *str)
 	i = 0;
 	while (str[i])
 	{
-		/*dprintf(2, "%c\t_%i\t_%s\n", str[i], i, str);*/
 		if (str[i] == '$' && (ft_env_char(str[i + 1], 1) || xcptn(str[i + 1])))
 		{
 			if (!check_escape(str, i))
