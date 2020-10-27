@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/27 11:24:36 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:34:42 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		export_append(char *str, t_var **env, ssize_t eq)
 		return (2);
 	}
 	free(val);
+	return (0);
 }
 
 int		export_single(char *str, t_var **env)
