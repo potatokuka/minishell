@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 void			ft_pad_width(int width, int precision, int pad, int *lv)
 {
 	while (width > precision)

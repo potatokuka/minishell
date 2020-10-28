@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 void		ft_print_ll_x(t_conv *conv, va_list a_list, int *lv)
 {
 	unsigned long long		num;

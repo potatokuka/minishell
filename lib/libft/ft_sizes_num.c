@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 void				ft_ll_num(t_conv *conv, va_list a_list, int *lv)
 {
 	long long int num;

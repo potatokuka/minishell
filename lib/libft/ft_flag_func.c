@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 void			ft_find_type(const char **input, t_conv *conv)
 {
 	char	*types;
