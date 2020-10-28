@@ -12,9 +12,6 @@
 
 #include "libft.h"
 #include "minishell.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 t_cmd			*save_in_flag(t_data *data, t_cmd *new, int i)
 {
