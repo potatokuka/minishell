@@ -13,7 +13,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-char		*ft_substr_lib(char const *s, unsigned int start, size_t 							len)
+char		*ft_substr_lib(char const *s, unsigned int start, size_t len)
 {
 	size_t				i;
 	char				*dst;

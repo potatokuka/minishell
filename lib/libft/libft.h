@@ -83,14 +83,14 @@ int					ft_lstsize(t_list *lst);
 # endif
 
 /* Get Next Line */
-int		ft_strchr(char *s, int c);
-char	*ft_strdup(char *s1);
-size_t	ft_strlen(char *s);
-char	*ft_substr(char *s, unsigned int start, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
-int		get_next_line(int fd, char **line);
-int		pull_line(char **get, char **line, int c);
+int					ft_strchr(char *s, int c);
+char				*ft_strdup(char *s1);
+size_t				ft_strlen(char *s);
+char				*ft_substr(char *s, unsigned int start, size_t len);
+char				*ft_strjoin(char *s1, char *s2);
+size_t				ft_strlcpy(char *dst, char *src, size_t dstsize);
+int					get_next_line(int fd, char **line);
+int					pull_line(char **get, char **line, int c);
 
 /* FT_PRINTF */
 
