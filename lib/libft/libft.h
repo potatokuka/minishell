@@ -20,7 +20,7 @@
 # include <string.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	32
-#endif
+# endif
 
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
@@ -52,24 +52,28 @@ char				*ft_strtrim(char const *s1, char const *set);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 char				*ft_strchr_lib(const char *s, int c);
-size_t				ft_strlcpy_lib(char *dst, const char *src, size_t 							dstsize);
+size_t				ft_strlcpy_lib(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlen_lib(const char *s);
 char				*ft_strdup_lib(const char *s1);
-char				*ft_substr_lib(char const *s, unsigned int start,							size_t len);
+char				*ft_substr_lib(char const *s, unsigned int start,
+									size_t len);
 char				*ft_strjoin_lib(char const *s1, char const *s2);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strldup(const char *src, size_t n);
 void				*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 # ifndef NOLIST
+
 typedef struct		s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
 # endif
 
 # ifndef NOLIST
+
 void				ft_lstadd_back(t_list **alst, t_list *new);
 void				ft_lstadd_front(t_list **alst, t_list *new);
 void				ft_lstclear(t_list **lst, void (*del)(void *));
@@ -82,7 +86,6 @@ t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 # endif
 
-/* Get Next Line */
 int					ft_strchr(char *s, int c);
 char				*ft_strdup(char *s1);
 size_t				ft_strlen(char *s);
@@ -91,8 +94,6 @@ char				*ft_strjoin(char *s1, char *s2);
 size_t				ft_strlcpy(char *dst, char *src, size_t dstsize);
 int					get_next_line(int fd, char **line);
 int					pull_line(char **get, char **line, int c);
-
-/* FT_PRINTF */
 
 typedef struct		s_conv
 {
@@ -171,6 +172,7 @@ void				ft_up_x_link(t_conv *conv, va_list a_list, int *lv);
 /*
 ** LL
 */
+
 void				ft_conv_ll_int(t_conv *conv, long long int num);
 long long int		ft_ll_nbr_size(long long int num);
 void				ft_llint_c_fd(long long int num, int *lv);
