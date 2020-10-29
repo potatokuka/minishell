@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:42:16 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 14:45:30 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 15:40:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int		cd_home(t_var *env)
 	if (!home)
 	{
 		ft_printf_fd(2, "cd: HOME not set\n");
-		return (1);
+		return (2);
 	}
 	if (chdir(home) == -1)
 	{
 		ft_printf_fd(2, "cd: %s: %s\n", strerror(errno), home);
-		return (1);
+		return (2);
 	}
 	return (0);
 }
@@ -37,7 +37,7 @@ int		ft_cd(t_cmd *cmd, t_var *env)
 	if (cmd->argc > 1)
 	{
 		ft_printf_fd(2, "cd: too many arguments\n");
-		return (2);
+		return (1);
 	}
 	if (chdir(cmd->argv[0]) == -1)
 		return (error_builtin(cmd, 1));

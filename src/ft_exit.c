@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:11:09 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 14:47:27 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 15:44:47 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ int		ft_exit(t_cmd *cmd, int last_status)
 		ret = g_signal_exit + 128;
 	else
 		ret = last_status;
-	if (cmd->argv && cmd->argv[0] && cmd->argc == 1)
+	if (cmd && cmd->argv && cmd->argv[0] && cmd->argc == 1)
 	{
 		ret = get_arg_exit_val(cmd);
 		if (ret == -1)
 			ft_printf_fd(2, "Error: exit: invalid argument\n");
 	}
-	else if (!is_numeric_str(cmd->argv[0]))
+	else if (cmd && cmd->argv && !is_numeric_str(cmd->argv[0]))
 	{
 		ft_printf_fd(2, "Error: exit: numeric argument required\n");
 		ret = 2;
 	}
-	else if (cmd->argc > 1)
+	else if (cmd && cmd->argc > 1)
 	{
 		ft_printf_fd(2, "Error: exit: too many arguments\n");
 		ret = -1;
