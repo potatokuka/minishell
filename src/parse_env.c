@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/27 12:10:25 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:00:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ char	*str_env_replace(t_data *data, char *str)
 void	argv_env_replace(t_data *data)
 {
 	int		i;
-	int		u;
-	char	*ptr;
 
 	i = 0;
 	while (i < data->argc)

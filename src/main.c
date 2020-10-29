@@ -45,6 +45,7 @@ int				main(void)
 	t_data	data;
 	t_cmd	*head;
 
+	head = NULL;
 	g_is_parent = 1;
 	ft_bzero(&data, sizeof(data));
 	if (env_init(&data))

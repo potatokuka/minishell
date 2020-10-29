@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 16:52:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:08:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int			iscset(char c, char *set)
 char		*ft_strljoin(char const *s1, ssize_t l1, char const *s2, ssize_t l2)
 {
 	char	*res;
-	size_t	i;
+	ssize_t	i;
 
 	if (!s1 || !s2)
 		return (0);
-	l1 = (l1 == -1) ? ft_strlen_lib(s1) : l1;
-	l2 = (l2 == -1) ? ft_strlen_lib(s2) : l2;
+	l1 = (l1 == -1) ? (ssize_t)ft_strlen_lib(s1) : l1;
+	l2 = (l2 == -1) ? (ssize_t)ft_strlen_lib(s2) : l2;
 	res = (char *)ft_calloc(sizeof(char), l1 + l2 + 1);
 	if (!res)
 		return (0);
@@ -87,7 +87,7 @@ char		*arg(t_data *dt, char *in, char *break_chars, int qt)
 			return (safe_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), dt));
 		else if ((qt && in[i] == qt) && (qt == S_QOTE || check_escape(in, i)))
 		{
-			rt = handle_escapes_envs(dt, ft_strldup(in, i), qt, 1);
+			rt = handle_escapes_envs(dt, ft_strldup(in, i), qt);
 			if (!iscset(in[i + 1], "><|; "))
 			{
 				if (in[i + 1] == D_QOTE || in[i + 1] == S_QOTE)
@@ -99,6 +99,6 @@ char		*arg(t_data *dt, char *in, char *break_chars, int qt)
 		}
 		i++;
 	}
-	rt = handle_escapes_envs(dt, ft_strldup(in, i), '"', 1);
+	rt = handle_escapes_envs(dt, ft_strldup(in, i), '"');
 	return (rt);
 }

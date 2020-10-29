@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/27 12:34:42 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/28 14:59:59 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		export_single(char *str, t_var **env)
 	ssize_t	eq;
 
 	eq = ft_strclen(str, '=');
-	if (eq < ft_strlen_lib(str) && !iscset(str[0], "=+\0"))
+	if (eq < (ssize_t)ft_strlen_lib(str) && !iscset(str[0], "=+\0"))
 	{
 		if (eq - 1 >= 0 && str[eq - 1] == '+')
 			export_append(str, env, eq);

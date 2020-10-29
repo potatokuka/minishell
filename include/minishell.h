@@ -198,10 +198,10 @@ int					iscset(char c, char *set);
 char				*ft_strljoin(char const *s1, ssize_t l1, char const *s2,
 						ssize_t l2);
 int					check_quotes_closed(char *input, int *i);
-char				*handle_escapes_envs(t_data *d, char *arg, int quote_type,
-						int quote_flag);
-char				*handle_escape_quotes(char *arg, char *escapeme);
+char				*handle_escapes_envs(t_data *da, char *arg, int quote_type);
+char				*handle_escape_quotes(char *arg);
 bool				check_escape(char *str, int i);
+void				*free_ret_null(char *free_me);
 
 /*
 ** BUILT-INS

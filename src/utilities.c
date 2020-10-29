@@ -55,7 +55,6 @@ int		ft_add_pid(t_pid *pid, int add_value)
 {
 	int		i;
 	int		*tmp_value;
-	t_pid	tmp;
 
 	tmp_value = ft_calloc(sizeof(int), pid->count + 2);
 	if (!tmp_value)

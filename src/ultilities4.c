@@ -29,3 +29,10 @@ void		*reset_prompt_cmd(t_data *data, t_cmd *cmd, char *fterror,
 	reset_prompt(data, fterror, error_val, 0);
 	return (NULL);
 }
+
+void		*free_ret_null(char *free_me)
+{
+	if (free_me)
+		free(free_me);
+	return (NULL);
+}

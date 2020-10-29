@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/23 12:24:20 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/28 15:00:35 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int			get_env_path_exec(char **pathname, char *exec, t_var *env)
 
 int			griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 {
-	t_pid	*new;
 	int		pid_temp;
 
 	pid_temp = fork();
@@ -87,7 +86,6 @@ static int	get_relative_pathname(t_cmd *cmd, char **pathname)
 
 int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 {
-	char	*path;
 	char	*pathname;
 
 	if (cmd->argc && cmd->argv[0][0] == '.')

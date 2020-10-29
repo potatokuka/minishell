@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:26:46 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/21 17:10:53 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:05:55 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_cmd			*split_init(t_data *da)
 	t_cmd	*new;
 	int		i;
 
+	new = NULL;
 	new = split_new(da, new);
 	i = 0;
 	while (da->argc > 0)
