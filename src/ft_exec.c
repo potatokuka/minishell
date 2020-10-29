@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:00:35 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 12:24:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 	}
 	else if (cmd->argc && cmd->argv[0][0] == '/')
 	{
-		pathname = cmd->argv[0];
-		cmd->argv[0] = ft_strrchr(cmd->argv[0], '/');
+		pathname = ft_strdup(cmd->argv[0]);
+		/*cmd->argv[0] = ft_strrchr(cmd->argv[0], '/');*/
 	}
 	else
 	{
