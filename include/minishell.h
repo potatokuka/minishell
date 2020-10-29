@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 14:30:20 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:47:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ void				*free_ret_null(char *free_me);
 ** BUILT-INS
 */
 
-void				ft_exit(t_cmd *cmd, int	last_status);
+int					ft_exit(t_cmd *cmd, int	last_status);
 void				ft_echo(t_cmd *cmd);
 int					ft_pwd(void);
 int					ft_cd(t_cmd *cmd, t_var *env);
