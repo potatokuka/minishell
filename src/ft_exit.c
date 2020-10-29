@@ -6,11 +6,20 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:11:09 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/27 12:04:58 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 12:42:32 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		is_numeric_str(char *str)
+{
+	while (str && *str && ft_isdigit(*str))
+		str++;
+	if (!*str)
+		return (1);
+	return (0);
+}
 
 int		get_arg_exit_val(t_cmd *cmd)
 {
@@ -43,16 +52,22 @@ void	ft_exit(t_cmd *cmd, int last_status)
 		ret = g_signal_exit + 128;
 	else
 		ret = last_status;
-	if (cmd->argv && cmd->argc == 1 && cmd->argv[0])
+	if (cmd->argv && cmd->argv[0] && cmd->argc == 1)
 	{
 		ret = get_arg_exit_val(cmd);
 		if (ret == -1)
 			ft_printf_fd(2, "Error: exit: invalid argument\n");
 	}
+	else if (!is_numeric_str(cmd->argv[0]))
+	{
+		ft_printf_fd(2, "Error: exit: numeric argument required\n");
+		ret = 2;
+	}
 	else if (cmd->argc > 1)
 	{
 		ft_printf_fd(2, "Error: exit: too many arguments\n");
-		ret = 2;
+		ret = -1;
 	}
-	exit(ret);
+	if (ret != -1)
+		exit(ret);
 }
