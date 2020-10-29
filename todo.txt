@@ -156,6 +156,8 @@ dries$TEST
 
 mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd .. ; pwd	fixed
 
+echo -nnnnnnnnn	-nn -nnnnnnh	fixed
+
 cd potato potato
 	mini:	cd: potato: No such file or directory
 	bash:	bash: cd: too many arguments

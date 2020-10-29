@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 17:41:36 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:17:17 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 ** make a counter i starting at 0
 */
 
+int		dash_nn(char *str)
+{
+	if (*str != '-')
+		return (0);
+	str++;
+	while (*str && *str == 'n')
+		str++;
+	if (*str)
+		return (0);
+	return (1);
+}
+
 void	ft_echo(t_cmd *cmd)
 {
 	int	i;
@@ -27,7 +39,7 @@ void	ft_echo(t_cmd *cmd)
 	i = 0;
 	while (i < cmd->argc)
 	{
-		if (ft_strcmp(cmd->argv[i], "-n") == 0 && flag == i)
+		if (dash_nn(cmd->argv[i]) && flag == i)
 			flag += 1;
 		else
 		{
