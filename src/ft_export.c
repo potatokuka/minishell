@@ -59,7 +59,7 @@ int		export_single(char *str, t_var **env)
 	if (eq < (ssize_t)ft_strlen_lib(str) && !iscset(str[0], "=+\0"))
 	{
 		if (eq - 1 >= 0 && str[eq - 1] == '+')
-			export_append(str, env, eq);
+			return (export_append(str, env, eq));
 		else
 		{
 			str[eq] = '\0';
