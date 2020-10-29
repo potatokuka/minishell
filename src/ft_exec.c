@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/29 14:25:35 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:42:28 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int			griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 		/*return (2);*/
 	}
 	free(pathname);
-	perror ("we did it");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:42:16 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/05 17:48:35 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:45:30 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int		ft_cd(t_cmd *cmd, t_var *env)
 {
 	if (cmd->argc == 0 || (ft_strcmp(cmd->argv[0], "~") == 0))
 		return (cd_home(env));
+	if (cmd->argc > 1)
+	{
+		ft_printf_fd(2, "cd: too many arguments\n");
+		return (2);
+	}
 	if (chdir(cmd->argv[0]) == -1)
 		return (error_builtin(cmd, 1));
 	return (0);
