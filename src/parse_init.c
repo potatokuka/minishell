@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 16:57:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 15:27:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parse_init2(t_data *data, int ret)
 	{
 		ft_printf("exit\n");
 		reset_data_struct(data, 1);
-		exit(0);
+		ft_exit(NULL, data->pid.last_status);
 	}
 	else if (ret == -1)
 		put_error_data(data, "Invalid input read");
