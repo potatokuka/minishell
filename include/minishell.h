@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/28 14:18:58 by averheij      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:30:20 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <errno.h>
 # include <string.h>
 # include <sys/wait.h>
-# include <dirent.h>
+# include <sys/stat.h>
 
 /*
 **	Libft PrintF and Get Next Line Updated Lib List
@@ -173,7 +173,6 @@ char				*str_env_replace(t_data *data, char *str);
 char				*str_env_replace_index(t_data *data, char *str,
 						int envstart);
 int					file_match(char file[], char *file2);
-int					search_dir(DIR *dirp, char *exec);
 
 int					parse_organize(t_data *data);
 int					clear_cmd(t_cmd **cmd);

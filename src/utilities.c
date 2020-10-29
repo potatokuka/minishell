@@ -6,30 +6,11 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/23 12:26:39 by greed         ########   odam.nl         */
+/*   Updated: 2020/10/29 14:25:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		search_dir(DIR *dirp, char *exec)
-{
-	struct dirent	*file;
-
-	file = (void *)1;
-	while (file)
-	{
-		file = readdir(dirp);
-		if (file)
-		{
-			if (file_match(file->d_name, exec))
-			{
-				return (1);
-			}
-		}
-	}
-	return (0);
-}
 
 t_cmd	*add_forked_cmd(t_data *data, t_cmd *cmd)
 {
