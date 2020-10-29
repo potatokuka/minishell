@@ -158,7 +158,7 @@ mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd
 
 echo -nnnnnnnnn	-nn -nnnnnnh	fixed
 
-cd potato potato
+cd potato potato				fixed
 	mini:	cd: potato: No such file or directory
 	bash:	bash: cd: too many arguments
 
@@ -168,10 +168,17 @@ cd $NOTHING $NOTHING potato
 
 		this one is caused by $NOTHING being read as an empty arg
 
+change opendir path technique out for stat		fixed
 
+unset should only give an invalid response if the name is invalid		fixed
 
+If a command is found but is not executable, the return status is 126.				fixed
 
+last return status in pipe is not kept
 
+cd
+pwd
+	seg
 
 
 	how to ruin someones day, minishell edition
@@ -183,3 +190,5 @@ export hello=hi hello+=wow
 $TEST$TEST$TEST$TEST
 export $HULLO=there; echo $HULLO
 export potato=tomato orange=doorhinge; echo -n -n -n $potato$orange; unset orange potato; echo $potato$orange
+export po1=yes po2=no; echo $po1 $po2; unset po1 1op 2 po2; echo $? $po1 $po2
+cp minishell test; chmod u-x test; ./test; echo $?
