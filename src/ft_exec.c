@@ -97,7 +97,7 @@ int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 		if (!pathname)
 		{
 			ft_printf_fd(2, "%s: command not found\n", cmd->argv[0]);
-			return (1);
+			return (127);
 		}
 	}
 	return (griffin_try(cmd, pathname, envp, pid));
