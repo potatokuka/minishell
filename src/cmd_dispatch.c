@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/27 11:50:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:52:40 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		child_process(t_data *data, t_cmd *cmd)
 	cmd_dispatch(data, cmd->next, 1);
 	wait_for_children(&data->pid);
 	reset_data_struct(data, 1);
-	exit(0);
+	exit(data->pid.last_status);
 }
 
 void			fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent)
