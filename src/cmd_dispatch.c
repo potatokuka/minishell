@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/02 17:41:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 17:44:33 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,8 @@ void			wait_for_children(t_pid *pid, int parent_exec)
 	while (i < pid->count)
 	{
 		waitpid(pid->value[i], &temp, 0);
-		/*dprintf(2, "last_%d \ti_%d\n", temp, i);*/
-		/*dprintf(2, "parent_exec_%d \tcount-1_%d\n", parent_exec, pid->count - 1);*/
 		if (!(parent_exec && i == pid->count - 1))
-		{
-			/*perror("in here");*/
 			pid->last_status = temp / 256;
-		}
-		/*dprintf(2, "last/256_%d\n", pid->last_status);*/
 		i++;
 	}
 	ft_free((void **)&pid->value);
@@ -44,10 +38,7 @@ static void		child_process(t_data *data, t_cmd *cmd)
 	close_fd(&data->fd, cmd->next->io_fd);
 	cmd_dispatch(data, cmd->next, 1);
 	wait_for_children(&data->pid, 0);
-	/*dprintf(2, "status child reset%d\n", data->pid.last_status);*/
 	reset_data_struct(data, 1);
-	/*dprintf(2, "status child exit%d\n", data->pid.last_status);*/
-	//Somewhere here you need to check what kind of return it is, exec or builtin
 	exit(data->pid.last_status);
 }
 
@@ -125,7 +116,6 @@ void			cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 	}
 	else
 		data->pid.last_status = ft_exec(cmd, data->env, data->envp, &data->pid);
-	/*dprintf(2, "status end of cmd%d\n", data->pid.last_status);*/
 	if (close_the_shit(cmd))
 		put_error_data(data, "Failed to reset STDIN, STDOUT");
 }
