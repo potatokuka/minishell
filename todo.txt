@@ -168,7 +168,8 @@ unset should only give an invalid response if the name is invalid		fixed
 
 If a command is found but is not executable, the return status is 126.				fixed
 
-last return status in pipe is not kept			fixed
+last return status in pipe is not kept			fixed except for when there is another exec before pipe
+				rewrite to have parent process run the last cmd
 
 cd			fixed
 pwd

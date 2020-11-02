@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 18:26:52 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/26 13:14:32 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 17:29:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		shell(t_data *data, t_cmd *head)
 			fork_next_and_pipe(data, data->cmd, 1);
 		else
 			cmd_dispatch(data, data->cmd, 0);
-		wait_for_children(&data->pid);
+		wait_for_children(&data->pid, (!data->cmd->builtin));
 		if (data->cmd->next)
 			update_env(data);
 		data->cmd = data->cmd->next;

@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/02 16:43:42 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 17:29:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void				print_prompt();
 void				reset_data(t_data *data);
 void				fork_next_and_pipe(t_data *data, t_cmd *cmd, int is_parent);
 void				cmd_dispatch(t_data *data, t_cmd *cmd, int is_child);
-void				wait_for_children(t_pid *pid);
+void				wait_for_children(t_pid *pid, int parent_exec);
 char				*ft_3strjoin(const char *str1, const char *str2,
 						const char *str3);
 char				**free_array_null(char **str);
