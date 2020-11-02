@@ -170,7 +170,7 @@ If a command is found but is not executable, the return status is 126.				fixed
 
 last return status in pipe is not kept
 
-cd
+cd			fixed
 pwd
 	seg
 

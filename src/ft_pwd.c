@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/02 12:56:13 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 14:37:40 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		get_path(char **res)
 	if (!path)
 		return (1);
 	*res = getcwd(path, size + 1);
-	if (!*res && errno == ERANGE)
-		while (!*res && errno == ERANGE)
+	if ((!*res || !**res) && errno == ERANGE)
+		while ((!*res || !**res) && errno == ERANGE)
 		{
 			size += 20;
 			free(path);
@@ -37,7 +37,7 @@ int		get_path(char **res)
 				return (1);
 			*res = getcwd(path, size + 1);
 		}
-	else
+	else if (!*res)
 	{
 		free(path);
 		ft_printf_fd(2, "Error: pwd: could not get current path\n");
@@ -50,6 +50,7 @@ int		ft_pwd(void)
 {
 	char	*path;
 
+	path = NULL;
 	if (get_path(&path))
 		return (2);
 	if (path)
