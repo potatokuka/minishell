@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/28 15:08:29 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:35:51 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,16 @@ int			add_arg(t_data *data, char *arg, char *input)
 {
 	if (!arg)
 		return (1);
-	if (iscset(*input, "><|;") && *arg == '\0')
+	dprintf(2, "add_arg: data->no_quote=%d had_quote=%d arg=%s\n", data->no_quote, data->had_quote, arg);
+	if ((iscset(*input, "><|;") || (data->no_quote && !data->had_quote)) && *arg == '\0')
 	{
+		data->no_quote = 0;
+		data->had_quote = 0;
 		free(arg);
 		return (0);
 	}
+	data->had_quote = 0;
+	data->no_quote = 0;
 	data->argc += 1;
 	if (!lst_new_back(&data->arg_lst, arg))
 		put_error_data(data, "Failed to add to back of list");
@@ -87,18 +92,18 @@ char		*arg(t_data *dt, char *in, char *break_chars, int qt)
 			return (safe_strljoin(in, i, arg(dt, in + i + 1, "", in[i]), dt));
 		else if ((qt && in[i] == qt) && (qt == S_QOTE || check_escape(in, i)))
 		{
-			rt = handle_escapes_envs(dt, ft_strldup(in, i), qt);
+			rt = handle_escapes_envs(dt, ft_strldup(in, i), 1, 0);
 			if (!iscset(in[i + 1], "><|; "))
 			{
 				if (in[i + 1] == D_QOTE || in[i + 1] == S_QOTE)
-					return (safestrjn(rt, arg(dt, in + i + 2, "", in[i + 1])));
+					return (strjn(rt, arg(dt, in + i + 2, "", in[i + 1]), dt));
 				else
-					return (safestrjn(rt, arg(dt, in + i + 1, "><|; ", 0)));
+					return (strjn(rt, arg(dt, in + i + 1, "><|; ", 0), dt));
 			}
 			return (rt);
 		}
 		i++;
 	}
-	rt = handle_escapes_envs(dt, ft_strldup(in, i), '"');
+	rt = handle_escapes_envs(dt, ft_strldup(in, i), 1, 1);
 	return (rt);
 }

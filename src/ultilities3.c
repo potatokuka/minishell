@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 13:53:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/28 15:05:07 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:40:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ char		*safe_strljoin(char *s1, ssize_t l1, char *s2, t_data *dt)
 {
 	char	*res;
 
-	s1 = handle_escapes_envs(dt, ft_strldup(s1, l1), '"');
+	dprintf(2, "safe_strljoin: s1=%s s2=%s\n", s1, s2);
+	s1 = handle_escapes_envs(dt, ft_strldup(s1, l1), 1, 1);
 	res = ft_strjoin(s1, s2);
 	free(s1);
 	free(s2);

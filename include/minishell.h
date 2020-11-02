@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 14:47:38 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:30:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ typedef struct		s_data
 	t_cmd			*forked;
 	char			*input_leftovers;
 	char			*input_head;
+	int				no_quote;
+	int				had_quote;
 }					t_data;
 
 int					g_signal_exit;
@@ -192,12 +194,13 @@ int					add_arg(t_data *data, char *arg, char *input);
 char				*safe_strljoin(char *s1, ssize_t l1, char *s2,
 						t_data *data);
 char				*safestrjn(char *s1, char *s2);
+char				*strjn(char *s1, char *s2, t_data *data);
 int					escset(char *input, char *set, int i);
 int					iscset(char c, char *set);
 char				*ft_strljoin(char const *s1, ssize_t l1, char const *s2,
 						ssize_t l2);
 int					check_quotes_closed(char *input, int *i);
-char				*handle_escapes_envs(t_data *da, char *arg, int quote_type);
+char				*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote);
 char				*handle_escape_quotes(char *arg);
 bool				check_escape(char *str, int i);
 void				*free_ret_null(char *free_me);
