@@ -162,12 +162,6 @@ cd potato potato				fixed
 	mini:	cd: potato: No such file or directory
 	bash:	bash: cd: too many arguments
 
-cd $NOTHING $NOTHING potato
-	mini:	cd  :No such file or directory
-	bash:	bash: cd: potaot: No such file or directory
-
-		this one is caused by $NOTHING being read as an empty arg
-
 change opendir path technique out for stat		fixed
 
 unset should only give an invalid response if the name is invalid		fixed
@@ -179,6 +173,15 @@ last return status in pipe is not kept
 cd
 pwd
 	seg
+
+cd $NOTHING $NOTHING potato
+	mini:	cd  :No such file or directory
+	bash:	bash: cd: potaot: No such file or directory
+
+	this one is caused by $NOTHING being read as an empty arg
+
+
+
 
 
 	how to ruin someones day, minishell edition
