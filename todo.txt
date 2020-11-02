@@ -181,6 +181,7 @@ cd $NOTHING $NOTHING potato										fixed
 
 	this one is caused by $NOTHING being read as an empty arg
 
+\@ and \! shouldn't escape
 
 
 
