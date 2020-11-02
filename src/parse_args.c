@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/02 16:40:13 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:44:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char		*handle_escape_quotes(char *arg)
 
 char		*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote)
 {
-	da->no_quote = no_quote;
 	if (no_quote == 0)
 		da->had_quote = 1;
 	if (!arg)

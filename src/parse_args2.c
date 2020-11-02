@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/02 16:35:51 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:44:45 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,13 @@ int			add_arg(t_data *data, char *arg, char *input)
 {
 	if (!arg)
 		return (1);
-	dprintf(2, "add_arg: data->no_quote=%d had_quote=%d arg=%s\n", data->no_quote, data->had_quote, arg);
-	if ((iscset(*input, "><|;") || (data->no_quote && !data->had_quote)) && *arg == '\0')
+	if ((iscset(*input, "><|;") || !data->had_quote) && *arg == '\0')
 	{
-		data->no_quote = 0;
 		data->had_quote = 0;
 		free(arg);
 		return (0);
 	}
 	data->had_quote = 0;
-	data->no_quote = 0;
 	data->argc += 1;
 	if (!lst_new_back(&data->arg_lst, arg))
 		put_error_data(data, "Failed to add to back of list");
@@ -96,9 +93,9 @@ char		*arg(t_data *dt, char *in, char *break_chars, int qt)
 			if (!iscset(in[i + 1], "><|; "))
 			{
 				if (in[i + 1] == D_QOTE || in[i + 1] == S_QOTE)
-					return (strjn(rt, arg(dt, in + i + 2, "", in[i + 1]), dt));
+					return (safestrjn(rt, arg(dt, in + i + 2, "", in[i + 1])));
 				else
-					return (strjn(rt, arg(dt, in + i + 1, "><|; ", 0), dt));
+					return (safestrjn(rt, arg(dt, in + i + 1, "><|; ", 0)));
 			}
 			return (rt);
 		}
