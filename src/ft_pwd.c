@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 12:41:15 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/27 11:17:15 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/02 12:56:13 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		get_path(char **res)
 	{
 		free(path);
 		ft_printf_fd(2, "Error: pwd: could not get current path\n");
-		return (0);
+		return (1);
 	}
 	return (0);
 }
