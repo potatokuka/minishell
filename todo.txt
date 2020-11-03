@@ -183,7 +183,9 @@ cd $NOTHING $NOTHING potato										fixed
 
 \@ and \! shouldn't escape
 
+export ZZZ			fixed
 
+echo $"lol"
 
 
 	how to ruin someones day, minishell edition

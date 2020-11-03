@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 15:46:30 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/03 12:39:00 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		validate_env_name(char *str)
 	{
 		if (!ft_env_char(str[a], !a))
 		{
-			ft_printf_fd(2, "%s: not a valid value\n", str);
+			ft_printf_fd(2, "export: %s: not a valid value\n", str);
 			return (1);
 		}
 		a++;
@@ -69,11 +69,8 @@ int		export_single(char *str, t_var **env)
 				return (2);
 		}
 	}
-	else
-	{
-		ft_printf_fd(2, "export: '%s' is not a valid input\n", str);
+	else if (validate_env_name(str))
 		return (1);
-	}
 	return (0);
 }
 
