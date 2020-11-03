@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/02 17:44:33 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/03 12:05:09 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			wait_for_children(t_pid *pid, int parent_exec)
 	while (i < pid->count)
 	{
 		waitpid(pid->value[i], &temp, 0);
-		if (!(parent_exec && i == pid->count - 1))
+		if (!(parent_exec && i == pid->count - 1 && pid->count > 1))
 			pid->last_status = temp / 256;
 		i++;
 	}
