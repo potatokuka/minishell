@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/03 14:00:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/03 14:01:16 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_echo(t_cmd *cmd)
 			/*else*/
 				/*ft_printf_fd(1, " ");*/
 			if (cmd->argc - i != 1)
-			ft_printf_fd(1, " ");
+				ft_printf_fd(1, " ");
 		}
 		i++;
 	}
