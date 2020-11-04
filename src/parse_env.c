@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:00:55 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/03 14:11:57 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 bool	xcptn(int c)
 {
 	return (iscset(c, "0123456789?"));
+}
+
+char	*strswap(char *original, char *replace)
+{
+	free(original);
+	return (replace);
 }
 
 bool	ft_env_char(int c, int first)
@@ -70,37 +76,37 @@ char	*str_env_replace(t_data *data, char *str)
 	char	*tmp;
 
 	i = 0;
-	while (str[i])
+	while (str && i < (ssize_t)ft_strlen_lib(str) && str[i])
 	{
+		dprintf(2, "str_%s_%d", str, i);
+		if (str && i < (ssize_t)ft_strlen_lib(str) && str[i])
+			dprintf(2, "_%c\n", str[i]);
+		else
+			dprintf(2, "\n");
 		if (str[i] == '$' && (ft_env_char(str[i + 1], 1) || xcptn(str[i + 1])))
 		{
 			if (!check_escape(str, i))
 			{
-				tmp = safestrjn(ft_strldup(str, i - 1), ft_strdup(str + i));
+				tmp = safestrjn(ft_strldup(str, i - 1), ft_strdup(str + i));//Use strswap
 				free(str);
 				str = tmp;
 			}
 			else
-			{
 				str = str_env_replace_index(data, str, i);
-				i--;
-				if (!*str)
-					break ;
-			}
+			i--;
+		}
+		else if (str[i] == '$' && !str[i + 1])
+		{
+			tmp = ft_strldup(str, i);//Use strswap
+			free(str);
+			str = tmp;
 		}
 		i++;
 	}
+	dprintf(2, "str_%s_%d", str, i);
+	if (str && i < (ssize_t)ft_strlen_lib(str) && str[i])
+		dprintf(2, "_%c\n", str[i]);
+	else
+		dprintf(2, "\n");
 	return (str);
-}
-
-void	argv_env_replace(t_data *data)
-{
-	int		i;
-
-	i = 0;
-	while (i < data->argc)
-	{
-		str_env_replace(data, data->argv[i]);
-		i++;
-	}
 }
