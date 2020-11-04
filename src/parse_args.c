@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/04 11:53:26 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/04 13:53:38 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char		*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote)
 		da->had_quote = 1;
 	if (!arg)
 		put_error_data(da, "Allocation Failed Quotes");
-	if (substitute)
+	if (substitute && substitute != S_QOTE)
 	{
 		arg = str_env_replace(da, arg);
 		if (!arg)
