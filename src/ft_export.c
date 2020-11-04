@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/03 12:39:00 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/04 12:39:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 	i = 0;
 	while (cmd->argv[i])
 	{
-		temp = ret;
-		ret = export_single(cmd->argv[i], env);
-		if (ret == 0)
+		temp = export_single(cmd->argv[i], env);
+		if (temp != 0)
 			ret = temp;
 		i++;
 	}
