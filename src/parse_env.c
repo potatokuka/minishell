@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 18:43:45 by averheij      #+#    #+#                 */
-/*   Updated: 2020/11/03 14:11:57 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/04 13:25:11 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	envend = 0;
 	while (envvar[envend] && ft_env_char(envvar[envend], (envend == 0) ? 1 : 0))
 		envend++;
-	if (*envvar == '?' || ft_isdigit(*envvar))
+	if (xcptn(*envvar))
 		envend = 1;
 	if (envend >= 1)
 	{
@@ -73,40 +73,21 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 char	*str_env_replace(t_data *data, char *str)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	while (str && i < (ssize_t)ft_strlen_lib(str) && str[i])
 	{
-		dprintf(2, "str_%s_%d", str, i);
-		if (str && i < (ssize_t)ft_strlen_lib(str) && str[i])
-			dprintf(2, "_%c\n", str[i]);
-		else
-			dprintf(2, "\n");
 		if (str[i] == '$' && (ft_env_char(str[i + 1], 1) || xcptn(str[i + 1])))
 		{
 			if (!check_escape(str, i))
-			{
-				tmp = safestrjn(ft_strldup(str, i - 1), ft_strdup(str + i));//Use strswap
-				free(str);
-				str = tmp;
-			}
+				str = strswap(str, safestrjn(ft_strldup(str, i - 2), ft_strdup(str + i)));
 			else
 				str = str_env_replace_index(data, str, i);
 			i--;
 		}
-		else if (str[i] == '$' && !str[i + 1])
-		{
-			tmp = ft_strldup(str, i);//Use strswap
-			free(str);
-			str = tmp;
-		}
+		else if (str[i] == '$' && !str[i + 1] && data->had_quote)
+			str = strswap(str, ft_strldup(str, i));
 		i++;
 	}
-	dprintf(2, "str_%s_%d", str, i);
-	if (str && i < (ssize_t)ft_strlen_lib(str) && str[i])
-		dprintf(2, "_%c\n", str[i]);
-	else
-		dprintf(2, "\n");
 	return (str);
 }
