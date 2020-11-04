@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 22:10:35 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 15:27:46 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/04 13:48:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	parse_init2(t_data *data, int ret)
 {
 	if (ret == 0)
 	{
-		ft_printf("exit\n");
+		ft_printf_fd(2, "exit\n");
 		reset_data_struct(data, 1);
 		ft_exit(NULL, data->pid.last_status);
 	}
