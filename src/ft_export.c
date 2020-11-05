@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/22 23:09:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/04 12:39:31 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:17:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		ft_export(t_cmd *cmd, t_var **env, char **envp)
 
 	if (cmd->argc == 0)
 	{
-		ft_env(envp);
+		ft_env(envp, "declare -x ");
 		return (0);
 	}
 	ret = 0;

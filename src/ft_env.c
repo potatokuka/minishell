@@ -6,13 +6,13 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 12:42:18 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/26 13:49:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:18:07 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char **envp)
+void	ft_env(char **envp, char *prestr)
 {
 	int		i;
 
@@ -20,7 +20,7 @@ void	ft_env(char **envp)
 	while (envp[i])
 	{
 		if (envp[i][0] != '?')
-			ft_printf_fd(1, "%s\n", envp[i]);
+			ft_printf_fd(1, "%s%s\n", prestr, envp[i]);
 		i++;
 	}
 }

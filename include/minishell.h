@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 14:45:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:17:29 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ int					ft_exit(t_cmd *cmd, int	last_status);
 void				ft_echo(t_cmd *cmd);
 int					ft_pwd(void);
 int					ft_cd(t_cmd *cmd, t_var *env);
-void				ft_env(char **envp);
+void				ft_env(char **envp, char *prestr);
 int					ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid);
 int					error_builtin(t_cmd *cmd, int error);
 
