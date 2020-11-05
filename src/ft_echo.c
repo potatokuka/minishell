@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 13:02:06 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:56:30 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		dash_nn(char *str)
 	return (1);
 }
 
-void	ft_echo(t_cmd *cmd)
+int		ft_echo(t_cmd *cmd)
 {
 	int	i;
 	int flag;
@@ -53,4 +53,5 @@ void	ft_echo(t_cmd *cmd)
 	}
 	if (flag == 0)
 		ft_printf_fd(1, "\n");
+	return (0);
 }
