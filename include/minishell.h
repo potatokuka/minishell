@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 15:27:26 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:56:46 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,10 +207,10 @@ int					check_backslash(char c, char c2, int type);
 */
 
 int					ft_exit(t_cmd *cmd, int	last_status);
-void				ft_echo(t_cmd *cmd);
+int					ft_echo(t_cmd *cmd);
 int					ft_pwd(void);
 int					ft_cd(t_cmd *cmd, t_var *env);
-void				ft_env(char **envp, char *prestr);
+int					ft_env(char **envp, char *prestr);
 int					ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid);
 int					error_builtin(t_cmd *cmd, int error);
 

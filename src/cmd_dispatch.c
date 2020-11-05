@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 15:16:58 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:56:10 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ void			cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 		if (ft_strncmp(cmd->builtin, "exit", 4) == 0)
 			data->pid.last_status = ft_exit(cmd, data->pid.last_status);
 		else if (ft_strncmp(cmd->builtin, "echo", 4) == 0)
-			ft_echo(cmd);
+			data->pid.last_status = ft_echo(cmd);
 		else if (ft_strncmp(cmd->builtin, "env", 3) == 0)
-			ft_env(data->envp, "");
+			data->pid.last_status = ft_env(data->envp, "");
 		else if (ft_strncmp(cmd->builtin, "pwd", 3) == 0)
 			data->pid.last_status = ft_pwd();
 		else if (ft_strncmp(cmd->builtin, "cd", 2) == 0)
