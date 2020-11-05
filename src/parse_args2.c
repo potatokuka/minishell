@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/13 17:36:53 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/04 13:53:23 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 16:03:14 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int			escset(char *input, char *set, int i)
 
 int			iscset(char c, char *set)
 {
+	if (!*set)
+	{
+		if (!c)
+			return (1);
+		set++;
+	}
 	while (*set)
 	{
 		if (c == *set)
