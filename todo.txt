@@ -181,23 +181,23 @@ cd $NOTHING $NOTHING potato										fixed
 
 	this one is caused by $NOTHING being read as an empty arg
 
-\@ and \! shouldn't escape
+\@ and \! shouldn't escape		fixed
 
 export ZZZ			fixed
 
 echo $"lol"			fixed
 
 Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
-			leaks in handle_escape_quotes:54 and throws Error:escape char
+			leaks in handle_escape_quotes:54 and throws Error:escape char				fixed
 
 
-in unquoted string these characters shouldnt have their escape removed until split_init
-;<>|
+in a double quotes string, only \" and \$ are parsed as escapes		fixed
 
-in a double quotes string, only \" and \$ are parsed as escapes
-
-echo \		leaks
+echo \		leaks		fixed
 echo "\$"	leaks		fixed
+
+/binn/ls				fixed
+	should be 127 for no file, not 126 permission
 
 	how to ruin someones day, minishell edition
 
