@@ -80,7 +80,7 @@ char		*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote)
 		put_error_data(da, "Allocation Failed Quotes");
 	if (substitute && substitute != S_QOTE)
 	{
-		arg = str_env_replace(da, arg);
+		arg = str_env_replace(da, arg, substitute);
 		if (!arg)
 			put_error_data(da, "Failed to Allocate Quote");
 		arg = handle_escape_quotes(arg);

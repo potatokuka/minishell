@@ -185,8 +185,19 @@ cd $NOTHING $NOTHING potato										fixed
 
 export ZZZ			fixed
 
-echo $"lol"
+echo $"lol"			fixed
 
+Echo ; echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the second'" ; echo and" a fe"'w 'here'; with some slash and quotes .' '\' ; echo '\\' ; echo "\\" ; echo "\"" ; echo \\ ; echo \' ; echo \" "\\" "\"" \\ \' \"
+			leaks in handle_escape_quotes:54 and throws Error:escape char
+
+
+in unquoted string these characters shouldnt have their escape removed until split_init
+;<>|
+
+in a double quotes string, only \" and \$ are parsed as escapes
+
+echo \		leaks
+echo "\$"	leaks		fixed
 
 	how to ruin someones day, minishell edition
 
@@ -199,3 +210,4 @@ export $HULLO=there; echo $HULLO
 export potato=tomato orange=doorhinge; echo -n -n -n $potato$orange; unset orange potato; echo $potato$orange
 export po1=yes po2=no; echo $po1 $po2; unset po1 1op 2 po2; echo $? $po1 $po2
 cp minishell test; chmod u-x test; ./test; echo $?
+echo -nn -nnnnnnn -n -nnnn -nnnh

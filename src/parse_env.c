@@ -70,7 +70,7 @@ char	*str_env_replace_index(t_data *data, char *str, int envstart)
 	return (str);
 }
 
-char	*str_env_replace(t_data *data, char *str)
+char	*str_env_replace(t_data *data, char *str, int type)
 {
 	int		i;
 
@@ -86,7 +86,7 @@ char	*str_env_replace(t_data *data, char *str)
 				str = str_env_replace_index(data, str, i);
 			i--;
 		}
-		else if (str[i] == '$' && !str[i + 1] && data->had_quote)
+		else if (str[i] == '$' && !str[i + 1] && data->had_quote && type == 1)
 			str = strswap(str, ft_strldup(str, i));
 		i++;
 	}

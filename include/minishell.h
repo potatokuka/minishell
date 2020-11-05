@@ -169,7 +169,7 @@ int					is_builtin(char *cmd);
 void				parse_init(t_data *data);
 int					parse_args(t_data *data, char *input);
 bool				ft_env_char(int c, int first);
-char				*str_env_replace(t_data *data, char *str);
+char				*str_env_replace(t_data *data, char *str, int type);
 char				*str_env_replace_index(t_data *data, char *str,
 						int envstart);
 int					file_match(char file[], char *file2);
