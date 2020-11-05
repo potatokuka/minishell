@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 13:34:54 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:31:22 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char		*handle_escape_quotes(char *arg, int type)
 		return (NULL);
 	while (arg[i])
 	{
-		if (!arg[i + 1] && arg[i] == '\\')
-			return (free_ret_null(arg));
+		if ((!arg[i + 1] || iscset(arg[i + 1], ";<>|")) && arg[i] == '\\')
+			return (free_ret_null(tmp, arg));
 		else if (check_backslash(arg[i], arg[i + 1], type))
 		{
 			tmp[x] = arg[i + 1];

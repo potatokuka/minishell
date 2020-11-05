@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 13:28:27 by averheij      #+#    #+#                 */
-/*   Updated: 2020/11/02 16:44:20 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:27:31 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void		*reset_prompt_cmd(t_data *data, t_cmd *cmd, char *fterror,
 	return (NULL);
 }
 
-void		*free_ret_null(char *free_me)
+void		*free_ret_null(char *free_me, char *me_too)
 {
+	if (me_too)
+		free(me_too);
 	if (free_me)
 		free(free_me);
 	return (NULL);

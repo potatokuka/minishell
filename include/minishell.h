@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/14 15:36:44 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 15:17:29 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:27:26 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int					check_quotes_closed(char *input, int *i);
 char				*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote);
 char				*handle_escape_quotes(char *arg, int type);
 bool				check_escape(char *str, int i);
-void				*free_ret_null(char *free_me);
+void				*free_ret_null(char *free_me, char *me_too);
 int					check_backslash(char c, char c2, int type);
 
 /*
