@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/20 10:17:20 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/03 14:01:16 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 13:02:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		dash_nn(char *str)
 	if (*str != '-')
 		return (0);
 	str++;
+	if (!*str)
+		return (0);
 	while (*str && *str == 'n')
 		str++;
 	if (*str)
@@ -44,14 +46,6 @@ void	ft_echo(t_cmd *cmd)
 		else
 		{
 			ft_printf_fd(1, "%s", cmd->argv[i]);
-			/*if (cmd->argc - i == 1)*/
-			/*{*/
-				/*if (flag >= 1)*/
-					/*break ;*/
-				/*ft_printf_fd(1, "\n");*/
-			/*}*/
-			/*else*/
-				/*ft_printf_fd(1, " ");*/
 			if (cmd->argc - i != 1)
 				ft_printf_fd(1, " ");
 		}
