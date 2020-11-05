@@ -6,7 +6,7 @@
 /*   By: averheij <averheij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 16:47:28 by averheij      #+#    #+#                 */
-/*   Updated: 2020/10/29 15:51:53 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 15:44:39 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,16 @@ static int	get_relative_pathname(t_cmd *cmd, char **pathname)
 	return (0);
 }
 
+int			command_not_found(char *str)
+{
+	ft_printf_fd(2, "%s: command not found\n", str);
+	return (127);
+}
+
 int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 {
-	char	*pathname;
+	char			*pathname;
+	struct stat		unused;
 
 	if (cmd->argc && cmd->argv[0][0] == '.')
 	{
@@ -90,16 +97,17 @@ int			ft_exec(t_cmd *cmd, t_var *env, char **envp, t_pid *pid)
 			return (2);
 	}
 	else if (cmd->argc && cmd->argv[0][0] == '/')
+	{
+		if (stat(cmd->argv[0], &unused) == -1)
+			return (command_not_found(cmd->argv[0]));
 		pathname = ft_strdup(cmd->argv[0]);
+	}
 	else
 	{
 		if (get_env_path_exec(&pathname, cmd->argv[0], env))
 			return (2);
 		if (!pathname)
-		{
-			ft_printf_fd(2, "%s: command not found\n", cmd->argv[0]);
-			return (127);
-		}
+			return (command_not_found(cmd->argv[0]));
 	}
 	return (griffin_try(cmd, pathname, envp, pid));
 }
