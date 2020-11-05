@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:49 by greed         #+#    #+#                 */
-/*   Updated: 2020/10/29 14:25:29 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 13:20:06 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,18 @@ size_t	ft_strclen(const char *str, int c)
 	while (str[len] && str[len] != c)
 		len++;
 	return (len);
+}
+
+int		check_backslash(char c, char c2, int type)
+{
+	if (c == '\\')
+	{
+		if (type == S_QOTE)
+			return (0);
+		else if (type == D_QOTE && iscset(c2, "`\\$\""))
+			return (1);
+		else if (type == 1 && !iscset(c2, ";<>|"))
+			return (1);
+	}
+	return (0);
 }

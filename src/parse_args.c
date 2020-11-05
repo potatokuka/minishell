@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/21 11:07:59 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/04 13:53:38 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/05 13:34:54 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool		check_escape(char *str, int i)
 	return (true);
 }
 
-char		*handle_escape_quotes(char *arg)
+char		*handle_escape_quotes(char *arg, int type)
 {
 	char	*tmp;
 	int		i;
@@ -58,7 +58,7 @@ char		*handle_escape_quotes(char *arg)
 	{
 		if (!arg[i + 1] && arg[i] == '\\')
 			return (free_ret_null(arg));
-		else if (arg[i] == '\\')
+		else if (check_backslash(arg[i], arg[i + 1], type))
 		{
 			tmp[x] = arg[i + 1];
 			i++;
@@ -83,7 +83,7 @@ char		*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote)
 		arg = str_env_replace(da, arg, substitute);
 		if (!arg)
 			put_error_data(da, "Failed to Allocate Quote");
-		arg = handle_escape_quotes(arg);
+		arg = handle_escape_quotes(arg, substitute);
 		if (!arg)
 			put_error_data(da, "Escape Char");
 	}
