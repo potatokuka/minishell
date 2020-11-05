@@ -199,6 +199,8 @@ echo "\$"	leaks		fixed
 /binn/ls				fixed
 	should be 127 for no file, not 126 permission
 
+export env printout wants "" around values grrr
+
 	how to ruin someones day, minishell edition
 
 mkdir test; cd test; rm -rf ../test; pwd; cd ..
