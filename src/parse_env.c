@@ -80,7 +80,8 @@ char	*str_env_replace(t_data *data, char *str, int type)
 		if (str[i] == '$' && (ft_env_char(str[i + 1], 1) || xcptn(str[i + 1])))
 		{
 			if (!check_escape(str, i))
-				str = strswap(str, safestrjn(ft_strldup(str, i - 1), ft_strdup(str + i)));
+				str = strswap(str, safestrjn(ft_strldup(str, i - 1),
+						ft_strdup(str + i)));
 			else
 				str = str_env_replace_index(data, str, i);
 			i--;

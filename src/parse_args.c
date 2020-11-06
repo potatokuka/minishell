@@ -72,7 +72,8 @@ char		*handle_escape_quotes(char *arg, int type)
 	return (tmp);
 }
 
-char		*handle_escapes_envs(t_data *da, char *arg, int substitute, int no_quote)
+char		*handle_escapes_envs(t_data *da, char *arg,
+		int substitute, int no_quote)
 {
 	if (no_quote == 0)
 		da->had_quote = 1;
