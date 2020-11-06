@@ -6,7 +6,7 @@
 #    By: greed <greed@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/14 15:36:39 by greed         #+#    #+#                  #
-#    Updated: 2020/10/29 12:17:56 by averheij      ########   odam.nl          #
+#    Updated: 2020/10/29 15:45:07 by averheij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRCS			=	main.c\
 				ultilities4.c
 CFILES			=	$(SRCS:%=src/%)
 OFILES			=	$(CFILES:.c=.o)
-CFLAGS			=	-DNOLIST -Wall -Wextra -Werror -g #-fsanitize=address 
+CFLAGS			=	-DNOLIST -Wall -Wextra -Werror -g -fsanitize=address
 INCLUDES		=	-I include\
 					-I lib/libft\
 					-I lib/liblist
