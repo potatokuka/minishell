@@ -6,7 +6,7 @@
 /*   By: greed <greed@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 18:05:40 by greed         #+#    #+#                 */
-/*   Updated: 2020/11/05 15:56:10 by averheij      ########   odam.nl         */
+/*   Updated: 2020/11/06 13:42:44 by averheij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void			cmd_dispatch(t_data *data, t_cmd *cmd, int is_child)
 		else if (ft_strncmp(cmd->builtin, "unset", 5) == 0)
 			data->pid.last_status = ft_unset(cmd, &data->env);
 		else if (ft_strncmp(cmd->builtin, "export", 6) == 0)
-			data->pid.last_status = ft_export(cmd, &data->env, data->envp);
+			data->pid.last_status = ft_export(cmd, &data->env);
 		if (data->pid.last_status == 2)
 			put_error_data(data, "Builtin fatal error");
 	}
