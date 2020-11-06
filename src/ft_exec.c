@@ -61,7 +61,6 @@ int			griffin_try(t_cmd *cmd, char *pathname, char **envp, t_pid *pid)
 		g_signal_exit = -2;
 		ft_printf_fd(2, "%s: permission denied\n", cmd->argv[0]);
 		exit(126);
-		/*return (2);*/
 	}
 	free(pathname);
 	return (0);
