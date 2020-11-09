@@ -60,7 +60,7 @@ void	update_env(t_data *data)
 	data->envp = convert_env(data->env);
 	if (!data->envp)
 		put_error_data(data, "Failed to convert enviroment");
-	path = get_path(&path);
+	get_path(&path);
 	if (env_set_val("PWD", &data->env, path))
 		put_error_data(data, "Error Updating PWD");
 }
