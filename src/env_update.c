@@ -51,6 +51,8 @@ char	**free_data_argv(t_data *data)
 
 void	update_env(t_data *data)
 {
+	char	*path;
+
 	if (set_exit_env_val(&data->env, &data->pid.last_status))
 		put_error_data(data, "Failed to set $?");
 	if (data->envp)
@@ -58,4 +60,7 @@ void	update_env(t_data *data)
 	data->envp = convert_env(data->env);
 	if (!data->envp)
 		put_error_data(data, "Failed to convert enviroment");
+	path = get_path(&path);
+	if (env_set_val("PWD", &data->env, path))
+		put_error_data(data, "Error Updating PWD");
 }
